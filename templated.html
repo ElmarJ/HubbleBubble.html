@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>HubbleBubble html</title>
+    <link rel="stylesheet" type="" href="./css/default.css">
+    <link rel="stylesheet" type="" href="./css/treeview.css">
+    <script src="./js/debug.defaulthubble.js"></script>
+</head>
+
+<body>
+
+    <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+        <fieldset>
+            <h2>Json File</h2>
+            <input type="file" id="fileinput" onchange="loadWithFilePicker();">
+            <input type="button" id="btnToDiv" value="Show as div" onclick="pasteAsDiv();">
+            <input type="button" id="btnToUl" value="Show as ul" onclick="pasteAsUl();">
+            <input type="button" id="btnToArticle" value="Show as article" onclick="pasteAsArticle();">
+            <select id="template_selector"></select>
+        </fieldset>
+    </form>
+    <div id="hubblePresenter"></div>
+    <script type="text/javascript">
+        var hubbleroot;
+        var presenter = document.getElementById("hubblePresenter");
+
+        window.onload = function() {
+            var selector = document.getElementById("template_selector")
+            selector.onchange = function() {
+                changeTemplate(selector.value);
+            }
+
+            fillTemplateSelector();
+            changeTemplate("hubbleListTemplate");
+        }
+
+        function loadFile(file) {
+            var input, file, fr;
+
+            input = document.getElementById('fileinput');
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = receivedText;
+            fr.readAsText(file);
+
+            function receivedText(e) {
+                lines = e.target.result;
+                hubbleroot = JSON.parse(lines);
+            }
+        }
+
+        function loadWithFilePicker() {
+            var input, file
+            input = document.getElementById('fileinput');
+            file = input.files[0];
+            loadFile(file);
+        }
+
+        function pasteAsDiv() {
+            changeTemplate("hubbleDivTemplate");
+        }
+
+        function pasteAsArticle() {
+            changeTemplate("hubbleArticleTemplate");
+        }
+
+        function pasteAsUl() {
+            changeTemplate("hubbleListTemplate");
+        }
+
+        function changeTemplate(templatename) {
+            var template = document.getElementById(templatename)
+            var hubbleHtml = hubbleToHtml(hubbleroot, template);
+            presenter.innerHTML = "";
+            presenter.appendChild(hubbleHtml);
+        }
+
+        function fillTemplateSelector() {
+            var selector = document.getElementById("template_selector");
+
+            var templates = document.querySelectorAll("[data-userselectable].hubbletemplate");
+
+            templates.forEach(function(element) {
+                var option = document.createElement("option");
+                option.text = element.id;
+                selector.add(option);
+            }, this);
+        }
+
+        function hubbleToHtml(hubble, template) {
+            var templatedNode = document.importNode(template.content, true);
+            var contentElement = templatedNode.querySelector(".content");
+            contentElement.innerText = hubble.content;
+            var childrenElement = templatedNode.querySelector(".children");
+            var childTemplate = document.getElementById(childrenElement.dataset.childtemplate);
+            hubble.children.forEach(function(element) {
+                childrenElement.appendChild(hubbleToHtml(element, childTemplate));
+            }, this);
+
+            return templatedNode;
+        }
+    </script>
+
+    <template id="hubbleDivTemplate" data-userselectable class="hubbletemplate">
+        <div class="hubble">
+            <div class="content"></div>
+            <div class="children" data-childtemplate="hubbleDivTemplate"></div>
+        </div>
+    </template>
+
+    <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
+        <ul>
+            <li class="hubble">
+                <p class="content"></p>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate" />
+            </li>
+        </ul>
+    </template>
+
+    <template id="hubbleArticleTemplate" data-userselectable class="hubbletemplate">
+        <article>
+            <div class="hubble">
+                <summary class="content"></summary>
+                <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
+            </div>
+        </article>
+    </template>
+
+    <template id="hubbleListItemTemplate" class="hubbletemplate">
+        <li class="hubble">
+            <p class="content"></p>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+        </li>
+    </template>
+
+    <template id="hubbleDetailsTemplate" class="hubbletemplate">
+        <div class="hubble">
+            <summary class="content"></summary>
+            <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
+        </div>
+    </template>
+</body>
+
+</html>
