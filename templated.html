@@ -33,7 +33,7 @@
             }
 
             fillTemplateSelector();
-            changeTemplate("hubbleListTemplate");
+            changeTemplate(selector.value);
         }
 
         function loadFile(file) {
@@ -105,7 +105,7 @@
 
     <template id="hubbleDivTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble">
-            <div class="content"></div>
+            <div contenteditable="true" class="content"></div>
             <div class="children" data-childtemplate="hubbleDivTemplate"></div>
         </div>
     </template>
@@ -113,7 +113,7 @@
     <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
         <ul>
             <li class="hubble">
-                <p class="content"></p>
+                <p class="content" contenteditable="true"></p>
             <ul class="children" data-childtemplate="hubbleListItemTemplate" />
             </li>
         </ul>
@@ -122,7 +122,7 @@
     <template id="hubbleArticleTemplate" data-userselectable class="hubbletemplate">
         <article>
             <div class="hubble">
-                <summary class="content"></summary>
+                <summary class="content" contenteditable="true"></summary>
                 <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
             </div>
         </article>
@@ -130,14 +130,14 @@
 
     <template id="hubbleListItemTemplate" class="hubbletemplate">
         <li class="hubble">
-            <p class="content"></p>
+            <p class="content" contenteditable="true"></p>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
 
     <template id="hubbleDetailsTemplate" class="hubbletemplate">
         <div class="hubble">
-            <summary class="content"></summary>
+            <summary class="content" contenteditable="true"></summary>
             <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
         </div>
     </template>
