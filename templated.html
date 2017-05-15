@@ -71,7 +71,7 @@
 
             var templates = document.querySelectorAll("[data-userselectable].hubbletemplate");
 
-            templates.forEach(function(element) {
+            Array.from(templates).forEach(function(element) {
                 var option = document.createElement("option");
                 option.text = element.id;
                 selector.add(option);
@@ -109,24 +109,24 @@
             hubbleroot = htmlToHubble(presenter);
         }
 
-        function saveJsonAsFile() {    
+        function saveJsonAsFile() {
             allHtmlToRootHubble();
-            var jsonText = JSON.stringify(hubbleroot);    
+            var jsonText = JSON.stringify(hubbleroot);
             var jsonAsObjectUrl = window.URL.createObjectURL(new Blob([jsonText], {
                 type: "text/plain"
-            }));    
-            var fileNameToSaveAs = "default.json";     
-            var downloadLink = document.createElement("a");    
-            downloadLink.download = fileNameToSaveAs;    
-            downloadLink.innerHTML = "Download File";    
-            downloadLink.href = jsonAsObjectUrl;    
-            downloadLink.onclick = destroyClickedElement;    
-            downloadLink.style.display = "none";    
-            document.body.appendChild(downloadLink);     
+            }));
+            var fileNameToSaveAs = "default.json";
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            downloadLink.href = jsonAsObjectUrl;
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
             downloadLink.click();
-        } 
+        }
 
-        function destroyClickedElement(event) {    
+        function destroyClickedElement(event) {
             document.body.removeChild(event.target);
         }
     </script>
