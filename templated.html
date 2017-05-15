@@ -15,13 +15,13 @@
         <fieldset>
             <h2>Json File</h2>
             <input type="file" id="fileinput" onchange="loadWithFilePicker();">
-            <input type="button" id="btnToDiv" value="Show as div" onclick="pasteAsDiv();">
-            <input type="button" id="btnToUl" value="Show as ul" onclick="pasteAsUl();">
-            <input type="button" id="btnToArticle" value="Show as article" onclick="pasteAsArticle();">
             <select id="template_selector"></select>
+            <button onclick="saveJsonAsFile()">save</button>
         </fieldset>
     </form>
+
     <div id="hubblePresenter"></div>
+
     <script type="text/javascript">
         var hubbleroot;
         var presenter = document.getElementById("hubblePresenter");
@@ -29,6 +29,7 @@
         window.onload = function() {
             var selector = document.getElementById("template_selector")
             selector.onchange = function() {
+                allHtmlToRootHubble();
                 changeTemplate(selector.value);
             }
 
@@ -56,18 +57,6 @@
             input = document.getElementById('fileinput');
             file = input.files[0];
             loadFile(file);
-        }
-
-        function pasteAsDiv() {
-            changeTemplate("hubbleDivTemplate");
-        }
-
-        function pasteAsArticle() {
-            changeTemplate("hubbleArticleTemplate");
-        }
-
-        function pasteAsUl() {
-            changeTemplate("hubbleListTemplate");
         }
 
         function changeTemplate(templatename) {
@@ -100,6 +89,45 @@
             }, this);
 
             return templatedNode;
+        }
+
+        function htmlToHubble(rootElement) {
+            var hubble = {
+                "content": rootElement.querySelector(".content").textContent,
+                "children": []
+            };
+            var childrenElement = rootElement.querySelector(".children");
+            Array.from(childrenElement.children).forEach(function(element) {
+                var childhubble = htmlToHubble(element);
+                hubble.children.push(childhubble);
+            }, this);
+
+            return hubble;
+        }
+
+        function allHtmlToRootHubble() {
+            hubbleroot = htmlToHubble(presenter);
+        }
+
+        function saveJsonAsFile() {    
+            allHtmlToRootHubble();
+            var jsonText = JSON.stringify(hubbleroot);    
+            var jsonAsObjectUrl = window.URL.createObjectURL(new Blob([jsonText], {
+                type: "text/plain"
+            }));    
+            var fileNameToSaveAs = "default.json";     
+            var downloadLink = document.createElement("a");    
+            downloadLink.download = fileNameToSaveAs;    
+            downloadLink.innerHTML = "Download File";    
+            downloadLink.href = jsonAsObjectUrl;    
+            downloadLink.onclick = destroyClickedElement;    
+            downloadLink.style.display = "none";    
+            document.body.appendChild(downloadLink);     
+            downloadLink.click();
+        } 
+
+        function destroyClickedElement(event) {    
+            document.body.removeChild(event.target);
         }
     </script>
 
