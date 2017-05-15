@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome index.html",
+            "file": "${workspaceRoot}/index.html"
+        },
+        {
+            "type": "edge",
+            "request": "launch",
+            "name": "Launch Edge index.html",
+            "file": "${workspaceRoot}/index.html"
+        },
+        {
+            "name": "Attach",
+            "type": "edge",
+            "request": "attach",
+            "port": 9222
+        }
+    ]
+}

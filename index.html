@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>HubbleBubble html</title>
+    <style>
+        div.hubble {
+            border-style: solid;
+            border-color: grey;
+            border-radius: 5pt;
+            border-width: thin;
+            margin: 5pt;
+            padding: 5pt;
+            max-width: 500pt;
+        }
+        
+        div.children {
+            margin: 5pt;
+            padding: 5pt;
+        }
+        
+        div.content {
+            max-width: 500pt;
+        }
+        
+        [data-collapsed="true"]>div.children {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" type="" href="./css/treeview.css">
+</head>
+
+<body>
+
+    <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+        <fieldset>
+            <h2>Json File</h2>
+            <input type="file" id="fileinput" onchange="loadFile();">
+            <input type="button" id="btnToDiv" value="Show as div" onclick="pasteAsDiv();">
+            <input type="button" id="btnToUl" value="Show as ul" onclick="pasteAsUl();">
+            <input type="button" id="btnToArticle" value="Show as article" onclick="pasteAsArticle();">
+        </fieldset>
+    </form>
+    <div id="hubblePresenter"></div>
+    <script type="text/javascript">
+        var hubbleroot;
+        var presenter = document.getElementById("hubblePresenter");
+
+        function loadFile() {
+            var input, file, fr;
+
+            if (typeof window.FileReader !== 'function') {
+                alert("The file API isn't supported on this browser yet.");
+                return;
+            }
+
+            input = document.getElementById('fileinput');
+            if (!input) {
+                alert("Um, couldn't find the fileinput element.");
+            } else if (!input.files) {
+                alert("This browser doesn't seem to support the `files` property of file inputs.");
+            } else if (!input.files[0]) {
+                alert("Please select a file before clicking 'Load'");
+            } else {
+                file = input.files[0];
+                fr = new FileReader();
+                fr.onload = receivedText;
+                fr.readAsText(file);
+            }
+
+            function receivedText(e) {
+                lines = e.target.result;
+                hubbleroot = JSON.parse(lines);
+            }
+        }
+
+        function hubbleToDiv(hubble) {
+            var hubbleDiv = document.createElement("div");
+            hubbleDiv.classList.add("hubble")
+            hubbleDiv.setAttribute("data-collapsed", hubble.collapsed);
+
+            var contentDiv = document.createElement("div");
+            contentDiv.classList.add("content");
+            contentDiv.innerText = hubble.content;
+            hubbleDiv.appendChild(contentDiv);
+
+            var childrenDiv = document.createElement("div");
+            childrenDiv.classList.add("children");
+            hubbleDiv.appendChild(childrenDiv);
+
+            hubble.children.forEach(function(element) {
+                childrenDiv.appendChild(hubbleToDiv(element));
+            }, this);
+
+            return hubbleDiv;
+        }
+
+        function hubbleToListItem(hubble) {
+            var li = document.createElement("li")
+            li.innerText = hubble.content;
+
+            var ul = document.createElement("ul");
+            hubble.children.forEach(function(element) {
+                ul.appendChild(hubbleToListItem(element));
+            }, this);
+
+            li.appendChild(ul);
+
+            return li;
+        }
+
+        function hubbleToDetailsElement(hubble) {
+            var detailsEl = document.createElement("details");
+            var summaryEl = document.createElement("summary");
+            summaryEl.innerText = hubble.content;
+            detailsEl.appendChild(summaryEl);
+
+            hubble.children.forEach(function(element) {
+                detailsEl.appendChild(hubbleToDetailsElement(element));
+            }, this);
+
+            return detailsEl;
+        }
+
+        function pasteAsDiv() {
+            presenter.appendChild(hubbleToDiv(hubbleroot));
+        }
+
+        function pasteAsArticle() {
+            var articleEl = document.createElement("article");
+            articleEl.appendChild(hubbleToDetailsElement(hubbleroot));
+            presenter.appendChild(articleEl);
+        }
+
+
+        function pasteAsUl() {
+            var rootul = document.createElement("ul");
+            rootul.classList.add("tree");
+            var rootli = hubbleToListItem(hubbleroot);
+            rootul.appendChild(rootli);
+
+            presenter.appendChild(rootul);
+        }
+    </script>
+</body>
+
+</html>
