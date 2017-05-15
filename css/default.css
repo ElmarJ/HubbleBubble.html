@@ -1,0 +1,22 @@
+        div.hubble {
+            border-style: solid;
+            border-color: grey;
+            border-radius: 5pt;
+            border-width: thin;
+            margin: 5pt;
+            padding: 5pt;
+            max-width: 500pt;
+        }
+        
+        div.children {
+            margin: 5pt;
+            padding: 5pt;
+        }
+        
+        div.content {
+            max-width: 500pt;
+        }
+        
+        [data-collapsed="true"]>div.children {
+            display: none;
+        }
