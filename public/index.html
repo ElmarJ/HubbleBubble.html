@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>FirebaseUI Auth Demo</title>
+    <script src="https://www.gstatic.com/firebasejs/live/3.7/firebase.js"></script>
+    <script src="config.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="container">
+        <h3>FirebaseUI Demo</h3>
+        <div id="loading">Loading...</div>
+        <div id="loaded" class="hidden">
+            <div id="main">
+                <div id="user-signed-in" class="hidden">
+                    <div id="user-info">
+                        <div id="name"></div>
+                        <div id="email"></div>
+                        <button id="sign-out">Sign Out</button>
+                    </div>
+
+                    <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+                        <fieldset>
+                            <h2>Json File</h2>
+                            <input type="file" id="fileinput" onchange="loadWithFilePicker();">
+                            <select id="template_selector"></select>
+                            <button onclick="saveJsonAsFile()">save</button>
+                            <button onclick="downloadJson()">download</button>
+                        </fieldset>
+                    </form>
+
+                    <div id="hubblePresenter"></div>
+
+                </div>
+                <div id="user-signed-out" class="hidden">
+                    <h4>You are signed out.</h4>
+                    <p>
+                        <button id="sign-in-with-redirect">Sign In with Redirect</button>
+                        <button id="sign-in-with-popup">Sign In with Popup</button>
+                    </p>
+                    <div id="firebaseui-spa">
+                        <h5>Single Page Application mode:</h5>
+                        <div id="firebaseui-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template id="hubbleDivTemplate" data-userselectable class="hubbletemplate">
+        <div class="hubble">
+            <div contenteditable="true" class="content"></div>
+            <div class="children" data-childtemplate="hubbleDivTemplate"></div>
+        </div>
+    </template>
+
+    <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
+        <ul>
+            <li class="hubble">
+                <p class="content" contenteditable="true"></p>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate" />
+            </li>
+        </ul>
+    </template>
+
+    <template id="hubbleArticleTemplate" data-userselectable class="hubbletemplate">
+        <article>
+            <div class="hubble">
+                <summary class="content" contenteditable="true"></summary>
+                <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
+            </div>
+        </article>
+    </template>
+
+    <template id="hubbleListItemTemplate" class="hubbletemplate">
+        <li class="hubble">
+            <p class="content" contenteditable="true"></p>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+        </li>
+    </template>
+
+    <template id="hubbleDetailsTemplate" class="hubbletemplate">
+        <div class="hubble">
+            <summary class="content" contenteditable="true"></summary>
+            <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+    <script>
+        // Initialize Firebase
+         
+        var config = {  
+            apiKey: "AIzaSyA7zawVhVUXXzD5XKVSMBkqunjEI-Mp5Ek",
+              authDomain: "hubblebubble-58ec9.firebaseapp.com",
+              databaseURL: "https://hubblebubble-58ec9.firebaseio.com",
+              projectId: "hubblebubble-58ec9",
+              storageBucket: "hubblebubble-58ec9.appspot.com",
+              messagingSenderId: "889012243145" 
+        }; 
+        firebase.initializeApp(config);
+    </script>
+
+    <script type="text/javascript">
+        var hubbleroot;
+        var presenter = document.getElementById("hubblePresenter");
+
+        window.onload = function() {
+            var selector = document.getElementById("template_selector")
+            selector.onchange = function() {
+                allHtmlToRootHubble();
+                changeTemplate(selector.value);
+            }
+
+            fillTemplateSelector();
+            changeTemplate(selector.value);
+        }
+
+        function loadFile(file) {
+            var input, file, fr;
+
+            input = document.getElementById('fileinput');
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = receivedText;
+            fr.readAsText(file);
+
+            function receivedText(e) {
+                lines = e.target.result;
+                hubbleroot = JSON.parse(lines);
+            }
+        }
+
+        function downloadJson() {
+            var url = "https://onedrive.live.com/download?cid=E358F49295AD3A08&resid=E358F49295AD3A08%21716425&authkey=AAztWYZgMuv7N2Y";
+            getJSON(url).then(function(data) {
+                hubbleroot = data.result;
+            }, function(status) { //error detection....
+                alert('Something went wrong.');
+            });
+        }
+
+        var getJSON = function(url) {
+            return new Promise(function(resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('get', url, true);
+                xhr.responseType = 'json';
+                xhr.onload = function() {
+                    var status = xhr.status;
+                    if (status == 200) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(status);
+                    }
+                };
+                xhr.send();
+            });
+        };
+
+
+        function loadWithFilePicker() {
+            var input, file
+            input = document.getElementById('fileinput');
+            file = input.files[0];
+            loadFile(file);
+        }
+
+        function changeTemplate(templatename) {
+            var template = document.getElementById(templatename)
+            var hubbleHtml = hubbleToHtml(hubbleroot, template);
+            presenter.innerHTML = "";
+            presenter.appendChild(hubbleHtml);
+        }
+
+        function fillTemplateSelector() {
+            var selector = document.getElementById("template_selector");
+
+            var templates = document.querySelectorAll("[data-userselectable].hubbletemplate");
+
+            Array.from(templates).forEach(function(element) {
+                var option = document.createElement("option");
+                option.text = element.id;
+                selector.add(option);
+            }, this);
+        }
+
+        function hubbleToHtml(hubble, template) {
+            var templatedNode = document.importNode(template.content, true);
+            var contentElement = templatedNode.querySelector(".content");
+            contentElement.innerText = hubble.content;
+            var childrenElement = templatedNode.querySelector(".children");
+            var childTemplate = document.getElementById(childrenElement.dataset.childtemplate);
+            hubble.children.forEach(function(element) {
+                childrenElement.appendChild(hubbleToHtml(element, childTemplate));
+            }, this);
+
+            return templatedNode;
+        }
+
+        function htmlToHubble(rootElement) {
+            var hubble = {
+                "content": rootElement.querySelector(".content").textContent,
+                "children": []
+            };
+            var childrenElement = rootElement.querySelector(".children");
+            Array.from(childrenElement.children).forEach(function(element) {
+                var childhubble = htmlToHubble(element);
+                hubble.children.push(childhubble);
+            }, this);
+
+            return hubble;
+        }
+
+        function allHtmlToRootHubble() {
+            hubbleroot = htmlToHubble(presenter);
+        }
+
+        function saveJsonAsFile() {
+            allHtmlToRootHubble();
+            var jsonText = JSON.stringify(hubbleroot);
+            var jsonAsObjectUrl = window.URL.createObjectURL(new Blob([jsonText], {
+                type: "text/plain"
+            }));
+            var fileNameToSaveAs = "default.json";
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            downloadLink.href = jsonAsObjectUrl;
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+        }
+
+        function destroyClickedElement(event) {
+            document.body.removeChild(event.target);
+        }
+    </script>
+    <script src="./js/debug.defaulthubble.js"></script>
+</body>
+
+</html>
