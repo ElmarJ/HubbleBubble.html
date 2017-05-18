@@ -1,6 +1,6 @@
         function hubbleToDiv(hubble) {
             var hubbleDiv = document.createElement("div");
-            hubbleDiv.classList.add("hubble")
+            hubbleDiv.classList.add("hubble");
             hubbleDiv.setAttribute("data-collapsed", hubble.collapsed);
 
             var contentDiv = document.createElement("div");
@@ -20,7 +20,7 @@
         }
 
         function hubbleToListItem(hubble) {
-            var li = document.createElement("li")
+            var li = document.createElement("li");
             li.innerText = hubble.content;
 
             var ul = document.createElement("ul");

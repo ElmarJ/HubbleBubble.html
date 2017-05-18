@@ -85,12 +85,6 @@ var handleSignedInUser = function(user) {
     document.getElementById('user-signed-out').style.display = 'none';
     document.getElementById('name').textContent = user.displayName;
     document.getElementById('email').textContent = user.email;
-    if (user.photoURL) {
-        document.getElementById('photo').src = user.photoURL;
-        document.getElementById('photo').style.display = 'block';
-    } else {
-        document.getElementById('photo').style.display = 'none';
-    }
 };
 
 
@@ -109,7 +103,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // The observer is also triggered when the user's token has expired and is
     // automatically refreshed. In that case, the user hasn't changed so we should
     // not update the UI.
-    if (user && user.uid == currentUid) {
+    if (user && user.uid === currentUid) {
         return;
     }
     document.getElementById('loading').style.display = 'none';
@@ -122,7 +116,7 @@ firebase.auth().onAuthStateChanged(function(user) {
  */
 var deleteAccount = function() {
     firebase.auth().currentUser.delete().catch(function(error) {
-        if (error.code == 'auth/requires-recent-login') {
+        if (error.code === 'auth/requires-recent-login') {
             // The user's credential is too old. She needs to sign in again.
             firebase.auth().signOut().then(function() {
                 // The timeout allows the message to be displayed after the UI has
