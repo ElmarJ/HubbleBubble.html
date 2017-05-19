@@ -1,5 +1,5 @@
-        var presenter = document.getElementById("hubblePresenter");
-        var selector = document.getElementById("template_selector");
+        var presenter = document.getElementById('hubblePresenter');
+        var selector = document.getElementById('template_selector');
 
         window.onload = function() {
             selector.onchange = function() {
@@ -7,40 +7,50 @@
             };
 
             fillTemplateSelector();
-            updatePresenter();
+
         };
 
         window.onhashchange = function() {
-            var contentelement = document.querySelector(".content")
-            saveHubbleContent(contentelement.dataset.key, contentelement.innerText);
-            updatePresenter();
+            var contentelement = document.querySelector('.content');
+            if (contentelement !== null) {
+                saveHubbleContent(contentelement.dataset.key, contentelement.innerText);
+                updatePresenter();
+            }
         };
 
         window.onunload = function() {
-            var contentelement = document.querySelector(".content")
-            saveHubbleContent(contentelement.dataset.key, contentelement.innerText);
+            var contentelement = document.querySelector('.content');
+            if (contentelement !== null) {
+                saveHubbleContent(contentelement.dataset.key, contentelement.innerText);
+            }
         };
 
         function updatePresenter() {
             if (firebase.auth().currentUser !== null) {
-                var template = document.getElementById(selector.value);
-                keyToHtml(getRootKey(), template).then(function(hubbleHtml) {
-                    presenter.innerHTML = "";
-                    presenter.appendChild(hubbleHtml);
-                });
+                if (selector !== null) {
+                    var template = document.getElementById(selector.value);
+                    if (template !== null) {
+                        keyToHtml(getRootKey(), template).then(function(hubbleHtml) {
+                            presenter.innerHTML = '';
+                            presenter.appendChild(hubbleHtml);
+                        });
+                    }
+                }
             }
         }
 
         function fillTemplateSelector() {
-            var selector = document.getElementById("template_selector");
+            var selector = document.getElementById('template_selector');
 
-            var templates = document.querySelectorAll("[data-userselectable].hubbletemplate");
+            var templates = document.querySelectorAll('[data-userselectable].hubbletemplate');
 
             Array.from(templates).forEach(function(element) {
-                var option = document.createElement("option");
+                var option = document.createElement('option');
                 option.text = element.id;
                 selector.add(option);
             }, this);
+
+            selector.value = 'keepViewTemplate';
         }
 
         function keyToHtml(key, template) {
@@ -54,18 +64,20 @@
             var templatedNode = document.importNode(template.content, true);
 
             // add content:
-            var contentElement = templatedNode.querySelector(".content");
+            var contentElement = templatedNode.querySelector('.content');
             if (contentElement !== null) contentElement.innerText = hubble.content;
             if (contentElement !== null) contentElement.dataset.key = hubble.key;
 
-            var linkElement = templatedNode.querySelector(".hubblelink");
-            if (linkElement !== null) linkElement.href = "#" + hubble.key;
+            var linkElement = templatedNode.querySelector('.hubblelink');
+            if (linkElement !== null) linkElement.href = '#' + hubble.key;
+
+            var parentlinkElement = templatedNode.querySelector('.parentlink');
+            if (parentlinkElement !== null) parentlinkElement.href = '#' + hubble.parent;
 
             // add children based on child template:
-            var childrenelement = templatedNode.querySelector(".children");
+            var childrenelement = templatedNode.querySelector('.children');
 
             if (childrenelement !== null) {
-
                 // lookup childtemplate
                 var childtemplate = document.getElementById(childrenelement.dataset.childtemplate);
 
@@ -90,7 +102,7 @@
 
         function getRootKey() {
             var key = window.location.hash.substr(1);
-            if (key === null || key === "") { key = "-KkH0zfUpacGriWPSDZK"; }
+            if (key === null || key === '') { key = '-KkH0zfUpacGriWPSDZK'; }
             return key;
         }
 

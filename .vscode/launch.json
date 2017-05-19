@@ -9,6 +9,12 @@
             "file": "${workspaceRoot}/public/index.html"
         },
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome localhost",
+            "url": "http://localhost:5000/index.html"
+        },
+        {
             "type": "edge",
             "request": "launch",
             "name": "Launch Edge index.html",
