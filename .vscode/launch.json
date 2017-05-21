@@ -1,30 +1,32 @@
 {
     "version": "0.2.0",
-    "configurations": [
-
-        {
+    "configurations": [{
+            "name": "Launch chrome localhost",
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome index.html",
-            "file": "${workspaceRoot}/public/index.html"
+            "url": "http://localhost:5000/index.html",
+            "webRoot": "${workspaceRoot}/public"
         },
         {
+            "name": "Launch chrome index.html",
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome localhost",
-            "url": "http://localhost:5000/index.html"
+            "sourceMaps": false,
+            "file": "${workspaceRoot}/index.html"
         },
         {
+            "name": "Launch edge localhost",
             "type": "edge",
             "request": "launch",
-            "name": "Launch Edge index.html",
-            "file": "${workspaceRoot}/public/index.html"
+            "url": "http://localhost:5000/index.html",
+            "webRoot": "${workspaceRoot}/public"
         },
         {
-            "name": "Attach",
+            "name": "Launch edge index.html",
             "type": "edge",
-            "request": "attach",
-            "port": 9222
+            "request": "launch",
+            "sourceMaps": false,
+            "file": "${workspaceRoot}/index.html"
         }
     ]
 }

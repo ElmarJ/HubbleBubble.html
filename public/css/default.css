@@ -1,9 +1,13 @@
+        @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro');
         div.hubble {
             padding: 20px;
         }
         
         div.content {
-            max-width: 500px;
+            font-size: 40px;
+            text-align: justify;
+            line-height: 55px;
+            font-family: 'Rasa', serif;
         }
         
         [data-collapsed="true"]>div.children {}
@@ -19,50 +23,22 @@
         }
         
         .app-container {
-            max-width: 1600px;
+            max-width: 1000px;
             width: calc(100% - 16px);
             margin: 0 auto;
-        }
-        
-        .app-content {
-            border-radius: 2px;
-            padding: 80px 56px;
-            margin-bottom: 80px;
-            max-width: 800px;
         }
         
         .app-layout.is-small-screen .app-content {
             padding: 40px 28px;
         }
         
-        .app-content h3 {
-            margin-top: 48px;
-        }
-        
-        .app-footer {
-            padding-left: 40px;
-        }
-        
-        .app-footer .mdl-mini-footer--link-list a {
-            font-size: 13px;
-        }
-        /*  .childrengrid {
-            --mdc-layout-grid-margin: 40px;
-            --mdc-layout-grid-gutter: 16px;
-        }
- */
-        
-        .children a {
+        a {
             color: inherit;
             text-decoration: inherit;
         }
         
-        a.mdc-fab {
-            text-decoration: inherit;
-        }
-        
         .main-hubble-card {
-            width: 600px;
+            width: 800px;
             margin: 30px;
         }
         
@@ -73,20 +49,44 @@
             display: flex;
         }
         
+        [contenteditable]:focus {
+            outline: 0px solid transparent;
+        }
+        
         body {
             --mdc-theme-primary: #212121;
-            --mdc-theme-text-primary-on-primary: #ffffff;
-            --mdc-theme-text-secondary-on-primary: #c0c0c0;
-            --mdc-theme-text-hint-on-primary: #c0c0c0;
-            --mdc-theme-text-disabled-on-primary: #808080;
-            --mdc-theme-text-icon-on-primary: #ffffff;
-            --mdc-theme-text-primary-on-light: #ffffff;
-            --mdc-theme-text-secondary-on-light: #c0c0c0;
-            --mdc-theme-text-hint-on-light: #c0c0c0;
-            --mdc-theme-text-disabled-on-light: #808080;
-            --mdc-theme-text-icon-on-light: #ffffff;
+            --mdc-theme-accent: #555;
+            --mdc-theme-background: #fff;
+            --mdc-theme-text-primary-on-primary: var(--mdc-theme-text-primary-on-dark);
+            --mdc-theme-text-secondary-on-primary: var(--mdc-theme-text-secondary-on-dark);
+            --mdc-theme-text-hint-on-primary: var(--mdc-theme-text-hint-on-dark);
+            --mdc-theme-text-disabled-on-primary: var(--mdc-theme-text-disabled-on-dark);
+            --mdc-theme-text-icon-on-primary: var(--mdc-theme-text-icon-on-dark);
+            --mdc-theme-text-primary-on-accent: var(--mdc-theme-text-primary-on-dark);
+            --mdc-theme-text-secondary-on-accent: var(--mdc-theme-text-secondary-on-dark);
+            --mdc-theme-text-hint-on-accent: var(--mdc-theme-text-hint-on-dark);
+            --mdc-theme-text-disabled-on-accent: var(--mdc-theme-text-disabled-on-dark);
+            --mdc-theme-text-icon-on-accent: var(--mdc-theme-text-icon-on-dark);
+            --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary-on-light);
+            --mdc-theme-text-secondary-on-background: var(--mdc-theme-text-secondary-on-light);
+            --mdc-theme-text-hint-on-background: var(--mdc-theme-text-hint-on-light);
+            --mdc-theme-text-disabled-on-background: var(--mdc-theme-text-disabled-on-light);
+            --mdc-theme-text-icon-on-background: var(--mdc-theme-text-icon-on-light);
+        }
+        
+        .children {
+            max-width: 700px;
         }
         
         .children .mdc-card {
-            max-width: 150px;
+            max-width: 200px;
+        }
+        
+        .children .special-child {
+            width: 80px;
+            text-align: center;
+        }
+        
+        header {
+            height: 60px;
         }

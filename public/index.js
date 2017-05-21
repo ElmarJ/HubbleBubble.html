@@ -33,6 +33,10 @@
                         keyToHtml(getRootKey(), template).then(function(hubbleHtml) {
                             presenter.innerHTML = '';
                             presenter.appendChild(hubbleHtml);
+                            var content_element = document.getElementsByClassName("content")[0];
+                            if (content_element !== null && content_element.contentEditable) {
+                                placeCaretAtEnd(content_element);
+                            }
                         });
                     }
                 }
@@ -73,6 +77,9 @@
 
             var parentlinkElement = templatedNode.querySelector('.parentlink');
             if (parentlinkElement !== null) parentlinkElement.href = '#' + hubble.parent;
+
+            var parentNode = templatedNode.querySelector('.parentcontent');
+            if (parentNode !== null) parentNode.dataset.key = hubble.parent;
 
             // add children based on child template:
             var childrenelement = templatedNode.querySelector('.children');
@@ -134,8 +141,10 @@
         }
 
         function saveHubbleContent(key, content) {
-            var userId = firebase.auth().currentUser.uid;
-            firebase.database().ref('users/' + userId + '/hubbles/' + key + '/content').set(content);
+            var user = firebase.auth().currentUser;
+            if (user !== null) {
+                firebase.database().ref('users/' + user.uid + '/hubbles/' + key + '/content').set(content);
+            }
         }
 
         function moveHubble(key, destination_key) {
@@ -147,6 +156,52 @@
             var userId = firebase.auth().currentUser.uid;
             var key = firebase.database().ref().child('hubbles').push().key;
             firebase.database().ref('users/' + userId + '/hubbles/' + key + '/parent').set(parent_key);
-
+            firebase.database().ref('users/' + userId + '/hubbles/' + key + '/content').set("");
             return key;
+        }
+
+        function navigateToNewChild() {
+            var parent_key = getRootKey();
+            var child_key = newHubble(parent_key);
+
+            location.hash = child_key;
+            updatePresenter();
+        }
+
+        function check_card_drop(ev) {
+            ev.preventDefault();
+
+        }
+
+        function card_drop(ev) {
+            ev.preventDefault();
+            var source_key = ev.dataTransfer.getData("text/plain");
+            var destination_key = ev.target.dataset.key;
+            if (source_key !== destination_key) {
+                moveHubble(source_key, destination_key);
+                updatePresenter();
+            }
+        }
+
+        function card_drag(ev) {
+            var source_key = ev.target.getElementsByClassName("content")[0].dataset.key;
+            ev.dataTransfer.setData("text/plain", source_key);
+        }
+
+        function placeCaretAtEnd(el) {
+            el.focus();
+            if (typeof window.getSelection != "undefined" &&
+                typeof document.createRange != "undefined") {
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                range.collapse(false);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } else if (typeof document.body.createTextRange != "undefined") {
+                var textRange = document.body.createTextRange();
+                textRange.moveToElementText(el);
+                textRange.collapse(false);
+                textRange.select();
+            }
         }

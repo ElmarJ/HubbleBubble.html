@@ -8,10 +8,10 @@
     <title>HubbleBubble html</title>
 
     <link href="css/default.css" rel="stylesheet" type="text/css" media="screen">
-    <!-- link href="css/style.css" rel="stylesheet" type="text/css" media="screen" / -->
     <link href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
 </head>
 
 <body>
@@ -21,24 +21,23 @@
         </div>
         <div id="loaded">
             <div id="user-signed-in" style="display: none;">
-                <header class="mdc-toolbar mdc-toolbar--fixed mdc-toolbar--platform">
-                    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-                        <h1 class="mdc-toolbar__title-link">Hubble Bubble</h1>
-                        <select id="template_selector" class="mdc-select"></select>
-                    </section>
-                    <section id="user-info" class="mdc-toolbar__section mdc-toolbar__section--align-end">
-                        <span id="name"></span>
-                        <span id="email"></span>
-                        <span><button id="sign-out" class="mdc-button">log out</button>
-                        </span>
-                    </section>
+                <header class="mdc-toolbar">
+                    <div class="mdc-toolbar__row">
+                        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+                            <a href="#" class="material-icons">menu</a>
+                            <span class="mdc-toolbar__title">Hubble Bubble</span>
+                        </section>
+                        <section class="mdc-toolbar__section">
+                            <select id="template_selector" class="mdc-select"></select>
+                        </section>
+                        <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+                            <span><button id="sign-out" class="mdc-button  mdc-button--accent">log out</button></span>
+                        </section>
+                    </div>
                 </header>
                 <main id="main" class="app-main">
                     <div class="app-container">
-                        <div class=""></div>
-                        <div class="app-content">
-                            <div id="hubblePresenter"></div>
-                        </div>
+                        <div id="hubblePresenter"></div>
                     </div>
                 </main>
             </div>
@@ -95,24 +94,39 @@
     </template>
 
     <template id="keepViewTemplate" data-userselectable class="hubbletemplate">
-            <div class="hubble_content_container">
-                <div class="mdc-card main-hubble-card">
-                    <section class="mdc-card__primary">
-                    <div class="content" contenteditable="true"></div>   
-                    </section>
-                </div>
-                <a class="parentlink mdc-fab material-icons" aria-label="Favorite"><span class="mdc-fab__icon">arrow_upward</span></a>
-                </div>
-            <hr>
-            <div class="children mdc-layout-grid"  data-childtemplate="keepViewChildTemplate"></div>
+        <div class="hubble_content_container">
+            <div class="main-hubble-card">
+                <div class="content mdc-textfield mdc-textfield--multiline" contenteditable="true"></div>   
+            </div>
+        </div>
+        <div class="children mdc-layout-grid" data-childtemplate="keepViewChildTemplate">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+                <a class="parentlink">
+                    <div class="mdc-card special-child" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+                        <section class="mdc-card__primary">
+                            <span class="material-icons content parentcontent">arrow_upward</span>
+                        </section>
+                    </div>
+                </a>
+            </div>
+            <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-2">
+                <a class="newhubble_link" href="#" onclick="navigateToNewChild()">
+                    <div class="mdc-card special-child">
+                        <section class="mdc-card__primary">
+                            <span class="material-icons">add</span>
+                        </section>
+                    </div>
+                </a>
+            </div>
+        </div>
     </template>
 
     <template id="keepViewChildTemplate" class="hubbletemplate">
             <div class="mdc-layout-grid__cell">
                 <a class="hubblelink" href="#">
-                <div class="mdc-card">
+                <div class="mdc-card" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
                     <section class="mdc-card__primary">
-                            <span  class="content"></span>
+                            <span class="content"></span>
                     </section>
              </div>
                     </a>
