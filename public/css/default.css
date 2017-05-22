@@ -88,16 +88,16 @@
         }
         
         header {
-            height: 60px;
             align-items: center;
             justify-content: center;
             flex-flow: row nowrap;
         }
         
         header>section {
-            visibility: hidden;
+            opacity: 0;
+            transition: opacity .5s;
         }
         
         header:hover>section {
-            visibility: visible;
+            opacity: 1;
         }
