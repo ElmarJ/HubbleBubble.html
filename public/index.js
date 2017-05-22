@@ -174,9 +174,16 @@
         }
 
         function card_drop(ev) {
+            var destination_key;
             ev.preventDefault();
             var source_key = ev.dataTransfer.getData("text/plain");
-            var destination_key = ev.target.dataset.key;
+
+            if (ev.target.classList.contains("content")) {
+                destination_key = ev.target.dataset.key;
+            } else {
+                destination_key = ev.target.getElementsByClassName("content")[0].dataset.key;
+            }
+
             if (source_key !== destination_key) {
                 moveHubble(source_key, destination_key);
                 updatePresenter();
@@ -184,21 +191,27 @@
         }
 
         function card_drag(ev) {
-            var source_key = ev.target.getElementsByClassName("content")[0].dataset.key;
+            var source_key;
+            if (ev.target.classList.contains("content")) {
+                source_key = ev.target.dataset.key;
+            } else {
+                source_key = ev.target.getElementsByClassName("content")[0].dataset.key;
+            }
+
             ev.dataTransfer.setData("text/plain", source_key);
         }
 
         function placeCaretAtEnd(el) {
             el.focus();
-            if (typeof window.getSelection != "undefined" &&
-                typeof document.createRange != "undefined") {
+            if (typeof window.getSelection !== "undefined" &&
+                typeof document.createRange !== "undefined") {
                 var range = document.createRange();
                 range.selectNodeContents(el);
                 range.collapse(false);
                 var sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(range);
-            } else if (typeof document.body.createTextRange != "undefined") {
+            } else if (typeof document.body.createTextRange !== "undefined") {
                 var textRange = document.body.createTextRange();
                 textRange.moveToElementText(el);
                 textRange.collapse(false);
