@@ -89,4 +89,15 @@
         
         header {
             height: 60px;
+            align-items: center;
+            justify-content: center;
+            flex-flow: row nowrap;
+        }
+        
+        header>section {
+            visibility: hidden;
+        }
+        
+        header:hover>section {
+            visibility: visible;
         }
