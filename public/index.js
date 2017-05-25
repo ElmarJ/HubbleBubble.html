@@ -1,29 +1,54 @@
         var presenter = document.getElementById('hubblePresenter');
         var selector = document.getElementById('template_selector');
-
+        var snoozetoggle;
+        var donetoggle;
         window.onload = function() {
             selector.onchange = function() {
                 updatePresenter();
             };
 
             fillTemplateSelector();
-
         };
 
         window.onhashchange = function() {
-            var contentelement = document.querySelector('.content');
-            if (contentelement !== null) {
-                saveHubbleContent(contentelement.dataset.key, contentelement.innerText);
-                updatePresenter();
-            }
+            saveCurrentHubble();
+            updatePresenter();
         };
 
         window.onunload = function() {
+            saveCurrentHubble();
+        };
+
+        function saveCurrentHubble() {
             var contentelement = document.querySelector('.content');
+
             if (contentelement !== null) {
                 saveHubbleContent(contentelement.dataset.key, contentelement.innerText);
             }
-        };
+        }
+
+        function setToggleStates() {
+            var doneelement = document.getElementById("doneToggle");
+            if (doneelement !== null) {
+                donetoggle = new mdc.iconToggle.MDCIconToggle(doneelement);
+                doneelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
+                    saveHubbleDoneStatus(getRootKey(), detail.isOn);
+                });
+
+                donetoggle.on = doneelement.dataset.startvalue == "true";
+            }
+
+            var snoozeelement = document.getElementById("snoozeToggle");
+            if (snoozeelement !== null) {
+                snoozetoggle = new mdc.iconToggle.MDCIconToggle(snoozeelement);
+
+                snoozeelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
+                    saveHubbleSnoozeStatus(getRootKey(), detail.isOn);
+                });
+
+                snoozetoggle.on = snoozeelement.dataset.startvalue == "true";
+            }
+        }
 
         function updatePresenter() {
             if (firebase.auth().currentUser !== null) {
@@ -37,6 +62,8 @@
                             if (content_element !== null && content_element.contentEditable) {
                                 placeCaretAtEnd(content_element);
                             }
+
+                            setToggleStates();
                         });
                     }
                 }
@@ -80,6 +107,12 @@
 
             var parentNode = templatedNode.querySelector('.parentcontent');
             if (parentNode !== null) parentNode.dataset.key = hubble.parent;
+
+            var doneelement = templatedNode.getElementById("doneToggle");
+            if (doneelement !== null) doneelement.dataset.startvalue = hubble.done;
+
+            var snoozeelement = templatedNode.getElementById("snoozeToggle");
+            if (snoozeelement !== null) snoozeelement.dataset.startvalue = hubble.snoozed;
 
             // add children based on child template:
             var childrenelement = templatedNode.querySelector('.children');
@@ -144,6 +177,20 @@
             var user = firebase.auth().currentUser;
             if (user !== null) {
                 firebase.database().ref('users/' + user.uid + '/hubbles/' + key + '/content').set(content);
+            }
+        }
+
+        function saveHubbleDoneStatus(key, isDone) {
+            var user = firebase.auth().currentUser;
+            if (user !== null) {
+                firebase.database().ref('users/' + user.uid + '/hubbles/' + key + '/done').set(isDone);
+            }
+        }
+
+        function saveHubbleSnoozeStatus(key, isSnoozed) {
+            var user = firebase.auth().currentUser;
+            if (user !== null) {
+                firebase.database().ref('users/' + user.uid + '/hubbles/' + key + '/snoozed').set(isSnoozed);
             }
         }
 
@@ -217,4 +264,8 @@
                 textRange.collapse(false);
                 textRange.select();
             }
+        }
+
+        function switchtoggle() {
+            snoozetoggle.on = !snoozetoggle.on;
         }
