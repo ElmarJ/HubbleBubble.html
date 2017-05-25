@@ -5,7 +5,8 @@
     "include": [
         "public",
         "node_modules/material-components-web/**/*",
-        "node_modules/@material/**/*"
+        "node_modules/@material/**/*",
+        "functions/"
 
 
     ]
