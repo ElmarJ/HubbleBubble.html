@@ -166,11 +166,10 @@
             var database = firebase.database();
             var dataPath = 'users/' + user.uid + '/hubbles';
             var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
-            var result = query.once('value').then(
+            return query.once('value').then(
                 function(snapshot) {
                     return snapshot.val();
                 });
-            return result;
         }
 
         function saveHubbleContent(key, content) {
@@ -183,14 +182,18 @@
         function saveHubbleDoneStatus(key, isDone) {
             var user = firebase.auth().currentUser;
             if (user !== null) {
-                firebase.database().ref('users/' + user.uid + '/hubbles/' + key + '/done').set(isDone);
+                const hubbleref = firebase.database().ref('users/' + user.uid + '/hubbles/' + key);
+                hubbleref.child('/done').set(isDone);
+                updateactive(hubbleref);
             }
         }
 
         function saveHubbleSnoozeStatus(key, isSnoozed) {
             var user = firebase.auth().currentUser;
             if (user !== null) {
-                firebase.database().ref('users/' + user.uid + '/hubbles/' + key + '/snoozed').set(isSnoozed);
+                const hubbleref = firebase.database().ref('users/' + user.uid + '/hubbles/' + key);
+                hubbleref.child('snoozed').set(isSnoozed);
+                updateactive(hubbleref);
             }
         }
 
@@ -268,4 +271,62 @@
 
         function switchtoggle() {
             snoozetoggle.on = !snoozetoggle.on;
+        }
+
+        function getActiveChildCount(parentKey) {
+            var user = firebase.auth().currentUser;
+            var database = firebase.database();
+            var dataPath = 'users/' + user.uid + '/hubbles';
+
+            /* Todo: this is super inefficient (looping all child hubbles to see how many are active).
+             *    should look into smarter (server side) solution at later moment. Combining multiple
+             *    order by's is not possible unfortunately.
+             */
+
+            var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
+            return query.once('value').then(
+                function(snapshot) {
+                    var count = 0;
+                    snapshot.forEach(function(childSnapshot) {
+                        if (childSnapshot.val().active) {
+                            count++;
+                        }
+                    });
+                    return count;
+                });
+        }
+
+        function setActiveChildCount(parentKey) {
+            getActiveChildCount(parentKey).then(
+                number => {
+                    var userId = firebase.auth().currentUser.uid;
+                    firebase.database().ref('users/' + userId + '/hubbles/' + parentKey + '/activechildren').set(number);
+                }
+            )
+        }
+
+        /**
+         * 
+         * 
+         * @param {firebase.database.Reference} hubbleRef 
+         */
+        function updateactive(hubbleRef) {
+            return hubbleRef.once('value').then(
+                snapshot => {
+                    const hubble = snapshot.val();
+                    hubbleRef.child('active').set(isactive(hubble.snoozed, hubble.done, hubble.activechildren));
+                    setActiveChildCount(hubble.parent);
+                });
+        }
+
+        /**
+         * 
+         * 
+         * @param {boolean} snoozed 
+         * @param {boolean} done 
+         * @param {number} activechilds 
+         * @returns 
+         */
+        function isactive(snoozed, done, activechildren) {
+            return !snoozed && (!done || (activechildren > 0))
         }
