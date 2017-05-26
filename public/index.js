@@ -94,6 +94,14 @@
         function hubbleToHtml(hubble, template) {
             var templatedNode = document.importNode(template.content, true);
 
+            // add hubble class to root element
+            if (!templatedNode.classList.contains("hubble")) {
+                templatedNode.classList.add("hubble");
+            }
+
+            // add hubble key to root element
+            templatedNode.dataset.key = hubble.key;
+
             // add content:
             var contentElement = templatedNode.querySelector('.content');
             if (contentElement !== null) contentElement.innerText = hubble.content;
@@ -329,4 +337,15 @@
          */
         function isactive(snoozed, done, activechildren) {
             return !snoozed && (!done || (activechildren > 0))
+        }
+
+        /**
+         * 
+         * 
+         * @param {HTMLElement} element 
+         * @returns 
+         */
+        function getScopedHubbleIdOfElement(element) {
+            var ancestor = $(element).closest(".hubble");
+            return element.dataset.key;
         }

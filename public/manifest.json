@@ -1,8 +1,9 @@
 {
+    "lang": "en",
     "name": "hubblebubble",
     "short_name": "hubblebubble",
     "start_url": ".",
-    "display": "standalone",
+    "display": "fullscreen",
     "background_color": "#fff",
     "description": "Elmar's Hubble Bubble",
     "icons": [{
