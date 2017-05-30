@@ -87,6 +87,14 @@
             selector.value = 'keepViewTemplate';
         }
 
+
+        /**
+         * 
+         * 
+         * @param {string} key 
+         * @param {HTMLTemplateElement} template 
+         * @returns {Promise<DocumentFragment>}
+         */
         function keyToHtml(key, template) {
             var p = getHubble(key);
             return p.then(function(hubble) {
@@ -99,7 +107,7 @@
          * 
          * @param {object} hubble 
          * @param {HTMLTemplateElement} template 
-         * @returns 
+         * @returns {Promise<DocumentFragment>}
          */
         function hubbleToHtml(hubble, template) {
             const templatedNode = document.importNode(template.content, true);
@@ -157,12 +165,23 @@
             return new Promise(function(resolve, reject) { resolve(templatedNode); });
         }
 
+        /**
+         * 
+         * 
+         * @returns string
+         */
         function getRootKey() {
             var key = window.location.hash.substr(1);
             if (key === null || key === '') { key = '-KkH0zfUpacGriWPSDZK'; }
             return key;
         }
 
+        /**
+         * 
+         * 
+         * @param {string} key 
+         * @returns object
+         */
         function getHubble(key) {
             var user = firebase.auth().currentUser;
             var database = firebase.database();
@@ -178,6 +197,12 @@
             return null;
         }
 
+        /**
+         * 
+         * 
+         * @param {string} parentKey 
+         * @returns Promise<object>
+         */
         function getChildHubbles(parentKey) {
             var user = firebase.auth().currentUser;
             var database = firebase.database();
@@ -200,6 +225,12 @@
             saveHubbleContent(key, contentElement.innerText);
         }
 
+        /**
+         * 
+         * 
+         * @param {string} key
+         * @param {string} content 
+         */
         function saveHubbleContent(key, content) {
             var user = firebase.auth().currentUser;
             if (user !== null) {
@@ -207,6 +238,12 @@
             }
         }
 
+        /**
+         * 
+         * 
+         * @param {string} key 
+         * @param {boolean} isDone 
+         */
         function saveHubbleDoneStatus(key, isDone) {
             var user = firebase.auth().currentUser;
             if (user !== null) {
@@ -216,6 +253,12 @@
             }
         }
 
+        /**
+         * 
+         * 
+         * @param {string} key 
+         * @param {boolean} isSnoozed 
+         */
         function saveHubbleSnoozeStatus(key, isSnoozed) {
             var user = firebase.auth().currentUser;
             if (user !== null) {
@@ -225,11 +268,23 @@
             }
         }
 
+        /**
+         * 
+         * 
+         * @param {string} key 
+         * @param {boolean} destination_key 
+         */
         function moveHubble(key, destination_key) {
             var userId = firebase.auth().currentUser.uid;
             firebase.database().ref('users/' + userId + '/hubbles/' + key + '/parent').set(destination_key);
         }
 
+        /**
+         * 
+         * 
+         * @param {string} parent_key 
+         * @returns string
+         */
         function newHubble(parent_key) {
             var userId = firebase.auth().currentUser.uid;
             var key = firebase.database().ref().child('hubbles').push().key;
@@ -246,11 +301,21 @@
             updatePresenter();
         }
 
+        /**
+         * 
+         * 
+         * @param {DragEvent} ev 
+         */
         function check_card_drop(ev) {
             ev.preventDefault();
 
         }
 
+        /**
+         * 
+         * 
+         * @param {DragEvent} ev 
+         */
         function card_drop(ev) {
             ev.preventDefault();
 
@@ -263,11 +328,21 @@
             }
         }
 
+        /**
+         * 
+         * 
+         * @param {DragEvent} ev 
+         */
         function card_drag(ev) {
             const source_key = getScopedHubbleIdOfElement(ev.target);
             ev.dataTransfer.setData("text/plain", source_key);
         }
 
+        /**
+         * 
+         * 
+         * @param {DragEvent} ev 
+         */
         function placeCaretAtEnd(el) {
             el.focus();
             if (typeof window.getSelection !== "undefined" &&
@@ -290,6 +365,12 @@
             snoozetoggle.on = !snoozetoggle.on;
         }
 
+        /**
+         * 
+         * 
+         * @param {string} parentKey 
+         * @returns number
+         */
         function getActiveChildCount(parentKey) {
             var user = firebase.auth().currentUser;
             var database = firebase.database();
@@ -313,6 +394,11 @@
                 });
         }
 
+        /**
+         * 
+         * 
+         * @param {string} parentKey 
+         */
         function setActiveChildCount(parentKey) {
             getActiveChildCount(parentKey).then(
                 number => {
