@@ -58,18 +58,21 @@ function updatePresenter() {
         if (selector !== null) {
             var template = document.getElementById(selector.value);
             if (template !== null) {
-                keyToHtml(getRootKey(), template).then(function(hubbleHtml) {
-                    presenter.innerHTML = '';
-                    presenter.appendChild(hubbleHtml);
-                    var content_element = document.getElementsByClassName("content")[0];
-                    if (content_element !== null && content_element.contentEditable) {
-                        placeCaretAtEnd(content_element);
-                    }
-
-                    setToggleStates();
-                });
+                presenter.innerHTML = "";
+                renderHubbleByKey(getRootKey(), template, presenter)
+                    .then(function() {
+                        // setCaretPosition();
+                        // setToggleStates();
+                    });
             }
         }
+    }
+}
+
+function setCaretPosition() {
+    var content_element = document.getElementsByClassName("content")[0];
+    if (content_element !== null && content_element.contentEditable) {
+        placeCaretAtEnd(content_element);
     }
 }
 
@@ -93,12 +96,12 @@ function fillTemplateSelector() {
  * 
  * @param {string} key 
  * @param {HTMLTemplateElement} template 
- * @returns {Promise<DocumentFragment>}
+ * @param {HTMLElement} containerElement
  */
-function keyToHtml(key, template) {
+function renderHubbleByKey(key, template, containerElement) {
     var p = getHubble(key);
     return p.then(function(hubble) {
-        return hubbleToHtml(hubble, template);
+        renderHubble(hubble, template, containerElement);
     });
 }
 
@@ -107,9 +110,9 @@ function keyToHtml(key, template) {
  * 
  * @param {object} hubble 
  * @param {HTMLTemplateElement} template 
- * @returns {Promise<DocumentFragment>}
+ * @param {HTMLElement} containerElement
  */
-function hubbleToHtml(hubble, template) {
+function renderHubble(hubble, template, containerElement) {
     const templatedNode = document.importNode(template.content, true);
 
     const hubbleElement = templatedNode.querySelector('.hubble');
@@ -133,36 +136,52 @@ function hubbleToHtml(hubble, template) {
     var parentNode = templatedNode.querySelector('.parentcontent');
     if (parentNode !== null) parentNode.dataset.key = hubble.parent;
 
-    var doneelement = templatedNode.querySelector(".doneToggle");
-    if (doneelement !== null) doneelement.dataset.startvalue = hubble.done;
 
     var snoozeelement = templatedNode.querySelector(".snoozeToggle");
     if (snoozeelement !== null) snoozeelement.dataset.startvalue = hubble.snoozed;
 
-    // add children based on child template:
-    var childrenelement = templatedNode.querySelector('.children');
+    // set done toggle:
+    var doneelement = templatedNode.querySelector(".doneToggle");
+    if (doneelement !== null) {
+        donetoggle = new mdc.iconToggle.MDCIconToggle(doneelement);
+        doneelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
+            saveHubbleDoneStatus(getScopedHubbleIdOfElement(doneelement), detail.isOn);
+        });
 
+        donetoggle.on = hubble.done;
+    }
+
+    // set snooze toggle:
+    var snoozeelement = templatedNode.querySelector(".snoozeToggle");
+    if (snoozeelement !== null) {
+        snoozetoggle = new mdc.iconToggle.MDCIconToggle(snoozeelement);
+        snoozeelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
+            saveHubbleDoneStatus(getScopedHubbleIdOfElement(snoozeelement), detail.isOn);
+        });
+
+        snoozetoggle.on = hubble.snoozed;
+    }
+
+    // add rendered hubble to container:
+    containerElement.appendChild(templatedNode);
+
+    // add children based on child template:
+    var childrenelement = containerElement.querySelector('.children');
     if (childrenelement !== null) {
         // lookup childtemplate
         var childtemplate = document.getElementById(childrenelement.dataset.childtemplate);
 
-        return getChildHubbles(hubble.key).then(function(childhubbles) {
-            var addElement = function(element) {
-                childrenelement.appendChild(element);
-            };
-
+        getChildHubbles(hubble.key).then(function(childhubbles) {
             for (var childkey in childhubbles) {
                 if (childhubbles.hasOwnProperty(childkey)) {
                     var childhubble = childhubbles[childkey];
                     childhubble.key = childkey;
-                    hubbleToHtml(childhubble, childtemplate).then(addElement);
+                    renderHubble(childhubble, childtemplate, childrenelement);
                 }
             }
-            return templatedNode;
         });
     }
 
-    return new Promise(function(resolve, reject) { resolve(templatedNode); });
 }
 
 /**
@@ -443,4 +462,8 @@ function isactive(snoozed, done, activechildren) {
 function getScopedHubbleIdOfElement(element) {
     var ancestor = $(element).closest(".hubble")[0];
     return ancestor.dataset.key;
+}
+
+function initializeDoneToggle(ev) {
+
 }
