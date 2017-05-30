@@ -9,7 +9,7 @@
     <link rel="manifest" href="manifest.json">
 
     <link href="css/default.css" rel="stylesheet" type="text/css" media="screen">
-    <link href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
@@ -37,13 +37,7 @@
                 </main>
             </div>
             <div id="user-signed-out" style="display: none;">
-                <h4>You are signed out.</h4>
-                <p>
-                    <button id="sign-in-with-redirect">Sign In with Redirect</button>
-                    <button id="sign-in-with-popup">Sign In with Popup</button>
-                </p>
                 <div id="firebaseui-spa">
-                    <h5>Single Page Application mode:</h5>
                     <div id="firebaseui-container"></div>
                 </div>
             </div>
@@ -154,10 +148,10 @@
         mdc.autoInit()
     </script>
 
-    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
 
     <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/authentication.js"></script>
     <script src="index.js"></script>
 </body>
 

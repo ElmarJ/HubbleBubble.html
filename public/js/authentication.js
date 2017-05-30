@@ -60,22 +60,6 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 var currentUid = null;
 
 /**
- * Redirects to the FirebaseUI widget.
- */
-var signInWithRedirect = function() {
-    window.location.assign('/widget');
-};
-
-
-/**
- * Open a popup with the FirebaseUI widget.
- */
-var signInWithPopup = function() {
-    window.open('/widget', 'Sign In', 'width=985,height=735');
-};
-
-
-/**
  * Displays the UI for a signed in user.
  * @param {!firebase.User} user
  */
@@ -84,7 +68,6 @@ var handleSignedInUser = function(user) {
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
 };
-
 
 /**
  * Displays the UI for a signed out user.
@@ -133,10 +116,6 @@ var deleteAccount = function() {
  * Initializes the app.
  */
 var initApp = function() {
-    document.getElementById('sign-in-with-redirect').addEventListener(
-        'click', signInWithRedirect);
-    document.getElementById('sign-in-with-popup').addEventListener(
-        'click', signInWithPopup);
     document.getElementById('sign-out').addEventListener('click', function() {
         firebase.auth().signOut();
     });
