@@ -87,7 +87,7 @@ function fillTemplateSelector() {
         selector.add(option);
     }, this);
 
-    selector.value = 'keepViewTemplate';
+    selector.value = 'cardViewTemplate';
 }
 
 

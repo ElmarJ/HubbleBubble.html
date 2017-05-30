@@ -44,22 +44,26 @@
         </div>
     </div>
 
-    <template id="hubbleDivTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble">
+    <template id="hubbleDocumentTemplate" data-userselectable class="hubbletemplate">
+        <div class="hubble hubbleDocumentView">
             <i class="doneToggle mdc-icon-toggle material-icons" onshow="registerSnoozeToggle" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
             <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
             <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
             <div contenteditable="true" class="content"></div>
-            <div class="children" data-childtemplate="hubbleDivTemplate"></div>
+            <div class="children" data-childtemplate="hubbleDocumentTemplate"></div>
         </div>
     </template>
 
     <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
         <ul>
-            <li class="hubble">
-                <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
-                <p class="content" contenteditable="true"></p>
+            <li class="hubble hubbleListView">
+                <p>
+                    <span class="content" contenteditable="true"></span>
+                    <span class="buttons">
+                        <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                        <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                    </span>
+                </p>
             <ul class="children" data-childtemplate="hubbleListItemTemplate" />
             </li>
         </ul>
@@ -67,10 +71,14 @@
 
     <template id="hubbleListItemTemplate" class="hubbletemplate">
         <li class="hubble">
-            <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-            <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
-            <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
-            <p class="content" contenteditable="true"></p>
+                <p>
+                    <span class="content" contenteditable="true"></span>
+                    <span class="buttons">
+                        <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                        <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                        <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
+                    </span>
+                </p>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
@@ -91,8 +99,8 @@
         </div>
     </template>
 
-    <template id="keepViewTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble">
+    <template id="cardViewTemplate" data-userselectable class="hubbletemplate">
+        <div class="hubble hubbleCardView">
             <div class="hubble_content_container">
                 <div class="main-hubble-card">
                     <div class="content mdc-textfield mdc-textfield--multiline" contenteditable="true"></div>   
@@ -100,7 +108,7 @@
                 <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
                 <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
             </div>
-            <div class="children mdc-layout-grid" data-childtemplate="keepViewChildTemplate">
+            <div class="children mdc-layout-grid" data-childtemplate="cardViewChildTemplate">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
                     <a class="parentlink">
                         <div class="mdc-card special-child" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
@@ -123,9 +131,9 @@
         </div>
     </template>
 
-    <template id="keepViewChildTemplate" class="hubbletemplate">
+    <template id="cardViewChildTemplate" class="hubbletemplate">
         <div class="mdc-layout-grid__cell hubble">
-                <div class="mdc-card" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+            <div class="mdc-card" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
             <a class="hubblelink" href="">
                     <section class="mdc-card__primary">
                         <span class="content"></span>
