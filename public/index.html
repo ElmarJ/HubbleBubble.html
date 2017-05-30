@@ -49,6 +49,7 @@
             </div>
         </div>
     </div>
+
     <template id="hubbleDivTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble">
             <div contenteditable="true" class="content"></div>
@@ -60,6 +61,8 @@
         <ul>
             <li class="hubble">
                 <p class="content" contenteditable="true"></p>
+                <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
             <ul class="children" data-childtemplate="hubbleListItemTemplate" />
             </li>
         </ul>
@@ -89,37 +92,39 @@
     </template>
 
     <template id="keepViewTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble_content_container">
-            <div class="main-hubble-card">
-                <div class="content mdc-textfield mdc-textfield--multiline" contenteditable="true"></div>   
+        <div class="hubble">
+            <div class="hubble_content_container">
+                <div class="main-hubble-card">
+                    <div class="content mdc-textfield mdc-textfield--multiline" contenteditable="true"></div>   
+                </div>
+                <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
             </div>
-            <i id="doneToggle"  class="mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-            <i id="snoozeToggle" class="mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
-        </div>
-        <div class="children mdc-layout-grid" data-childtemplate="keepViewChildTemplate">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
-                <a class="parentlink">
-                    <div class="mdc-card special-child" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-                        <section class="mdc-card__primary">
-                            <span class="material-icons content parentcontent">arrow_upward</span>
-                        </section>
-                    </div>
-                </a>
-            </div>
-            <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-2">
-                <a class="newhubble_link" href="javascript:navigateToNewChild()">
-                    <div class="mdc-card special-child">
-                        <section class="mdc-card__primary">
-                            <span class="material-icons">add</span>
-                        </section>
-                    </div>
-                </a>
+            <div class="children mdc-layout-grid" data-childtemplate="keepViewChildTemplate">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+                    <a class="parentlink">
+                        <div class="mdc-card special-child" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+                            <section class="mdc-card__primary">
+                                <span class="material-icons parentcontent">arrow_upward</span>
+                            </section>
+                        </div>
+                    </a>
+                </div>
+                <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-2">
+                    <a class="newhubble_link" href="javascript:navigateToNewChild()">
+                        <div class="mdc-card special-child">
+                            <section class="mdc-card__primary">
+                                <span class="material-icons">add</span>
+                            </section>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </template>
 
     <template id="keepViewChildTemplate" class="hubbletemplate">
-        <div class="mdc-layout-grid__cell">
+        <div class="mdc-layout-grid__cell hubble">
             <a class="hubblelink" href="#">
                 <div class="mdc-card" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
                     <section class="mdc-card__primary">
@@ -127,12 +132,13 @@
                     </section>
                 </div>
             </a>
-            </div>
+        </div>
     </template>
 
     <script src="/__/firebase/4.0.0/firebase.js"></script>
     <script src="/__/firebase/init.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.js"></script>
     <script>
         mdc.autoInit()

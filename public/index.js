@@ -2,6 +2,7 @@
         var selector = document.getElementById('template_selector');
         var snoozetoggle;
         var donetoggle;
+
         window.onload = function() {
             selector.onchange = function() {
                 updatePresenter();
@@ -20,34 +21,36 @@
         };
 
         function saveCurrentHubble() {
-            var contentelement = document.querySelector('.content');
-
-            if (contentelement !== null) {
-                saveHubbleContent(contentelement.dataset.key, contentelement.innerText);
-            }
+            var contentelements = document.querySelectorAll('[contenteditable].content');
+            contentelements.forEach(element => persistHubbleContentElement(element));
         }
 
         function setToggleStates() {
-            var doneelement = document.getElementById("doneToggle");
-            if (doneelement !== null) {
+
+            /* Unfortunately, this has to be done after inserting the templates into the DOM, so it can't
+             *   be part of the templated content creation itself (the Material component gives an
+             * error if instantiated before being inserted into the DOM)
+             */
+
+            const donetoggles = document.querySelectorAll(".doneToggle");
+            donetoggles.forEach(function(doneelement) {
                 donetoggle = new mdc.iconToggle.MDCIconToggle(doneelement);
                 doneelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
-                    saveHubbleDoneStatus(getRootKey(), detail.isOn);
+                    saveHubbleDoneStatus(getScopedHubbleIdOfElement(doneelement), detail.isOn);
                 });
 
                 donetoggle.on = doneelement.dataset.startvalue == "true";
-            }
+            }, this);
 
-            var snoozeelement = document.getElementById("snoozeToggle");
-            if (snoozeelement !== null) {
+            const snoozetoggles = document.querySelectorAll(".snoozeToggle");
+            snoozetoggles.forEach(function(snoozeelement) {
                 snoozetoggle = new mdc.iconToggle.MDCIconToggle(snoozeelement);
-
                 snoozeelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
-                    saveHubbleSnoozeStatus(getRootKey(), detail.isOn);
+                    saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(snoozeelement), detail.isOn);
                 });
 
                 snoozetoggle.on = snoozeelement.dataset.startvalue == "true";
-            }
+            }, this);
         }
 
         function updatePresenter() {
@@ -91,21 +94,27 @@
             });
         }
 
+        /**
+         * 
+         * 
+         * @param {object} hubble 
+         * @param {HTMLTemplateElement} template 
+         * @returns 
+         */
         function hubbleToHtml(hubble, template) {
-            var templatedNode = document.importNode(template.content, true);
+            const templatedNode = document.importNode(template.content, true);
 
-            // add hubble class to root element
-            if (!templatedNode.classList.contains("hubble")) {
-                templatedNode.classList.add("hubble");
-            }
-
-            // add hubble key to root element
-            templatedNode.dataset.key = hubble.key;
+            const hubbleElement = templatedNode.querySelector('.hubble');
+            hubbleElement.dataset.key = hubble.key;
 
             // add content:
-            var contentElement = templatedNode.querySelector('.content');
-            if (contentElement !== null) contentElement.innerText = hubble.content;
-            if (contentElement !== null) contentElement.dataset.key = hubble.key;
+
+            const contentElement = templatedNode.querySelector('.content');
+            if (contentElement !== null) {
+                contentElement.innerText = hubble.content;
+                contentElement.dataset.key = hubble.key;
+                contentElement.onblur = (ev => persistHubbleContentElement(contentElement));
+            }
 
             var linkElement = templatedNode.querySelector('.hubblelink');
             if (linkElement !== null) linkElement.href = '#' + hubble.key;
@@ -116,10 +125,10 @@
             var parentNode = templatedNode.querySelector('.parentcontent');
             if (parentNode !== null) parentNode.dataset.key = hubble.parent;
 
-            var doneelement = templatedNode.getElementById("doneToggle");
+            var doneelement = templatedNode.querySelector(".doneToggle");
             if (doneelement !== null) doneelement.dataset.startvalue = hubble.done;
 
-            var snoozeelement = templatedNode.getElementById("snoozeToggle");
+            var snoozeelement = templatedNode.querySelector(".snoozeToggle");
             if (snoozeelement !== null) snoozeelement.dataset.startvalue = hubble.snoozed;
 
             // add children based on child template:
@@ -180,6 +189,17 @@
                 });
         }
 
+
+        /**
+         * 
+         * 
+         * @param {HTMLElement} contentElement 
+         */
+        function persistHubbleContentElement(contentElement) {
+            const key = getScopedHubbleIdOfElement(contentElement);
+            saveHubbleContent(key, contentElement.innerText);
+        }
+
         function saveHubbleContent(key, content) {
             var user = firebase.auth().currentUser;
             if (user !== null) {
@@ -232,15 +252,10 @@
         }
 
         function card_drop(ev) {
-            var destination_key;
             ev.preventDefault();
-            var source_key = ev.dataTransfer.getData("text/plain");
 
-            if (ev.target.classList.contains("content")) {
-                destination_key = ev.target.dataset.key;
-            } else {
-                destination_key = ev.target.getElementsByClassName("content")[0].dataset.key;
-            }
+            const source_key = ev.dataTransfer.getData("text/plain");
+            const destination_key = getScopedHubbleIdOfElement(ev.target);
 
             if (source_key !== destination_key) {
                 moveHubble(source_key, destination_key);
@@ -249,13 +264,7 @@
         }
 
         function card_drag(ev) {
-            var source_key;
-            if (ev.target.classList.contains("content")) {
-                source_key = ev.target.dataset.key;
-            } else {
-                source_key = ev.target.getElementsByClassName("content")[0].dataset.key;
-            }
-
+            const source_key = getScopedHubbleIdOfElement(ev.target);
             ev.dataTransfer.setData("text/plain", source_key);
         }
 
@@ -346,6 +355,6 @@
          * @returns 
          */
         function getScopedHubbleIdOfElement(element) {
-            var ancestor = $(element).closest(".hubble");
-            return element.dataset.key;
+            var ancestor = $(element).closest(".hubble")[0];
+            return ancestor.dataset.key;
         }
