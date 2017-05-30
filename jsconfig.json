@@ -6,6 +6,7 @@
         "public",
         "node_modules/material-components-web/**/*",
         "node_modules/@material/**/*",
-        "firebase/**.*.ts"
+        "node_modules/firebase/**/*.ts",
+        "node_modules/@types/**/*"
     ]
 }
