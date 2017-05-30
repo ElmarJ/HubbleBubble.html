@@ -2,7 +2,5 @@
     "compilerOptions": {
         "target": "ES6"
     },
-    "include": [
-        "public"
-    ]
+    "exclude": []
 }
