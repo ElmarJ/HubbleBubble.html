@@ -3,7 +3,6 @@
         "target": "ES6"
     },
     "include": [
-        "public",
-        "functions"
+        "public"
     ]
 }
