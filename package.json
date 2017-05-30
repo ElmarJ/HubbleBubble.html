@@ -1,7 +1,7 @@
 {
     "name": "hubblebubble",
     "version": "1.0.0",
-    "description": "",
+    "description": "hubble bubble",
     "main": "public/index.html",
     "dependencies": {
         "@types/jquery": "^2.0.45",
