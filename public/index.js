@@ -1,7 +1,5 @@
 var presenter = document.getElementById('hubblePresenter');
 var selector = document.getElementById('template_selector');
-var snoozetoggle;
-var donetoggle;
 
 window.onload = function() {
     selector.onchange = function() {
@@ -22,35 +20,7 @@ window.onunload = function() {
 
 function saveCurrentHubble() {
     var contentelements = document.querySelectorAll('[contenteditable].content');
-    contentelements.forEach(element => persistHubbleContentElement(element));
-}
-
-function setToggleStates() {
-
-    /* Unfortunately, this has to be done after inserting the templates into the DOM, so it can't
-     *   be part of the templated content creation itself (the Material component gives an
-     * error if instantiated before being inserted into the DOM)
-     */
-
-    const donetoggles = document.querySelectorAll(".doneToggle");
-    donetoggles.forEach(function(doneelement) {
-        donetoggle = new mdc.iconToggle.MDCIconToggle(doneelement);
-        doneelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
-            saveHubbleDoneStatus(getScopedHubbleIdOfElement(doneelement), detail.isOn);
-        });
-
-        donetoggle.on = doneelement.dataset.startvalue == "true";
-    }, this);
-
-    const snoozetoggles = document.querySelectorAll(".snoozeToggle");
-    snoozetoggles.forEach(function(snoozeelement) {
-        snoozetoggle = new mdc.iconToggle.MDCIconToggle(snoozeelement);
-        snoozeelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
-            saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(snoozeelement), detail.isOn);
-        });
-
-        snoozetoggle.on = snoozeelement.dataset.startvalue == "true";
-    }, this);
+    for (var element of contentelements) { persistHubbleContentElement(element); }
 }
 
 function updatePresenter() {
@@ -152,26 +122,16 @@ function renderHubble(hubble, template, containerElement) {
 
     // set done toggle:
     /** @type {HTMLElement} */
-    var doneelement = templatedNode.querySelector(".doneToggle");
-    if (doneelement !== null) {
-        donetoggle = new mdc.iconToggle.MDCIconToggle(doneelement);
-        doneelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
-            saveHubbleDoneStatus(getScopedHubbleIdOfElement(doneelement), detail.isOn);
-        });
-
-        donetoggle.on = hubble.done;
+    var doneElement = templatedNode.querySelector(".doneToggle");
+    if (doneElement !== null) {
+        registerIconButton(doneElement, hubble.done, ev => saveHubbleDoneStatus(getScopedHubbleIdOfElement(ev.srcElement), ev.detail.isOn));
     }
 
     // set snooze toggle:
     /** @type {HTMLElement} */
-    var snoozeelement = templatedNode.querySelector(".snoozeToggle");
-    if (snoozeelement !== null) {
-        snoozetoggle = new mdc.iconToggle.MDCIconToggle(snoozeelement);
-        snoozeelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
-            saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(snoozeelement), detail.isOn);
-        });
-
-        snoozetoggle.on = hubble.snoozed;
+    var snoozeElement = templatedNode.querySelector(".snoozeToggle");
+    if (snoozeElement !== null) {
+        registerIconButton(doneElement, hubble.done, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(ev.srcElement), ev.detail.isOn));
     }
 
     // add rendered hubble to container:
@@ -301,4 +261,21 @@ function switchtoggle() {
 function getScopedHubbleIdOfElement(element) {
     var ancestor = $(element).closest(".hubble")[0];
     return ancestor.dataset.key;
+}
+
+
+/**
+ * 
+ * 
+ * @param {HTMLElement} element 
+ * @param {bool} initialValue 
+ * @param {EventListenerOrEventListenerObject} onchange 
+ */
+function registerIconButton(element, initialValue, onchange) {
+    if (element !== null) {
+        toggle = new mdc.iconToggle.MDCIconToggle(element);
+        toggle.on = initialValue;
+
+        element.addEventListener('MDCIconToggle:change', onchange);
+    }
 }
