@@ -128,18 +128,22 @@
                 }
                 
                 .hubbleDocumentView .hubble {
-                    padding: 15px;
+                    padding-left: 15px;
+                    max-width: 700px;
                 }
                 
                 .hubbleDocumentView .buttons {
                     opacity: 0;
                     transition: opacity .5s;
-                    display: none;
+                    position: absolute;
+                    left: 10px;
+                    background: #fff;
+                    border: 1px solid #212121;
+                    border-radius: 5px;
                 }
                 
-                .hubbleDocumentView .hubble:hover>.buttons {
+                .hubbleDocumentView .buttons:hover {
                     opacity: 1;
-                    display: inline;
                 }
                 
                 .hubbleDocumentView .hubble[data-active=false] {
