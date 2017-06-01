@@ -942,15 +942,20 @@ function old_hubble_to_database(hubble, my_parent) {
     var content = hubble.content;
     var key = firebase.database().ref().child('hubbles').push().key;
 
+    var childcount = 0;
+    // add for all children (with me as their parent)
+    hubble.children.forEach(function(element) {
+        old_hubble_to_database(element, key);
+        childcount++;
+    }, this);
+
     // write hubble record
     firebase.database().ref('users/' + userId + '/hubbles/' + key).set({
         content: hubble.content,
-        collapsed: hubble.collapsed,
-        parent: my_parent
+        parent: my_parent,
+        done: false,
+        snoozed: false,
+        activechildren: childcount
     });
 
-    // do same for all children (with me as their parent)
-    hubble.children.forEach(function(element) {
-        old_hubble_to_database(element, key);
-    }, this);
 }

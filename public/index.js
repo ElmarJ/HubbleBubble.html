@@ -131,7 +131,6 @@ function renderHubble(hubble, template, containerElement) {
     const contentElement = templatedNode.querySelector('.content');
     if (contentElement !== null) {
         contentElement.innerText = hubble.content;
-        contentElement.dataset.key = hubble.key;
         contentElement.onblur = (ev => persistHubbleContentElement(contentElement));
     }
 
@@ -207,7 +206,7 @@ function renderHubble(hubble, template, containerElement) {
  */
 function getRootKey() {
     var key = window.location.hash.substr(1);
-    if (key === null || key === '') { key = '-KkH0zfUpacGriWPSDZK'; }
+    if (key === null || key === '') { key = '-KlYdxmFkIiWOFXp0UIP'; }
     return key;
 }
 

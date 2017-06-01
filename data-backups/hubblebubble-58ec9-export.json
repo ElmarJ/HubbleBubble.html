@@ -1,0 +1,2886 @@
+{
+  "users" : {
+    "Becxa9elyUfx11t04zm0Ra6i8hG2" : {
+      "hubbles" : {
+        "-KkH0zfUpacGriWPSDZK" : {
+          "active" : true,
+          "active-child-count" : 2,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "huis",
+          "done" : false,
+          "parent" : "",
+          "snoozed" : false
+        },
+        "-KkH0zfe8iFmISe508Lz" : {
+          "active" : true,
+          "activechildren" : 6,
+          "collapsed" : false,
+          "content" : "Werk",
+          "done" : false,
+          "parent" : "-KkH0zfUpacGriWPSDZK",
+          "snoozed" : false
+        },
+        "-KkH0zffpjtK548Ngr9K" : {
+          "active" : false,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "Notities handig",
+          "done" : true,
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7",
+          "snoozed" : false
+        },
+        "-KkH0zffpjtK548Ngr9L" : {
+          "active" : false,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zfe8iFmISe508Lz",
+          "snoozed" : true
+        },
+        "-KkH0zfgpH1bWW2X-w70" : {
+          "active" : true,
+          "activechildren" : 7,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zffpjtK548Ngr9L",
+          "snoozed" : false
+        },
+        "-KkH0zfhdKmZV9FfLWul" : {
+          "active" : true,
+          "activechildren" : 4,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zfgpH1bWW2X-w70",
+          "snoozed" : false
+        },
+        "-KkH0zfhdKmZV9FfLWum" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zfhdKmZV9FfLWul",
+          "snoozed" : false
+        },
+        "-KkH0zfiihKGuxa8yQcJ" : {
+          "active" : false,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : true,
+          "parent" : "-KkH0zfhdKmZV9FfLWum",
+          "snoozed" : true
+        },
+        "-KkH0zfjcX3Pq4gFjL54" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zfhdKmZV9FfLWul",
+          "snoozed" : false
+        },
+        "-KkH0zfkB0JZypnfgniH" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfjcX3Pq4gFjL54"
+        },
+        "-KkH0zfkB0JZypnfgniI" : {
+          "active" : true,
+          "activechildren" : 3,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zfhdKmZV9FfLWul",
+          "snoozed" : false
+        },
+        "-KkH0zfnPQicC2jxhzMt" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfkB0JZypnfgniI"
+        },
+        "-KkH0zfoBlOw6gRwKa9Q" : {
+          "active" : true,
+          "activechildren" : 3,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfkB0JZypnfgniI"
+        },
+        "-KkH0zfpgsWrvZcXTBYB" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfoBlOw6gRwKa9Q"
+        },
+        "-KkH0zfrmGb4550VRGLO" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfoBlOw6gRwKa9Q"
+        },
+        "-KkH0zfsg7BxArWofUxN" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zfoBlOw6gRwKa9Q"
+        },
+        "-KkH0zftj8dS_5c3IJ5F" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfkB0JZypnfgniI"
+        },
+        "-KkH0zftj8dS_5c3IJ5G" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zfhdKmZV9FfLWul"
+        },
+        "-KkH0zfuK1e4VNulkqAh" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zftj8dS_5c3IJ5G"
+        },
+        "-KkH0zfuK1e4VNulkqAi" : {
+          "active" : true,
+          "activechildren" : 4,
+          "collapsed" : true,
+          "content" : "Doel democratie",
+          "parent" : "-KkH0zfgpH1bWW2X-w70"
+        },
+        "-KkH0zfv0NgbId9ODELF" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfuK1e4VNulkqAi"
+        },
+        "-KkH0zfv0NgbId9ODELG" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfv0NgbId9ODELF"
+        },
+        "-KkH0zfwKYG-NMIjzS7t" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfv0NgbId9ODELF"
+        },
+        "-KkH0zfwKYG-NMIjzS7u" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfuK1e4VNulkqAi"
+        },
+        "-KkH0zfwKYG-NMIjzS7v" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfwKYG-NMIjzS7u"
+        },
+        "-KkH0zfx1gnXoHu-SNVU" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfwKYG-NMIjzS7u"
+        },
+        "-KkH0zfzCkaG_0sSNnBv" : {
+          "active" : true,
+          "activechildren" : 5,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfuK1e4VNulkqAi"
+        },
+        "-KkH0zg0MA8z8TQ9jsoR" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfzCkaG_0sSNnBv"
+        },
+        "-KkH0zg0MA8z8TQ9jsoS" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfzCkaG_0sSNnBv"
+        },
+        "-KkH0zg0MA8z8TQ9jsoT" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfzCkaG_0sSNnBv"
+        },
+        "-KkH0zg1Tp7OzPzZnX-U" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfzCkaG_0sSNnBv"
+        },
+        "-KkH0zg2_nBGr66xdOLX" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfzCkaG_0sSNnBv"
+        },
+        "-KkH0zg4YOJSXpmuE7bQ" : {
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zg2_nBGr66xdOLX"
+        },
+        "-KkH0zgBF_BVFv_IGSIR" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zg4YOJSXpmuE7bQ"
+        },
+        "-KkH0zgC0I7qvv911pZr" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zg2_nBGr66xdOLX"
+        },
+        "-KkH0zgD6_oqrMZJtSIy" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfuK1e4VNulkqAi"
+        },
+        "-KkH0zgD6_oqrMZJtSIz" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgD6_oqrMZJtSIy"
+        },
+        "-KkH0zgE84HnAlLR95GJ" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "Huidige acceptatie democratie",
+          "parent" : "-KkH0zfgpH1bWW2X-w70"
+        },
+        "-KkH0zgF0sEuoL_Sqtp2" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgE84HnAlLR95GJ"
+        },
+        "-KkH0zgF0sEuoL_Sqtp3" : {
+          "active" : true,
+          "activechildren" : 6,
+          "collapsed" : true,
+          "content" : "Kiesgedrag",
+          "parent" : "-KkH0zfgpH1bWW2X-w70"
+        },
+        "-KkH0zgGiBSu7r-O3Bzq" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgF0sEuoL_Sqtp3"
+        },
+        "-KkH0zgHQ45ZL3JCrkix" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgF0sEuoL_Sqtp3"
+        },
+        "-KkH0zgKrf9ELB0BfEO_" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgHQ45ZL3JCrkix"
+        },
+        "-KkH0zgMZ_bJU2PUQie7" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgF0sEuoL_Sqtp3"
+        },
+        "-KkH0zgRUup8gcwl9v5c" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgMZ_bJU2PUQie7"
+        },
+        "-KkH0zgSacpJeNJfClXt" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgF0sEuoL_Sqtp3"
+        },
+        "-KkH0zgT1ypWy_RACmsZ" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgF0sEuoL_Sqtp3"
+        },
+        "-KkH0zgUoQrs3-w3wIwv" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgT1ypWy_RACmsZ"
+        },
+        "-KkH0zgZt-mYy4KNGnSu" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgT1ypWy_RACmsZ"
+        },
+        "-KkH0zg_cuLtg5CYFPNE" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgF0sEuoL_Sqtp3"
+        },
+        "-KkH0zg_cuLtg5CYFPNF" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zg_cuLtg5CYFPNE"
+        },
+        "-KkH0zgaMbGB5AKReGLT" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "Verkiezingen Berlijn",
+          "parent" : "-KkH0zfgpH1bWW2X-w70"
+        },
+        "-KkH0zgaMbGB5AKReGLU" : {
+          "active" : true,
+          "activechildren" : 4,
+          "collapsed" : true,
+          "content" : "Wat is democratie?",
+          "done" : false,
+          "parent" : "-KkH0zfgpH1bWW2X-w70",
+          "snoozed" : false
+        },
+        "-KkH0zgaMbGB5AKReGLV" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zgaMbGB5AKReGLU"
+        },
+        "-KkH0zgcDZsDyFCkQ-n5" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zgaMbGB5AKReGLU"
+        },
+        "-KkH0zgeNPfAvJQEEGRJ" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zgaMbGB5AKReGLU",
+          "snoozed" : false
+        },
+        "-KkH0zgeNPfAvJQEEGRK" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zgaMbGB5AKReGLU",
+          "snoozed" : false
+        },
+        "-KkH0zgfql-SZ8990IoM" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zfgpH1bWW2X-w70"
+        },
+        "-KkH0zgfql-SZ8990IoN" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "Berlijnopdracht",
+          "parent" : "-KkH0zffpjtK548Ngr9L"
+        },
+        "-KkH0zgfql-SZ8990IoO" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "Mentor pple",
+          "done" : false,
+          "parent" : "-KkH0zfe8iFmISe508Lz",
+          "snoozed" : false
+        },
+        "-KkH0zgfql-SZ8990IoP" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "BGP",
+          "done" : false,
+          "parent" : "-KkH0zfe8iFmISe508Lz",
+          "snoozed" : false
+        },
+        "-KkH0zggGnc7r3G-vNmE" : {
+          "active" : true,
+          "activechildren" : 3,
+          "collapsed" : true,
+          "content" : "Mentor-studenten",
+          "done" : false,
+          "parent" : "-KkH0zgfql-SZ8990IoO",
+          "snoozed" : false
+        },
+        "-KkH0zggGnc7r3G-vNmF" : {
+          "active" : true,
+          "activechildren" : 7,
+          "collapsed" : true,
+          "content" : "Groep Simon 2014",
+          "parent" : "-KkH0zggGnc7r3G-vNmE"
+        },
+        "-KkH0zghRC086N-8RrVB" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zggGnc7r3G-vNmF"
+        },
+        "-KkH0zgiyEg3_0r9NAcr" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zggGnc7r3G-vNmF"
+        },
+        "-KkH0zgiyEg3_0r9NAcs" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zggGnc7r3G-vNmF"
+        },
+        "-KkH0zgp4ovmnpBID6de" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zggGnc7r3G-vNmF"
+        },
+        "-KkH0zgp4ovmnpBID6df" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zggGnc7r3G-vNmF"
+        },
+        "-KkH0zgqryg9C8TASSKR" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zggGnc7r3G-vNmF"
+        },
+        "-KkH0zgqryg9C8TASSKS" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zggGnc7r3G-vNmF"
+        },
+        "-KkH0zgqryg9C8TASSKT" : {
+          "active" : true,
+          "activechildren" : 10,
+          "collapsed" : true,
+          "content" : "Groep Elmar 2014",
+          "done" : false,
+          "parent" : "-KkH0zggGnc7r3G-vNmE",
+          "snoozed" : false
+        },
+        "-KkH0zgqryg9C8TASSKU" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgrgXLI9rD3ssdb" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgrgXLI9rD3ssdc" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgrgXLI9rD3ssdd" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgrgXLI9rD3ssde" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgrgXLI9rD3ssdf" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgt5h17bhZUL9c_" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgv3hfqllQTZE2L" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgv3hfqllQTZE2M" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgv3hfqllQTZE2N" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KkH0zgv3hfqllQTZE2O" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "Groep Elmar 2015",
+          "parent" : "-KkH0zggGnc7r3G-vNmE"
+        },
+        "-KkH0zgw3FNJustOypFD" : {
+          "active" : false,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "PSS",
+          "done" : false,
+          "parent" : "-KkH0zfe8iFmISe508Lz",
+          "snoozed" : true
+        },
+        "-KkH0zgw3FNJustOypFE" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "CK revealing his argument: Natural science and humanities not all that different. Understanding = interpretation. \"The world is like a text\". And we analyze using analogies.",
+          "parent" : "-KkH0zgw3FNJustOypFD"
+        },
+        "-KkH0zgw3FNJustOypFF" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "DR1",
+          "done" : false,
+          "parent" : "-KkH0zfe8iFmISe508Lz",
+          "snoozed" : false
+        },
+        "-KkH0zgzxkVsyQjpVrfm" : {
+          "active" : false,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "Muziek",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXc",
+          "snoozed" : true
+        },
+        "-KkH0zh-pBGB8CSDua04" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "Gitaar Bluegrass Solo",
+          "done" : false,
+          "parent" : "-KkH0zgzxkVsyQjpVrfm",
+          "snoozed" : false
+        },
+        "-KkH0zh-pBGB8CSDua05" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "Om te oefenen:",
+          "done" : false,
+          "parent" : "-KkH0zgzxkVsyQjpVrfm",
+          "snoozed" : false
+        },
+        "-KkH0zh1KaT5f4J6TMKr" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zh-pBGB8CSDua05",
+          "snoozed" : false
+        },
+        "-KkH0zh2HeFb9De2KBXb" : {
+          "active" : false,
+          "activechildren" : 6,
+          "collapsed" : true,
+          "content" : "Schrijven",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXc",
+          "snoozed" : true
+        },
+        "-KkH0zh2HeFb9De2KBXc" : {
+          "active" : true,
+          "activechildren" : 4,
+          "collapsed" : true,
+          "content" : "Persoonlijk",
+          "done" : false,
+          "parent" : "-KkH0zfUpacGriWPSDZK",
+          "snoozed" : false
+        },
+        "-KkH0zh3UArF0SieBDyj" : {
+          "active" : true,
+          "activechildren" : 3,
+          "collapsed" : true,
+          "content" : "Werken",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXb",
+          "snoozed" : false
+        },
+        "-KkH0zh4RZMBuBc9NywI" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "Ik heb de dingen altijd beter in m'n hoofd zitten dan ze er uitkomen. Dus laat ik ze het liefst zo lang mogelijk in m'n hoofd zitten",
+          "done" : false,
+          "parent" : "-KkH0zh3UArF0SieBDyj",
+          "snoozed" : false
+        },
+        "-KkH0zh4RZMBuBc9NywJ" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "Tijdens uitvoeren taken is het lastig te accepteren dat er een beperkte tijd voor staat - dus ik doe er altijd langer over.",
+          "done" : false,
+          "parent" : "-KkH0zh3UArF0SieBDyj",
+          "snoozed" : false
+        },
+        "-KkH0zh4RZMBuBc9NywK" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "Bang om \"in iets te duiken\" (het doosje met de taak openmaken)",
+          "done" : false,
+          "parent" : "-KkH0zh3UArF0SieBDyj",
+          "snoozed" : false
+        },
+        "-KkH0zh4RZMBuBc9NywL" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7",
+          "snoozed" : false
+        },
+        "-KkH0zh4RZMBuBc9NywM" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7",
+          "snoozed" : false
+        },
+        "-KkH0zh4RZMBuBc9NywN" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "Technology",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXb",
+          "snoozed" : false
+        },
+        "-KkH0zh51NYUlm587fOd" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "Cortana / Siri etc.\n",
+          "done" : false,
+          "parent" : "-KkH0zh4RZMBuBc9NywN",
+          "snoozed" : false
+        },
+        "-KkH0zh6eEf1fols6UWs" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zh51NYUlm587fOd",
+          "snoozed" : false
+        },
+        "-KkH0zh7DlR_2d5kaESh" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zh51NYUlm587fOd",
+          "snoozed" : false
+        },
+        "-KkH0zh8UfKozLw2jVpj" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "UI / Websites",
+          "done" : false,
+          "parent" : "-KkH0zh4RZMBuBc9NywN",
+          "snoozed" : false
+        },
+        "-KkH0zh8UfKozLw2jVpk" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "\n",
+          "done" : false,
+          "parent" : "-KkH0zh8UfKozLw2jVpj",
+          "snoozed" : false
+        },
+        "-KkH0zh8UfKozLw2jVpl" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "Economie",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXb",
+          "snoozed" : false
+        },
+        "-KkH0zh8UfKozLw2jVpm" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "Economische gelijkheid",
+          "parent" : "-KkH0zh8UfKozLw2jVpl"
+        },
+        "-KkH0zh9b_g2TJPmklvZ" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh8UfKozLw2jVpm"
+        },
+        "-KkH0zh9b_g2TJPmklv_" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvZ"
+        },
+        "-KkH0zh9b_g2TJPmklva" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvZ"
+        },
+        "-KkH0zh9b_g2TJPmklvb" : {
+          "active" : true,
+          "activechildren" : 3,
+          "collapsed" : true,
+          "content" : "Arbeid en Onderwijs",
+          "parent" : "-KkH0zh8UfKozLw2jVpl"
+        },
+        "-KkH0zh9b_g2TJPmklvc" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhCnlpmV4dhfq9h"
+        },
+        "-KkH0zh9b_g2TJPmklvd" : {
+          "active" : true,
+          "activechildren" : 4,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvc"
+        },
+        "-KkH0zhAoz5P3aMgzsRq" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvd"
+        },
+        "-KkH0zhAoz5P3aMgzsRr" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvd"
+        },
+        "-KkH0zhAoz5P3aMgzsRs" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvd"
+        },
+        "-KkH0zhAoz5P3aMgzsRt" : {
+          "active" : true,
+          "activechildren" : 5,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvd"
+        },
+        "-KkH0zhAoz5P3aMgzsRu" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhAoz5P3aMgzsRt"
+        },
+        "-KkH0zhBHrY1Gi_2QmA9" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhAoz5P3aMgzsRt"
+        },
+        "-KkH0zhBHrY1Gi_2QmAA" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhAoz5P3aMgzsRt"
+        },
+        "-KkH0zhBHrY1Gi_2QmAB" : {
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhAoz5P3aMgzsRt"
+        },
+        "-KkH0zhCnlpmV4dhfq9f" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhAoz5P3aMgzsRt"
+        },
+        "-KkH0zhCnlpmV4dhfq9g" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zh9b_g2TJPmklvc"
+        },
+        "-KkH0zhCnlpmV4dhfq9h" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "\n",
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7"
+        },
+        "-KkH0zhCnlpmV4dhfq9i" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "\n",
+          "parent" : "-KkH0zhCnlpmV4dhfq9h"
+        },
+        "-KkH0zhCnlpmV4dhfq9j" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "parent" : "-KkH0zhCnlpmV4dhfq9h"
+        },
+        "-KkH0zhCnlpmV4dhfq9k" : {
+          "active" : true,
+          "activechildren" : 3,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhCnlpmV4dhfq9h"
+        },
+        "-KkH0zhDg4MnRTYLlDnM" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhCnlpmV4dhfq9k"
+        },
+        "-KkH0zhDg4MnRTYLlDnN" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhCnlpmV4dhfq9k"
+        },
+        "-KkH0zhDg4MnRTYLlDnO" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "\n",
+          "parent" : "-KkH0zhCnlpmV4dhfq9k"
+        },
+        "-KkH0zhEY0x-s2Y-nf2g" : {
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "\n",
+          "parent" : "-KkH0zhDg4MnRTYLlDnO"
+        },
+        "-KkH0zhGVa8AfaEUQOyP" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "\n",
+          "parent" : "-KkH0zhEY0x-s2Y-nf2g"
+        },
+        "-KkH0zhMOPiMHAGdUkEW" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhDg4MnRTYLlDnO"
+        },
+        "-KkH0zhNMIvykrML1SFI" : {
+          "active" : true,
+          "activechildren" : 3,
+          "collapsed" : true,
+          "content" : "Gelijkheid en vrijheid",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXb",
+          "snoozed" : false
+        },
+        "-KkH0zhXb3TCIBPVq_BR" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "De mens / filosofie",
+          "done" : false,
+          "parent" : "-KkH0zhNMIvykrML1SFI",
+          "snoozed" : false
+        },
+        "-KkH0zhXb3TCIBPVq_BS" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zhXb3TCIBPVq_BR",
+          "snoozed" : false
+        },
+        "-KkH0zhYm3yDrL5opT-8" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "\n",
+          "done" : false,
+          "parent" : "-KkH0zhXb3TCIBPVq_BS",
+          "snoozed" : false
+        },
+        "-KkH0zhYm3yDrL5opT-9" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zhXb3TCIBPVq_BR",
+          "snoozed" : false
+        },
+        "-KkH0zhYm3yDrL5opT-A" : {
+          "active" : true,
+          "activechildren" : 2,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zhYm3yDrL5opT-9",
+          "snoozed" : false
+        },
+        "-KkH0zhZONtdsYtSiiJe" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zhYm3yDrL5opT-A",
+          "snoozed" : false
+        },
+        "-KkH0zh_yjHTJUg1uc5Z" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zhYm3yDrL5opT-A",
+          "snoozed" : false
+        },
+        "-KkH0zhaHxiT6_YMfizR" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "Gender",
+          "done" : false,
+          "parent" : "-KkH0zhNMIvykrML1SFI",
+          "snoozed" : false
+        },
+        "-KkH0zhaHxiT6_YMfizS" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkH0zhaHxiT6_YMfizR",
+          "snoozed" : false
+        },
+        "-KkH0zhbgr6_rR4JSBAq" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "\n",
+          "done" : false,
+          "parent" : "-KkH0zhaHxiT6_YMfizS",
+          "snoozed" : false
+        },
+        "-KkH0zhbgr6_rR4JSBAr" : {
+          "active" : true,
+          "activechildren" : 1,
+          "collapsed" : true,
+          "content" : "Neutraliteit bestaat niet",
+          "done" : false,
+          "parent" : "-KkH0zhNMIvykrML1SFI",
+          "snoozed" : false
+        },
+        "-KkH0zhcIRO0Gqtv9YSg" : {
+          "active" : true,
+          "activechildren" : 6,
+          "collapsed" : true,
+          "content" : "On nature nurture",
+          "done" : false,
+          "parent" : "-KkH0zhbgr6_rR4JSBAr",
+          "snoozed" : false
+        },
+        "-KkH0zhdrWS6vSBu9JWp" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7"
+        },
+        "-KkH0zhdrWS6vSBu9JWq" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhdrWS6vSBu9JWp"
+        },
+        "-KkH0zhebhtB7IajnYRV" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhdrWS6vSBu9JWp"
+        },
+        "-KkH0zhfILQDcLvPMF4i" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhdrWS6vSBu9JWp"
+        },
+        "-KkH0zhfILQDcLvPMF4j" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhdrWS6vSBu9JWp"
+        },
+        "-KkH0zhfILQDcLvPMF4k" : {
+          "active" : true,
+          "activechildren" : 0,
+          "collapsed" : true,
+          "content" : "",
+          "parent" : "-KkH0zhdrWS6vSBu9JWp"
+        },
+        "-KkYBIJKJdOieIVsWhDm" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Niet waar",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXb",
+          "snoozed" : false
+        },
+        "-KkYBUP-Xm8nbUQXkfus" : {
+          "active" : true,
+          "activechildren" : 5,
+          "content" : "Fix problemen in IE",
+          "done" : false,
+          "parent" : "-KkjwlIg71-T4iFH0FoB",
+          "snoozed" : false
+        },
+        "-KkYBcaAHS_cRCMfNHUf" : {
+          "active" : true,
+          "activechildren" : 5,
+          "content" : "Todo Hubbub",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXc",
+          "snoozed" : false
+        },
+        "-KkYBgiWvs5zBzdJ5l3p" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Nieuw ding",
+          "done" : true,
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7",
+          "snoozed" : false
+        },
+        "-KkYBoSEz_F0Owhwb-Yh" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Backspace werkt niet",
+          "done" : false,
+          "parent" : "-KkYBUP-Xm8nbUQXkfus",
+          "snoozed" : false
+        },
+        "-KkYC2GbUV8KjtRG-Mms" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Menu maken",
+          "done" : false,
+          "parent" : "-Kkk-_XsDnZ_C5UlDZir",
+          "snoozed" : false
+        },
+        "-Kkf3N4Mv0QRpgjPUJ6N" : {
+          "active" : false,
+          "activechildren" : 2,
+          "content" : "test",
+          "parent" : "-KkYBgiWvs5zBzdJ5l3p",
+          "snoozed" : true
+        },
+        "-Kkh2MF8QfM8_hNnd3Cu" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjoY8i6m6KMOwtgBLc",
+          "snoozed" : false
+        },
+        "-Kkh2PWWnYa5Lrdi1mke" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "Boodschappen",
+          "done" : false,
+          "parent" : "-KkkJqqrkaFj0bGBWEGO",
+          "snoozed" : false
+        },
+        "-KkjmRVBPO38Dh-A7wbb" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Laos",
+          "done" : false,
+          "parent" : "-Kkh2PWWnYa5Lrdi1mke",
+          "snoozed" : false
+        },
+        "-KkjmSggEFyowsnvvTG8" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "parent" : "-Kkf3N4Mv0QRpgjPUJ6N"
+        },
+        "-KkjmUWbTzu930195wp-" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Sambal Oelek",
+          "done" : false,
+          "parent" : "-Kkh2PWWnYa5Lrdi1mke",
+          "snoozed" : false
+        },
+        "-KkjmqjyayYFnFgndTQ5" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : true,
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7",
+          "snoozed" : false
+        },
+        "-KkjnIk9zyd2qm1Ryj1f" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Alle content selecteren en dan typen werkt niet",
+          "done" : false,
+          "parent" : "-KkYBUP-Xm8nbUQXkfus",
+          "snoozed" : false
+        },
+        "-KkjnOsp55cxXJ30jQ-p" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Onzichtbaarheid template selector ",
+          "done" : false,
+          "parent" : "-KkYBUP-Xm8nbUQXkfus",
+          "snoozed" : false
+        },
+        "-KkjnUDSsRc3yYxUrjsN" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjnOsp55cxXJ30jQ-p",
+          "snoozed" : false
+        },
+        "-Kkjnk3g_jsG0Fy8rig7" : {
+          "active" : false,
+          "activechildren" : 7,
+          "content" : "Prullenbak",
+          "done" : false,
+          "parent" : "-KkH0zfUpacGriWPSDZK",
+          "snoozed" : true
+        },
+        "-KkjnulWF_0mFwiYij28" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Template selector start niet met keep profile (en er wordt niets geladen bij opstarten tot eerste selectie)",
+          "done" : false,
+          "parent" : "-KkYBUP-Xm8nbUQXkfus",
+          "snoozed" : false
+        },
+        "-KkjoBeoU5SuL7qTz_Dd" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Moet zo verborgen mogelijk zijn, maar wel snel bereikbaar (pas openen bij muisbeweging oid).",
+          "done" : false,
+          "parent" : "-KkYC2GbUV8KjtRG-Mms",
+          "snoozed" : false
+        },
+        "-KkjoY8i6m6KMOwtgBLc" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "Opties in menu",
+          "done" : false,
+          "parent" : "-KkYC2GbUV8KjtRG-Mms",
+          "snoozed" : false
+        },
+        "-KkjoZfLVlhZz7JALcgT" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjoY8i6m6KMOwtgBLc",
+          "snoozed" : false
+        },
+        "-KkjoaufNGDjIZCWnzN7" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjyY_gg1OSGi0TtISM",
+          "snoozed" : false
+        },
+        "-KkjqSPQCmAW_eE55N4U" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkh2MF8QfM8_hNnd3Cu",
+          "snoozed" : false
+        },
+        "-KkjqWNp82KnqLmvlzF0" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkh2MF8QfM8_hNnd3Cu",
+          "snoozed" : false
+        },
+        "-KkjqZUOPhpl76Xssh1l" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkh2MF8QfM8_hNnd3Cu",
+          "snoozed" : false
+        },
+        "-KkjqavuIKv1pfKnD18K" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkh2MF8QfM8_hNnd3Cu",
+          "snoozed" : false
+        },
+        "-Kkjr-m5CghdjQWoJ7nb" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Breadcrumb",
+          "done" : false,
+          "parent" : "-Kkk-_XsDnZ_C5UlDZir",
+          "snoozed" : false
+        },
+        "-Kkjr4ZEztU1x9D5gtCd" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjyY_gg1OSGi0TtISM",
+          "snoozed" : false
+        },
+        "-Kkjr8ADmzjDzsWKY2J2" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "\n",
+          "done" : false,
+          "parent" : "-Kkjr4ZEztU1x9D5gtCd",
+          "snoozed" : false
+        },
+        "-KkjrKpGXd9bMIYqnku-" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Update-mechanisme verwerkt in template renderer",
+          "done" : false,
+          "parent" : "-KkjwDh0nWop2fH-eWi_",
+          "snoozed" : false
+        },
+        "-Kkjuxw3hOB1MWiuI4cW" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Van hubbles die ook ieder weer drag-target kunnen zijn (formaat van huidige kleine vierkantjes voor parent + nieuw)",
+          "done" : false,
+          "parent" : "-Kkjr-m5CghdjQWoJ7nb",
+          "snoozed" : false
+        },
+        "-KkjvTiuMnK6HNj44FTs" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "+ een speciale hubble voor next parent + previous sibling + nieuwe next sibling",
+          "done" : false,
+          "parent" : "-Kkjr-m5CghdjQWoJ7nb",
+          "snoozed" : false
+        },
+        "-KkjvqrtOL4unnHcKD6P" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkjr8ADmzjDzsWKY2J2",
+          "snoozed" : false
+        },
+        "-KkjwDh0nWop2fH-eWi_" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "Update mechanisme stroomlijnen",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-KkjwJ6MAYMX5Rbd0eUf" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Update bij verlaten ieder content-element",
+          "done" : false,
+          "parent" : "-KkjwDh0nWop2fH-eWi_",
+          "snoozed" : false
+        },
+        "-KkjwS9ADvmnRLzLHnOv" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Alle updates van \"once\" halen, zodat er dynamische updates ontstaan",
+          "done" : false,
+          "parent" : "-KkjwDh0nWop2fH-eWi_",
+          "snoozed" : false
+        },
+        "-KkjwY1BgJxhyAi_XKbu" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Oppassen dat dynamische updates altijd eerst wegschrijven naar server moeten triggeren (geen dataverlies)",
+          "done" : false,
+          "parent" : "-KkjwDh0nWop2fH-eWi_",
+          "snoozed" : false
+        },
+        "-KkjwlIg71-T4iFH0FoB" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Bugs\n",
+          "done" : false,
+          "parent" : "-KkYBcaAHS_cRCMfNHUf",
+          "snoozed" : false
+        },
+        "-Kkjwpt-KbkR2qZbv79j" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Fix af en toe root als parent nieuwe hub (ipv oorspronkelijke parent). Chrome.",
+          "done" : false,
+          "parent" : "-Kkjxygg745UF0Ee-EAr",
+          "snoozed" : false
+        },
+        "-KkjxAcrTI9IvmzLQ5kG" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjyY_gg1OSGi0TtISM",
+          "snoozed" : false
+        },
+        "-KkjxFwLkuGq1y-fy9bS" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjxAcrTI9IvmzLQ5kG",
+          "snoozed" : false
+        },
+        "-KkjxkyGRMDExvcD7wy7" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjyY_gg1OSGi0TtISM",
+          "snoozed" : false
+        },
+        "-Kkjxo7xjqXvCZBaV5uH" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjxkyGRMDExvcD7wy7",
+          "snoozed" : false
+        },
+        "-Kkjxygg745UF0Ee-EAr" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Chrome",
+          "done" : false,
+          "parent" : "-KkjwlIg71-T4iFH0FoB",
+          "snoozed" : false
+        },
+        "-Kkjy-T_QhTP3gvoZibv" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "(x) Verslepen werkt ong. 50% vd keren (altijd de tweede poging?)",
+          "done" : false,
+          "parent" : "-Kkjxygg745UF0Ee-EAr",
+          "snoozed" : false
+        },
+        "-KkjyNVVU2SpcOKWMRFv" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Templating",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-KkjyY_gg1OSGi0TtISM" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "Templates",
+          "done" : false,
+          "parent" : "-KkjyNVVU2SpcOKWMRFv",
+          "snoozed" : false
+        },
+        "-KkjyeCEALvggsVDCcOZ" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Opslaan preferred template voor iedere hubble apart.",
+          "done" : false,
+          "parent" : "-KkjyNVVU2SpcOKWMRFv",
+          "snoozed" : false
+        },
+        "-Kkjz17VcXWQGEUDzNKo" : {
+          "active" : true,
+          "activechildren" : 9,
+          "content" : "Optimization & refactoring",
+          "done" : false,
+          "parent" : "-KkYBcaAHS_cRCMfNHUf",
+          "snoozed" : false
+        },
+        "-Kkjz3y3WJ1S-36I6Av0" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Indexing database",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-KkjzMan3ntWoQ2p_Vkg" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Research option of moving functions to firebase server functions",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-KkjzfXxMbJzut3qnimY" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "Research advantage of switching to Angular",
+          "done" : false,
+          "parent" : "-KknsAFnTLq1vhR73od6",
+          "snoozed" : false
+        },
+        "-KkjznEFLGjHs6qxRler" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Mobile",
+          "done" : false,
+          "parent" : "-KkYBcaAHS_cRCMfNHUf",
+          "snoozed" : false
+        },
+        "-Kkjzp2YgQoMOqGsUdEv" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Move by swiping right and then select from all available hubbles in list",
+          "done" : false,
+          "parent" : "-KkjznEFLGjHs6qxRler",
+          "snoozed" : false
+        },
+        "-Kkk-4r9JHdClI3u8jL-" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Store user root (it's now hard coded to my root)",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-Kkk-E9Pd5w2kZu6V6g-" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Denormalizing parent-child relationship",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-Kkk-KM80H7JcMPM-VmB" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "This allows for remembering order of hubbles (important stuff)",
+          "done" : false,
+          "parent" : "-Kkk-E9Pd5w2kZu6V6g-",
+          "snoozed" : false
+        },
+        "-Kkk-QQ0NADDcoAE8vnw" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Add enforcement of integrity",
+          "done" : false,
+          "parent" : "-Kkk-E9Pd5w2kZu6V6g-",
+          "snoozed" : false
+        },
+        "-Kkk-_XsDnZ_C5UlDZir" : {
+          "active" : true,
+          "activechildren" : 7,
+          "content" : "UI",
+          "done" : false,
+          "parent" : "-KkYBcaAHS_cRCMfNHUf",
+          "snoozed" : false
+        },
+        "-Kkk-cvz1DmlxZUidolw" : {
+          "active" : true,
+          "activechildren" : 10,
+          "content" : "Features / Core",
+          "done" : false,
+          "parent" : "-KkYBcaAHS_cRCMfNHUf",
+          "snoozed" : false
+        },
+        "-Kkk-oY99ZGYowFBX_mt" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Search",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-Kkk-tzxdOL7sLR-2Y_i" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Structural complexity",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-Kkk-wLOaoa1vmuomCc6" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Cross nesting",
+          "done" : false,
+          "parent" : "-Kkk-tzxdOL7sLR-2Y_i",
+          "snoozed" : false
+        },
+        "-Kkk0-ybpBwxKelmHWQj" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Lists & Sublists",
+          "done" : false,
+          "parent" : "-Kkk-tzxdOL7sLR-2Y_i",
+          "snoozed" : false
+        },
+        "-Kkk07lpKnN2dhj3jEjM" : {
+          "active" : true,
+          "activechildren" : 3,
+          "content" : "Theming",
+          "done" : false,
+          "parent" : "-Kkk-_XsDnZ_C5UlDZir",
+          "snoozed" : false
+        },
+        "-Kkk0FTUggttoJyVpn4t" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Themes",
+          "done" : false,
+          "parent" : "-Kkk07lpKnN2dhj3jEjM",
+          "snoozed" : false
+        },
+        "-Kkk0GUGsezOCXbXxTSC" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk0FTUggttoJyVpn4t",
+          "snoozed" : false
+        },
+        "-Kkk0aF2S0muiUAppxQF" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk1Qdl8zg5FMIHh6QW",
+          "snoozed" : false
+        },
+        "-Kkk1Qdl8zg5FMIHh6QW" : {
+          "active" : true,
+          "activechildren" : 3,
+          "content" : "Approach",
+          "done" : false,
+          "parent" : "-Kkk07lpKnN2dhj3jEjM",
+          "snoozed" : false
+        },
+        "-Kkk1UZg0Yvt9I_NzfJX" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk0aF2S0muiUAppxQF",
+          "snoozed" : false
+        },
+        "-Kkk1fpKL_xjAPOP7OAb" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk1Qdl8zg5FMIHh6QW",
+          "snoozed" : false
+        },
+        "-Kkk1p90ihcAVVpN--2H" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk1Qdl8zg5FMIHh6QW",
+          "snoozed" : false
+        },
+        "-Kkk24B9RtQ06JEFxAI_" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjvqrtOL4unnHcKD6P",
+          "snoozed" : false
+        },
+        "-Kkk2Bn2aGBB89bLwbcV" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjvqrtOL4unnHcKD6P",
+          "snoozed" : false
+        },
+        "-Kkk2Qj5mYFY0357NSQO" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Opmaak",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-Kkk2SPjMoNRTrUsO3L2" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Verwijder alle enters",
+          "done" : false,
+          "parent" : "-Kkk2Qj5mYFY0357NSQO",
+          "snoozed" : false
+        },
+        "-Kkk2ZA9zXC63tvOmQaO" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Sneltoetsen",
+          "done" : false,
+          "parent" : "-Kkk-_XsDnZ_C5UlDZir",
+          "snoozed" : false
+        },
+        "-Kkk2fM_uVLq0WohNfkV" : {
+          "active" : true,
+          "activechildren" : 5,
+          "content" : "Hubbub Cards",
+          "done" : false,
+          "parent" : "-Kkk-_XsDnZ_C5UlDZir",
+          "snoozed" : false
+        },
+        "-Kkk2hX0F5wsFcYGTW7T" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Optioneel extra info",
+          "done" : false,
+          "parent" : "-Kkk2fM_uVLq0WohNfkV",
+          "snoozed" : false
+        },
+        "-Kkk2jN9ZiTRWXgTjnZZ" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2hX0F5wsFcYGTW7T",
+          "snoozed" : false
+        },
+        "-Kkk2rsBrHVbZCZEVGIZ" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2hX0F5wsFcYGTW7T",
+          "snoozed" : false
+        },
+        "-Kkk2yZ_ibR5e300QAHM" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Omgang met speciale links",
+          "done" : false,
+          "parent" : "-Kkk5G8_3_LEhFtIzblW",
+          "snoozed" : false
+        },
+        "-Kkk2ywrJSE7HfB9cdas" : {
+          "active" : true,
+          "activechildren" : 5,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2yZ_ibR5e300QAHM",
+          "snoozed" : false
+        },
+        "-Kkk3E-qt-VWkkJlPFke" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2ywrJSE7HfB9cdas",
+          "snoozed" : false
+        },
+        "-Kkk3GcY1a9Pu3mI7i7u" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2ywrJSE7HfB9cdas",
+          "snoozed" : false
+        },
+        "-Kkk3LlaQqkppnFZF9Sy" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2ywrJSE7HfB9cdas",
+          "snoozed" : false
+        },
+        "-Kkk3OPYasGfsCNopgRb" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2ywrJSE7HfB9cdas",
+          "snoozed" : false
+        },
+        "-Kkk3Rk2A9a7EoC7QClj" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2ywrJSE7HfB9cdas",
+          "snoozed" : false
+        },
+        "-Kkk3SmIryZEezlczpt-" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk3OPYasGfsCNopgRb",
+          "snoozed" : false
+        },
+        "-Kkk3UoGic3cNFEy0LOt" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk3OPYasGfsCNopgRb",
+          "snoozed" : false
+        },
+        "-Kkk3d5-h-MS9_yfk9lC" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Parent-child in own table",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-Kkk3frUV1rA-ia4QmIu" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Allows eventually for making links (i.e. non-id's) also hubbles in the tree (like word-documents, web-links, sound-files, e-mails etc.)",
+          "done" : false,
+          "parent" : "-Kkk3d5-h-MS9_yfk9lC",
+          "snoozed" : false
+        },
+        "-Kkk47v6CeLkzaZg2Ub7" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk3Rk2A9a7EoC7QClj",
+          "snoozed" : false
+        },
+        "-Kkk4HpUZaYzKh8HDCCP" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk3LlaQqkppnFZF9Sy",
+          "snoozed" : false
+        },
+        "-Kkk4LLCjwZZggTDO-ca" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk2yZ_ibR5e300QAHM",
+          "snoozed" : false
+        },
+        "-Kkk5G8_3_LEhFtIzblW" : {
+          "active" : true,
+          "activechildren" : 6,
+          "content" : "Integration other services\n",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-Kkk5JviHp_lD2XPxA42" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Pocket / Mendely (leesdingen)",
+          "done" : false,
+          "parent" : "-Kkk5G8_3_LEhFtIzblW",
+          "snoozed" : false
+        },
+        "-Kkk5RtcfQi09mPUjBE5" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Keep / (Evernote / Onenote ?)",
+          "done" : false,
+          "parent" : "-Kkk5G8_3_LEhFtIzblW",
+          "snoozed" : false
+        },
+        "-Kkk5aB6vZapll5z3kcM" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "Google calendar & taken/reminders",
+          "done" : false,
+          "parent" : "-Kkk5G8_3_LEhFtIzblW",
+          "snoozed" : false
+        },
+        "-Kkk5gYiwuF_IvUEfzZ8" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Mail / gmail",
+          "done" : false,
+          "parent" : "-Kkk5G8_3_LEhFtIzblW",
+          "snoozed" : false
+        },
+        "-Kkk5k-wspVFBE6gugCt" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5gYiwuF_IvUEfzZ8",
+          "snoozed" : false
+        },
+        "-Kkk5qKcE3WpsYbZQOOs" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5aB6vZapll5z3kcM",
+          "snoozed" : false
+        },
+        "-Kkk5s3a0fxsXxdjOj6E" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5aB6vZapll5z3kcM",
+          "snoozed" : false
+        },
+        "-Kkk61s6mcwvkeMBh3BX" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5aB6vZapll5z3kcM",
+          "snoozed" : false
+        },
+        "-Kkk6778fO4kOqKv2e8G" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5aB6vZapll5z3kcM",
+          "snoozed" : false
+        },
+        "-Kkk6Benfe2phwgOBq3Y" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk6778fO4kOqKv2e8G",
+          "snoozed" : false
+        },
+        "-Kkk6UxPri6o0ZddT5Qa" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Zappier / IFTTT?",
+          "done" : false,
+          "parent" : "-Kkk5G8_3_LEhFtIzblW",
+          "snoozed" : false
+        },
+        "-Kkk74kqYz_6rL4AA859" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5RtcfQi09mPUjBE5",
+          "snoozed" : false
+        },
+        "-Kkk7AgOhhNpw9xFJPPc" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk6UxPri6o0ZddT5Qa",
+          "snoozed" : false
+        },
+        "-Kkk7GUs9DkMNssfq67d" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5JviHp_lD2XPxA42",
+          "snoozed" : false
+        },
+        "-Kkk8UeaWj-rj2Vj8Mgm" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk07lpKnN2dhj3jEjM",
+          "snoozed" : false
+        },
+        "-Kkk8Xs-yv-7Y7hQ2GW_" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjzfXxMbJzut3qnimY",
+          "snoozed" : false
+        },
+        "-Kkk8an4q_ZERTfR-2nw" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjzfXxMbJzut3qnimY",
+          "snoozed" : false
+        },
+        "-KkkASnTtUi_CeokXRsK" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Task / visibility structure",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-KkkAWCuMOEG766622Qw" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Mark task as done",
+          "done" : false,
+          "parent" : "-KkkAyHkoLh9S6CE4c-N",
+          "snoozed" : false
+        },
+        "-KkkAm83dVfInDvITBT7" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkkAtN_rXUWXc1RHknP",
+          "snoozed" : false
+        },
+        "-KkkAtN_rXUWXc1RHknP" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Snoozing",
+          "done" : false,
+          "parent" : "-KkkAyHkoLh9S6CE4c-N",
+          "snoozed" : false
+        },
+        "-KkkAyHkoLh9S6CE4c-N" : {
+          "active" : true,
+          "activechildren" : 4,
+          "content" : "Hubble status",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-KkkBG1tlW0hODLT1Dev" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkkBTRJAtFlOVznkbUw",
+          "snoozed" : false
+        },
+        "-KkkBLU65NFcCatB-AXP" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkkBTRJAtFlOVznkbUw",
+          "snoozed" : false
+        },
+        "-KkkBTRJAtFlOVznkbUw" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Status rules",
+          "done" : false,
+          "parent" : "-KkkAyHkoLh9S6CE4c-N",
+          "snoozed" : false
+        },
+        "-KkkBdO2xNaZTbQGE0cO" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkkAtN_rXUWXc1RHknP",
+          "snoozed" : false
+        },
+        "-KkkBixM8jm8sd8QqwAl" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "UI: active = negative (black background, white foreground), or (in material): accent colour.",
+          "done" : false,
+          "parent" : "-KkkAyHkoLh9S6CE4c-N",
+          "snoozed" : false
+        },
+        "-KkkC7hxuC-jSu0PPn0E" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Hide title bar",
+          "done" : false,
+          "parent" : "-KkkCGs2tFkKaCpV8PgJ",
+          "snoozed" : false
+        },
+        "-KkkCAyR3EfVeCajnnV4" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Full screen mode",
+          "done" : false,
+          "parent" : "-KkkCGs2tFkKaCpV8PgJ",
+          "snoozed" : false
+        },
+        "-KkkCDRvoyCeFkyWv8f9" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Hide children",
+          "done" : false,
+          "parent" : "-KkkCGs2tFkKaCpV8PgJ",
+          "snoozed" : false
+        },
+        "-KkkCGs2tFkKaCpV8PgJ" : {
+          "active" : true,
+          "activechildren" : 3,
+          "content" : "Hiding / zenning",
+          "done" : false,
+          "parent" : "-Kkk-_XsDnZ_C5UlDZir",
+          "snoozed" : false
+        },
+        "-KkkDGrDP7WDXqDronal" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Redesign sign in",
+          "done" : false,
+          "parent" : "-Kkk-_XsDnZ_C5UlDZir",
+          "snoozed" : false
+        },
+        "-KkkDKhjFAzF7wNFMWA_" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Auto-Bubble",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-KkkDNAm3_kJtHTYnppN" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Automatically zoom to \"current\" bubble",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-KkkDSFbXVatVLC603gR" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "location based",
+          "done" : false,
+          "parent" : "-KkkDNAm3_kJtHTYnppN",
+          "snoozed" : false
+        },
+        "-KkkDUAxBOfl0diBxnIN" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "time based (linked to plans / snoozing)",
+          "done" : false,
+          "parent" : "-KkkDNAm3_kJtHTYnppN",
+          "snoozed" : false
+        },
+        "-KkkDmGh0l99aeh7pVt9" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjoY8i6m6KMOwtgBLc",
+          "snoozed" : false
+        },
+        "-KkkDo4Enavo30TGk1ES" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjoY8i6m6KMOwtgBLc",
+          "snoozed" : false
+        },
+        "-KkkET_-EMKfekPb1zHI" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjoZfLVlhZz7JALcgT",
+          "snoozed" : false
+        },
+        "-KkkEcgnf-awDoYHuY2a" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjoZfLVlhZz7JALcgT",
+          "snoozed" : false
+        },
+        "-KkkEhoBxB6X0EgktVtC" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Lege Hubble (geen content / geen children) verdwijnt automatisch",
+          "done" : false,
+          "parent" : "-Kkk-cvz1DmlxZUidolw",
+          "snoozed" : false
+        },
+        "-KkkEsPajLv1MVcjAHp6" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Afkorten content (max zoveel tekens / tot aan dubbele punt?)",
+          "done" : false,
+          "parent" : "-Kkk2fM_uVLq0WohNfkV",
+          "snoozed" : false
+        },
+        "-KkkJgORT6xxEd6pyn3U" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Koffie",
+          "done" : false,
+          "parent" : "-Kkh2PWWnYa5Lrdi1mke",
+          "snoozed" : false
+        },
+        "-KkkJiFjUaOvgNuvW6pU" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkh2PWWnYa5Lrdi1mke",
+          "snoozed" : false
+        },
+        "-KkkJqqrkaFj0bGBWEGO" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Huishouden",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXc",
+          "snoozed" : false
+        },
+        "-KkkJtNSGsSJB_iZ_wut" : {
+          "active" : true,
+          "activechildren" : 3,
+          "content" : "Kopen",
+          "done" : false,
+          "parent" : "-KkkJqqrkaFj0bGBWEGO",
+          "snoozed" : false
+        },
+        "-KkkJvVeII4QMsdUVa04" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Ikea",
+          "done" : false,
+          "parent" : "-KkkJtNSGsSJB_iZ_wut",
+          "snoozed" : false
+        },
+        "-KkkJwtySFj3NBTi4wHe" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Bestek tweede set",
+          "done" : false,
+          "parent" : "-KkkJvVeII4QMsdUVa04",
+          "snoozed" : false
+        },
+        "-KkkK-IFpfIMRJUk9b8C" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Servies, tweede set",
+          "done" : false,
+          "parent" : "-KkkJvVeII4QMsdUVa04",
+          "snoozed" : false
+        },
+        "-KkkKNC8gBy3i9SBzhC7" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Inrichting",
+          "done" : false,
+          "parent" : "-KkkJtNSGsSJB_iZ_wut",
+          "snoozed" : false
+        },
+        "-KkkKOWI503Dsq6TjvtP" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Laag kastje voor muziekspullen aan voeteneind",
+          "done" : false,
+          "parent" : "-KkkJtNSGsSJB_iZ_wut",
+          "snoozed" : false
+        },
+        "-KkkL2zCJ6HGmH4R5NXv" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "DR2",
+          "done" : false,
+          "parent" : "-KkH0zfe8iFmISe508Lz",
+          "snoozed" : false
+        },
+        "-KkkL4PYgIS3ovUKYx0w" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "DR3",
+          "done" : false,
+          "parent" : "-KkH0zfe8iFmISe508Lz",
+          "snoozed" : false
+        },
+        "-Kkkw2BYrAF4DP_SVDh5" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "port to tscript",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-KkkyIkFcOQZEe_atT_2" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "add less or sass",
+          "done" : false,
+          "parent" : "-KknsAFnTLq1vhR73od6",
+          "snoozed" : false
+        },
+        "-KkkyLfI-03BxjAKl889" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkkyIkFcOQZEe_atT_2",
+          "snoozed" : false
+        },
+        "-Kkl0qSh0LF2h7pKgqyN" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkk5gYiwuF_IvUEfzZ8",
+          "snoozed" : false
+        },
+        "-Kkl0uC-wYW54azKV5Yq" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkl0qSh0LF2h7pKgqyN",
+          "snoozed" : false
+        },
+        "-Kkl7gGybXA6bJwX0Myb" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : true,
+          "parent" : "-KkYBgiWvs5zBzdJ5l3p",
+          "snoozed" : false
+        },
+        "-Kkl7jusMu9HzAt4bXLI" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "parent" : "-KkjmSggEFyowsnvvTG8"
+        },
+        "-Kkl7o8CiIK8sCGxJKXG" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "parent" : "-KkjmSggEFyowsnvvTG8"
+        },
+        "-Kkl7tc46c6FE6WV-GT0" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "test",
+          "parent" : "-Kkf3N4Mv0QRpgjPUJ6N"
+        },
+        "-Kkm1eyBv0bC-Xx1hGTV" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjzfXxMbJzut3qnimY",
+          "snoozed" : false
+        },
+        "-Kkm1ilC0Rf_-QzttVCZ" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkjzfXxMbJzut3qnimY",
+          "snoozed" : false
+        },
+        "-KknsAFnTLq1vhR73od6" : {
+          "active" : true,
+          "activechildren" : 5,
+          "content" : "Use frameworks",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-KknsQHhDSAbNAZS6c6j" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KknsRF3Zol1ThZsPaUW",
+          "snoozed" : false
+        },
+        "-KknsRF3Zol1ThZsPaUW" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "<>Of eerst eens Vue uitproberen. Dat lijkt een stuk lichte",
+          "done" : false,
+          "parent" : "-KknsAFnTLq1vhR73od6",
+          "snoozed" : false
+        },
+        "-Kko7LC_-Xl_tpBcyr7r" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "parent" : "-KknsAFnTLq1vhR73od6"
+        },
+        "-KkqY5LvRNTy8XfdYpao" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkqYa4U0ORyFFAbPnnT",
+          "snoozed" : false
+        },
+        "-KkqYa4U0ORyFFAbPnnT" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "User Polymer for databinding & templating",
+          "done" : false,
+          "parent" : "-KknsAFnTLq1vhR73od6",
+          "snoozed" : false
+        },
+        "-KkqYscQm_QeBloi9YXw" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Support creation of new child through link",
+          "done" : false,
+          "parent" : "-Kkjz17VcXWQGEUDzNKo",
+          "snoozed" : false
+        },
+        "-KkrB--Yp3DE097ds91W" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrBv39AARQ4ONTIvQL",
+          "snoozed" : false
+        },
+        "-KkrBeaKziQW9gdmW2lu" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrBv39AARQ4ONTIvQL",
+          "snoozed" : false
+        },
+        "-KkrBtKPgZu2WjYHs106" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrBeaKziQW9gdmW2lu",
+          "snoozed" : false
+        },
+        "-KkrBv39AARQ4ONTIvQL" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrD4ywUSPLx7nvr0zn",
+          "snoozed" : false
+        },
+        "-KkrCKhXT0HgnsS36CNB" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrBeaKziQW9gdmW2lu",
+          "snoozed" : false
+        },
+        "-KkrCZ73vLO9NnvEWCvz" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrD4ywUSPLx7nvr0zn",
+          "snoozed" : false
+        },
+        "-KkrCaH1_KqLxxNJtfqz" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrCzi-k6EFtwkghs1C",
+          "snoozed" : false
+        },
+        "-KkrCzi-k6EFtwkghs1C" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrCZ73vLO9NnvEWCvz",
+          "snoozed" : false
+        },
+        "-KkrD4ywUSPLx7nvr0zn" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7",
+          "snoozed" : false
+        },
+        "-KkrGcc-RPVwCYHU5K1I" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkrCzi-k6EFtwkghs1C",
+          "snoozed" : false
+        },
+        "-Kku8jwj1fIF3urmonHy" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "Anglicismen en alternatieven",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXb",
+          "snoozed" : false
+        },
+        "-Kku8nG5FKKkE_rcZht6" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "etnisch profileren",
+          "done" : false,
+          "parent" : "-Kku8jwj1fIF3urmonHy",
+          "snoozed" : false
+        },
+        "-Kku9NMjTaV05JmjCyTS" : {
+          "active" : true,
+          "activechildren" : 2,
+          "content" : "gebalanceerd",
+          "done" : false,
+          "parent" : "-Kku8jwj1fIF3urmonHy",
+          "snoozed" : false
+        },
+        "-Kku9OOcBIJFA1tdgW4y" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "balanced",
+          "done" : false,
+          "parent" : "-Kku9NMjTaV05JmjCyTS",
+          "snoozed" : false
+        },
+        "-Kku9PYKwLCfL2nwOLOo" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "evenwichtig",
+          "done" : false,
+          "parent" : "-Kku9NMjTaV05JmjCyTS",
+          "snoozed" : false
+        },
+        "-Kku9Ru06DOy-yptxzqA" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "ethnic profiling",
+          "done" : false,
+          "parent" : "-Kku8nG5FKKkE_rcZht6",
+          "snoozed" : false
+        },
+        "-Kku9UQVpxlbI0ckipES" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "etnisch onderscheiden",
+          "done" : false,
+          "parent" : "-Kku8nG5FKKkE_rcZht6",
+          "snoozed" : false
+        },
+        "-Kl-qHqOqo0tk3IjzWoP" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KkkK-IFpfIMRJUk9b8C",
+          "snoozed" : false
+        },
+        "-Kl-qIjVWJo80ROU9Nw2" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7"
+        },
+        "-Kl-qLIfQ0FYRweJuGH-" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7"
+        },
+        "-Kl-wSny_RuXVeYYhxLG" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7"
+        },
+        "-Kl-xFAomIu7-6dW8Nhx" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "parent" : "-Kkjnk3g_jsG0Fy8rig7"
+        },
+        "-Kl953TFcsMfW-KB5OxM" : {
+          "active" : true,
+          "activechildren" : 1,
+          "content" : "Liedjes",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXb",
+          "snoozed" : false
+        },
+        "-Kl954p18uxIstBnvTrq" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-Kl953TFcsMfW-KB5OxM",
+          "snoozed" : false
+        },
+        "-KlIRgAboaWPOmwbIJ_f" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Todo ",
+          "done" : false,
+          "parent" : "-KkH0zh2HeFb9De2KBXc",
+          "snoozed" : false
+        },
+        "-KlIRsxzIvgfWXoLvqen" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Inzage DR3",
+          "done" : true,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlIRunBdLdMv94FnJID" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Mail afhandelen (mn dr2-related)",
+          "done" : true,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlIS25ByX7NtXqeTftM" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Uitnodigingen mentorgesprekken",
+          "done" : false,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlIS3wSV-RH0SRof5_0" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Mentorverslagjes",
+          "done" : false,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlIS69pxDEsGBKSw7dW" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Nakijken opdracht 5",
+          "done" : false,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlIS7ngmTQdUQS3BTp8" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Nakijken opdracht 4",
+          "done" : true,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlIT6-pZhi5No7rkUfQ" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Wanneer kunnen studenten?",
+          "done" : true,
+          "parent" : "-KlIRsxzIvgfWXoLvqen",
+          "snoozed" : false
+        },
+        "-KlIT7ze_Giic4zWXnW0" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Mailtje naar Daphne",
+          "done" : true,
+          "parent" : "-KlIRsxzIvgfWXoLvqen",
+          "snoozed" : false
+        },
+        "-KlIT9Pm2tSviIUkMXNO" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Mailtje naar studenten",
+          "done" : true,
+          "parent" : "-KlIRsxzIvgfWXoLvqen",
+          "snoozed" : false
+        },
+        "-KlIZ5exA8A-eGTyoUib" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Beoordelen examen DR2",
+          "done" : true,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlIZXqHCMzP5BoKqowo" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Fiddler Handbook voor Suus",
+          "done" : false,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlI_2Ay1JJ31o4K4Rzo" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Oplossen updateprobleem Desktop-elmar",
+          "done" : false,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlI_7SAw1G-XYYDwNHf" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Betalen Bouwien Chris Thile",
+          "done" : false,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlI_BZGY_Lol4TxoQhA" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Betalen Ann",
+          "done" : false,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlJ2ZGfZT9khc6ZR4vU" : {
+          "active" : false,
+          "activechildren" : 0,
+          "content" : "Marie A. group",
+          "done" : true,
+          "parent" : "-KlIRgAboaWPOmwbIJ_f",
+          "snoozed" : false
+        },
+        "-KlJ60OZ3h5BxV9KGkl4" : {
+          "active" : true,
+          "activechildren" : 3,
+          "content" : "Add action bar that's shown on mouse-over",
+          "done" : false,
+          "parent" : "-Kkk2fM_uVLq0WohNfkV",
+          "snoozed" : false
+        },
+        "-KlJ667ATBCXs9b4mhq8" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KlJ60OZ3h5BxV9KGkl4",
+          "snoozed" : false
+        },
+        "-KlJ6ARX66wjl0vt53Of" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KlJ60OZ3h5BxV9KGkl4",
+          "snoozed" : false
+        },
+        "-KlJ6CjCdvWZ9PscB9jW" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "",
+          "done" : false,
+          "parent" : "-KlJ60OZ3h5BxV9KGkl4",
+          "snoozed" : false
+        },
+        "-KlJ6a9cbP8aPevFwwyO" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Change card font",
+          "done" : false,
+          "parent" : "-Kkk2fM_uVLq0WohNfkV",
+          "snoozed" : false
+        },
+        "-KlJ6e8VkKSA-LxRgJ8E" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "Make font of main content auto-adjust width",
+          "done" : false,
+          "parent" : "-Kkk2fM_uVLq0WohNfkV",
+          "snoozed" : false
+        },
+        "-KlNpEqgkjA0FMHUYQY0" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "test",
+          "parent" : "-KkH0zgfql-SZ8990IoO"
+        },
+        "-KlNpIjWtLmwnZ2hXEu1" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "test 2",
+          "parent" : "-KkH0zgfql-SZ8990IoO"
+        },
+        "-KlVZ_UCaAMrnKX3HVUM" : {
+          "content" : "",
+          "parent" : "-KkH0zgqryg9C8TASSKT"
+        },
+        "-KlVZcInNQAeLpZykes8" : {
+          "content" : "",
+          "parent" : "-KlVZ_UCaAMrnKX3HVUM"
+        },
+        "-KlVZhRNTYK0Bjthik8n" : {
+          "content" : "",
+          "parent" : "-KlVZ_UCaAMrnKX3HVUM"
+        },
+        "-KlVZl5Vpm6sErCuiZ_x" : {
+          "content" : "",
+          "parent" : "-KlVZcInNQAeLpZykes8"
+        },
+        "-KlV_-bzpNZXuFDHE8IA" : {
+          "content" : "",
+          "parent" : "-KlVZhRNTYK0Bjthik8n"
+        },
+        "active-child-count" : 1,
+        "activechildren" : 1,
+        "hallo" : {
+          "active" : true,
+          "activechildren" : 0,
+          "content" : "bij lege content rare verspringing cursos",
+          "done" : false,
+          "parent" : "-KkYBUP-Xm8nbUQXkfus",
+          "snoozed" : false
+        },
+        "parent" : "-KkYBgiWvs5zBzdJ5l3p",
+        "undefined" : {
+          "content" : "Google > Material Design Lite > How to install MDL \n"
+        }
+      }
+    }
+  }
+}
