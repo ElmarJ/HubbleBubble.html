@@ -1,0 +1,15 @@
+{
+    "include": [
+        "public/**/*",
+        "node_modules/firebase/*.d.ts", // automatic type acquisition files don't work, but definitions are provided in nodes module itself.
+        "node_modules/@types/jquery"
+    ],
+    "exclude": [],
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "es2015",
+        "sourceMap": true,
+        "removeComments": true,
+        "watch": false
+    }
+}

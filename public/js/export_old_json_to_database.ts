@@ -16,19 +16,19 @@ const hubbleroot = {
                                     "children": [{
                                             "content": "Meritocratie",
                                             "children": [{
-                                                    "content": "Paul de Beer",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }],
+                                                "content": "Paul de Beer",
+                                                "children": [],
+                                                "collapsed": true
+                                            }],
                                             "collapsed": true
                                         },
                                         {
                                             "content": "Plutocratie",
                                             "children": [{
-                                                    "content": "Giles and Page",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }],
+                                                "content": "Giles and Page",
+                                                "children": [],
+                                                "collapsed": true
+                                            }],
                                             "collapsed": true
                                         },
                                         {
@@ -69,10 +69,10 @@ const hubbleroot = {
                                         {
                                             "content": "Median voter theorem",
                                             "children": [{
-                                                    "content": "Downs / strand / ijscoman",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }],
+                                                "content": "Downs / strand / ijscoman",
+                                                "children": [],
+                                                "collapsed": true
+                                            }],
                                             "collapsed": true
                                         }
                                     ],
@@ -137,10 +137,10 @@ const hubbleroot = {
                                                     "children": [{
                                                             "content": "absolute macht corrumpeert absoluut",
                                                             "children": [{
-                                                                    "content": "",
-                                                                    "children": [],
-                                                                    "collapsed": true
-                                                                }],
+                                                                "content": "",
+                                                                "children": [],
+                                                                "collapsed": true
+                                                            }],
                                                             "collapsed": true
                                                         },
                                                         {
@@ -157,10 +157,10 @@ const hubbleroot = {
                                         {
                                             "content": "Concurrentie tussen leiders (Schumpeter)",
                                             "children": [{
-                                                    "content": "Laat het volk niet aan de macht: dat lukt nooit echt (ze worden gemanipuleerd) en is niet wenselijk ook. (Schumpeter)",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }],
+                                                "content": "Laat het volk niet aan de macht: dat lukt nooit echt (ze worden gemanipuleerd) en is niet wenselijk ook. (Schumpeter)",
+                                                "children": [],
+                                                "collapsed": true
+                                            }],
                                             "collapsed": true
                                         }
                                     ],
@@ -169,10 +169,10 @@ const hubbleroot = {
                                 {
                                     "content": "Huidige acceptatie democratie",
                                     "children": [{
-                                            "content": "Crisis van de democratie???",
-                                            "children": [],
-                                            "collapsed": true
-                                        }],
+                                        "content": "Crisis van de democratie???",
+                                        "children": [],
+                                        "collapsed": true
+                                    }],
                                     "collapsed": true
                                 },
                                 {
@@ -185,19 +185,19 @@ const hubbleroot = {
                                         {
                                             "content": "Proteststem",
                                             "children": [{
-                                                    "content": "(Eelco: vrouwen gevoeliger sociaal stigma?)",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }],
+                                                "content": "(Eelco: vrouwen gevoeliger sociaal stigma?)",
+                                                "children": [],
+                                                "collapsed": true
+                                            }],
                                             "collapsed": true
                                         },
                                         {
                                             "content": "Inhoudelijk kiezen",
                                             "children": [{
-                                                    "content": "Maar ook: wat is er eerst, de opinie of de stem?",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }],
+                                                "content": "Maar ook: wat is er eerst, de opinie of de stem?",
+                                                "children": [],
+                                                "collapsed": true
+                                            }],
                                             "collapsed": true
                                         },
                                         {
@@ -223,10 +223,10 @@ const hubbleroot = {
                                         {
                                             "content": "Reageren op actualiteit",
                                             "children": [{
-                                                    "content": "Studie die wouter noemde (EJPS?: crisis vs. electoral support)",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }],
+                                                "content": "Studie die wouter noemde (EJPS?: crisis vs. electoral support)",
+                                                "children": [],
+                                                "collapsed": true
+                                            }],
                                             "collapsed": true
                                         }
                                     ],
@@ -396,10 +396,10 @@ const hubbleroot = {
                 {
                     "content": "PSS",
                     "children": [{
-                            "content": "CK revealing his argument: Natural science and humanities not all that different.  Understanding = interpretation. \"The world is like a text\". And we analyze using analogies.",
-                            "children": [],
-                            "collapsed": true
-                        }],
+                        "content": "CK revealing his argument: Natural science and humanities not all that different.  Understanding = interpretation. \"The world is like a text\". And we analyze using analogies.",
+                        "children": [],
+                        "collapsed": true
+                    }],
                     "collapsed": true
                 },
                 {
@@ -420,10 +420,10 @@ const hubbleroot = {
                 {
                     "content": "Om te oefenen",
                     "children": [{
-                            "content": "",
-                            "children": [],
-                            "collapsed": true
-                        }],
+                        "content": "",
+                        "children": [],
+                        "collapsed": true
+                    }],
                     "collapsed": true
                 }
             ],
@@ -434,35 +434,35 @@ const hubbleroot = {
             "children": [{
                     "content": "M'n hoofd",
                     "children": [{
-                            "content": "Werken",
-                            "children": [{
-                                    "content": "Ik heb de dingen altijd beter in m'n hoofd zitten dan ze er uitkomen. Dus laat ik ze het liefst zo lang mogelijk in m'n hoofd zitten",
-                                    "children": [],
-                                    "collapsed": true
-                                },
-                                {
-                                    "content": "Tijdens uitvoeren taken is het lastig te accepteren dat er een beperkte tijd voor staat - dus ik doe er altijd langer over.",
-                                    "children": [],
-                                    "collapsed": true
-                                },
-                                {
-                                    "content": "Bang om \"in iets te duiken\" (het doosje met de taak openmaken)",
-                                    "children": [{
-                                            "content": "uit angst er in verstrikt te raken?",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": " uit angst dat ik meteen me realiseer dat het niet lukken gaat.",
-                                            "children": [],
-                                            "collapsed": true
-                                        }
-                                    ],
-                                    "collapsed": true
-                                }
-                            ],
-                            "collapsed": true
-                        }],
+                        "content": "Werken",
+                        "children": [{
+                                "content": "Ik heb de dingen altijd beter in m'n hoofd zitten dan ze er uitkomen. Dus laat ik ze het liefst zo lang mogelijk in m'n hoofd zitten",
+                                "children": [],
+                                "collapsed": true
+                            },
+                            {
+                                "content": "Tijdens uitvoeren taken is het lastig te accepteren dat er een beperkte tijd voor staat - dus ik doe er altijd langer over.",
+                                "children": [],
+                                "collapsed": true
+                            },
+                            {
+                                "content": "Bang om \"in iets te duiken\" (het doosje met de taak openmaken)",
+                                "children": [{
+                                        "content": "uit angst er in verstrikt te raken?",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": " uit angst dat ik meteen me realiseer dat het niet lukken gaat.",
+                                        "children": [],
+                                        "collapsed": true
+                                    }
+                                ],
+                                "collapsed": true
+                            }
+                        ],
+                        "collapsed": true
+                    }],
                     "collapsed": true
                 },
                 {
@@ -485,10 +485,10 @@ const hubbleroot = {
                         {
                             "content": "UI / Websites",
                             "children": [{
-                                    "content": "Making the \"Register\"-button more visible and bigger than the \"login\" button is pure evil and disrespecting your current users or customers.\n",
-                                    "children": [],
-                                    "collapsed": true
-                                }],
+                                "content": "Making the \"Register\"-button more visible and bigger than the \"login\" button is pure evil and disrespecting your current users or customers.\n",
+                                "children": [],
+                                "collapsed": true
+                            }],
                             "collapsed": true
                         }
                     ],
@@ -499,20 +499,20 @@ const hubbleroot = {
                     "children": [{
                             "content": "Economische gelijkheid",
                             "children": [{
-                                    "content": "Herverdeling pakt de armen",
-                                    "children": [{
-                                            "content": "Uiteindelijk is het rechtse argument dat de belofte van een meer gelijker verdeling weliswaar mooi klinkt, maar tot armoede leidt het failliet van dit argument. Want het is toegeven dat het ofwel superieur is en brengt de hele verdediging terug tot een empirisch falsificeerbare (en - dat weten we al - niet zo sterke) bewering. Dus dat is de hoek waar je ze wilt hebben.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "Leg bloot dat een rechts politicus tegenover arme mensen het pragmatische argument gebruikt, en voor rijken het andere. Iedere keer dat hij tegen de mensen die beter af zijn zegt \"jullie hebben er hard voor gewerkt\" impliceert hij dat de rest van het land niet hard werkt. Maak dat duidelijk!",
-                                            "children": [],
-                                            "collapsed": true
-                                        }
-                                    ],
-                                    "collapsed": true
-                                }],
+                                "content": "Herverdeling pakt de armen",
+                                "children": [{
+                                        "content": "Uiteindelijk is het rechtse argument dat de belofte van een meer gelijker verdeling weliswaar mooi klinkt, maar tot armoede leidt het failliet van dit argument. Want het is toegeven dat het ofwel superieur is en brengt de hele verdediging terug tot een empirisch falsificeerbare (en - dat weten we al - niet zo sterke) bewering. Dus dat is de hoek waar je ze wilt hebben.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "Leg bloot dat een rechts politicus tegenover arme mensen het pragmatische argument gebruikt, en voor rijken het andere. Iedere keer dat hij tegen de mensen die beter af zijn zegt \"jullie hebben er hard voor gewerkt\" impliceert hij dat de rest van het land niet hard werkt. Maak dat duidelijk!",
+                                        "children": [],
+                                        "collapsed": true
+                                    }
+                                ],
+                                "collapsed": true
+                            }],
                             "collapsed": true
                         },
                         {
@@ -609,10 +609,10 @@ const hubbleroot = {
                                             "children": [{
                                                     "content": "Daarom die obsessie met rapporten schrijven, analyseren van het proces, hervormen etc.\n",
                                                     "children": [{
-                                                            "content": "Oorzaak / uitleg: we hebben zo weinig zinnig werk, dat we vooral iets verzinnen voor de mensen die we hebben.\n",
-                                                            "children": [],
-                                                            "collapsed": true
-                                                        }],
+                                                        "content": "Oorzaak / uitleg: we hebben zo weinig zinnig werk, dat we vooral iets verzinnen voor de mensen die we hebben.\n",
+                                                        "children": [],
+                                                        "collapsed": true
+                                                    }],
                                                     "collapsed": true
                                                 },
                                                 {
@@ -639,29 +639,29 @@ const hubbleroot = {
                             "children": [{
                                     "content": "Esthetiek",
                                     "children": [{
-                                            "content": "Onze behoefte aan esthetiek staat ons in de weg. De beste oplossingen zijn vaak de lelijkste compromissen, nooit het perfecte simpele verhaal - de obsessie met zulke verhalen is zelfs ronduit gevaarlijk (en we moeten \n",
-                                            "children": [],
-                                            "collapsed": true
-                                        }],
+                                        "content": "Onze behoefte aan esthetiek staat ons in de weg. De beste oplossingen zijn vaak de lelijkste compromissen, nooit het perfecte simpele verhaal - de obsessie met zulke verhalen is zelfs ronduit gevaarlijk (en we moeten \n",
+                                        "children": [],
+                                        "collapsed": true
+                                    }],
                                     "collapsed": true
                                 },
                                 {
                                     "content": "Vrije wil",
                                     "children": [{
-                                            "content": "Iets over vrije wil. Reageren op https://decorrespondent.nl/3347/Politieke-meningsverschillen-gaan-vaak-maar-over-een-ding-de-vrije-wil/177331878592-209c6d5c",
-                                            "children": [{
-                                                    "content": "Denk ook aan “fundamental attribution error”",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                },
-                                                {
-                                                    "content": "Verbinden met Veil of Ignorance (we verstoppen graag achter die veil alles wat niet “vrije wil” is – denk ook aan religie en homoseksualiteit) en kansengelijkheid (wederom: alles wat niet vrije wil is mag je kansen niet veranderen).",
-                                                    "children": [],
-                                                    "collapsed": true
-                                                }
-                                            ],
-                                            "collapsed": true
-                                        }],
+                                        "content": "Iets over vrije wil. Reageren op https://decorrespondent.nl/3347/Politieke-meningsverschillen-gaan-vaak-maar-over-een-ding-de-vrije-wil/177331878592-209c6d5c",
+                                        "children": [{
+                                                "content": "Denk ook aan “fundamental attribution error”",
+                                                "children": [],
+                                                "collapsed": true
+                                            },
+                                            {
+                                                "content": "Verbinden met Veil of Ignorance (we verstoppen graag achter die veil alles wat niet “vrije wil” is – denk ook aan religie en homoseksualiteit) en kansengelijkheid (wederom: alles wat niet vrije wil is mag je kansen niet veranderen).",
+                                                "children": [],
+                                                "collapsed": true
+                                            }
+                                        ],
+                                        "collapsed": true
+                                    }],
                                     "collapsed": true
                                 }
                             ],
@@ -670,68 +670,68 @@ const hubbleroot = {
                         {
                             "content": "Gender",
                             "children": [{
-                                    "content": "Flipped",
-                                    "children": [{
-                                            "content": "We moeten natuurlijk ook de rol van haar man niet vergeten. Hij was echt haar steun en toeverlaat. En je moet niet vergeten dat hij ook niet op z'n mondje gevallen was - zonder hem was ze nergens geweest.\n",
-                                            "children": [],
-                                            "collapsed": true
-                                        }],
+                                "content": "Flipped",
+                                "children": [{
+                                    "content": "We moeten natuurlijk ook de rol van haar man niet vergeten. Hij was echt haar steun en toeverlaat. En je moet niet vergeten dat hij ook niet op z'n mondje gevallen was - zonder hem was ze nergens geweest.\n",
+                                    "children": [],
                                     "collapsed": true
                                 }],
+                                "collapsed": true
+                            }],
                             "collapsed": true
                         },
                         {
                             "content": "Neutraliteit bestaat niet",
                             "children": [{
-                                    "content": "On nature nurture",
-                                    "children": [{
-                                            "content": "I’ve never understood why people make such a fuzz over the nature/nurture-question in gender studies – even (actually mostly) exceptionally smart people. More precisely, I don’t see why it has any relevance as an academic debate. I do see why it may, on a very  superficial level, an important debate – why it sounds cool and interesting so to say, but I don’t see why any scientist would ever in his right mind present it as more relevant than the debate whether, let’s say, the sky is more blue than a blue violet – not at all that is.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "Let me start by explaining why I think people are attracted to this debate and why I assume people may see it as important. To do that, let’s start with a volcano. Nobody would ever make a normative statement about the eruption of volcanos. You don’t say “that volcano-eruption was illegitimate, or unjust”. Now, it seems attractive to say that that’s the case because volcanos are a natural phenomenon – and we don’t judge natural phenomena the way we judge human behaviour. But that’s too easy. It is the fact that we humans have no control over it that make the normative side non-existent. Imagine that we had full control over all volcanos in the world – by building hypothetical shields above each and every volcano. If opening up the shield would lead to an almost certain and almost immediate eruption, we would start talking about that same eruption as if it was caused by us humans opening it (compare: demolishing a dike and as such restoring the natural position of the water, would be seen as an action and would endow you with guilt, only because we have the ability to stop the flood – the “natural” situation). Concluding: there is no such thing as “objective” causation (because that always introduces the arbitrariness of the choice for a natural or neutral position – and we don’t want our judgements to be based on arbitrary choices). The only question that matters here, is whether we as humans would have had any influence over the outcome.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "Now often, “natural phenomena” are phenomena that we have relatively little control over – and that makes the confusion (natural phenomenon -> natural cause -> can’t judge) so logical. But it’s not always the case, and it’s a dangerous confusion because it can make something often quite arbitrary and always quite irrelevant question of whether something is “natural” suddenly a super important question. But it isn’t.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "Let me explain by going back to the nurture nature debate. In short, it is intuitively attractive to think that gender differences are in some way problematic if they are the result of cultural norms and social structures (nurture) and are not normatively problematic (so not more than a volcano eruption can be problematic – just a fact of life) if they directly stem from biological factors (nature). But here we are mixing things up. And we can show that from two angles.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "First, we can wonder what it would mean for something to be “nature”. What do we mean by natural behaviour? Is there a golden standard to separate nature from nurture? No there’s not – it’s deeply arbitrary. It implies that we can think about the absolute “neutral” or “unspoiled” human that has “no culture” whatsoever, but that is impossible. What do we mean by this person? Someone who never encountered someone else and runs naked through the woods? But is that natural? Or would it be the differences we’d encounter if we would let men and women alone in a desert? And would you let them together? Alone? In a group? And what would “unspoiled by culture” mean in a group? Human groups always have culture. And if you find that all groups share the same peace of culture, would you describe that as nature or nurture? And what if one in a thousand groups doesn’t share this single feature? Would that suddenly make it nurture? That all sounds deeply arbitrary.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "Second, once we have chosen our “neutral” man and woman, we will realize that we were wrong about what we described as “facts of nature” – because there is enough to judge from the beginning. Let’s assume that the men would start raping the woman. Would we than conclude that rape is apparently part of human nature, and as such a fact of life of which we can’t judge? No. We would judge because – and this is the main point – we know that this man has the ability not to rape. It is not the question whether this behaviour is natural that affects (the existence of) our moral judgement, it is the question whether we as humans have the ability to change it.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "And that brings me back to the main point. The triumph of the conclusion that something is “nurture” seems to be that as a result it has normative implications and the triumph of the conclusion that something is nature seems to be that we have to accept it as a fact of life. Now, there is something to say for the first conclusion if one asserts that we do have some control over our own culture, but there is no basis for the second claim.",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "So, concluding, any “results” in nature nurture-debates cannot have normative implications because (1) that would base our judgements on inherently arbitrary grounds, namely the specific construction and choice of a “natural condition”, and (2) it misses the point that judgements are based on the question whether we can change the state of affairs and whether we have influence over it, not on whether or not a situation is natural (an easy, but also quite obvious, confusion).",
-                                            "children": [],
-                                            "collapsed": true
-                                        },
-                                        {
-                                            "content": "",
-                                            "children": [],
-                                            "collapsed": true
-                                        }
-                                    ],
-                                    "collapsed": true
-                                }],
+                                "content": "On nature nurture",
+                                "children": [{
+                                        "content": "I’ve never understood why people make such a fuzz over the nature/nurture-question in gender studies – even (actually mostly) exceptionally smart people. More precisely, I don’t see why it has any relevance as an academic debate. I do see why it may, on a very  superficial level, an important debate – why it sounds cool and interesting so to say, but I don’t see why any scientist would ever in his right mind present it as more relevant than the debate whether, let’s say, the sky is more blue than a blue violet – not at all that is.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "Let me start by explaining why I think people are attracted to this debate and why I assume people may see it as important. To do that, let’s start with a volcano. Nobody would ever make a normative statement about the eruption of volcanos. You don’t say “that volcano-eruption was illegitimate, or unjust”. Now, it seems attractive to say that that’s the case because volcanos are a natural phenomenon – and we don’t judge natural phenomena the way we judge human behaviour. But that’s too easy. It is the fact that we humans have no control over it that make the normative side non-existent. Imagine that we had full control over all volcanos in the world – by building hypothetical shields above each and every volcano. If opening up the shield would lead to an almost certain and almost immediate eruption, we would start talking about that same eruption as if it was caused by us humans opening it (compare: demolishing a dike and as such restoring the natural position of the water, would be seen as an action and would endow you with guilt, only because we have the ability to stop the flood – the “natural” situation). Concluding: there is no such thing as “objective” causation (because that always introduces the arbitrariness of the choice for a natural or neutral position – and we don’t want our judgements to be based on arbitrary choices). The only question that matters here, is whether we as humans would have had any influence over the outcome.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "Now often, “natural phenomena” are phenomena that we have relatively little control over – and that makes the confusion (natural phenomenon -> natural cause -> can’t judge) so logical. But it’s not always the case, and it’s a dangerous confusion because it can make something often quite arbitrary and always quite irrelevant question of whether something is “natural” suddenly a super important question. But it isn’t.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "Let me explain by going back to the nurture nature debate. In short, it is intuitively attractive to think that gender differences are in some way problematic if they are the result of cultural norms and social structures (nurture) and are not normatively problematic (so not more than a volcano eruption can be problematic – just a fact of life) if they directly stem from biological factors (nature). But here we are mixing things up. And we can show that from two angles.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "First, we can wonder what it would mean for something to be “nature”. What do we mean by natural behaviour? Is there a golden standard to separate nature from nurture? No there’s not – it’s deeply arbitrary. It implies that we can think about the absolute “neutral” or “unspoiled” human that has “no culture” whatsoever, but that is impossible. What do we mean by this person? Someone who never encountered someone else and runs naked through the woods? But is that natural? Or would it be the differences we’d encounter if we would let men and women alone in a desert? And would you let them together? Alone? In a group? And what would “unspoiled by culture” mean in a group? Human groups always have culture. And if you find that all groups share the same peace of culture, would you describe that as nature or nurture? And what if one in a thousand groups doesn’t share this single feature? Would that suddenly make it nurture? That all sounds deeply arbitrary.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "Second, once we have chosen our “neutral” man and woman, we will realize that we were wrong about what we described as “facts of nature” – because there is enough to judge from the beginning. Let’s assume that the men would start raping the woman. Would we than conclude that rape is apparently part of human nature, and as such a fact of life of which we can’t judge? No. We would judge because – and this is the main point – we know that this man has the ability not to rape. It is not the question whether this behaviour is natural that affects (the existence of) our moral judgement, it is the question whether we as humans have the ability to change it.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "And that brings me back to the main point. The triumph of the conclusion that something is “nurture” seems to be that as a result it has normative implications and the triumph of the conclusion that something is nature seems to be that we have to accept it as a fact of life. Now, there is something to say for the first conclusion if one asserts that we do have some control over our own culture, but there is no basis for the second claim.",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "So, concluding, any “results” in nature nurture-debates cannot have normative implications because (1) that would base our judgements on inherently arbitrary grounds, namely the specific construction and choice of a “natural condition”, and (2) it misses the point that judgements are based on the question whether we can change the state of affairs and whether we have influence over it, not on whether or not a situation is natural (an easy, but also quite obvious, confusion).",
+                                        "children": [],
+                                        "collapsed": true
+                                    },
+                                    {
+                                        "content": "",
+                                        "children": [],
+                                        "collapsed": true
+                                    }
+                                ],
+                                "collapsed": true
+                            }],
                             "collapsed": true
                         }
                     ],
@@ -743,25 +743,25 @@ const hubbleroot = {
         {
             "content": "Programmeren",
             "children": [{
-                    "content": "Features HubbleBubble",
-                    "children": [{
-                            "content": "Bulletpointview",
-                            "children": [],
-                            "collapsed": true
-                        },
-                        {
-                            "content": "Indented text view",
-                            "children": [],
-                            "collapsed": true
-                        },
-                        {
-                            "content": "Export to Word",
-                            "children": [],
-                            "collapsed": true
-                        }
-                    ],
-                    "collapsed": true
-                }],
+                "content": "Features HubbleBubble",
+                "children": [{
+                        "content": "Bulletpointview",
+                        "children": [],
+                        "collapsed": true
+                    },
+                    {
+                        "content": "Indented text view",
+                        "children": [],
+                        "collapsed": true
+                    },
+                    {
+                        "content": "Export to Word",
+                        "children": [],
+                        "collapsed": true
+                    }
+                ],
+                "collapsed": true
+            }],
             "collapsed": true
         },
         {
@@ -799,10 +799,10 @@ const hubbleroot = {
             "children": [{
                     "content": "Economic and cultural threat",
                     "children": [{
-                            "content": "Oppose economy and culture: native cultural unity (and distance to immigrants) leads to a perception of cultural threat and differences and thus a clash (is this true, or is this what Brian meant?), while native economic inequalities (and closeness to immigrants) lead to a higher perception of economic threat.",
-                            "children": [],
-                            "collapsed": true
-                        }],
+                        "content": "Oppose economy and culture: native cultural unity (and distance to immigrants) leads to a perception of cultural threat and differences and thus a clash (is this true, or is this what Brian meant?), while native economic inequalities (and closeness to immigrants) lead to a higher perception of economic threat.",
+                        "children": [],
+                        "collapsed": true
+                    }],
                     "collapsed": true
                 },
                 {
@@ -817,10 +817,10 @@ const hubbleroot = {
                                 {
                                     "content": "Before moving on to the question how to explain and study this relation, we should first ask ourselves whether what we see is a real paradox. Several scholars have claimed that liberal values and nationalism can go hand in hand, or even that a certain amount of nationalism and ethnocentrism is a necessary precondition for a liberal society (e.g. Lind, 1994; Mason, 1999; D. Miller, 1995) or that the liberal Western society needs to be defended against threats from outside (e.g. Scruton, 2002). However, although it is highly debatable whether this means that cultural intolerance can be justified by reference to the defence of liberal tolerance [ref?], this project is not concerned with the philosophical compatibility of ethical liberal ideals on the one hand and nationalism, ethnocentrism or xenophobia on the other.  ",
                                     "children": [{
-                                            "content": "  [I might add a short discussion somewhere on the role of liberal values in neo-conservatism  and Neo-conservatism as a liberal attitude (Freedman, 2005) and on the restricted nationalism of some explicitly liberal thinkers (David Miller, 2005; Rawls, 1999) and discuss some other classical ways of looking tolerance towards less liberal or illiberal ideas, tolerating the intolerant (Taylor, 1992; Walzer, 1996). Even for some explicitly multiculturalist thinkers there are limits to tolerating the intolerant (Kymlicka, 1995, pp. 152-172). ",
-                                            "children": [],
-                                            "collapsed": true
-                                        }],
+                                        "content": "  [I might add a short discussion somewhere on the role of liberal values in neo-conservatism  and Neo-conservatism as a liberal attitude (Freedman, 2005) and on the restricted nationalism of some explicitly liberal thinkers (David Miller, 2005; Rawls, 1999) and discuss some other classical ways of looking tolerance towards less liberal or illiberal ideas, tolerating the intolerant (Taylor, 1992; Walzer, 1996). Even for some explicitly multiculturalist thinkers there are limits to tolerating the intolerant (Kymlicka, 1995, pp. 152-172). ",
+                                        "children": [],
+                                        "collapsed": true
+                                    }],
                                     "collapsed": true
                                 },
                                 {
@@ -930,19 +930,26 @@ const hubbleroot = {
     ],
     "collapsed": true
 };
+
 function export_to_database() {
     old_hubble_to_database(hubbleroot, "");
 }
+
 function old_hubble_to_database(hubble, my_parent) {
     var userId = firebase.auth().currentUser.uid;
+
     var collapsed = hubble.collapsed;
     var content = hubble.content;
     var key = firebase.database().ref().child('hubbles').push().key;
+
     var childcount = 0;
-    hubble.children.forEach(function (element) {
+    // add for all children (with me as their parent)
+    hubble.children.forEach(function(element) {
         old_hubble_to_database(element, key);
         childcount++;
     }, this);
+
+    // write hubble record
     firebase.database().ref('users/' + userId + '/hubbles/' + key).set({
         content: hubble.content,
         parent: my_parent,
@@ -950,5 +957,5 @@ function old_hubble_to_database(hubble, my_parent) {
         snoozed: false,
         activechildren: childcount
     });
+
 }
-//# sourceMappingURL=export_old_json_to_database.js.map

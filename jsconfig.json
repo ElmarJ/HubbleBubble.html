@@ -1,9 +1,0 @@
-{
-    "compilerOptions": {
-        "target": "ES6"
-    },
-    "include": [
-        "public/**/*",
-        "node_modules/firebase/*.d.ts" // automatic type acquisition files don't work, but definitions are provided in nodes module itself.
-    ]
-}
