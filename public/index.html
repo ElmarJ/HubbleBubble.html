@@ -115,9 +115,9 @@
             <div class="children mdc-layout-grid" data-childtemplate="cardViewChildTemplate">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
                     <a class="parentlink">
-                        <div class="mdc-card special-child" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+                        <div class="mdc-card special-child  parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
                             <section class="mdc-card__primary">
-                                <span class="material-icons parentcontent">arrow_upward</span>
+                                <span class="material-icons">arrow_upward</span>
                             </section>
                         </div>
                     </a>
@@ -138,13 +138,13 @@
     <template id="cardViewChildTemplate" class="hubbletemplate">
         <div class="mdc-layout-grid__cell hubble">
             <div class="mdc-card" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-                <a class="hubblelink" href="">
+                <a class="hubblelink" href="" draggable="false">
                     <section class="mdc-card__primary">
                         <p class="mdc-card__title"><span class="content"></span></p>
                         <p class="mdc-card__subtitle childcountinfo"><i><span class="child-count"></span></i> active children</p>
                     </section>
                 </a>
-                    <section class="mdc-card__actions">
+                    <section class="mdc-card__actions" draggable="false">
                         <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
                         <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
                     </section>
