@@ -134,11 +134,12 @@
     <template id="cardViewChildTemplate" class="hubbletemplate">
         <div class="mdc-layout-grid__cell hubble">
             <div class="mdc-card" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-            <a class="hubblelink" href="">
+                <a class="hubblelink" href="">
                     <section class="mdc-card__primary">
-                        <span class="content"></span>
+                        <p class="mdc-card__title"><span class="content"></span></p>
+                        <p class="mdc-card__subtitle childcountinfo"><i><span class="child-count"></span></i> active children</p>
                     </section>
-            </a>
+                </a>
                     <section class="mdc-card__actions">
                         <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
                         <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>

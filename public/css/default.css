@@ -105,6 +105,15 @@
                     opacity: 1;
                 }
                 
+                .hubbleCardView .children .childcountinfo {
+                    opacity: 0;
+                    transition: opacity .5s;
+                }
+                
+                .hubbleCardView .children .hubble:hover .childcountinfo {
+                    opacity: 1;
+                }
+                
                 .hubbleListView .buttons {
                     opacity: 0;
                     transition: opacity .5s;
@@ -112,4 +121,8 @@
                 
                 .hubbleListView .hubble:hover>p>.buttons {
                     opacity: 1;
+                }
+                
+                .children .hubble[data-active=false] {
+                    opacity: 0.5;
                 }

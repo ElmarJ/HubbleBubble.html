@@ -117,6 +117,7 @@ function renderHubble(hubble, template, containerElement) {
 
     const hubbleElement = templatedNode.querySelector('.hubble');
     hubbleElement.dataset.key = hubble.key;
+    hubbleElement.dataset.active = hubble.active;
 
     // add content:
 
@@ -133,9 +134,11 @@ function renderHubble(hubble, template, containerElement) {
     var parentlinkElement = templatedNode.querySelector('.parentlink');
     if (parentlinkElement !== null) parentlinkElement.href = '#' + hubble.parent;
 
+    var childCountElement = templatedNode.querySelector('.child-count');
+    if (childCountElement !== null) childCountElement.innerText = hubble.activechildren;
+
     var parentNode = templatedNode.querySelector('.parentcontent');
     if (parentNode !== null) parentNode.dataset.key = hubble.parent;
-
 
     var snoozeelement = templatedNode.querySelector(".snoozeToggle");
     if (snoozeelement !== null) snoozeelement.dataset.startvalue = hubble.snoozed;
@@ -156,7 +159,7 @@ function renderHubble(hubble, template, containerElement) {
     if (snoozeelement !== null) {
         snoozetoggle = new mdc.iconToggle.MDCIconToggle(snoozeelement);
         snoozeelement.addEventListener('MDCIconToggle:change', ({ detail }) => {
-            saveHubbleDoneStatus(getScopedHubbleIdOfElement(snoozeelement), detail.isOn);
+            saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(snoozeelement), detail.isOn);
         });
 
         snoozetoggle.on = hubble.snoozed;
@@ -187,7 +190,7 @@ function renderHubble(hubble, template, containerElement) {
 /**
  * 
  * 
- * @returns string
+ * @returns {string}
  */
 function getRootKey() {
     var key = window.location.hash.substr(1);
@@ -199,7 +202,7 @@ function getRootKey() {
  * 
  * 
  * @param {string} key 
- * @returns object
+ * @returns {object}
  */
 function getHubble(key) {
     var user = firebase.auth().currentUser;
@@ -220,7 +223,7 @@ function getHubble(key) {
  * 
  * 
  * @param {string} parentKey 
- * @returns Promise<object>
+ * @returns {Promise<object>}
  */
 function getChildHubbles(parentKey) {
     var user = firebase.auth().currentUser;
@@ -388,29 +391,34 @@ function switchtoggle() {
  * 
  * 
  * @param {string} parentKey 
- * @returns number
+ * @returns {Promise<number>}
  */
 function getActiveChildCount(parentKey) {
-    var user = firebase.auth().currentUser;
-    var database = firebase.database();
-    var dataPath = 'users/' + user.uid + '/hubbles';
+    return getChildHubbles(parentKey).then(children => {
+        var count = 0;
 
-    /* Todo: this is super inefficient (looping all child hubbles to see how many are active).
-     *    should look into smarter (server side) solution at later moment. Combining multiple
-     *    order by's is not possible unfortunately.
-     */
-
-    var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
-    return query.once('value').then(
-        function(snapshot) {
-            var count = 0;
-            snapshot.forEach(function(childSnapshot) {
-                if (childSnapshot.val().active) {
+        for (var childkey in children) {
+            if (children.hasOwnProperty(childkey)) {
+                var childhubble = children[childkey];
+                if (childhubble.active) {
                     count++;
                 }
-            });
-            return count;
-        });
+            }
+        }
+
+        return count;
+    });
+}
+
+/**
+ * 
+ * 
+ * @param {string} parentKey 
+ * @param {number} count
+ */
+function setActiveChildCount(parentKey, count) {
+    var userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('users/' + userId + '/hubbles/' + parentKey + '/activechildren').set(count);
 }
 
 /**
@@ -418,13 +426,10 @@ function getActiveChildCount(parentKey) {
  * 
  * @param {string} parentKey 
  */
-function setActiveChildCount(parentKey) {
-    getActiveChildCount(parentKey).then(
-        number => {
-            var userId = firebase.auth().currentUser.uid;
-            firebase.database().ref('users/' + userId + '/hubbles/' + parentKey + '/activechildren').set(number);
-        }
-    )
+function updateShallowActiveChildCount(parentKey) {
+    getActiveChildCount(parentKey).then(count => {
+        setActiveChildCount(parentKey, count);
+    });
 }
 
 /**
@@ -437,8 +442,13 @@ function updateactive(hubbleRef) {
         snapshot => {
             const hubble = snapshot.val();
             hubbleRef.child('active').set(isactive(hubble.snoozed, hubble.done, hubble.activechildren));
-            setActiveChildCount(hubble.parent);
+            updateShallowActiveChildCount(hubble.parent);
         });
+}
+
+function setActive(key, active) {
+    var userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('users/' + userId + '/hubbles/' + key + '/active').set(active);
 }
 
 /**
@@ -464,6 +474,41 @@ function getScopedHubbleIdOfElement(element) {
     return ancestor.dataset.key;
 }
 
-function initializeDoneToggle(ev) {
+/**
+ * 
+ * 
+ * @param {number} key 
+ * @returns {Promise<void>}
+ */
+function updateDeepActiveChildCount(key) {
+    return getChildHubbles(key).then(children => {
+        var activeChildrenCount = 0;
 
+        // Create promise for each child to update and count children:
+        var childUpdatePromises = [];
+        for (var childkey in children) {
+            if (children.hasOwnProperty(childkey)) {
+                var childhubble = children[childkey];
+                // create promise for this child:
+                const childUpdatePromise = updateDeepActiveChildCount(childkey)
+                    .then(function() {
+                        // update child activity:
+                        const childActive = isactive(childhubble.snoozed, childhubble.done, childhubble.activechildren);
+                        setActive(childkey, childActive);
+                        return childActive;
+                    });
+                childUpdatePromises.push(childUpdatePromise);
+            }
+        }
+
+        return Promise.all(childUpdatePromises)
+            .then(activeList => {
+                let activeCount = 0;
+                activeList.forEach(function(isActive) {
+                    if (isActive) activeCount++;
+                }, this);
+
+                setActiveChildCount(key, activeCount);
+            });
+    });
 }
