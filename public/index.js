@@ -131,7 +131,7 @@ function renderHubble(hubble, template, containerElement) {
     /** @type {HTMLElement} */
     var snoozeElement = templatedNode.querySelector(".snoozeToggle");
     if (snoozeElement !== null) {
-        registerIconButton(doneElement, hubble.done, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(ev.srcElement), ev.detail.isOn));
+        registerIconButton(snoozeElement, hubble.snoozed, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(ev.srcElement), ev.detail.isOn));
     }
 
     // add rendered hubble to container:
