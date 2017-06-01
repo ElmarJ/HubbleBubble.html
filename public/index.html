@@ -45,13 +45,17 @@
     </div>
 
     <template id="hubbleDocumentTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble hubbleDocumentView">
-            <i class="doneToggle mdc-icon-toggle material-icons" onshow="registerSnoozeToggle" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-            <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
-            <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
-            <div contenteditable="true" class="content"></div>
+        <p class="hubble hubbleDocumentView">
+            <p>
+            <span contenteditable="true" class="content"></span>
+            <div class="buttons">
+                <i class="doneToggle mdc-icon-toggle material-icons" onshow="registerSnoozeToggle" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
+            </div>
+            </p>
             <div class="children" data-childtemplate="hubbleDocumentTemplate"></div>
-        </div>
+        </p>
     </template>
 
     <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">

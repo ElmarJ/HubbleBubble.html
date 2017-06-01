@@ -64,6 +64,10 @@
                     padding: 40px 28px;
                 }
                 
+                .hubbleCardView .children .hubble[data-active=false] {
+                    opacity: 0.5;
+                }
+                
                 .hubbleCardView div.content {
                     font-size: 40px;
                     text-align: justify;
@@ -123,6 +127,21 @@
                     opacity: 1;
                 }
                 
-                .children .hubble[data-active=false] {
-                    opacity: 0.5;
+                .hubbleDocumentView .hubble {
+                    padding: 15px;
+                }
+                
+                .hubbleDocumentView .buttons {
+                    opacity: 0;
+                    transition: opacity .5s;
+                    display: none;
+                }
+                
+                .hubbleDocumentView .hubble:hover>.buttons {
+                    opacity: 1;
+                    display: inline;
+                }
+                
+                .hubbleDocumentView .hubble[data-active=false] {
+                    display: none;
                 }
