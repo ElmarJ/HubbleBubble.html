@@ -70,13 +70,18 @@ function updatePresenter() {
 }
 
 function setCaretPosition() {
+
+    /** @type {HTMLElement} */
     var content_element = document.getElementsByClassName("content")[0];
+
     if (content_element !== null && content_element.contentEditable) {
         placeCaretAtEnd(content_element);
     }
 }
 
 function fillTemplateSelector() {
+
+    /** @type {HTMLSelectElement} */
     var selector = document.getElementById('template_selector');
 
     var templates = document.querySelectorAll('[data-userselectable].hubbletemplate');
@@ -115,12 +120,14 @@ function renderHubbleByKey(key, template, containerElement) {
 function renderHubble(hubble, template, containerElement) {
     const templatedNode = document.importNode(template.content, true);
 
+    /** @type {HTMLElement} */
     const hubbleElement = templatedNode.querySelector('.hubble');
     hubbleElement.dataset.key = hubble.key;
     hubbleElement.dataset.active = hubble.active;
 
     // add content:
 
+    /** @type {HTMLElement} */
     const contentElement = templatedNode.querySelector('.content');
     if (contentElement !== null) {
         contentElement.innerText = hubble.content;
@@ -128,22 +135,24 @@ function renderHubble(hubble, template, containerElement) {
         contentElement.onblur = (ev => persistHubbleContentElement(contentElement));
     }
 
+    /** @type {HTMLLinkElement} */
     var linkElement = templatedNode.querySelector('.hubblelink');
     if (linkElement !== null) linkElement.href = '#' + hubble.key;
 
+    /** @type {HTMLLinkElement} */
     var parentlinkElement = templatedNode.querySelector('.parentlink');
     if (parentlinkElement !== null) parentlinkElement.href = '#' + hubble.parent;
 
+    /** @type {HTMLElement} */
     var childCountElement = templatedNode.querySelector('.child-count');
     if (childCountElement !== null) childCountElement.innerText = hubble.activechildren;
 
+    /** @type {HTMLElement} */
     var parentNode = templatedNode.querySelector('.parentcontent');
     if (parentNode !== null) parentNode.dataset.key = hubble.parent;
 
-    var snoozeelement = templatedNode.querySelector(".snoozeToggle");
-    if (snoozeelement !== null) snoozeelement.dataset.startvalue = hubble.snoozed;
-
     // set done toggle:
+    /** @type {HTMLElement} */
     var doneelement = templatedNode.querySelector(".doneToggle");
     if (doneelement !== null) {
         donetoggle = new mdc.iconToggle.MDCIconToggle(doneelement);
@@ -155,6 +164,7 @@ function renderHubble(hubble, template, containerElement) {
     }
 
     // set snooze toggle:
+    /** @type {HTMLElement} */
     var snoozeelement = templatedNode.querySelector(".snoozeToggle");
     if (snoozeelement !== null) {
         snoozetoggle = new mdc.iconToggle.MDCIconToggle(snoozeelement);
@@ -169,9 +179,12 @@ function renderHubble(hubble, template, containerElement) {
     containerElement.appendChild(templatedNode);
 
     // add children based on child template:
+    /** @type {HTMLElement} */
     var childrenelement = containerElement.querySelector('.children');
     if (childrenelement !== null) {
         // lookup childtemplate
+
+        /** @type {HTMLTemplateElement} */
         var childtemplate = document.getElementById(childrenelement.dataset.childtemplate);
 
         getChildHubbles(hubble.key).then(function(childhubbles) {

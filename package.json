@@ -4,11 +4,11 @@
   "description": "hubble bubble",
   "main": "public/index.html",
   "dependencies": {
-    "@types/jquery": "^2.0.45",
-    "firebase": "^4.0.0",
+    "firebase": "^4.1.1",
     "firebase-admin": "^4.2.1",
     "firebase-functions": "^0.5.7",
-    "material-components-web": "^0.11.1"
+    "jquery": "^3.2.1",
+    "material-components-web": "^0.12.1"
   },
   "devDependencies": {},
   "scripts": {

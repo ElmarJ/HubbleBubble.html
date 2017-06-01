@@ -1,7 +1,10 @@
+// @ts-check
+
+
 /**
  * 
  * 
- * @param {number} key 
+ * @param {string} key 
  * @returns {Promise<void>}
  */
 function updateDeepActiveChildCount(key) {
@@ -87,7 +90,7 @@ function updateShallowActiveChildCount(parentKey) {
  * 
  * @param {firebase.database.Reference} hubbleRef 
  */
-function updateactive(hubbleRef) {
+function updateActive(hubbleRef) {
     return hubbleRef.once('value').then(
         snapshot => {
             const hubble = snapshot.val();
@@ -152,7 +155,7 @@ function saveHubbleDoneStatus(key, isDone) {
     if (user !== null) {
         const hubbleref = firebase.database().ref('users/' + user.uid + '/hubbles/' + key);
         hubbleref.child('/done').set(isDone);
-        updateactive(hubbleref);
+        updateActive(hubbleref);
     }
 }
 
@@ -167,7 +170,7 @@ function saveHubbleSnoozeStatus(key, isSnoozed) {
     if (user !== null) {
         const hubbleref = firebase.database().ref('users/' + user.uid + '/hubbles/' + key);
         hubbleref.child('snoozed').set(isSnoozed);
-        updateactive(hubbleref);
+        updateActive(hubbleref);
     }
 }
 
@@ -181,7 +184,6 @@ function moveHubble(key, destination_key) {
     var userId = firebase.auth().currentUser.uid;
     firebase.database().ref('users/' + userId + '/hubbles/' + key + '/parent').set(destination_key);
 }
-
 
 /**
  * 
@@ -200,12 +202,28 @@ function getChildHubbles(parentKey) {
         });
 }
 
+/**
+ * 
+ * 
+ * @param {string} parentKey 
+ * @returns {Promise<object>}
+ */
+function listenChildHubbleChanges(parentKey) {
+    var user = firebase.auth().currentUser;
+    var database = firebase.database();
+    var dataPath = 'users/' + user.uid + '/hubbles';
+    var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
+    return query.on("value",
+        function(snapshot) {
+            return snapshot.val();
+        });
+}
 
 /**
  * 
  * 
  * @param {string} key 
- * @returns {object}
+ * @returns {Promise<object>}
  */
 function getHubble(key) {
     var user = firebase.auth().currentUser;
@@ -214,6 +232,27 @@ function getHubble(key) {
         var dataPath = 'users/' + user.uid + '/hubbles/' + key;
         var hubbleRef = database.ref(dataPath);
         return hubbleRef.once('value').then(function(result) {
+            var hubble = result.val();
+            hubble.key = key;
+            return hubble;
+        });
+    }
+    return null;
+}
+
+/**
+ * 
+ * 
+ * @param {string} key 
+ * @returns {object}
+ */
+function listenHubbleChanges(key) {
+    var user = firebase.auth().currentUser;
+    var database = firebase.database();
+    if (user !== null) {
+        var dataPath = 'users/' + user.uid + '/hubbles/' + key;
+        var hubbleRef = database.ref(dataPath);
+        return hubbleRef.on('value', function(result) {
             var hubble = result.val();
             hubble.key = key;
             return hubble;
