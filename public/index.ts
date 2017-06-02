@@ -70,6 +70,7 @@ function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerEl
     const hubbleElement = <HTMLElement>templatedNode.querySelector('.hubble');
     hubbleElement.dataset.key = hubble.key;
     hubbleElement.dataset.active = String(hubble.active);
+    hubbleElement.dataset.activeChildren = String(hubble.activechildren);
 
     // add content:
     const contentElement = <HTMLElement>templatedNode.querySelector('.content');

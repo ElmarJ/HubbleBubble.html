@@ -146,6 +146,14 @@
                     opacity: 1;
                 }
                 
+                .hubbleDocumentView .hubble {
+                    font-weight: bold;
+                }
+                
+                .hubbleDocumentView .hubble[data-active-children="0"] {
+                    font-weight: initial;
+                }
+                
                 .hubbleDocumentView .hubble[data-active=false] {
                     display: none;
                 }
