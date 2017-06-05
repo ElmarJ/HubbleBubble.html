@@ -1,4 +1,4 @@
-        var config = {  
+        const config = {  
             apiKey: "AIzaSyA7zawVhVUXXzD5XKVSMBkqunjEI-Mp5Ek",
               authDomain: "hubblebubble-58ec9.firebaseapp.com",
               databaseURL: "https://hubblebubble-58ec9.firebaseio.com",
