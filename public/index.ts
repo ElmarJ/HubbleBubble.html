@@ -1,20 +1,20 @@
 var presenter = document.getElementById('hubblePresenter');
 var selector = <HTMLSelectElement>document.getElementById('template_selector');
 
-window.onload = function() {
-    selector.onchange = function() {
+window.onload = function () {
+    selector.onchange = function () {
         updatePresenter();
     };
 
     fillTemplateSelector();
 };
 
-window.onhashchange = function() {
+window.onhashchange = function () {
     saveCurrentHubble();
     updatePresenter();
 };
 
-window.onunload = function() {
+window.onunload = function () {
     saveCurrentHubble();
 };
 
@@ -48,7 +48,7 @@ function fillTemplateSelector() {
 
     var templates = document.querySelectorAll('[data-userselectable].hubbletemplate');
 
-    Array.from(templates).forEach(function(element) {
+    Array.from(templates).forEach(function (element) {
         var option = document.createElement('option');
         option.text = element.id;
         selector.add(option);
@@ -59,7 +59,7 @@ function fillTemplateSelector() {
 
 function renderHubbleByKey(key: string, template: HTMLTemplateElement, containerElement: HTMLElement) {
     var p = getHubble(key);
-    return p.then(function(hubble) {
+    return p.then(function (hubble) {
         renderHubble(hubble, template, containerElement);
     });
 }
@@ -113,7 +113,7 @@ function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerEl
 
         var childtemplate = <HTMLTemplateElement>document.getElementById(childrenelement.dataset.childtemplate);
 
-        getChildHubbles(hubble.key).then(function(childhubbles) {
+        getChildHubbles(hubble.key).then(function (childhubbles) {
             for (var childkey in childhubbles) {
                 if (childhubbles.hasOwnProperty(childkey)) {
                     var childhubble = childhubbles[childkey];
@@ -182,7 +182,7 @@ function getScopedHubbleIdOfElement(element: HTMLElement): string {
     return ancestor.dataset.key;
 }
 
-function registerIconButton(element: HTMLElement, initialValue: boolean, onchange:EventListenerOrEventListenerObject) {
+function registerIconButton(element: HTMLElement, initialValue: boolean, onchange: EventListenerOrEventListenerObject) {
     if (element !== null) {
         const toggle = new (<any>mdc).iconToggle.MDCIconToggle(element);
         toggle.on = initialValue;

@@ -7,47 +7,47 @@ interface Hubble {
     parent: string,
     active: boolean,
     key: string
-} 
+}
 
 function updateDeepActiveChildCount(key: string): firebase.Promise<void> {
     return getChildHubbles(key)
-    .then(children => {
-        var activeChildrenCount: number = 0;
+        .then(children => {
+            var activeChildrenCount: number = 0;
 
-        // create promise for each child to update and count children:
-        var childUpdatePromises: Array<firebase.Promise<boolean>> = [];
+            // create promise for each child to update and count children:
+            var childUpdatePromises: Array<firebase.Promise<boolean>> = [];
 
-        for (var childkey in children) {
-            if (children.hasOwnProperty(childkey)) {
-                var childhubble: Hubble = children[childkey];
-                // create promise for this child:
-                const childUpdatePromise: firebase.Promise<boolean> = updateDeepActiveChildCount(childkey)
-                    .then(function(): boolean {
-                        // update child activity:
-                        const childActive: boolean = isactive(childhubble.snoozed, childhubble.done, childhubble.activechildren);
-                        setActive(childkey, childActive);
-                        return childActive;
-                    });
-                childUpdatePromises.push(childUpdatePromise);
+            for (var childkey in children) {
+                if (children.hasOwnProperty(childkey)) {
+                    var childhubble: Hubble = children[childkey];
+                    // create promise for this child:
+                    const childUpdatePromise: firebase.Promise<boolean> = updateDeepActiveChildCount(childkey)
+                        .then(function (): boolean {
+                            // update child activity:
+                            const childActive: boolean = isactive(childhubble.snoozed, childhubble.done, childhubble.activechildren);
+                            setActive(childkey, childActive);
+                            return childActive;
+                        });
+                    childUpdatePromises.push(childUpdatePromise);
+                }
             }
-        }
 
 
-        return Promise.all(childUpdatePromises)
-            .then(activeList => {
-                let activeCount = 0;
-                activeList.forEach(function(isActive) {
-                    if (isActive) activeCount++;
-                }, this);
+            return Promise.all(childUpdatePromises)
+                .then(activeList => {
+                    let activeCount = 0;
+                    activeList.forEach(function (isActive) {
+                        if (isActive) activeCount++;
+                    }, this);
 
-                setActiveChildCount(key, activeCount);
-            });
-    });
+                    setActiveChildCount(key, activeCount);
+                });
+        });
 }
 
 function getActiveChildCount(parentKey: string): firebase.Promise<number> {
     return getChildHubbles(parentKey).then(
-        function(children): number {
+        function (children): number {
             var count = 0;
 
             for (var childkey in children) {
@@ -59,8 +59,8 @@ function getActiveChildCount(parentKey: string): firebase.Promise<number> {
                 }
             }
 
-        return count;
-    });
+            return count;
+        });
 }
 
 function setActiveChildCount(parentKey: string, count: number) {
@@ -143,7 +143,7 @@ function getChildHubbles(parentKey: string): firebase.Promise<Hubble> {
     var dataPath = 'users/' + user.uid + '/hubbles';
     var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
     return query.once('value').then(
-        function(snapshot): Hubble {
+        function (snapshot): Hubble {
             return <Hubble>(snapshot.val());
         });
 }
@@ -160,7 +160,7 @@ function listenChildHubbleChanges(parentKey) {
     var dataPath = 'users/' + user.uid + '/hubbles';
     var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
     return query.on("value",
-        function(snapshot) {
+        function (snapshot) {
             return snapshot.val();
         });
 }
@@ -177,7 +177,7 @@ function getHubble(key) {
     if (user !== null) {
         var dataPath = 'users/' + user.uid + '/hubbles/' + key;
         var hubbleRef = database.ref(dataPath);
-        return hubbleRef.once('value').then(function(result) {
+        return hubbleRef.once('value').then(function (result) {
             var hubble = result.val();
             hubble.key = key;
             return hubble;
@@ -198,7 +198,7 @@ function listenHubbleChanges(key) {
     if (user !== null) {
         var dataPath = 'users/' + user.uid + '/hubbles/' + key;
         var hubbleRef = database.ref(dataPath);
-        return hubbleRef.on('value', function(result) {
+        return hubbleRef.on('value', function (result) {
             var hubble = result.val();
             hubble.key = key;
             return hubble;
