@@ -3,3 +3,4 @@ public/bower_components
 firebase-debug.log
 *.js
 *.js.map
+*.log

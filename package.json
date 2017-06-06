@@ -5,7 +5,7 @@
   "main": "public/index.html",
   "dependencies": {
     "@types/jquery": "^2.0.45",
-    "firebase": "^4.1.1",
+    "firebase": "^4.0.0",
     "firebase-admin": "^4.2.1",
     "firebase-functions": "^0.5.7",
     "jquery": "latest",
@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.23",
+    "firebase-tools": "^3.9.1",
     "typescript": "^2.3.0"
   },
   "scripts": {
