@@ -13,7 +13,10 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.23",
+    "bower": "^1.8.0",
+    "eslint": "^3.19.0",
     "firebase-tools": "^3.9.1",
+    "jshint": "^2.9.4",
     "typescript": "^2.3.0"
   },
   "scripts": {
