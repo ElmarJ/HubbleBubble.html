@@ -47,11 +47,13 @@
     <template id="hubbleDocumentTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble hubbleDocumentView">
             <p>
-            <span contenteditable="true" class="content"></span>
+                <span contenteditable="true" class="content"></span>
             </p>
             <div class="buttons">
-                <i class="doneToggle mdc-icon-toggle material-icons" onshow="registerSnoozeToggle" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                <i class="doneToggle mdc-icon-toggle material-icons" onshow="registerSnoozeToggle" role="button" aria-pressed="false" aria-label="Toggle done"
+                    tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0"
+                    data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
                 <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
             </div>
             <div class="children" data-childtemplate="hubbleDocumentTemplate"></div>
@@ -68,21 +70,21 @@
                         <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
                     </span>
                 </p>
-            <ul class="children" data-childtemplate="hubbleListItemTemplate" />
+                <ul class="children" data-childtemplate="hubbleListItemTemplate" />
             </li>
         </ul>
     </template>
 
     <template id="hubbleListItemTemplate" class="hubbletemplate">
         <li class="hubble">
-                <p>
-                    <span class="content" contenteditable="true"></span>
-                    <span class="buttons">
+            <p>
+                <span class="content" contenteditable="true"></span>
+                <span class="buttons">
                         <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
                         <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
                         <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
                     </span>
-                </p>
+            </p>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
@@ -107,10 +109,12 @@
         <div class="hubble hubbleCardView">
             <div class="hubble_content_container">
                 <div class="main-hubble-card">
-                    <div class="content mdc-textfield mdc-textfield--multiline" contenteditable="true"></div>   
+                    <div class="content mdc-textfield mdc-textfield--multiline" contenteditable="true"></div>
                 </div>
-                <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0"
+                    data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0"
+                    data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
             </div>
             <div class="children mdc-layout-grid" data-childtemplate="cardViewChildTemplate">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
@@ -144,11 +148,13 @@
                         <p class="mdc-card__subtitle childcountinfo"><i><span class="child-count"></span></i> active children</p>
                     </section>
                 </a>
-                    <section class="mdc-card__actions" draggable="false">
-                        <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                        <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
-                    </section>
-                </div>
+                <section class="mdc-card__actions" draggable="false">
+                    <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0"
+                        data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
+                    <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0"
+                        data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                </section>
+            </div>
         </div>
     </template>
 
@@ -163,9 +169,9 @@
 
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
 
-    <script src="js/authentication.js"></script>
     <script src="js/data.js"></script>
     <script src="index.js"></script>
+    <script src="js/authentication.js"></script>
 </body>
 
 </html>

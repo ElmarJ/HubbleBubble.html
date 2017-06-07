@@ -5,7 +5,7 @@
   "main": "public/index.html",
   "dependencies": {
     "@types/jquery": "^2.0.45",
-    "firebase": "^4.1.1",
+    "firebase": "^4.0.0",
     "firebase-admin": "^4.2.1",
     "firebase-functions": "^0.5.7",
     "jquery": "latest",
@@ -13,8 +13,17 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.23",
+<<<<<<< HEAD
     "typescript": "^2.3.0",
     "firebase-tools": "latest"
+=======
+    "bower": "^1.8.0",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.8.0",
+    "firebase-tools": "^3.9.1",
+    "jshint": "^2.9.4",
+    "typescript": "^2.3.0"
+>>>>>>> 32a97c2c7c802a7a7b1419125c82b2109855a979
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

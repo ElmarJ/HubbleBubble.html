@@ -19,7 +19,7 @@
 var uiConfig = {
     'callbacks': {
         // Called when the user has been successfully signed in.
-        'signInSuccess': function(user, credential, redirectUrl) {
+        'signInSuccess': function (user, credential, redirectUrl) {
             handleSignedInUser(user);
             // Do not redirect.
             return false;
@@ -63,7 +63,7 @@ var currentUid = null;
  * Displays the UI for a signed in user.
  * @param {!firebase.User} user
  */
-var handleSignedInUser = function(user) {
+var handleSignedInUser = function (user) {
     currentUid = user.uid;
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
@@ -72,7 +72,7 @@ var handleSignedInUser = function(user) {
 /**
  * Displays the UI for a signed out user.
  */
-var handleSignedOutUser = function() {
+var handleSignedOutUser = function () {
     document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'block';
     ui.start('#firebaseui-container', uiConfig);
@@ -80,7 +80,7 @@ var handleSignedOutUser = function() {
 
 // Listen to change in auth state so it displays the correct UI for when
 // the user is signed in or not.
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
     // The observer is also triggered when the user's token has expired and is
     // automatically refreshed. In that case, the user hasn't changed so we should
     // not update the UI.
@@ -96,14 +96,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 /**
  * Deletes the user's account.
  */
-var deleteAccount = function() {
-    firebase.auth().currentUser.delete().catch(function(error) {
+var deleteAccount = function () {
+    firebase.auth().currentUser.delete().catch(function (error) {
         if (error.code === 'auth/requires-recent-login') {
             // The user's credential is too old. She needs to sign in again.
-            firebase.auth().signOut().then(function() {
+            firebase.auth().signOut().then(function () {
                 // The timeout allows the message to be displayed after the UI has
                 // changed to the signed out state.
-                setTimeout(function() {
+                setTimeout(function () {
                     alert('Please sign in again to delete your account.');
                 }, 1);
             });
@@ -115,8 +115,8 @@ var deleteAccount = function() {
 /**
  * Initializes the app.
  */
-var initApp = function() {
-    document.getElementById('sign-out').addEventListener('click', function() {
+var initApp = function () {
+    document.getElementById('sign-out').addEventListener('click', function () {
         firebase.auth().signOut();
     });
 };
