@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "firebase": "^4.1.1"
+    "firebase": "^4.1.1",
+    "firebaseui": "^2.0.0"
   }
 }
