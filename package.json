@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.23",
-    "typescript": "^2.3.0"
+    "typescript": "^2.3.0",
+    "firebase-tools": "latest"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

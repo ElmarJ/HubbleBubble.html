@@ -1,20 +1,20 @@
 var presenter = document.getElementById('hubblePresenter');
 var selector = <HTMLSelectElement>document.getElementById('template_selector');
 
-window.onload = function() {
-    selector.onchange = function() {
+window.onload = function () {
+    selector.onchange = function () {
         updatePresenter();
     };
 
     fillTemplateSelector();
 };
 
-window.onhashchange = function() {
+window.onhashchange = function () {
     saveCurrentHubble();
     updatePresenter();
 };
 
-window.onunload = function() {
+window.onunload = function () {
     saveCurrentHubble();
 };
 
@@ -48,7 +48,7 @@ function fillTemplateSelector() {
 
     var templates = document.querySelectorAll('[data-userselectable].hubbletemplate');
 
-    Array.from(templates).forEach(function(element) {
+    Array.from(templates).forEach(function (element) {
         var option = document.createElement('option');
         option.text = element.id;
         selector.add(option);
@@ -59,11 +59,74 @@ function fillTemplateSelector() {
 
 function renderHubbleByKey(key: string, template: HTMLTemplateElement, containerElement: HTMLElement) {
     var p = getHubble(key);
-    return p.then(function(hubble) {
+    return p.then(function (hubble) {
         renderHubble(hubble, template, containerElement);
     });
 }
 
+class HubbleTemplateBuilder {
+    templatedNode: DocumentFragment;
+    childTemplateElement: HTMLTemplateElement;
+    hubbleElement: HTMLElement;
+    contentElement: HTMLElement;
+    linkElement: HTMLLinkElement;
+    parentLinkElement: HTMLLinkElement;
+    childCountElement: HTMLElement;
+    parentHubbleElement: HTMLElement;
+    doneElement: HTMLElement;
+    snoozeElement: HTMLElement;
+    childrenelement: HTMLElement;
+
+    constructor(template: HTMLTemplateElement) {
+        this.templatedNode = <DocumentFragment>document.importNode(template.content, true);
+        this.lookupElements();
+    }
+
+    lookupElements() {
+        this.hubbleElement = <HTMLElement>this.templatedNode.querySelector('.hubble');
+        this.contentElement = <HTMLElement>this.templatedNode.querySelector('.content');
+        this.linkElement = <HTMLLinkElement>this.templatedNode.querySelector('.hubblelink');
+        this.parentLinkElement = <HTMLLinkElement>this.templatedNode.querySelector('.parentlink');
+        this.childCountElement = <HTMLElement>this.templatedNode.querySelector('.child-count');
+        this.parentHubbleElement = <HTMLElement>this.templatedNode.querySelector('.parentcontent');
+        this.doneElement = <HTMLElement>this.templatedNode.querySelector(".doneToggle");
+        this.snoozeElement = <HTMLElement>this.templatedNode.querySelector(".snoozeToggle");
+        this.childrenelement = <HTMLElement>this.templatedNode.querySelector('.children');
+    }
+
+    insertHubbleData(hubble: Hubble) {
+        this.setDatasetFields(hubble);
+        this.setActivitySwitchElements(hubble);
+        this.setLinks(hubble);
+        this.setText(hubble);
+    }
+
+    setDatasetFields(hubble: Hubble) {
+        this.hubbleElement.dataset.key = hubble.key;
+        this.hubbleElement.dataset.active = String(hubble.active);
+        this.hubbleElement.dataset.activeChildren = String(hubble.activechildren);
+        if (this.parentHubbleElement) this.parentHubbleElement.dataset.key = hubble.parent;
+    }
+    setText(hubble: Hubble) {
+        if (this.contentElement !== null) {
+            this.contentElement.innerText = hubble.content;
+            this.contentElement.onblur = (ev => persistHubbleContentElement(this.contentElement));
+        }
+
+        // Number of active children details
+        if (this.childCountElement) (this.childCountElement.innerText = String(hubble.activechildren));
+    }
+    setLinks(hubble: Hubble) {
+        if (this.linkElement) this.linkElement.href = '#' + hubble.key;
+        if (this.parentLinkElement) (this.parentLinkElement.href = '#' + hubble.parent);
+    }
+
+    setActivitySwitchElements(hubble: Hubble) {
+        if (this.doneElement) registerIconButton(this.doneElement, hubble.done, ev => saveHubbleDoneStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), ev.detail.isOn));
+        if (this.snoozeElement) registerIconButton(this.snoozeElement, hubble.snoozed, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), ev.detail.isOn));
+    }
+
+}
 function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerElement: HTMLElement) {
     const templatedNode = <DocumentFragment>document.importNode(template.content, true);
 
@@ -79,41 +142,42 @@ function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerEl
         contentElement.onblur = (ev => persistHubbleContentElement(contentElement));
     }
 
-    var linkElement = <HTMLLinkElement>templatedNode.querySelector('.hubblelink');
+    const linkElement = <HTMLLinkElement>templatedNode.querySelector('.hubblelink');
     if (linkElement !== null) linkElement.href = '#' + hubble.key;
 
-    var parentlinkElement = <HTMLLinkElement>templatedNode.querySelector('.parentlink');
+    const parentlinkElement = <HTMLLinkElement>templatedNode.querySelector('.parentlink');
     if (parentlinkElement !== null) parentlinkElement.href = '#' + hubble.parent;
 
-    var childCountElement = <HTMLElement>templatedNode.querySelector('.child-count');
+    const childCountElement = <HTMLElement>templatedNode.querySelector('.child-count');
     if (childCountElement !== null) childCountElement.innerText = String(hubble.activechildren);
 
-    var parentNode = <HTMLElement>templatedNode.querySelector('.parentcontent');
+    const parentNode = <HTMLElement>templatedNode.querySelector('.parentcontent');
     if (parentNode !== null) parentNode.dataset.key = hubble.parent;
 
     // set done toggle:
-    var doneElement = <HTMLElement>templatedNode.querySelector(".doneToggle");
+    const doneElement = <HTMLElement>templatedNode.querySelector(".doneToggle");
     if (doneElement !== null) {
         registerIconButton(doneElement, hubble.done, ev => saveHubbleDoneStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), ev.detail.isOn));
     }
 
     // set snooze toggle:
-    var snoozeElement = <HTMLElement>templatedNode.querySelector(".snoozeToggle");
+    const snoozeElement = <HTMLElement>templatedNode.querySelector(".snoozeToggle");
     if (snoozeElement !== null) {
         registerIconButton(snoozeElement, hubble.snoozed, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), ev.detail.isOn));
     }
+
+    const childrenelement = <HTMLElement>templatedNode.querySelector('.children');
 
     // add rendered hubble to container:
     containerElement.appendChild(templatedNode);
 
     // add children based on child template:
-    var childrenelement = <HTMLElement>containerElement.querySelector('.children');
     if (childrenelement !== null) {
         // lookup childtemplate
 
         var childtemplate = <HTMLTemplateElement>document.getElementById(childrenelement.dataset.childtemplate);
 
-        getChildHubbles(hubble.key).then(function(childhubbles) {
+        getChildHubbles(hubble.key).then(function (childhubbles) {
             for (var childkey in childhubbles) {
                 if (childhubbles.hasOwnProperty(childkey)) {
                     var childhubble = childhubbles[childkey];
@@ -182,7 +246,7 @@ function getScopedHubbleIdOfElement(element: HTMLElement): string {
     return ancestor.dataset.key;
 }
 
-function registerIconButton(element: HTMLElement, initialValue: boolean, onchange:EventListenerOrEventListenerObject) {
+function registerIconButton(element: HTMLElement, initialValue: boolean, onchange: EventListenerOrEventListenerObject) {
     if (element !== null) {
         const toggle = new mdc.iconToggle.MDCIconToggle(element);
         toggle.on = initialValue;
