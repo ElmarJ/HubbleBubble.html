@@ -166,38 +166,19 @@ function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerEl
         registerIconButton(snoozeElement, hubble.snoozed, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), (<any>ev).detail.isOn));
     }
 
-<<<<<<< HEAD
-    const childrenelement = <HTMLElement>templatedNode.querySelector('.children');
-
-    // add rendered hubble to container:
-    containerElement.appendChild(templatedNode);
-
-    // add children based on child template:
-    if (childrenelement !== null) {
-=======
     // add children based on child template:
     const childrenElement = <HTMLElement>templatedNode.querySelector(".children");
     if (childrenElement !== null) {
->>>>>>> 32a97c2c7c802a7a7b1419125c82b2109855a979
         // lookup childtemplate
 
         var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
 
-<<<<<<< HEAD
-        getChildHubbles(hubble.key).then(function (childhubbles) {
-            for (var childkey in childhubbles) {
-                if (childhubbles.hasOwnProperty(childkey)) {
-                    var childhubble = childhubbles[childkey];
-                    childhubble.key = childkey;
-                    renderHubble(childhubble, childtemplate, childrenelement);
-=======
         getChildHubbles(hubble.key).then(function (childHubbles) {
             for (var childKey in childHubbles) {
                 if (childHubbles.hasOwnProperty(childKey)) {
                     const childHubble = childHubbles[childKey];
                     childHubble.key = childKey;
                     renderHubble(childHubble, childTemplate, childrenElement);
->>>>>>> 32a97c2c7c802a7a7b1419125c82b2109855a979
                 }
             }
         });
