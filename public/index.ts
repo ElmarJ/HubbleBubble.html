@@ -94,13 +94,13 @@ function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerEl
     // set done toggle:
     var doneElement = <HTMLElement>templatedNode.querySelector(".doneToggle");
     if (doneElement !== null) {
-        registerIconButton(doneElement, hubble.done, ev => saveHubbleDoneStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), ev.detail.isOn));
+        registerIconButton(doneElement, hubble.done, ev => saveHubbleDoneStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), (<any>ev).detail.isOn));
     }
 
     // set snooze toggle:
     var snoozeElement = <HTMLElement>templatedNode.querySelector(".snoozeToggle");
     if (snoozeElement !== null) {
-        registerIconButton(snoozeElement, hubble.snoozed, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), ev.detail.isOn));
+        registerIconButton(snoozeElement, hubble.snoozed, ev => saveHubbleSnoozeStatus(getScopedHubbleIdOfElement(<HTMLElement>ev.srcElement), (<any>ev).detail.isOn));
     }
 
     // add rendered hubble to container:
