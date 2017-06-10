@@ -13,17 +13,12 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.23",
-<<<<<<< HEAD
-    "typescript": "^2.3.0",
-    "firebase-tools": "latest"
-=======
     "bower": "^1.8.0",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.8.0",
     "firebase-tools": "^3.9.1",
     "jshint": "^2.9.4",
     "typescript": "^2.3.0"
->>>>>>> 32a97c2c7c802a7a7b1419125c82b2109855a979
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
