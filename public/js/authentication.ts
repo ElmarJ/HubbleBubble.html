@@ -56,6 +56,7 @@ var uiConfig = {
 
 // Initialize the FirebaseUI Widget using Firebase.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
 // Keep track of the currently signed in user.
 var currentUid = null;
 
@@ -98,7 +99,7 @@ firebase.auth().onAuthStateChanged(function (user) {
  */
 var deleteAccount = function () {
     firebase.auth().currentUser.delete().catch(function (error) {
-        if (error.code === 'auth/requires-recent-login') {
+        if ((<any>error).code === 'auth/requires-recent-login') {
             // The user's credential is too old. She needs to sign in again.
             firebase.auth().signOut().then(function () {
                 // The timeout allows the message to be displayed after the UI has
