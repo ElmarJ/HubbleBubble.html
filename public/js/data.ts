@@ -121,6 +121,16 @@ class ChildrenProperty extends HubbleProperty<string[]> {
             }
         });
     }
+
+    new() {
+        var childConnection = new HubbleConnection(this.connection.ref.parent.push().key)
+        childConnection.parent.set(this.connection.hubbleKey);
+        childConnection.content.set("");
+        childConnection.snoozed.set(false);
+        childConnection.done.set(false);
+        this.add(childConnection.hubbleKey);
+        return childConnection;
+    }
 }
 
 class HubbleConnection {
@@ -190,15 +200,5 @@ class HubbleConnection {
         if (childrenFirst) {
             task(this);
         }
-    }
-
-    newChild(): HubbleConnection {
-        var childConnection = new HubbleConnection(this.ref.parent.push().key)
-        childConnection.parent.set(this.hubbleKey);
-        childConnection.content.set("");
-        childConnection.snoozed.set(false);
-        childConnection.done.set(false);
-        this.children.get().then(children => children.push(childConnection.hubbleKey));
-        return childConnection;
     }
 }

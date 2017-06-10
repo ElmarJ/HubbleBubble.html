@@ -29,7 +29,7 @@ function updatePresenter() {
             var template = <HTMLTemplateElement>document.getElementById(selector.value);
             if (template !== null) {
                 presenter.innerHTML = "";
-                renderHubbleByKey(getRootKey(), template, presenter);
+                renderHubble(getRootConnection(), template, presenter);
             }
         }
     }
@@ -55,11 +55,6 @@ function fillTemplateSelector() {
     }, this);
 
     selector.value = 'cardViewTemplate';
-}
-
-function renderHubbleByKey(key: string, template: HTMLTemplateElement, containerElement: HTMLElement) {
-    var conn = new HubbleConnection(key);
-    return renderHubble(conn, template, containerElement);
 }
 
 class HubbleTemplateBuilder {
@@ -123,8 +118,8 @@ class HubbleTemplateBuilder {
         if (this.doneElement) registerIconButton(this.doneElement, hubble.done, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
         if (this.snoozeElement) registerIconButton(this.snoozeElement, hubble.snoozed, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
     }
-
 }
+
 function renderHubble(connection: HubbleConnection, template: HTMLTemplateElement, containerElement: HTMLElement) {
     connection.getHubble().then(hubble => {
 
@@ -185,31 +180,23 @@ function renderHubble(connection: HubbleConnection, template: HTMLTemplateElemen
     });
 }
 
-function getRootKey(): string {
+function getRootConnection(): HubbleConnection {
     var key = window.location.hash.substr(1);
     if (key === null || key === '') { key = '-KlYdxmFkIiWOFXp0UIP'; }
-    return key;
-}
-
-function getRootConnection(): HubbleConnection {
-    return new HubbleConnection(getRootKey());
+    return new HubbleConnection(key);
 }
 
 function persistHubbleContentElement(contentElement: HTMLElement) {
-    const connection = getScopedHubbleConnection(contentElement);
-    connection.content.set(contentElement.innerText);
+    getScopedHubbleConnection(contentElement).content.set(contentElement.innerText);
 }
 
 function navigateToNewChild() {
-    const newConnection = getRootConnection().newChild();
-
-    location.hash = newConnection.hubbleKey;
+    location.hash = getRootConnection().children.new().hubbleKey;
     updatePresenter();
 }
 
 function check_card_drop(ev: DragEvent) {
     ev.preventDefault();
-
 }
 
 function card_drop(ev: DragEvent) {
@@ -226,8 +213,8 @@ function card_drop(ev: DragEvent) {
 }
 
 function card_drag(ev: DragEvent) {
-    const source_key = getScopedHubbleIdOfElement(<HTMLElement>ev.target);
-    ev.dataTransfer.setData("text/plain", source_key);
+    const source = getScopedHubbleConnection(<HTMLElement>ev.target);
+    ev.dataTransfer.setData("text/plain", source.hubbleKey);
 }
 
 function placeCaretAtEnd(el: HTMLElement) {
@@ -240,13 +227,9 @@ function placeCaretAtEnd(el: HTMLElement) {
     sel.addRange(range);
 }
 
-function getScopedHubbleIdOfElement(element: HTMLElement): string {
-    var ancestor = $(element).closest(".hubble")[0];
-    return ancestor.dataset.key;
-}
-
 function getScopedHubbleConnection(element: HTMLElement): HubbleConnection {
-    return new HubbleConnection(getScopedHubbleIdOfElement(element));
+    var ancestor = $(element).closest(".hubble")[0];
+    return new HubbleConnection(ancestor.dataset.key);
 }
 
 function registerIconButton(element: HTMLElement, initialValue: boolean, onchange: EventListenerOrEventListenerObject) {
