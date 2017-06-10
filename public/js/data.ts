@@ -14,27 +14,29 @@ interface Hubble {
 class HubbleProperty<T>{
     name: string;
     connection: HubbleConnection;
-    ref: firebase.database.Reference;
     prepareChange: (newValue: T) => void;
 
     constructor(name: string, connection: HubbleConnection) {
         this.name = name;
         this.connection = connection;
-        this.ref = connection.ref.child(this.name);
         this.prepareChange = (value) => { };
     }
 
     get() {
-        return <Promise<T>>this.ref.once('value').then(snapshot => snapshot.val());
+        return <Promise<T>>this.ref().once('value').then(snapshot => snapshot.val());
     }
 
     set(value: T) {
         this.prepareChange(value);
-        return this.ref.set(value);
+        return this.ref().set(value);
     }
 
     update(newValueCreator: (hubbleConnection: HubbleConnection) => T) {
         return <Promise<void>>this.set(newValueCreator(this.connection));
+    }
+
+    ref() {
+        return this.connection.ref.child(this.name);
     }
 }
 
@@ -42,6 +44,7 @@ class IsActiveHubbleProperty extends HubbleProperty<boolean>{
     rebuild() {
         return this.connection.getProperties([this.connection.snoozed, this.connection.done, this.connection.activechildren]).then(hubble => {
             this.set(!hubble.snoozed && (!hubble.done || (hubble.activechildren > 0)));
+            this.connection.parent.parentConnection().then(parent => parent.activechildren.rebuild());
         });
     }
 }
@@ -57,6 +60,7 @@ class ActivityChildCountHubbleProperty extends HubbleProperty<number>{
                     if (childIsActive) activeChildCount++;
                 }
                 this.set(activeChildCount);
+                this.connection.active.rebuild();
             });
         });
     }
@@ -79,8 +83,8 @@ class ChildrenProperty extends HubbleProperty<string[]> {
     rebuild() {
         // Need to get the old child-query from previous code version to sanatize properly
         // Query to all hubbles that have me as a parent (i.e. my children):
-        const childrenQuery = this.ref.parent.orderByChild("parent").equalTo(this.connection.hubbleKey);
-        return childrenQuery.once("value",
+        const childrenQuery = this.ref().parent.parent.orderByChild("parent").equalTo(this.connection.hubbleKey);
+        return childrenQuery.once("value").then(
             snapshot => {
                 const childKeyList: string[] = [];
                 const childKeys = snapshot.val();
@@ -88,7 +92,9 @@ class ChildrenProperty extends HubbleProperty<string[]> {
                     childKeyList.push(childKey);
                 }
                 return childKeyList;
-            }).then(childKeyList => this.set(childKeyList));
+            }).then(childKeyList => {
+                this.set(childKeyList)
+            });
     }
 
     add(key: string) {
@@ -107,7 +113,12 @@ class ChildrenProperty extends HubbleProperty<string[]> {
 
     connections() {
         return this.get().then(childKeys => {
-            return childKeys.map(childKey => new HubbleConnection(childKey));
+            if (childKeys) {
+                return childKeys.map(childKey => new HubbleConnection(childKey));
+            }
+            else {
+                return [];
+            }
         });
     }
 }
@@ -190,13 +201,4 @@ class HubbleConnection {
         this.children.get().then(children => children.push(childConnection.hubbleKey));
         return childConnection;
     }
-}
-
-
-const rootKey = "-KlYdxmFkIiWOFXp0UIP";
-
-
-
-function sanatizeAll(connection: HubbleConnection) {
-    connection.recurse(true, conn => conn.sanatize());
 }

@@ -60,11 +60,8 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 // Keep track of the currently signed in user.
 var currentUid = null;
 
-/**
- * Displays the UI for a signed in user.
- * @param {!firebase.User} user
- */
-var handleSignedInUser = function (user) {
+
+var handleSignedInUser = function (user: firebase.User) {
     currentUid = user.uid;
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
