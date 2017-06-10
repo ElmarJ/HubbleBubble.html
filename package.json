@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "hubblebubble",
   "version": "1.0.0",
   "description": "hubble bubble",
@@ -34,3 +35,40 @@
   "author": "Elmar Jansen",
   "license": "UNLICENSED"
 }
+=======
+    "name": "hubblebubble",
+    "version": "1.0.0",
+    "description": "hubble bubble",
+    "main": "public/index.html",
+    "dependencies": {
+        "@types/jquery": "^2.0.45",
+        "firebase": "^4.0.0",
+        "firebase-admin": "^4.2.1",
+        "firebase-functions": "^0.5.7",
+        "jquery": "latest",
+        "material-components-web": "^0.12.1"
+    },
+    "devDependencies": {
+        "@types/node": "^7.0.23",
+        "bower": "^1.8.0",
+        "eslint": "^3.19.0",
+        "eslint-config-google": "^0.8.0",
+        "firebase-tools": "^3.9.1",
+        "jshint": "^2.9.4",
+        "typescript": "^2.3.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "deploy": "tsc && firebase deploy",
+        "serve": "tsc && firebase serve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://elmarj.visualstudio.com/_git/HubbleBubble.html"
+    },
+    "author": "Elmar Jansen",
+    "license": "UNLICENSED"
+}
+>>>>>>> 20857bea46ea7ae2ba0ca9ba494c5cdf675385e8
