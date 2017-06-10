@@ -8,7 +8,7 @@
     <script src="/__/firebase/init.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        mdc.autoInit()
+        mdc.autoInit();
     </script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
     <script src="js/authentication.js"></script>
@@ -17,7 +17,8 @@
 </head>
 
 <body>
-    <button onclick="updateDeepActiveChildCount(getRootKey());">Update all activity and active count</button>
+    <button onclick="updateDeepActiveChildCount(rootKey);">Update all activity and active count</button>
+    <button onclick="sanatizeAllChildren(rootKey);">Sanatize all children</button>
     <button onclick="export_to_database();">Export old hubblebubble data</button>
 </body>
 
