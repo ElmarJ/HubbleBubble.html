@@ -115,8 +115,8 @@ class HubbleTemplateBuilder {
     }
 
     setActivitySwitchElements(data: HubbleData) {
-        if (this.doneElement) registerIconButton(this.doneElement, data.done, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
-        if (this.snoozeElement) registerIconButton(this.snoozeElement, data.snoozed, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
+        if (this.doneElement) registerIconButton(this.doneElement, data.done, ev => getScopedHubble(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
+        if (this.snoozeElement) registerIconButton(this.snoozeElement, data.snoozed, ev => getScopedHubble(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
     }
 }
 
@@ -152,13 +152,13 @@ function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerEl
         // set done toggle:
         const doneElement = <HTMLElement>templatedNode.querySelector(".doneToggle");
         if (doneElement !== null) {
-            registerIconButton(doneElement, data.done, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
+            registerIconButton(doneElement, data.done, ev => getScopedHubble(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
         }
 
         // set snooze toggle:
         const snoozeElement = <HTMLElement>templatedNode.querySelector(".snoozeToggle");
         if (snoozeElement !== null) {
-            registerIconButton(snoozeElement, data.snoozed, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
+            registerIconButton(snoozeElement, data.snoozed, ev => getScopedHubble(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
         }
 
         // add children based on child template:
@@ -187,7 +187,7 @@ function getRootConnection(): Hubble {
 }
 
 function persistHubbleContentElement(contentElement: HTMLElement) {
-    getScopedHubbleConnection(contentElement).content.set(contentElement.innerText);
+    getScopedHubble(contentElement).content.set(contentElement.innerText);
 }
 
 function navigateToNewChild() {
@@ -204,7 +204,7 @@ function card_drop(ev: DragEvent) {
 
     const sourceKey = ev.dataTransfer.getData("text/plain");
     const source = new Hubble(sourceKey);
-    const destination = getScopedHubbleConnection(<HTMLElement>ev.target);
+    const destination = getScopedHubble(<HTMLElement>ev.target);
 
     if (source.hubbleKey !== destination.hubbleKey) {
         source.move(destination);
@@ -213,7 +213,7 @@ function card_drop(ev: DragEvent) {
 }
 
 function card_drag(ev: DragEvent) {
-    const source = getScopedHubbleConnection(<HTMLElement>ev.target);
+    const source = getScopedHubble(<HTMLElement>ev.target);
     ev.dataTransfer.setData("text/plain", source.hubbleKey);
 }
 
