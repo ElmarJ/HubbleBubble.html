@@ -12,7 +12,7 @@ interface HubbleData {
 }
 
 class HubbleProperty<T>{
-    private name: string;
+    name: string;
     protected myHubble: Hubble;
     prepareChange: (newValue: T) => void;
 

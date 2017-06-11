@@ -227,7 +227,7 @@ function placeCaretAtEnd(el: HTMLElement) {
     sel.addRange(range);
 }
 
-function getScopedHubbleConnection(element: HTMLElement): Hubble {
+function getScopedHubble(element: HTMLElement): Hubble {
     var ancestor = $(element).closest(".hubble")[0];
     return new Hubble(ancestor.dataset.key);
 }
@@ -241,3 +241,33 @@ function registerIconButton(element: HTMLElement, initialValue: boolean, onchang
     }
 }
 
+function addNewChild(parentHubble: Hubble) {
+    const childHubble = parentHubble.children.new();
+    const childrenElement = <HTMLElement>getElementOf(parentHubble).getElementsByClassName("children")[0];
+    if (childrenElement) {
+        const childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
+        renderHubble(childHubble, childTemplate, childrenElement);
+    }
+
+    focus(childHubble);
+}
+
+function getElementOf(hubble: Hubble) {
+    return <HTMLElement>document.querySelector(".hubble[data-key=" + hubble.hubbleKey + "]");
+}
+
+function onEditorKeyPress(ev: KeyboardEvent) {
+    if (ev.key == "Enter") {
+        const hubble = getScopedHubble(<HTMLElement>ev.srcElement);
+        addNewChild(hubble);
+    }
+}
+
+function focus(hubble: Hubble) {
+    const element = <HTMLElement>getElementOf(hubble).getElementsByClassName(".content")[1];
+    if (element && element.contentEditable) {
+        element.focus();
+    } else {
+        location.hash = hubble.hubbleKey;
+    }
+}

@@ -1,15 +1,14 @@
 const rootKey = "-KlYdxmFkIiWOFXp0UIP";
 
 function sanatizeAllChildrenLists() {
-    const rootConnection = new HubbleConnection(rootKey);
-    rootConnection.recurse(false, conn => conn.children.rebuild());
+    const rootConnection = new Hubble(rootKey);
+    rootConnection.recurse(false, hubble => hubble.children.rebuild());
 }
 
-
 function sanatizeAllActivity() {
-    const rootConnection = new HubbleConnection(rootKey);
-    rootConnection.recurse(true, conn => {
-        conn.activechildren.rebuild();
-        conn.active.rebuild();
+    const rootConnection = new Hubble(rootKey);
+    rootConnection.recurse(true, hubble => {
+        hubble.activechildren.rebuild();
+        hubble.active.rebuild();
     });
 }
