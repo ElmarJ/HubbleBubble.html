@@ -55,10 +55,9 @@ class ActivityChildCountHubbleProperty extends HubbleProperty<number>{
             const promisesToGetChildActivity = hubbles.map(hubble => hubble.active.get());
 
             Promise.all(promisesToGetChildActivity).then(childActivities => {
-                var activeChildCount = 0;
-                for (const childIsActive of childActivities) {
-                    if (childIsActive) activeChildCount++;
-                }
+                const activeChildCount = childActivities.reduce<number>((counter, activity) => {
+                    if (activity) counter++; return counter;
+                }, 0);
                 this.set(activeChildCount);
                 this.myHubble.active.rebuild();
             });
@@ -99,7 +98,7 @@ class ChildrenProperty extends HubbleProperty<string[]> {
 
     add(hubble: Hubble) {
         return this.ref().limitToLast(1).once("key").then(highestKey => {
-            if(!highestKey) {
+            if (!highestKey) {
                 highestKey = -1;
             }
             this.ref().child(String(highestKey + 1)).set(hubble.hubbleKey);
@@ -109,6 +108,30 @@ class ChildrenProperty extends HubbleProperty<string[]> {
     remove(hubble: Hubble) {
         return this.get().then(children => {
             children.splice(children.indexOf(hubble.hubbleKey), 1);
+            this.set(children);
+        });
+    }
+
+    swapPosition(child1: Hubble, child2: Hubble) {
+        return this.get().then(children => {
+            const child1index = children.indexOf(child1.hubbleKey);
+            const child2index = children.indexOf(child2.hubbleKey);
+
+            children[child1index] = child2.hubbleKey;
+            children[child2index] = child1.hubbleKey;
+
+            this.set(children);
+        });
+    }
+
+    rePosition(hubble: Hubble, after: Hubble) {
+        return this.get().then(children => {
+            const hubbleIndex = children.indexOf(hubble.hubbleKey);
+            const targetIndex = children.indexOf(after.hubbleKey);
+
+            children.splice(hubbleIndex, 1);
+            children.splice(targetIndex + 1, 0, hubble.hubbleKey);
+
             this.set(children);
         });
     }
