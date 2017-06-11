@@ -87,78 +87,78 @@ class HubbleTemplateBuilder {
         this.childrenelement = <HTMLElement>this.templatedNode.querySelector('.children');
     }
 
-    insertHubbleData(hubble: Hubble) {
-        this.setDatasetFields(hubble);
-        this.setActivitySwitchElements(hubble);
-        this.setLinks(hubble);
-        this.setText(hubble);
+    insertHubbleData(data: HubbleData) {
+        this.setDatasetFields(data);
+        this.setActivitySwitchElements(data);
+        this.setLinks(data);
+        this.setText(data);
     }
 
-    setDatasetFields(hubble: Hubble) {
-        this.hubbleElement.dataset.key = hubble.key;
-        this.hubbleElement.dataset.active = String(hubble.active);
-        this.hubbleElement.dataset.activeChildren = String(hubble.activechildren);
-        if (this.parentHubbleElement) this.parentHubbleElement.dataset.key = hubble.parent;
+    setDatasetFields(data: HubbleData) {
+        this.hubbleElement.dataset.key = data.key;
+        this.hubbleElement.dataset.active = String(data.active);
+        this.hubbleElement.dataset.activeChildren = String(data.activechildren);
+        if (this.parentHubbleElement) this.parentHubbleElement.dataset.key = data.parent;
     }
-    setText(hubble: Hubble) {
+    setText(data: HubbleData) {
         if (this.contentElement !== null) {
-            this.contentElement.innerText = hubble.content;
+            this.contentElement.innerText = data.content;
             this.contentElement.onblur = (ev => persistHubbleContentElement(this.contentElement));
         }
 
         // Number of active children details
-        if (this.childCountElement) (this.childCountElement.innerText = String(hubble.activechildren));
+        if (this.childCountElement) (this.childCountElement.innerText = String(data.activechildren));
     }
-    setLinks(hubble: Hubble) {
-        if (this.linkElement) this.linkElement.href = '#' + hubble.key;
-        if (this.parentLinkElement) (this.parentLinkElement.href = '#' + hubble.parent);
+    setLinks(data: HubbleData) {
+        if (this.linkElement) this.linkElement.href = '#' + data.key;
+        if (this.parentLinkElement) (this.parentLinkElement.href = '#' + data.parent);
     }
 
-    setActivitySwitchElements(hubble: Hubble) {
-        if (this.doneElement) registerIconButton(this.doneElement, hubble.done, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
-        if (this.snoozeElement) registerIconButton(this.snoozeElement, hubble.snoozed, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
+    setActivitySwitchElements(data: HubbleData) {
+        if (this.doneElement) registerIconButton(this.doneElement, data.done, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
+        if (this.snoozeElement) registerIconButton(this.snoozeElement, data.snoozed, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
     }
 }
 
-function renderHubble(connection: HubbleConnection, template: HTMLTemplateElement, containerElement: HTMLElement) {
-    connection.getHubble().then(hubble => {
+function renderHubble(hubble: Hubble, template: HTMLTemplateElement, containerElement: HTMLElement) {
+    hubble.getHubbleData().then(data => {
 
         const templatedNode = <DocumentFragment>document.importNode(template.content, true);
 
         const hubbleElement = <HTMLElement>templatedNode.querySelector('.hubble');
-        hubbleElement.dataset.key = hubble.key;
-        hubbleElement.dataset.active = String(hubble.active);
-        hubbleElement.dataset.activeChildren = String(hubble.activechildren);
+        hubbleElement.dataset.key = data.key;
+        hubbleElement.dataset.active = String(data.active);
+        hubbleElement.dataset.activeChildren = String(data.activechildren);
 
         // add content:
         const contentElement = <HTMLElement>templatedNode.querySelector('.content');
         if (contentElement !== null) {
-            contentElement.innerText = hubble.content;
+            contentElement.innerText = data.content;
             contentElement.onblur = (ev => persistHubbleContentElement(contentElement));
         }
 
         const linkElement = <HTMLLinkElement>templatedNode.querySelector('.hubblelink');
-        if (linkElement !== null) linkElement.href = '#' + hubble.key;
+        if (linkElement !== null) linkElement.href = '#' + data.key;
 
         const parentlinkElement = <HTMLLinkElement>templatedNode.querySelector('.parentlink');
-        if (parentlinkElement !== null) parentlinkElement.href = '#' + hubble.parent;
+        if (parentlinkElement !== null) parentlinkElement.href = '#' + data.parent;
 
         const childCountElement = <HTMLElement>templatedNode.querySelector('.child-count');
-        if (childCountElement !== null) childCountElement.innerText = String(hubble.activechildren);
+        if (childCountElement !== null) childCountElement.innerText = String(data.activechildren);
 
         const parentNode = <HTMLElement>templatedNode.querySelector('.parentcontent');
-        if (parentNode !== null) parentNode.dataset.key = hubble.parent;
+        if (parentNode !== null) parentNode.dataset.key = data.parent;
 
         // set done toggle:
         const doneElement = <HTMLElement>templatedNode.querySelector(".doneToggle");
         if (doneElement !== null) {
-            registerIconButton(doneElement, hubble.done, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
+            registerIconButton(doneElement, data.done, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).done.set((<any>ev).detail.isOn));
         }
 
         // set snooze toggle:
         const snoozeElement = <HTMLElement>templatedNode.querySelector(".snoozeToggle");
         if (snoozeElement !== null) {
-            registerIconButton(snoozeElement, hubble.snoozed, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
+            registerIconButton(snoozeElement, data.snoozed, ev => getScopedHubbleConnection(<HTMLElement>ev.srcElement).snoozed.set((<any>ev).detail.isOn));
         }
 
         // add children based on child template:
@@ -168,8 +168,8 @@ function renderHubble(connection: HubbleConnection, template: HTMLTemplateElemen
 
             var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
 
-            connection.children.connections().then(function (childConnections) {
-                for (var child of childConnections) {
+            hubble.children.hubbles().then(function (childHubbles) {
+                for (var child of childHubbles) {
                     renderHubble(child, childTemplate, childrenElement);
                 }
             });
@@ -180,10 +180,10 @@ function renderHubble(connection: HubbleConnection, template: HTMLTemplateElemen
     });
 }
 
-function getRootConnection(): HubbleConnection {
+function getRootConnection(): Hubble {
     var key = window.location.hash.substr(1);
     if (key === null || key === '') { key = '-KlYdxmFkIiWOFXp0UIP'; }
-    return new HubbleConnection(key);
+    return new Hubble(key);
 }
 
 function persistHubbleContentElement(contentElement: HTMLElement) {
@@ -203,7 +203,7 @@ function card_drop(ev: DragEvent) {
     ev.preventDefault();
 
     const sourceKey = ev.dataTransfer.getData("text/plain");
-    const source = new HubbleConnection(sourceKey);
+    const source = new Hubble(sourceKey);
     const destination = getScopedHubbleConnection(<HTMLElement>ev.target);
 
     if (source.hubbleKey !== destination.hubbleKey) {
@@ -227,9 +227,9 @@ function placeCaretAtEnd(el: HTMLElement) {
     sel.addRange(range);
 }
 
-function getScopedHubbleConnection(element: HTMLElement): HubbleConnection {
+function getScopedHubbleConnection(element: HTMLElement): Hubble {
     var ancestor = $(element).closest(".hubble")[0];
-    return new HubbleConnection(ancestor.dataset.key);
+    return new Hubble(ancestor.dataset.key);
 }
 
 function registerIconButton(element: HTMLElement, initialValue: boolean, onchange: EventListenerOrEventListenerObject) {
