@@ -7,17 +7,16 @@
     <script src="/__/firebase/4.0.0/firebase.js"></script>
     <script src="/__/firebase/init.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        mdc.autoInit()
-    </script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
     <script src="js/authentication.js"></script>
     <script src="js/data.js"></script>
+    <script src="js/maintenance.js"></script>
     <script src="js/export_old_json_to_database.js"></script>
 </head>
 
 <body>
-    <button onclick="updateDeepActiveChildCount(getRootKey());">Update all activity and active count</button>
+    <button onclick="sanatizeAllActivity();">Update all activity and active count</button>
+    <button onclick="sanatizeAllChildrenLists();">Sanatize all children</button>
     <button onclick="export_to_database();">Export old hubblebubble data</button>
 </body>
 

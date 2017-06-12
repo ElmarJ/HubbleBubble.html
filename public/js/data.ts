@@ -1,208 +1,234 @@
 
-interface Hubble {
-    snoozed: boolean,
-    done: boolean,
-    activechildren: number,
-    content: string,
-    parent: string,
-    active: boolean,
-    key: string
+
+interface HubbleData {
+    snoozed: boolean;
+    done: boolean;
+    activechildren: number;
+    content: string;
+    parent: string;
+    active: boolean;
+    key: string;
+    children: string[];
 }
 
-function updateDeepActiveChildCount(key: string): firebase.Promise<void> {
-    return getChildHubbles(key)
-        .then(children => {
-            var activeChildrenCount: number = 0;
+class HubbleProperty<T>{
+    name: string;
+    protected myHubble: Hubble;
+    prepareChange: (newValue: T) => void;
 
-            // create promise for each child to update and count children:
-            var childUpdatePromises: Array<firebase.Promise<boolean>> = [];
+    constructor(name: string, hubble: Hubble) {
+        this.name = name;
+        this.myHubble = hubble;
+        this.prepareChange = (value) => { };
+    }
 
-            for (var childkey in children) {
-                if (children.hasOwnProperty(childkey)) {
-                    var childhubble: Hubble = children[childkey];
-                    // create promise for this child:
-                    const childUpdatePromise: firebase.Promise<boolean> = updateDeepActiveChildCount(childkey)
-                        .then(function (): boolean {
-                            // update child activity:
-                            const childActive: boolean = isactive(childhubble.snoozed, childhubble.done, childhubble.activechildren);
-                            setActive(childkey, childActive);
-                            return childActive;
-                        });
-                    childUpdatePromises.push(childUpdatePromise);
+    get() {
+        return <Promise<T>>this.ref().once('value').then(snapshot => snapshot.val());
+    }
+
+    set(value: T) {
+        this.prepareChange(value);
+        return this.ref().set(value);
+    }
+
+    update(newValueCreator: (Hubble: Hubble) => T) {
+        return <Promise<void>>this.set(newValueCreator(this.myHubble));
+    }
+
+    ref() {
+        return this.myHubble.ref.child(this.name);
+    }
+}
+
+class IsActiveHubbleProperty extends HubbleProperty<boolean>{
+    rebuild() {
+        return this.myHubble.getProperties([this.myHubble.snoozed, this.myHubble.done, this.myHubble.activechildren]).then(hubble => {
+            this.set(!hubble.snoozed && (!hubble.done || (hubble.activechildren > 0)));
+            this.myHubble.parent.hubble().then(parent => parent.activechildren.rebuild());
+        });
+    }
+}
+
+class ActivityChildCountHubbleProperty extends HubbleProperty<number>{
+    rebuild() {
+        return this.myHubble.children.hubbles().then(hubbles => {
+            const promisesToGetChildActivity = hubbles.map(hubble => hubble.active.get());
+
+            Promise.all(promisesToGetChildActivity).then(childActivities => {
+                const activeChildCount = childActivities.reduce<number>((counter, activity) => {
+                    if (activity) counter++; return counter;
+                }, 0);
+                this.set(activeChildCount);
+                this.myHubble.active.rebuild();
+            });
+        });
+    }
+}
+
+class StatusHubbleProperty extends HubbleProperty<boolean>{
+    constructor(name: string, hubble: Hubble) {
+        super(name, hubble);
+        this.prepareChange = newvVal => hubble.active.rebuild();
+    }
+}
+
+class ParentHubbleProperty extends HubbleProperty<string> {
+    hubble() {
+        return this.get().then(value => new Hubble(value));
+    }
+}
+
+class ChildrenProperty extends HubbleProperty<string[]> {
+    rebuild() {
+        // Need to get the old child-query from previous code version to sanatize properly
+        // Query to all hubbles that have me as a parent (i.e. my children):
+        const childrenQuery = this.ref().parent.parent.orderByChild("parent").equalTo(this.myHubble.hubbleKey);
+        return childrenQuery.once("value").then(
+            snapshot => {
+                const childKeyList: string[] = [];
+                const childKeys = snapshot.val();
+                for (var childKey in childKeys) {
+                    childKeyList.push(childKey);
                 }
+                return childKeyList;
+            }).then(childKeyList => {
+                this.set(childKeyList)
+            });
+    }
+
+    add(hubble: Hubble) {
+        return this.ref().limitToLast(1).once("key").then(highestKey => {
+            if (!highestKey) {
+                highestKey = -1;
             }
-
-
-            return Promise.all(childUpdatePromises)
-                .then(activeList => {
-                    let activeCount = 0;
-                    activeList.forEach(function (isActive) {
-                        if (isActive) activeCount++;
-                    }, this);
-
-                    setActiveChildCount(key, activeCount);
-                });
+            this.ref().child(String(highestKey + 1)).set(hubble.hubbleKey);
         });
-}
+    }
 
-function getActiveChildCount(parentKey: string): firebase.Promise<number> {
-    return getChildHubbles(parentKey).then(
-        function (children): number {
-            var count = 0;
+    remove(hubble: Hubble) {
+        return this.get().then(children => {
+            children.splice(children.indexOf(hubble.hubbleKey), 1);
+            this.set(children);
+        });
+    }
 
-            for (var childkey in children) {
-                if (children.hasOwnProperty(childkey)) {
-                    var childhubble = children[childkey];
-                    if (childhubble.active) {
-                        count++;
-                    }
-                }
+    swapPosition(child1: Hubble, child2: Hubble) {
+        return this.get().then(children => {
+            const child1index = children.indexOf(child1.hubbleKey);
+            const child2index = children.indexOf(child2.hubbleKey);
+
+            children[child1index] = child2.hubbleKey;
+            children[child2index] = child1.hubbleKey;
+
+            this.set(children);
+        });
+    }
+
+    rePosition(hubble: Hubble, after: Hubble) {
+        return this.get().then(children => {
+            const hubbleIndex = children.indexOf(hubble.hubbleKey);
+            const targetIndex = children.indexOf(after.hubbleKey);
+
+            children.splice(hubbleIndex, 1);
+            children.splice(targetIndex + 1, 0, hubble.hubbleKey);
+
+            this.set(children);
+        });
+    }
+
+    hubbles() {
+        return this.get().then(childKeys => {
+            if (childKeys) {
+                return childKeys.map(childKey => new Hubble(childKey));
             }
-
-            return count;
+            else {
+                return [];
+            }
         });
-}
+    }
 
-function setActiveChildCount(parentKey: string, count: number) {
-    var userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('users/' + userId + '/hubbles/' + parentKey + '/activechildren').set(count);
-}
-
-
-function updateShallowActiveChildCount(parentKey: string) {
-    getActiveChildCount(parentKey).then(count => {
-        setActiveChildCount(parentKey, count);
-    });
-}
-
-function updateActive(hubbleRef: firebase.database.Reference) {
-    return hubbleRef.once('value').then(
-        snapshot => {
-            const hubble = snapshot.val();
-            hubbleRef.child('active').set(isactive(hubble.snoozed, hubble.done, hubble.activechildren));
-            updateShallowActiveChildCount(hubble.parent);
-        });
-}
-
-function setActive(key: string, active: boolean) {
-    var userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('users/' + userId + '/hubbles/' + key + '/active').set(active);
-}
-
-function isactive(snoozed: boolean, done: boolean, activechildren: number) {
-    return !snoozed && (!done || (activechildren > 0))
-}
-
-function newHubble(parent_key: string): string {
-    var userId = firebase.auth().currentUser.uid;
-    var key = firebase.database().ref().child('hubbles').push().key;
-    firebase.database().ref('users/' + userId + '/hubbles/' + key + '/parent').set(parent_key);
-    firebase.database().ref('users/' + userId + '/hubbles/' + key + '/content').set("");
-    return key;
-}
-
-function saveHubbleContent(key: string, content: string) {
-    var user = firebase.auth().currentUser;
-    if (user !== null) {
-        firebase.database().ref('users/' + user.uid + '/hubbles/' + key + '/content').set(content);
+    new() {
+        var childConnection = new Hubble(this.myHubble.ref.parent.push().key)
+        childConnection.parent.set(this.myHubble.hubbleKey);
+        childConnection.content.set("");
+        childConnection.snoozed.set(false);
+        childConnection.done.set(false);
+        this.add(childConnection);
+        return childConnection;
     }
 }
 
-function saveHubbleDoneStatus(key: string, isDone: boolean) {
-    var user = firebase.auth().currentUser;
-    if (user !== null) {
-        const hubbleref = firebase.database().ref('users/' + user.uid + '/hubbles/' + key);
-        hubbleref.child('/done').set(isDone);
-        updateActive(hubbleref);
+class Hubble {
+    database = firebase.database();
+    user = firebase.auth().currentUser;
+    hubbleKey: string;
+    ref: firebase.database.Reference;
+
+    parent = new ParentHubbleProperty("parent", this);
+    children = new ChildrenProperty("children", this);
+    content = new HubbleProperty<string>("content", this);
+    active = new IsActiveHubbleProperty("active", this);
+    snoozed = new StatusHubbleProperty("snoozed", this);
+    done = new StatusHubbleProperty("done", this);
+    activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
+
+    constructor(hubbleKey: string) {
+        this.hubbleKey = hubbleKey;
+        this.ref = this.database.ref('users/' + this.user.uid + '/hubbles/' + hubbleKey);
     }
-}
 
-function saveHubbleSnoozeStatus(key: string, isSnoozed: boolean) {
-    var user = firebase.auth().currentUser;
-    if (user !== null) {
-        const hubbleref = firebase.database().ref('users/' + user.uid + '/hubbles/' + key);
-        hubbleref.child('snoozed').set(isSnoozed);
-        updateActive(hubbleref);
-    }
-}
-
-function moveHubble(key: string, destination_key: string) {
-    var userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('users/' + userId + '/hubbles/' + key + '/parent').set(destination_key);
-}
-
-/**
- * 
- * 
- * @param {string} parentKey 
- * @returns {Promise<object>}
- */
-function getChildHubbles(parentKey: string): firebase.Promise<Hubble> {
-    var user = firebase.auth().currentUser;
-    var database = firebase.database();
-    var dataPath = 'users/' + user.uid + '/hubbles';
-    var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
-    return query.once('value').then(
-        function (snapshot): Hubble {
-            return <Hubble>(snapshot.val());
-        });
-}
-
-/**
- * 
- * 
- * @param {string} parentKey 
- * @returns {Promise<object>}
- */
-function listenChildHubbleChanges(parentKey) {
-    var user = firebase.auth().currentUser;
-    var database = firebase.database();
-    var dataPath = 'users/' + user.uid + '/hubbles';
-    var query = database.ref(dataPath).orderByChild('parent').equalTo(parentKey);
-    return query.on("value",
-        function (snapshot) {
-            return snapshot.val();
-        });
-}
-
-/**
- * 
- * 
- * @param {string} key 
- * @returns {Promise<object>}
- */
-function getHubble(key) {
-    var user = firebase.auth().currentUser;
-    var database = firebase.database();
-    if (user !== null) {
-        var dataPath = 'users/' + user.uid + '/hubbles/' + key;
-        var hubbleRef = database.ref(dataPath);
-        return hubbleRef.once('value').then(function (result) {
-            var hubble = result.val();
-            hubble.key = key;
+    getHubbleData() {
+        return <Promise<HubbleData>>this.ref.once('value').then(snapshot => {
+            const hubble = <HubbleData>snapshot.val();
+            hubble.key = this.hubbleKey;
             return hubble;
         });
     }
-    return null;
-}
 
-/**
- * 
- * 
- * @param {string} key 
- * @returns {object}
- */
-function listenHubbleChanges(key) {
-    var user = firebase.auth().currentUser;
-    var database = firebase.database();
-    if (user !== null) {
-        var dataPath = 'users/' + user.uid + '/hubbles/' + key;
-        var hubbleRef = database.ref(dataPath);
-        return hubbleRef.on('value', function (result) {
-            var hubble = result.val();
-            hubble.key = key;
+    getProperties(properties: HubbleProperty<any>[]) {
+        const promises = properties.map(property => property.get().then(value => ({ name: property.name, value: value })));
+        return Promise.all(promises).then(properties => {
+            const hubble = <HubbleData>(new Object);
+            for (const property of properties) {
+                hubble[property.name] = property.value;
+            }
             return hubble;
         });
     }
-    return null;
+
+    move(newParent: Hubble) {
+        return this.parent.hubble().then(oldParent => {
+            oldParent.children.remove(this);
+            newParent.children.add(this);
+            this.parent.set(newParent.hubbleKey);
+        });
+    }
+
+    delete() {
+        this.parent.hubble().then(parent => parent.children.remove(this));
+        this.ref.remove();
+    }
+
+    sanatize() {
+        return this.children.rebuild().then(value => this.activechildren.rebuild());
+    }
+
+    recurse(childrenFirst: boolean, task: (Hubble: Hubble) => void) {
+        // If not childrenFirst, first do it for myself:
+        if (!childrenFirst) {
+            task(this);
+        }
+
+        // then, get child hubbles and do it for all my children:
+        this.children.hubbles().then(childConnections => {
+            for (const childConnection of childConnections) {
+                childConnection.recurse(childrenFirst, task);
+            }
+        })
+
+        // if childrenFirst, do it for myself now:
+        if (childrenFirst) {
+            task(this);
+        }
+    }
 }

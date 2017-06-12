@@ -1,16 +1,3 @@
-/*
- * Copyright 2016 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the
- * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 /**
  * FirebaseUI initialization to be used in a Single Page application context.
@@ -56,14 +43,12 @@ var uiConfig = {
 
 // Initialize the FirebaseUI Widget using Firebase.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
 // Keep track of the currently signed in user.
 var currentUid = null;
 
-/**
- * Displays the UI for a signed in user.
- * @param {!firebase.User} user
- */
-var handleSignedInUser = function (user) {
+
+var handleSignedInUser = function (user: firebase.User) {
     currentUid = user.uid;
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
@@ -98,7 +83,7 @@ firebase.auth().onAuthStateChanged(function (user) {
  */
 var deleteAccount = function () {
     firebase.auth().currentUser.delete().catch(function (error) {
-        if (error.code === 'auth/requires-recent-login') {
+        if ((<any>error).code === 'auth/requires-recent-login') {
             // The user's credential is too old. She needs to sign in again.
             firebase.auth().signOut().then(function () {
                 // The timeout allows the message to be displayed after the UI has

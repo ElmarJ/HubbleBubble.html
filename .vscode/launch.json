@@ -5,21 +5,32 @@
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:5000/index.html",
-            "webRoot": "${workspaceRoot}/public"
+            "webRoot": "${workspaceRoot}/public",
+            "preLaunchTask": "build"
+        },
+        {
+            "name": "Launch chrome maintenance page (localhost)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5000/maintenance.html",
+            "webRoot": "${workspaceRoot}/public",
+            "preLaunchTask": "build"
         },
         {
             "name": "Launch chrome index.html",
             "type": "chrome",
             "request": "launch",
             "sourceMaps": false,
-            "file": "${workspaceRoot}/index.html"
+            "file": "${workspaceRoot}/index.html",
+            "preLaunchTask": "build"
         },
         {
             "name": "Launch edge localhost",
             "type": "edge",
             "request": "launch",
             "url": "http://localhost:5000/index.html",
-            "webRoot": "${workspaceRoot}/public"
+            "webRoot": "${workspaceRoot}/public",
+            "preLaunchTask": "build"
         },
         {
             "name": "Launch edge index.html",
