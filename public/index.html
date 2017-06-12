@@ -47,7 +47,7 @@
     <template id="hubbleDocumentTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble hubbleDocumentView">
             <p>
-                <span contenteditable="true" class="content" onkeyup="onEditorKeyPress"></span>
+                <span contenteditable="true" class="content" onkeyup="onEditorKeyPress(event)"></span>
             </p>
             <div class="buttons">
                 <i class="doneToggle mdc-icon-toggle material-icons" onshow="registerSnoozeToggle" role="button" aria-pressed="false" aria-label="Toggle done"
@@ -55,6 +55,7 @@
                 <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0"
                     data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
                 <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
+                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>
             </div>
             <div class="children" data-childtemplate="hubbleDocumentTemplate"></div>
         </div>
@@ -64,7 +65,7 @@
         <ul>
             <li class="hubble hubbleListView">
                 <p>
-                    <span class="content" contenteditable="true" onkeyup="onEditorKeyPress"></span>
+                    <span class="content" contenteditable="true" onkeyup="onEditorKeyPress(event)"></span>
                     <span class="buttons">
                         <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
                         <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
@@ -78,7 +79,7 @@
     <template id="hubbleListItemTemplate" class="hubbletemplate">
         <li class="hubble">
             <p>
-                <span class="content" contenteditable="true" onkeyup="onEditorKeyPress"></span>
+                <span class="content" contenteditable="true" onkeyup="onEditorKeyPress(event)"></span>
                 <span class="buttons">
                         <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
                         <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>

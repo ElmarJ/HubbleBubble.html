@@ -96,12 +96,14 @@ class ChildrenProperty extends HubbleProperty<string[]> {
             });
     }
 
-    add(hubble: Hubble) {
-        return this.ref().limitToLast(1).once("key").then(highestKey => {
-            if (!highestKey) {
-                highestKey = -1;
+    push(hubble: Hubble) {
+        return <Promise<Hubble>> this.ref().orderByKey().once("value").then(snapshot => {
+            var newIndex = 0;
+            if (snapshot) {
+                newIndex = snapshot.numChildren();
             }
-            this.ref().child(String(highestKey + 1)).set(hubble.hubbleKey);
+            this.ref().child(String(newIndex)).set(hubble.hubbleKey);
+            return hubble;
         });
     }
 
@@ -147,14 +149,15 @@ class ChildrenProperty extends HubbleProperty<string[]> {
         });
     }
 
-    new() {
+    addnew() {
         var childConnection = new Hubble(this.myHubble.ref.parent.push().key)
         childConnection.parent.set(this.myHubble.hubbleKey);
         childConnection.content.set("");
         childConnection.snoozed.set(false);
         childConnection.done.set(false);
-        this.add(childConnection);
-        return childConnection;
+        childConnection.active.set(true);
+        childConnection.activechildren.set(0);
+        return this.push(childConnection);
     }
 }
 
@@ -199,7 +202,7 @@ class Hubble {
     move(newParent: Hubble) {
         return this.parent.hubble().then(oldParent => {
             oldParent.children.remove(this);
-            newParent.children.add(this);
+            newParent.children.push(this);
             this.parent.set(newParent.hubbleKey);
         });
     }
