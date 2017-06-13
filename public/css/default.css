@@ -1,159 +1,171 @@
-@import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro');
-a {
-    color: inherit;
-    text-decoration: inherit;
-}
-
-body {
-    --mdc-theme-primary: #212121;
-    --mdc-theme-accent: #555;
-    --mdc-theme-background: #fff;
-    --mdc-theme-text-primary-on-primary: var(--mdc-theme-text-primary-on-dark);
-    --mdc-theme-text-secondary-on-primary: var(--mdc-theme-text-secondary-on-dark);
-    --mdc-theme-text-hint-on-primary: var(--mdc-theme-text-hint-on-dark);
-    --mdc-theme-text-disabled-on-primary: var(--mdc-theme-text-disabled-on-dark);
-    --mdc-theme-text-icon-on-primary: var(--mdc-theme-text-icon-on-dark);
-    --mdc-theme-text-primary-on-accent: var(--mdc-theme-text-primary-on-dark);
-    --mdc-theme-text-secondary-on-accent: var(--mdc-theme-text-secondary-on-dark);
-    --mdc-theme-text-hint-on-accent: var(--mdc-theme-text-hint-on-dark);
-    --mdc-theme-text-disabled-on-accent: var(--mdc-theme-text-disabled-on-dark);
-    --mdc-theme-text-icon-on-accent: var(--mdc-theme-text-icon-on-dark);
-    --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary-on-light);
-    --mdc-theme-text-secondary-on-background: var(--mdc-theme-text-secondary-on-light);
-    --mdc-theme-text-hint-on-background: var(--mdc-theme-text-hint-on-light);
-    --mdc-theme-text-disabled-on-background: var(--mdc-theme-text-disabled-on-light);
-    --mdc-theme-text-icon-on-background: var(--mdc-theme-text-icon-on-light);
-}
-
-header {
-    align-items: center;
-    justify-content: center;
-    flex-flow: row nowrap;
-}
-
-header>section {
-    opacity: 0;
-    transition: opacity .5s;
-}
-
-header:hover>section {
-    opacity: 1;
-}
-
-[contenteditable]:focus {
-    outline: 0px solid transparent;
-}
-
-.app-main {
-    -webkit-flex-shrink: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-}
-
-.app-header .mdl-layout__header-row {
-    padding-left: 40px;
-}
-
-.app-container {
-    max-width: 1000px;
-    width: calc(100% - 16px);
-    margin: 0 auto;
-}
-
-.app-layout.is-small-screen .app-content {
-    padding: 40px 28px;
-}
-
-.hubbleCardView .children .hubble[data-active=false] {
-    opacity: 0.5;
-}
-
-.hubbleCardView div.content {
-    font-size: 40px;
-    text-align: justify;
-    line-height: 55px;
-    font-family: 'Rasa', serif;
-}
-
-.hubbleCardView .main-hubble-card {
-    width: 800px;
-    margin: 30px;
-}
-
-.hubbleCardView .hubble_content_container {
-    align-items: center;
-    justify-content: center;
-    flex-flow: row nowrap;
-    display: flex;
-}
-
-.hubbleCardView .children {
-    max-width: 700px;
-}
-
-.hubbleCardView .children .mdc-card {
-    max-width: 200px;
-}
-
-.hubbleCardView .children .special-child {
-    width: 80px;
-    text-align: center;
-}
-
-.hubbleCardView .mdc-card__actions {
-    opacity: 0;
-    transition: opacity .5s;
-}
-
-.hubbleCardView .mdc-card:hover .mdc-card__actions {
-    opacity: 1;
-}
-
-.hubbleCardView .children .childcountinfo {
-    opacity: 0;
-    transition: opacity .5s;
-}
-
-.hubbleCardView .children .hubble:hover .childcountinfo {
-    opacity: 1;
-}
-
-.hubbleListView .buttons {
-    opacity: 0;
-    transition: opacity .5s;
-}
-
-.hubbleListView .hubble:hover>p>.buttons {
-    opacity: 1;
-}
-
-.hubbleDocumentView .hubble {
-    padding-left: 15px;
-    max-width: 700px;
-}
-
-.hubbleDocumentView .buttons {
-    opacity: 0;
-    transition: opacity .5s;
-    position: absolute;
-    left: 10px;
-    background: #fff;
-    border: 1px solid #212121;
-    border-radius: 5px;
-}
-
-.hubbleDocumentView .buttons:hover {
-    opacity: 1;
-}
-
-.hubbleDocumentView .hubble {
-    font-weight: bold;
-}
-
-.hubbleDocumentView .hubble[data-active-children="0"] {
-    font-weight: initial;
-}
-
-.hubbleDocumentView .hubble[data-active=false] {
-    display: none;
-}
+                @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro');
+                a {
+                    color: inherit;
+                    text-decoration: inherit;
+                }
+                
+                body {
+                    --mdc-theme-primary: #212121;
+                    --mdc-theme-accent: #555;
+                    --mdc-theme-background: #fff;
+                    --mdc-theme-text-primary-on-primary: var(--mdc-theme-text-primary-on-dark);
+                    --mdc-theme-text-secondary-on-primary: var(--mdc-theme-text-secondary-on-dark);
+                    --mdc-theme-text-hint-on-primary: var(--mdc-theme-text-hint-on-dark);
+                    --mdc-theme-text-disabled-on-primary: var(--mdc-theme-text-disabled-on-dark);
+                    --mdc-theme-text-icon-on-primary: var(--mdc-theme-text-icon-on-dark);
+                    --mdc-theme-text-primary-on-accent: var(--mdc-theme-text-primary-on-dark);
+                    --mdc-theme-text-secondary-on-accent: var(--mdc-theme-text-secondary-on-dark);
+                    --mdc-theme-text-hint-on-accent: var(--mdc-theme-text-hint-on-dark);
+                    --mdc-theme-text-disabled-on-accent: var(--mdc-theme-text-disabled-on-dark);
+                    --mdc-theme-text-icon-on-accent: var(--mdc-theme-text-icon-on-dark);
+                    --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary-on-light);
+                    --mdc-theme-text-secondary-on-background: var(--mdc-theme-text-secondary-on-light);
+                    --mdc-theme-text-hint-on-background: var(--mdc-theme-text-hint-on-light);
+                    --mdc-theme-text-disabled-on-background: var(--mdc-theme-text-disabled-on-light);
+                    --mdc-theme-text-icon-on-background: var(--mdc-theme-text-icon-on-light);
+                }
+                
+                header {
+                    align-items: center;
+                    justify-content: center;
+                    flex-flow: row nowrap;
+                }
+                
+                header>section {
+                    opacity: 0;
+                    transition: opacity .5s;
+                }
+                
+                header:hover>section {
+                    opacity: 1;
+                }
+                
+                [contenteditable]:focus {
+                    outline: 0px solid transparent;
+                }
+                
+                .app-main {
+                    -webkit-flex-shrink: 0;
+                    -ms-flex-negative: 0;
+                    flex-shrink: 0;
+                }
+                
+                .app-header .mdl-layout__header-row {
+                    padding-left: 40px;
+                }
+                
+                .app-container {
+                    max-width: 1000px;
+                    width: calc(100% - 16px);
+                    margin: 0 auto;
+                }
+                
+                .app-layout.is-small-screen .app-content {
+                    padding: 40px 28px;
+                }
+                
+                .hubbleCardView .children .hubble[data-active=false] {
+                    opacity: 0.5;
+                }
+                
+                .hubbleCardView div.content {
+                    font-size: 40px;
+                    text-align: justify;
+                    line-height: 55px;
+                    font-family: 'Rasa', serif;
+                }
+                
+                .hubbleCardView .main-hubble-card {
+                    width: 800px;
+                    margin: 30px;
+                }
+                
+                .hubbleCardView .hubble_content_container {
+                    align-items: center;
+                    justify-content: center;
+                    flex-flow: row nowrap;
+                    display: flex;
+                }
+                
+                .hubbleCardView .children {
+                    max-width: 700px;
+                }
+                
+                .hubbleCardView .children .mdc-card {
+                    max-width: 200px;
+                }
+                
+                .hubbleCardView .children .special-child {
+                    width: 80px;
+                    text-align: center;
+                }
+                
+                .hubbleCardView .mdc-card__actions {
+                    opacity: 0;
+                    transition: opacity .5s;
+                }
+                
+                .hubbleCardView .mdc-card:hover .mdc-card__actions {
+                    opacity: 1;
+                }
+                
+                .hubbleCardView .children .childcountinfo {
+                    opacity: 0;
+                    transition: opacity .5s;
+                }
+                
+                .hubbleCardView .children .hubble:hover .childcountinfo {
+                    opacity: 1;
+                }
+                
+                .hubbleListView .buttons {
+                    opacity: 0;
+                    transition: opacity .5s;
+                }
+                
+                .hubbleListView .hubble:hover>p>.buttons {
+                    opacity: 1;
+                }
+                
+                .hubbleDocumentView .hubble {
+                    padding-left: 15px;
+                    max-width: 700px;
+                }
+                
+                .hubbleDocumentView .buttons {
+                    opacity: 0;
+                    transition: opacity .5s;
+                    position: absolute;
+                    left: 10px;
+                    background: #fff;
+                    border: 1px solid #212121;
+                    border-radius: 5px;
+                }
+                
+                .hubbleDocumentView .buttons:hover {
+                    opacity: 1;
+                }
+                
+                .hubbleDocumentView .hubble {
+                    font-weight: bold;
+                }
+                
+                .hubbleDocumentView .hubble[data-active-children="0"] {
+                    font-weight: initial;
+                }
+                
+                .hubbleDocumentView .hubble[data-active=false] {
+                    display: none;
+                }
+                
+                .hubbleDocumentView .content {
+                    padding: 5px;
+                    border-width: 1px;
+                    border-color: transparent;
+                    border-style: solid;
+                    transition: border-color 1s ease;
+                }
+                
+                .hubbleDocumentView :focus {
+                    border-color: #ccc;
+                }

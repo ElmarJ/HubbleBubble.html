@@ -28,11 +28,11 @@ class HubbleProperty<T>{
 
     set(value: T) {
         this.prepareChange(value);
-        return this.ref().set(value);
+        return <Promise<void>> this.ref().set(value);
     }
 
     update(newValueCreator: (Hubble: Hubble) => T) {
-        return <Promise<void>>this.set(newValueCreator(this.myHubble));
+        return <Promise<void>> this.set(newValueCreator(this.myHubble));
     }
 
     ref() {
@@ -150,14 +150,18 @@ class ChildrenProperty extends HubbleProperty<string[]> {
     }
 
     addnew() {
-        var childConnection = new Hubble(this.myHubble.ref.parent.push().key)
-        childConnection.parent.set(this.myHubble.hubbleKey);
-        childConnection.content.set("");
-        childConnection.snoozed.set(false);
-        childConnection.done.set(false);
-        childConnection.active.set(true);
-        childConnection.activechildren.set(0);
-        return this.push(childConnection);
+        const updatePromises: Promise<any>[] = []
+        const child = new Hubble(this.myHubble.ref.parent.push().key)
+        
+        updatePromises.push(child.parent.set(this.myHubble.hubbleKey));
+        updatePromises.push(child.content.set(""));
+        updatePromises.push(child.snoozed.set(false));
+        updatePromises.push(child.done.set(false));
+        updatePromises.push(child.active.set(true));
+        updatePromises.push(child.activechildren.set(0));
+        updatePromises.push(this.push(child));
+
+        return Promise.all(updatePromises).then(nothing => child);
     }
 }
 

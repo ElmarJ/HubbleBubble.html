@@ -320,9 +320,9 @@ function addNewChild(parentHubble: Hubble) {
     const childrenElement = <HTMLElement>getElementOf(parentHubble).getElementsByClassName("children")[0];
     if (childrenElement) {
       const childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
-      renderHubble(childHubble, childTemplate, childrenElement).then(nothing => focus(childHubble)) ;
+      renderHubble(childHubble, childTemplate, childrenElement).then(nothing => setFocus(childHubble)) ;
     } else {
-      focus(childHubble);
+      setFocus(childHubble);
     }
   });
 }
@@ -340,7 +340,7 @@ function onEditorKeyPress(ev: KeyboardEvent) {
   }
 }
 
-function focus(hubble: Hubble) {
+function setFocus(hubble: Hubble) {
   const hubbleElement = <HTMLElement>getElementOf(hubble);
   if (hubbleElement) {
     const contentElement = <HTMLElement>hubbleElement.getElementsByClassName("content")[0];
