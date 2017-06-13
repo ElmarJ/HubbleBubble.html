@@ -8,8 +8,7 @@
         "firebase": "^4.0.0",
         "firebase-admin": "^4.2.1",
         "firebase-functions": "^0.5.7",
-        "jquery": "latest",
-        "material-components-web": "^0.12.1"
+        "jquery": "latest"
     },
     "devDependencies": {
         "@types/node": "^7.0.23",

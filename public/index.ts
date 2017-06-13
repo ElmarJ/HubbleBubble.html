@@ -76,8 +76,8 @@ class HubbleTemplateBuilder {
   parentLinkElement: HTMLLinkElement;
   childCountElement: HTMLElement;
   parentHubbleElement: HTMLElement;
-  doneElement: HTMLElement;
-  snoozeElement: HTMLElement;
+  doneElement: HTMLInputElement;
+  snoozeElement: HTMLInputElement;
   childrenelement: HTMLElement;
 
   constructor(template: HTMLTemplateElement) {
@@ -107,10 +107,10 @@ class HubbleTemplateBuilder {
     this.parentHubbleElement = <HTMLElement>this.templatedNode.querySelector(
       ".parentcontent"
     );
-    this.doneElement = <HTMLElement>this.templatedNode.querySelector(
+    this.doneElement = <HTMLInputElement>this.templatedNode.querySelector(
       ".doneToggle"
     );
-    this.snoozeElement = <HTMLElement>this.templatedNode.querySelector(
+    this.snoozeElement = <HTMLInputElement>this.templatedNode.querySelector(
       ".snoozeToggle"
     );
     this.childrenelement = <HTMLElement>this.templatedNode.querySelector(
@@ -150,13 +150,13 @@ class HubbleTemplateBuilder {
 
   setActivitySwitchElements(data: HubbleData) {
     if (this.doneElement)
-      registerIconButton(this.doneElement, data.done, ev =>
+      registerToggle(this.doneElement, data.done, ev =>
         getScopedHubble(<HTMLElement>ev.srcElement).done.set(
           (<any>ev).detail.isOn
         )
       );
     if (this.snoozeElement)
-      registerIconButton(this.snoozeElement, data.snoozed, ev =>
+      registerToggle(this.snoozeElement, data.snoozed, ev =>
         getScopedHubble(<HTMLElement>ev.srcElement).snoozed.set(
           (<any>ev).detail.isOn
         )
@@ -209,25 +209,17 @@ function renderHubble(
     if (parentNode !== null) parentNode.dataset.key = data.parent;
 
     // set done toggle:
-    const doneElement = <HTMLElement>templatedNode.querySelector(".doneToggle");
+    const doneElement = <HTMLInputElement>templatedNode.querySelector(".doneToggle");
     if (doneElement !== null) {
-      registerIconButton(doneElement, data.done, ev =>
-        getScopedHubble(<HTMLElement>ev.srcElement).done.set(
-          (<any>ev).detail.isOn
-        )
-      );
+      registerToggle(doneElement, data.done, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).done.set((<HTMLInputElement>ev.srcElement).checked));
     }
 
     // set snooze toggle:
-    const snoozeElement = <HTMLElement>templatedNode.querySelector(
+    const snoozeElement = <HTMLInputElement>templatedNode.querySelector(
       ".snoozeToggle"
     );
     if (snoozeElement !== null) {
-      registerIconButton(snoozeElement, data.snoozed, ev =>
-        getScopedHubble(<HTMLElement>ev.srcElement).snoozed.set(
-          (<any>ev).detail.isOn
-        )
-      );
+      registerToggle(snoozeElement, data.snoozed, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).snoozed.set((<HTMLInputElement>ev.srcElement).checked));
     }
 
     // add children based on child template:
@@ -302,16 +294,14 @@ function getScopedHubble(element: HTMLElement): Hubble {
   return new Hubble(ancestor.dataset.key);
 }
 
-function registerIconButton(
-  element: HTMLElement,
+function registerToggle(
+  element: HTMLInputElement,
   initialValue: boolean,
-  onchange: EventListenerOrEventListenerObject
+  onchange: (this: HTMLElement, ev: Event) => any
 ) {
   if (element !== null) {
-    const toggle = new (<any>mdc).iconToggle.MDCIconToggle(element);
-    toggle.on = initialValue;
-
-    element.addEventListener("MDCIconToggle:change", onchange);
+    element.checked = initialValue;
+    element.onchange = onchange;
   }
 }
 

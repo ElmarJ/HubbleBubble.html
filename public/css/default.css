@@ -1,28 +1,12 @@
-                @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro');
+                @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro|Open+Sans|Raleway');
+
                 a {
                     color: inherit;
                     text-decoration: inherit;
                 }
                 
                 body {
-                    --mdc-theme-primary: #212121;
-                    --mdc-theme-accent: #555;
-                    --mdc-theme-background: #fff;
-                    --mdc-theme-text-primary-on-primary: var(--mdc-theme-text-primary-on-dark);
-                    --mdc-theme-text-secondary-on-primary: var(--mdc-theme-text-secondary-on-dark);
-                    --mdc-theme-text-hint-on-primary: var(--mdc-theme-text-hint-on-dark);
-                    --mdc-theme-text-disabled-on-primary: var(--mdc-theme-text-disabled-on-dark);
-                    --mdc-theme-text-icon-on-primary: var(--mdc-theme-text-icon-on-dark);
-                    --mdc-theme-text-primary-on-accent: var(--mdc-theme-text-primary-on-dark);
-                    --mdc-theme-text-secondary-on-accent: var(--mdc-theme-text-secondary-on-dark);
-                    --mdc-theme-text-hint-on-accent: var(--mdc-theme-text-hint-on-dark);
-                    --mdc-theme-text-disabled-on-accent: var(--mdc-theme-text-disabled-on-dark);
-                    --mdc-theme-text-icon-on-accent: var(--mdc-theme-text-icon-on-dark);
-                    --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary-on-light);
-                    --mdc-theme-text-secondary-on-background: var(--mdc-theme-text-secondary-on-light);
-                    --mdc-theme-text-hint-on-background: var(--mdc-theme-text-hint-on-light);
-                    --mdc-theme-text-disabled-on-background: var(--mdc-theme-text-disabled-on-light);
-                    --mdc-theme-text-icon-on-background: var(--mdc-theme-text-icon-on-light);
+                    font-family: 'Roboto'
                 }
                 
                 header {
@@ -91,8 +75,24 @@
                     max-width: 700px;
                 }
                 
-                .hubbleCardView .children .mdc-card {
+                .hubbleCardView .children .hubble {
                     max-width: 200px;
+                    border-width: 1px;
+                    border-color: #ddd; 
+                    border-style: solid; 
+                    margin: 10px;
+                    padding: 10px;
+                    display: inline-block;
+                    border-radius: 4px;
+                }
+
+                .hubbleCardView .special-children {
+                    display: inline-block;
+                    vertical-align: top;
+                }
+
+                .hubbleCardView .special-children .hubble {
+                    display: block;
                 }
                 
                 .hubbleCardView .children .special-child {
@@ -100,12 +100,12 @@
                     text-align: center;
                 }
                 
-                .hubbleCardView .mdc-card__actions {
+                .hubbleCardView .buttons {
                     opacity: 0;
                     transition: opacity .5s;
                 }
                 
-                .hubbleCardView .mdc-card:hover .mdc-card__actions {
+                .hubbleCardView .hubble:hover .buttons {
                     opacity: 1;
                 }
                 
@@ -115,7 +115,7 @@
                 }
                 
                 .hubbleCardView .children .hubble:hover .childcountinfo {
-                    opacity: 1;
+                    opacity: 0.5;
                 }
                 
                 .hubbleListView .buttons {
@@ -138,8 +138,9 @@
                     position: absolute;
                     left: 10px;
                     background: #fff;
-                    border: 1px solid #212121;
+                    border: 1px solid #ddd;
                     border-radius: 5px;
+                    color: #555;
                 }
                 
                 .hubbleDocumentView .buttons:hover {
@@ -158,7 +159,7 @@
                     display: none;
                 }
                 
-                .hubbleDocumentView .content {
+                [contenteditable] {
                     padding: 5px;
                     border-width: 1px;
                     border-color: transparent;
@@ -166,6 +167,6 @@
                     transition: border-color 1s ease;
                 }
                 
-                .hubbleDocumentView :focus {
+                [contenteditable]:focus {
                     border-color: #ccc;
                 }

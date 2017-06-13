@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html class="mdc-typography">
+<html>
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>HubbleBubble</title>
@@ -10,9 +9,7 @@
 
     <link href="css/default.css" rel="stylesheet" type="text/css" media="screen">
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
-    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
 </head>
 
 <body>
@@ -67,8 +64,8 @@
                 <p>
                     <span class="content" contenteditable="true" onkeyup="onEditorKeyPress(event)"></span>
                     <span class="buttons">
-                        <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                        <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                        <input type="checkbox" class="doneToggle" tabindex="0">
+                        <input type="checkbox" class="snoozeToggle" tabindex="0">
                         <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
                     </span>
                 </p>
@@ -82,8 +79,8 @@
             <p>
                 <span class="content" contenteditable="true" onkeyup="onEditorKeyPress(event)"></span>
                 <span class="buttons">
-                        <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0" data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                        <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0" data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                    <input type="checkbox" class="doneToggle" tabindex="0">
+                    <input type="checkbox" class="snoozeToggle" tabindex="0">
                         <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
                         <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>
                     </span>
@@ -112,27 +109,23 @@
         <div class="hubble hubbleCardView">
             <div class="hubble_content_container">
                 <div class="main-hubble-card">
-                    <div class="content mdc-textfield mdc-textfield--multiline" contenteditable="true"></div>
+                    <div class="content" contenteditable="true"></div>
                 </div>
-                <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0"
-                    data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0"
-                    data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
+                    <input type="checkbox" class="doneToggle" tabindex="0">
+                    <input type="checkbox" class="snoozeToggle" tabindex="0">
             </div>
-            <div class="children mdc-layout-grid" data-childtemplate="cardViewChildTemplate">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+            <div class="children" data-childtemplate="cardViewChildTemplate">
+                <div class="special-children">
                     <a class="parentlink">
-                        <div class="mdc-card special-child  parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-                            <section class="mdc-card__primary">
+                        <div class="special-child parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+                            <section>
                                 <span class="material-icons">arrow_upward</span>
                             </section>
                         </div>
                     </a>
-                </div>
-                <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-2">
                     <a class="newhubble_link" href="javascript:navigateToNewChild()">
-                        <div class="mdc-card special-child">
-                            <section class="mdc-card__primary">
+                        <div class="special-child hubble">
+                            <section>
                                 <span class="material-icons">add</span>
                             </section>
                         </div>
@@ -143,35 +136,26 @@
     </template>
 
     <template id="cardViewChildTemplate" class="hubbletemplate">
-        <div class="mdc-layout-grid__cell hubble">
-            <div class="mdc-card" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+        <div class="hubble">
+            <div draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
                 <a class="hubblelink" href="" draggable="false">
-                    <section class="mdc-card__primary">
-                        <p class="mdc-card__title"><span class="content"></span></p>
-                        <p class="mdc-card__subtitle childcountinfo"><i><span class="child-count"></span></i> active children</p>
+                    <section>
+                        <p><span class="content"></span></p>
+                        <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
                     </section>
                 </a>
-                <section class="mdc-card__actions" draggable="false">
-                    <i class="doneToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle done" tabindex="0"
-                        data-toggle-on='{"label": "Done", "content": "check_circle"}' data-toggle-off='{"label": "Undone", "content": "done"}'></i>
-                    <i class="snoozeToggle mdc-icon-toggle material-icons" role="button" aria-pressed="false" aria-label="Toggle snooze" tabindex="0"
-                        data-toggle-on='{"label":"Unsnooze", "content": "watch_later"}' data-toggle-off='{"label": "Snooze", "content": "schedule"}'></i>
-                </section>
+                <div draggable="false" class="buttons">
+                    <input type="checkbox" class="doneToggle" tabindex="0">
+                    <input type="checkbox" class="snoozeToggle" tabindex="0">
+                </div>
             </div>
         </div>
     </template>
 
     <script src="/__/firebase/4.0.0/firebase.js"></script>
     <script src="/__/firebase/init.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.js"></script>
-    <script>
-        mdc.autoInit()
-    </script>
-
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
-
     <script src="js/data.js"></script>
     <script src="index.js"></script>
     <script src="js/authentication.js"></script>
