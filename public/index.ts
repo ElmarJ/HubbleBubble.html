@@ -19,10 +19,9 @@ window.onunload = function() {
 };
 
 function saveCurrentHubble() {
-  var contentelements = document.querySelectorAll("[contenteditable].content");
-  for (var element of contentelements) {
-    persistHubbleContentElement(<HTMLElement>element);
-  }
+  // Is this necessarry at all now we save after leaving each editable field?
+  var contentelement = document.querySelectorAll("[contenteditable].content")[0];
+  persistHubbleContentElement(<HTMLElement>contentelement);
 }
 
 function updatePresenter() {
