@@ -112,42 +112,36 @@
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
             </div>
-            <div class="children" data-childtemplate="cardViewChildTemplate">
+            <ul class="children" data-childtemplate="cardViewChildTemplate">
                 <div class="special-children">
                     <a class="parentlink">
-                        <div class="special-child parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-                            <section>
+                        <li class="special-child parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
                                 <span class="material-icons">arrow_upward</span>
-                            </section>
-                        </div>
+                        </li>
                     </a>
                     <a class="newhubble_link" href="javascript:navigateToNewChild()">
-                        <div class="special-child hubble">
-                            <section>
+                        <li class="special-child hubble">
                                 <span class="material-icons">add</span>
-                            </section>
-                        </div>
+                        </li>
                     </a>
                 </div>
-            </div>
+            </ul>
         </div>
     </template>
 
     <template id="cardViewChildTemplate" class="hubbletemplate">
-        <div class="hubble">
+        <li class="hubble">
             <div draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
                 <a class="hubblelink" href="" draggable="false">
-                    <section>
-                        <p><span class="content"></span></p>
-                        <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
-                    </section>
+                    <span class="content"></span>
+                    <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
                 </a>
                 <div draggable="false" class="buttons">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
                 </div>
             </div>
-        </div>
+        </li>
     </template>
 
     <script src="/__/firebase/4.0.0/firebase.js"></script>
