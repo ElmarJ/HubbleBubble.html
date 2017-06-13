@@ -170,3 +170,19 @@
                 [contenteditable]:focus {
                     border-color: #ccc;
                 }
+
+                .doneToggle, .snoozeToggle {
+                    -webkit-appearance: none;
+                }
+                .doneToggle:not(:checked):after {
+                    content: "niet klaar"
+                }
+                .doneToggle:checked:after {
+                    content: "klaar"
+                }
+                .snoozeToggle:not(:checked):after {
+                    content: "niet gesnoozed"
+                }
+                .snoozeToggle:checked:after {
+                    content: "gesnoozed"
+                }
