@@ -173,18 +173,31 @@
                     border-color: #ccc;
                 }
 
+                input:focus {
+                    outline: none;
+                }
+
                 .doneToggle, .snoozeToggle {
                     -webkit-appearance: none;
+                    font-family: "Material Icons";
+                    font-size: 18pt;
+                    font-weight: 400;
+                    color: #ccc;
                 }
-                .doneToggle:not(:checked):after {
-                    content: "niet klaar"
+                .doneToggle:after {
+                    content: "done";
+                    border-radius:15px;
+                    padding: 1px;
                 }
                 .doneToggle:checked:after {
-                    content: "klaar"
+                    background-color: #000;
+                    border-radius: 100%;
                 }
-                .snoozeToggle:not(:checked):after {
-                    content: "niet gesnoozed"
+                .snoozeToggle:after {
+                    content: "snooze";
+                    border-radius: 100%;
+                    padding: 1px;
                 }
                 .snoozeToggle:checked:after {
-                    content: "gesnoozed"
+                    background-color: #000;
                 }
