@@ -68,7 +68,7 @@ class ActivityChildCountHubbleProperty extends HubbleProperty<number>{
 class StatusHubbleProperty extends HubbleProperty<boolean>{
     constructor(name: string, hubble: Hubble) {
         super(name, hubble);
-        this.prepareChange = newvVal => hubble.active.rebuild();
+        this.prepareChange = () => hubble.active.rebuild();
     }
 }
 
@@ -102,7 +102,7 @@ class ChildrenProperty extends HubbleProperty<string[]> {
             if (snapshot) {
                 newIndex = snapshot.numChildren();
             }
-            this.ref().child(String(newIndex)).set(hubble.hubbleKey);
+            this.ref().child(String(newIndex)).set(hubble.hubbleKey).then(() => this.myHubble.activechildren.rebuild());
             return hubble;
         });
     }
@@ -111,6 +111,7 @@ class ChildrenProperty extends HubbleProperty<string[]> {
         return this.get().then(children => {
             children.splice(children.indexOf(hubble.hubbleKey), 1);
             this.set(children);
+            this.myHubble.activechildren.rebuild();
         });
     }
 
@@ -161,7 +162,9 @@ class ChildrenProperty extends HubbleProperty<string[]> {
         updatePromises.push(child.activechildren.set(0));
         updatePromises.push(this.push(child));
 
-        return Promise.all(updatePromises).then(nothing => child);
+        return Promise.all(updatePromises).then(() => {
+            return child;
+        });
     }
 }
 
@@ -217,7 +220,7 @@ class Hubble {
     }
 
     sanatize() {
-        return this.children.rebuild().then(value => this.activechildren.rebuild());
+        return this.children.rebuild().then(() => this.activechildren.rebuild());
     }
 
     recurse(childrenFirst: boolean, task: (Hubble: Hubble) => void) {

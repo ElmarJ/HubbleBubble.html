@@ -134,8 +134,7 @@ class HubbleTemplateBuilder {
   setText(data: HubbleData) {
     if (this.contentElement !== null) {
       this.contentElement.innerText = data.content;
-      this.contentElement.onblur = ev =>
-        persistHubbleContentElement(this.contentElement);
+      this.contentElement.onblur = () => persistHubbleContentElement(this.contentElement);
     }
 
     // Number of active children details
@@ -168,7 +167,7 @@ function renderHubble(
   template: HTMLTemplateElement,
   containerElement: HTMLElement
 ) {
-  return hubble.getHubbleData().then(data => {
+  return hubble.getHubbleData().then((data) => {
     const templatedNode = <DocumentFragment>document.importNode(
       template.content,
       true
@@ -183,7 +182,7 @@ function renderHubble(
     const contentElement = <HTMLElement>templatedNode.querySelector(".content");
     if (contentElement !== null) {
       contentElement.innerText = data.content;
-      contentElement.onblur = ev => persistHubbleContentElement(contentElement);
+      contentElement.onblur = () => persistHubbleContentElement(contentElement);
     }
 
     const linkElement = <HTMLLinkElement>templatedNode.querySelector(
@@ -309,7 +308,7 @@ function addNewChild(parentHubble: Hubble) {
     const childrenElement = <HTMLElement>getElementOf(parentHubble).getElementsByClassName("children")[0];
     if (childrenElement) {
       const childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
-      renderHubble(childHubble, childTemplate, childrenElement).then(nothing => setFocus(childHubble)) ;
+      renderHubble(childHubble, childTemplate, childrenElement).then(() => setFocus(childHubble)) ;
     } else {
       setFocus(childHubble);
     }
