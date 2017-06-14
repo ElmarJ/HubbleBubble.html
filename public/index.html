@@ -44,7 +44,7 @@
     <template id="hubbleDocumentTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble hubbleDocumentView">
             <p>
-                <span contenteditable="true" class="content" onkeyup="onEditorKeyPress(event)"></span>
+                <span contenteditable="true" class="content" onkeypress="onEditorKeyPress(event)"></span>
             </p>
             <div class="buttons">
                 <input type="checkbox" class="doneToggle" tabindex="0">
@@ -60,7 +60,7 @@
         <ul>
             <li class="hubble hubbleListView">
                 <p>
-                    <span class="content" contenteditable="true" onkeyup="onEditorKeyPress(event)"></span>
+                    <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
                     <span class="buttons">
                         <input type="checkbox" class="doneToggle" tabindex="0">
                         <input type="checkbox" class="snoozeToggle" tabindex="0">
@@ -75,7 +75,7 @@
     <template id="hubbleListItemTemplate" class="hubbletemplate">
         <li class="hubble">
             <p>
-                <span class="content" contenteditable="true" onkeyup="onEditorKeyPress(event)"></span>
+                <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
                 <span class="buttons">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">

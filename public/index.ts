@@ -323,9 +323,9 @@ function getElementOf(hubble: Hubble) {
 
 function onEditorKeyPress(ev: KeyboardEvent) {
   if (ev.key == "Enter") {
+    ev.preventDefault();
     const hubble = getScopedHubble(<HTMLElement>ev.srcElement);
     hubble.parent.hubble().then(parent => addNewChild(parent));
-    ev.preventDefault();
   }
 }
 
