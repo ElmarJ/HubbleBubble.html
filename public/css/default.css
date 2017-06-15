@@ -203,3 +203,7 @@
                 .snoozeToggle:checked:after {
                     background-color: #000;
                 }
+
+                .content {
+                    display: block;
+                }
