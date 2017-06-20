@@ -28,16 +28,45 @@ class HubbleProperty<T>{
 
     set(value: T) {
         this.prepareChange(value);
-        return <Promise<void>> this.ref().set(value);
+        return <Promise<void>>this.ref().set(value);
     }
 
     update(newValueCreator: (Hubble: Hubble) => T) {
-        return <Promise<void>> this.set(newValueCreator(this.myHubble));
+        return <Promise<void>>this.set(newValueCreator(this.myHubble));
     }
 
     ref() {
         return this.myHubble.ref.child(this.name);
     }
+
+    bindElementContent(element: HTMLElement) {
+        const callback = snapshot => element.innerText = snapshot.val();
+        
+        this.ref().on("value", callback);
+
+        element.onblur = () => this.set(<T>element.innerText);
+    }
+
+    unbindElementContent(element: HTMLElement) {
+        // todo
+    }
+
+    bindAttribute(element: HTMLElement, attribute: string) {
+        this.ref().on("value", snapshot => {
+            element.setAttribute = snapshot.val();
+        });
+        
+        const observer = new MutationObserver((mutations) => {
+            observer.observe(element, {
+                attributeFilter: [attribute]
+            })
+        });
+    }
+
+    unbindAttribute(element: HTMLElement, attribute: string) {
+        // todo
+    }
+
 }
 
 class IsActiveHubbleProperty extends HubbleProperty<boolean>{
@@ -97,7 +126,7 @@ class ChildrenProperty extends HubbleProperty<string[]> {
     }
 
     push(hubble: Hubble) {
-        return <Promise<Hubble>> this.ref().orderByKey().once("value").then(snapshot => {
+        return <Promise<Hubble>>this.ref().orderByKey().once("value").then(snapshot => {
             var newIndex = 0;
             if (snapshot) {
                 newIndex = snapshot.numChildren();
@@ -153,7 +182,7 @@ class ChildrenProperty extends HubbleProperty<string[]> {
     addnew() {
         const updatePromises: Promise<any>[] = []
         const child = new Hubble(this.myHubble.ref.parent.push().key)
-        
+
         updatePromises.push(child.parent.set(this.myHubble.hubbleKey));
         updatePromises.push(child.content.set(""));
         updatePromises.push(child.snoozed.set(false));

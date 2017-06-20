@@ -44,13 +44,58 @@
                     padding: 40px 28px;
                 }
                 
+                                
+                [contenteditable] {
+                    padding: 5px;
+                    outline-width: 1px;
+                    outline-color: transparent;
+                    outline-style: solid;
+                    transition: border-color 1s ease;
+                }
+                
+                [contenteditable]:focus {
+                    outline-color: #ccc;
+                }
+
+                input:focus {
+                    outline: none;
+                }
+
+                .doneToggle, .snoozeToggle {
+                    -webkit-appearance: none;
+                    font-family: "Material Icons";
+                    font-size: 18pt;
+                    font-weight: 400;
+                    color: #ccc;
+                }
+                .doneToggle:after {
+                    content: "done";
+                    border-radius:15px;
+                    padding: 1px;
+                }
+                .doneToggle:checked:after {
+                    background-color: #000;
+                    border-radius: 100%;
+                }
+                .snoozeToggle:after {
+                    content: "snooze";
+                    border-radius: 100%;
+                    padding: 1px;
+                }
+                .snoozeToggle:checked:after {
+                    background-color: #000;
+                }
+
+                .content {
+                    display: block;
+                }
+
                 .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
                 }
                 
                 .hubbleCardView div.content {
-                    font-size: 40px;
-                    text-align: justify;
+                    font-size: 36px;
                     line-height: 55px;
                     font-family: 'Rasa', serif;
                 }
@@ -134,7 +179,17 @@
                 .hubbleDocumentView .hubble {
                     padding-left: 15px;
                     max-width: 700px;
+                    text-align: justify;
+                    line-height: 1.5;
                 }
+
+                .hubbleDocumentView .hubble:not([data-active-children="0"]) {
+                    font-weight: bold;
+                }
+
+                .hubbleDocumentView .hubble[data-active=false] {
+                    display: none;
+                }                
                 
                 .hubbleDocumentView .buttons {
                     opacity: 0;
@@ -149,61 +204,4 @@
                 
                 .hubbleDocumentView .buttons:hover {
                     opacity: 1;
-                }
-                
-                .hubbleDocumentView .hubble {
-                    font-weight: bold;
-                }
-                
-                .hubbleDocumentView .hubble[data-active-children="0"] {
-                    font-weight: initial;
-                }
-                
-                .hubbleDocumentView .hubble[data-active=false] {
-                    display: none;
-                }
-                
-                [contenteditable] {
-                    padding: 5px;
-                    outline-width: 1px;
-                    outline-color: transparent;
-                    outline-style: solid;
-                    transition: border-color 1s ease;
-                }
-                
-                [contenteditable]:focus {
-                    outline-color: #ccc;
-                }
-
-                input:focus {
-                    outline: none;
-                }
-
-                .doneToggle, .snoozeToggle {
-                    -webkit-appearance: none;
-                    font-family: "Material Icons";
-                    font-size: 18pt;
-                    font-weight: 400;
-                    color: #ccc;
-                }
-                .doneToggle:after {
-                    content: "done";
-                    border-radius:15px;
-                    padding: 1px;
-                }
-                .doneToggle:checked:after {
-                    background-color: #000;
-                    border-radius: 100%;
-                }
-                .snoozeToggle:after {
-                    content: "snooze";
-                    border-radius: 100%;
-                    padding: 1px;
-                }
-                .snoozeToggle:checked:after {
-                    background-color: #000;
-                }
-
-                .content {
-                    display: block;
                 }
