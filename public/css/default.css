@@ -1,5 +1,4 @@
                 @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro|Open+Sans|Raleway');
-
                 a {
                     color: inherit;
                     text-decoration: inherit;
@@ -23,7 +22,7 @@
                 header:hover>section {
                     opacity: 1;
                 }
-                                
+                
                 .app-main {
                     -webkit-flex-shrink: 0;
                     -ms-flex-negative: 0;
@@ -44,7 +43,6 @@
                     padding: 40px 28px;
                 }
                 
-                                
                 [contenteditable] {
                     padding: 5px;
                     outline-width: 1px;
@@ -56,40 +54,45 @@
                 [contenteditable]:focus {
                     outline-color: #ccc;
                 }
-
+                
                 input:focus {
                     outline: none;
                 }
-
-                .doneToggle, .snoozeToggle {
+                
+                .doneToggle,
+                .snoozeToggle {
                     -webkit-appearance: none;
                     font-family: "Material Icons";
                     font-size: 18pt;
                     font-weight: 400;
                     color: #ccc;
                 }
+                
                 .doneToggle:after {
                     content: "done";
-                    border-radius:15px;
+                    border-radius: 15px;
                     padding: 1px;
                 }
+                
                 .doneToggle:checked:after {
                     background-color: #000;
                     border-radius: 100%;
                 }
+                
                 .snoozeToggle:after {
                     content: "snooze";
                     border-radius: 100%;
                     padding: 1px;
                 }
+                
                 .snoozeToggle:checked:after {
                     background-color: #000;
                 }
-
+                
                 .content {
                     display: block;
                 }
-
+                
                 .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
                 }
@@ -119,19 +122,19 @@
                 .hubbleCardView .children .hubble {
                     max-width: 200px;
                     border-width: 1px;
-                    border-color: #ddd; 
-                    border-style: solid; 
+                    border-color: #ddd;
+                    border-style: solid;
                     margin: 10px;
                     padding: 10px;
                     display: inline-block;
                     border-radius: 4px;
                 }
-
+                
                 .hubbleCardView .special-children {
                     display: inline-block;
                     vertical-align: top;
                 }
-
+                
                 .hubbleCardView .special-children .hubble {
                     display: block;
                 }
@@ -158,7 +161,6 @@
                 
                 .hubbleCardView .children .hubble:hover .childcountinfo {
                     opacity: 0.5;
-                    
                 }
                 
                 .hubbleListView .buttons {
@@ -182,19 +184,20 @@
                     text-align: justify;
                     line-height: 1.5;
                 }
-
+                
                 .hubbleDocumentView .hubble:not([data-active-children="0"]) {
                     font-weight: bold;
                 }
-
+                
                 .hubbleDocumentView .hubble[data-active=false] {
                     display: none;
-                }                
+                }
                 
                 .hubbleDocumentView .buttons {
                     opacity: 0;
                     transition: opacity .5s;
                     position: absolute;
+                    float: left;
                     left: 10px;
                     background: #fff;
                     border: 1px solid #ddd;
