@@ -93,6 +93,13 @@
                     display: block;
                 }
                 
+                .buttons {
+                    -ms-user-select: none;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                }
+                
                 .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
                 }
