@@ -11,7 +11,7 @@ interface HubbleData {
     children: string[];
 }
 
-class HubbleProperty<T>{
+abstract class HubbleProperty<T>{
     name: string;
     protected myHubble: Hubble;
     prepareChange: (newValue: T) => void;
@@ -31,6 +31,8 @@ class HubbleProperty<T>{
         return <Promise<void>>this.ref().set(value);
     }
 
+    abstract setString(value: string);
+
     update(newValueCreator: (Hubble: Hubble) => T) {
         return <Promise<void>>this.set(newValueCreator(this.myHubble));
     }
@@ -39,28 +41,54 @@ class HubbleProperty<T>{
         return this.myHubble.ref.child(this.name);
     }
 
-    bindElementContent(element: HTMLElement) {
-        const callback = snapshot => element.innerText = snapshot.val();
-        
-        this.ref().on("value", callback);
-
-        element.onblur = () => this.set(<T>element.innerText);
+    bindContentIfVisible(element: HTMLElement) {
+        respondToVisibility(
+            element,
+            visible => {
+                if (visible) {
+                    this.bindContent(element);
+                } else {
+                    this.unbindContent(element);
+                }
+            }
+        );
     }
 
-    unbindElementContent(element: HTMLElement) {
+    bindAttributeIfVisible(element: HTMLElement, attribute: string) {
+        respondToVisibility(
+            element,
+            visible => {
+                if (visible) {
+                    this.bindAttribute(element, attribute);
+                } else {
+                    this.unbindAttribute(element, attribute);
+                }
+            }
+        );
+    }
+
+    bindContent(element: HTMLElement) {
+        const callback = snapshot => element.innerText = snapshot.val();
+
+        this.ref().on("value", callback);
+
+        element.onblur = () => this.setString(element.innerText);
+    }
+
+    unbindContent(element: HTMLElement) {
         // todo
     }
 
     bindAttribute(element: HTMLElement, attribute: string) {
         this.ref().on("value", snapshot => {
-            element.setAttribute = snapshot.val();
+            element.setAttribute(attribute, snapshot.val());
         });
-        
+
         const observer = new MutationObserver((mutations) => {
-            observer.observe(element, {
-                attributeFilter: [attribute]
-            })
+            this.setString(element.getAttribute(attribute));
         });
+
+        observer.observe(element, { attributeFilter: [attribute] });
     }
 
     unbindAttribute(element: HTMLElement, attribute: string) {
@@ -69,7 +97,27 @@ class HubbleProperty<T>{
 
 }
 
-class IsActiveHubbleProperty extends HubbleProperty<boolean>{
+class BooleanHubbleProperty extends HubbleProperty<boolean> {
+    setString(value: string) {
+        // todo: check parameter
+        this.set(new Boolean(value).valueOf());
+    }
+}
+
+class StringHubbleProperty extends HubbleProperty<string> {
+    setString(value: string) {
+        this.set(value);
+    }
+}
+
+class NumberHubbleProperty extends HubbleProperty<number> {
+    setString(value: string) {
+        // todo: check parameter
+        this.set(new Number(value).valueOf());
+    }
+}
+
+class IsActiveHubbleProperty extends BooleanHubbleProperty{
     rebuild() {
         return this.myHubble.getProperties([this.myHubble.snoozed, this.myHubble.done, this.myHubble.activechildren]).then(hubble => {
             this.set(!hubble.snoozed && (!hubble.done || (hubble.activechildren > 0)));
@@ -78,7 +126,7 @@ class IsActiveHubbleProperty extends HubbleProperty<boolean>{
     }
 }
 
-class ActivityChildCountHubbleProperty extends HubbleProperty<number>{
+class ActivityChildCountHubbleProperty extends NumberHubbleProperty{
     rebuild() {
         return this.myHubble.children.hubbles().then(hubbles => {
             const promisesToGetChildActivity = hubbles.map(hubble => hubble.active.get());
@@ -94,20 +142,24 @@ class ActivityChildCountHubbleProperty extends HubbleProperty<number>{
     }
 }
 
-class StatusHubbleProperty extends HubbleProperty<boolean>{
+class StatusHubbleProperty extends BooleanHubbleProperty{
     constructor(name: string, hubble: Hubble) {
         super(name, hubble);
         this.prepareChange = () => hubble.active.rebuild();
     }
 }
 
-class ParentHubbleProperty extends HubbleProperty<string> {
+class ParentHubbleProperty extends StringHubbleProperty {
     hubble() {
         return this.get().then(value => new Hubble(value));
     }
 }
 
 class ChildrenProperty extends HubbleProperty<string[]> {
+    setString(value: string) {
+        throw new Error("Method not implemented.");
+    }
+    
     rebuild() {
         // Need to get the old child-query from previous code version to sanatize properly
         // Query to all hubbles that have me as a parent (i.e. my children):
@@ -205,7 +257,7 @@ class Hubble {
 
     parent = new ParentHubbleProperty("parent", this);
     children = new ChildrenProperty("children", this);
-    content = new HubbleProperty<string>("content", this);
+    content = new StringHubbleProperty("content", this);
     active = new IsActiveHubbleProperty("active", this);
     snoozed = new StatusHubbleProperty("snoozed", this);
     done = new StatusHubbleProperty("done", this);
@@ -270,4 +322,12 @@ class Hubble {
             task(this);
         }
     }
+}
+
+function respondToVisibility(element: HTMLElement, callback: (visbility: boolean) => void) {
+    var observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            callback(entry.intersectionRatio > 0);
+        });
+    });
 }
