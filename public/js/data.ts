@@ -22,8 +22,9 @@ abstract class HubbleProperty<T>{
         this.prepareChange = (value) => { };
     }
 
-    get() {
-        return <Promise<T>>this.ref().once('value').then(snapshot => snapshot.val());
+    async get() {
+        const snapshot = await this.ref().once('value');
+        return <T>snapshot.val();
     }
 
     set(value: T) {
@@ -118,11 +119,12 @@ class NumberHubbleProperty extends HubbleProperty<number> {
 }
 
 class IsActiveHubbleProperty extends BooleanHubbleProperty{
-    rebuild() {
-        return this.myHubble.getProperties([this.myHubble.snoozed, this.myHubble.done, this.myHubble.activechildren]).then(hubble => {
-            this.set(!hubble.snoozed && (!hubble.done || (hubble.activechildren > 0)));
-            this.myHubble.parent.hubble().then(parent => parent.activechildren.rebuild());
-        });
+    async rebuild() {
+        const hubble = await this.myHubble.getProperties([this.myHubble.snoozed, this.myHubble.done, this.myHubble.activechildren]);
+        this.set(!hubble.snoozed && (!hubble.done || (hubble.activechildren > 0)));
+        
+        const parent = await this.myHubble.parent.hubble();
+        parent.activechildren.rebuild();
     }
 }
 
@@ -150,8 +152,9 @@ class StatusHubbleProperty extends BooleanHubbleProperty{
 }
 
 class ParentHubbleProperty extends StringHubbleProperty {
-    hubble() {
-        return this.get().then(value => new Hubble(value));
+    async hubble() {
+        const value = await this.get();
+        return new Hubble(value);
     }
 }
 
@@ -160,75 +163,70 @@ class ChildrenProperty extends HubbleProperty<string[]> {
         throw new Error("Method not implemented.");
     }
     
-    rebuild() {
+    async rebuild() {
         // Need to get the old child-query from previous code version to sanatize properly
         // Query to all hubbles that have me as a parent (i.e. my children):
         const childrenQuery = this.ref().parent.parent.orderByChild("parent").equalTo(this.myHubble.hubbleKey);
-        return childrenQuery.once("value").then(
-            snapshot => {
-                const childKeyList: string[] = [];
-                const childKeys = snapshot.val();
-                for (var childKey in childKeys) {
-                    childKeyList.push(childKey);
-                }
-                return childKeyList;
-            }).then(childKeyList => {
-                this.set(childKeyList)
-            });
+        const snapshot = await childrenQuery.once("value");
+        const childKeyList: string[] = [];
+        const childKeys = snapshot.val();
+
+        for (var childKey in childKeys) {
+            childKeyList.push(childKey);
+        }
+
+        this.set(childKeyList)
     }
 
-    push(hubble: Hubble) {
-        return <Promise<Hubble>>this.ref().orderByKey().once("value").then(snapshot => {
-            var newIndex = 0;
-            if (snapshot) {
-                newIndex = snapshot.numChildren();
-            }
-            this.ref().child(String(newIndex)).set(hubble.hubbleKey).then(() => this.myHubble.activechildren.rebuild());
-            return hubble;
-        });
+    async push(hubble: Hubble) {
+        const snapshot = await this.ref().orderByKey().once("value")
+        var newIndex = 0;
+        if (snapshot) {
+            newIndex = snapshot.numChildren();
+        }
+        await this.ref().child(String(newIndex)).set(hubble.hubbleKey);
+        this.myHubble.activechildren.rebuild();
+        return hubble;
     }
 
-    remove(hubble: Hubble) {
-        return this.get().then(children => {
-            children.splice(children.indexOf(hubble.hubbleKey), 1);
-            this.set(children);
-            this.myHubble.activechildren.rebuild();
-        });
+    async remove(hubble: Hubble) {
+        const children = await this.get();
+        children.splice(children.indexOf(hubble.hubbleKey), 1);
+        this.set(children);
+        this.myHubble.activechildren.rebuild();
     }
 
-    swapPosition(child1: Hubble, child2: Hubble) {
-        return this.get().then(children => {
-            const child1index = children.indexOf(child1.hubbleKey);
-            const child2index = children.indexOf(child2.hubbleKey);
+    async swapPosition(child1: Hubble, child2: Hubble) {
+        const children = await this.get();
+        const child1index = children.indexOf(child1.hubbleKey);
+        const child2index = children.indexOf(child2.hubbleKey);
 
-            children[child1index] = child2.hubbleKey;
-            children[child2index] = child1.hubbleKey;
+        children[child1index] = child2.hubbleKey;
+        children[child2index] = child1.hubbleKey;
 
-            this.set(children);
-        });
+        this.set(children);
     }
 
-    rePosition(hubble: Hubble, after: Hubble) {
-        return this.get().then(children => {
-            const hubbleIndex = children.indexOf(hubble.hubbleKey);
-            const targetIndex = children.indexOf(after.hubbleKey);
+    async rePosition(hubble: Hubble, after: Hubble) {
+        const children = await this.get();
+        const hubbleIndex = children.indexOf(hubble.hubbleKey);
+        const targetIndex = children.indexOf(after.hubbleKey);
 
-            children.splice(hubbleIndex, 1);
-            children.splice(targetIndex + 1, 0, hubble.hubbleKey);
+        children.splice(hubbleIndex, 1);
+        children.splice(targetIndex + 1, 0, hubble.hubbleKey);
 
-            this.set(children);
-        });
+        this.set(children);
     }
 
-    hubbles() {
-        return this.get().then(childKeys => {
-            if (childKeys) {
-                return childKeys.map(childKey => new Hubble(childKey));
-            }
-            else {
-                return [];
-            }
-        });
+    async hubbles() {
+        const childKeys = await this.get();
+
+        if (childKeys) {
+            return childKeys.map(childKey => new Hubble(childKey));
+        }
+        else {
+            return [];
+        }
     }
 
     addnew() {
@@ -268,16 +266,16 @@ class Hubble {
         this.ref = this.database.ref('users/' + this.user.uid + '/hubbles/' + hubbleKey);
     }
 
-    getHubbleData() {
-        return <Promise<HubbleData>>this.ref.once('value').then(snapshot => {
-            const hubble = <HubbleData>snapshot.val();
-            hubble.key = this.hubbleKey;
-            return hubble;
-        });
+    async getHubbleData() {
+        const snapshot = await this.ref.once('value')
+        const hubble = <HubbleData>snapshot.val();
+        hubble.key = this.hubbleKey;
+        return hubble;
     }
 
     getProperties(properties: HubbleProperty<any>[]) {
         const promises = properties.map(property => property.get().then(value => ({ name: property.name, value: value })));
+        
         return Promise.all(promises).then(properties => {
             const hubble = <HubbleData>(new Object);
             for (const property of properties) {
@@ -287,35 +285,35 @@ class Hubble {
         });
     }
 
-    move(newParent: Hubble) {
-        return this.parent.hubble().then(oldParent => {
-            oldParent.children.remove(this);
-            newParent.children.push(this);
-            this.parent.set(newParent.hubbleKey);
-        });
+    async move(newParent: Hubble) {
+        const oldParent = await this.parent.hubble();
+        oldParent.children.remove(this);
+        newParent.children.push(this);
+        this.parent.set(newParent.hubbleKey);
     }
 
-    delete() {
-        this.parent.hubble().then(parent => parent.children.remove(this));
+    async delete() {
+        const parent = await this.parent.hubble()
+        parent.children.remove(this);
         this.ref.remove();
     }
 
-    sanatize() {
-        return this.children.rebuild().then(() => this.activechildren.rebuild());
+    async sanatize() {
+        await this.children.rebuild();
+        await this.activechildren.rebuild();
     }
 
-    recurse(childrenFirst: boolean, task: (Hubble: Hubble) => void) {
+    async recurse(childrenFirst: boolean, task: (Hubble: Hubble) => void) {
         // If not childrenFirst, first do it for myself:
         if (!childrenFirst) {
             task(this);
         }
 
         // then, get child hubbles and do it for all my children:
-        this.children.hubbles().then(childConnections => {
-            for (const childConnection of childConnections) {
-                childConnection.recurse(childrenFirst, task);
-            }
-        })
+        const children = await this.children.hubbles();
+        for (const child of children) {
+            child.recurse(childrenFirst, task);
+        }
 
         // if childrenFirst, do it for myself now:
         if (childrenFirst) {
