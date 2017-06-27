@@ -28,11 +28,11 @@
                     <div class="app-container">
                         <nav id="viewMenu" role="menubar">
                             <ul>
-                                <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"><label for="lightSwitch">lights</label></li>
-                                <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"><label for="bulletSwitch">bullets</label></li>
                                 <li><input type="checkbox" role="switch" id="cardviewSwitch" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch">cards</label></li>
-                                <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" onchange="onInactiveVisibleSwitch();"><label for="inactiveVisibleSwitch">sleepers</label></li>
+                                <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" onchange="onInactiveVisibleSwitch();" checked><label for="inactiveVisibleSwitch">sleepers</label></li>
+                                <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"><label for="bulletSwitch">bullets</label></li>
                                 <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch">fullscreen</label></li>
+                                <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"><label for="lightSwitch">lights</label></li>
                             </ul>
                         </nav>
                         <div id="hubblePresenter"></div>
@@ -55,6 +55,7 @@
                 <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
             </span>
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
+            <a class="parentlink"><span class="material-icons">arrow_upward</span></a>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </div>
     </template>
@@ -92,10 +93,10 @@
             <span class="buttons">
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <input type="checkbox" class="collapseToggle" checked tabindex="0" onchange="collapseChange(event)">
-                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>
-                <a class="hubblelink" href=""><i class="material-icons">all_out</i></a>
+                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>
+                <a class="hubblelink" href="">all_out</a>
             </span>
+            <input type="checkbox" class="collapseToggle" checked tabindex="0" onchange="collapseChange(event)">
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>

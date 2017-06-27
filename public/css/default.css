@@ -91,24 +91,35 @@
                     visibility: visible;
                 }
 
-                #viewMenu label[for="lightSwitch"]::before {
+                #lightSwitch + label::before {
                     content: "lightbulb_outline";
                 }
 
-                #viewMenu label[for="bulletSwitch"]::before {
-                    content: "list";
+                #bulletSwitch + label::before {
+                    content: "chevron_right";
                 }
 
-                #viewMenu label[for="fullscreenSwitch"]::before {
+                #fullscreenSwitch + label::before {
                     content: "fullscreen";
                 }
 
-                #viewMenu label[for="inactiveVisibleSwitch"]::before {
-                    content: "filter_list";
+                #fullscreenSwitch:checked + label::before {
+                    content: "fullscreen_exit";
                 }
 
-                #viewMenu label[for="cardviewSwitch"]::before {
+                #inactiveVisibleSwitch + label::before {
+                    content: "visibility";
+                }
+
+                #inactiveVisibleSwitch:checked + label::before {
+                    content: "visibility_off";
+                }
+
+                #cardviewSwitch + label::before {
                     content: "view_module";
+                }
+                #cardviewSwitch:checked + label::before {
+                    content: "list";
                 }
                 
                 .app-main {
@@ -147,22 +158,28 @@
                 input:focus {
                     outline: none;
                 }
-                
-                .doneToggle,
-                .snoozeToggle,
-                .collapseToggle {
-                    -webkit-appearance: none;
+                .hubbleListView .newhubble_link, .hubbleListView .hubblelink {
                     font-family: "Material Icons";
-                    font-size: 18pt;
+                    font-size: 14pt;
                     font-weight: 400;
                     margin: 0;
                     color: inherit;
+                    display: inline;
+                    
                 }
-                
+                .doneToggle,
+                .snoozeToggle {
+                    -webkit-appearance: none;
+                    font-family: "Material Icons";
+                    font-size: 14pt;
+                    font-weight: 400;
+                    margin: 0;
+                    color: inherit;
+                    display: inline;
+                }
+                                
                 .doneToggle:after {
                     content: "done";
-                    border-radius: 100%;
-                    padding: 1px;
                     color: #ccc;
                 }
                 
@@ -172,27 +189,37 @@
                 
                 .snoozeToggle:after {
                     content: "snooze";
-                    border-radius: 100%;
-                    padding: 1px;
                     color: #ccc;
                 }
+
+                .collapseToggle {
+                    -webkit-appearance: none;
+                    font-family: "Material Icons";
+                    font-size: 14pt;
+                    margin: 0;
+                    display: inline;
+                    color: #ccc;
+                    font-weight: bold;
+                    vertical-align: top;
+                }
                 
-                .collapseToggle:checked:after {
-                    color: inherit;
+                .noBulletView .collapseToggle {
+                    visibility: hidden;
                 }
 
                 .collapseToggle:after {
-                    content: "expand_more";
-                    border-radius: 100%;
-                    padding: 1px;
-                    color: #ccc;
+                    content: "expand_more"; 
+                    vertical-align: top;
+                }
+
+                .hubble[data-active-children="0"] .collapseToggle:after {
+                    content: "chevron_right";
+                    font-weight: initial;
                 }
                 
                 .collapseToggle:checked:after {
-                    color: inherit;
+                    content: "chevron_right";
                 }
-
-                
                 
                 .content {
                     display: block;
@@ -209,16 +236,15 @@
                  */
                                 
                 .children .hubble[data-active=false] {
+                    opacity: 0.5;
+                }
+
+                .hideInactive .children .hubble[data-active=false] {
                     display: none !important;
                 }
                 
                 .hubble.collapsed .children {
                     display: none;
-                }
-
-                .showInactive .children .hubble[data-active=false] {
-                    opacity: 0.5;
-                    display: inline-block !important;
                 }
 
                 .hubbleCardView div.content {
@@ -295,6 +321,10 @@
                     opacity: 0.5;
                     visibility: visible;
                 }
+
+                .hubbleCardView .children .children {
+                    display: none;
+                }
                 
                 .hubbleListView .hubble {
                     line-height: 1.5;
@@ -303,13 +333,14 @@
                 }
 
                 .hubbleListView .buttons {
-                    margin-left: -144px;
-                    float: left;
-                    position: absolute;
                     color: #ccc;
-                    display: block;
+                    display: inline-block;
                 }
                 
+                .hubbleListView li {
+                    white-space: nowrap;
+                }
+
                 .hubbleListView .buttons * {
                     transition: opacity .5s;
                     opacity: 0;
@@ -322,10 +353,6 @@
                 }
 
                 .hubbleListView ul {
-                    list-style: disc;
-                }
-
-                .hubbleListView.noBulletView ul {
                     list-style: none;
                 }
 
@@ -333,4 +360,14 @@
                     font-size: 30px;
                     line-height: 55px;
                     font-family: 'Rasa', serif;   
+                }
+
+                .hubbleListView .content {
+                    display: inline-block;
+                    white-space: normal;
+                    vertical-align: top;
+                }
+
+                .hubbleListView .parentlink {
+                    color: #ddd;
                 }

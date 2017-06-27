@@ -190,18 +190,30 @@ async function renderHubble(
   // add children based on child template:
   const childrenElement = <HTMLElement>templatedNode.querySelector(".children");
   if (childrenElement !== null) {
-    // lookup childtemplate
-
-    var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
-
-    const childHubbles = await hubble.children.hubbles()
-    for (var child of childHubbles) {
-      renderHubble(child, childTemplate, childrenElement);
+    renderChildrenWhenVisible(childrenElement, hubble);
     }
-  }
 
   // add rendered hubble to container:
   containerElement.appendChild(templatedNode);
+}
+
+async function renderChildren(childrenElement: HTMLElement, hubble: Hubble) {
+    var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
+    childrenElement.dataset.rendered = "true"; //strictly speaking, it's not yet rendered, but it will be soon (and we don't want it to be rendered more than once)
+
+    const childHubbles = await hubble.children.hubbles();
+    for (var child of childHubbles) {
+      renderHubble(child, childTemplate, childrenElement);
+    }
+}
+
+async function renderChildrenWhenVisible(childrenElement: HTMLElement, hubble: Hubble) {
+  respondToVisibility(childrenElement, visible => {
+    if(visible && !childrenElement.dataset.rendered) {
+      renderChildren(childrenElement, hubble);
+    }
+  })
+
 }
 
 function getRootConnection(): Hubble {
@@ -339,11 +351,11 @@ function onFullscreenSwitch() {
 function onInactiveVisibleSwitch() {
   const showInactiveVisibleCheckBox = <HTMLInputElement>document.getElementById("inactiveVisibleSwitch");
   if (showInactiveVisibleCheckBox.checked) {
-    document.documentElement.classList.add("showInactive");
+    document.documentElement.classList.remove("hideInactive");
   }
 
   else {
-    document.documentElement.classList.remove("showInactive");
+    document.documentElement.classList.add("hideInactive");
   }
 }
 
@@ -391,4 +403,13 @@ function collapseChange(ev:Event) {
     } else {
       hubbleElement.classList.remove("collapsed");      
     }
+}
+
+function respondToVisibility(element: HTMLElement, callback: (visbility: boolean) => void) {
+    var observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            callback(entry.intersectionRatio > 0);
+        });
+    });
+    observer.observe(element);
 }

@@ -358,10 +358,3 @@ class Hubble {
     }
 }
 
-function respondToVisibility(element: HTMLElement, callback: (visbility: boolean) => void) {
-    var observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            callback(entry.intersectionRatio > 0);
-        });
-    });
-}
