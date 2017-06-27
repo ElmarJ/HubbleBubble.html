@@ -29,6 +29,13 @@
                 </header>
                 <main id="main" class="app-main">
                     <div class="app-container">
+                        <nav id="viewMenu" role="menubar">
+                            <ul>
+                                <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"></li>
+                                <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"></li>
+                                <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"></li>
+                            </ul>
+                        </nav>
                         <div id="hubblePresenter"></div>
                     </div>
                 </main>
@@ -58,42 +65,13 @@
 
     <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble hubbleListView">
-            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
             <span class="buttons">
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
             </span>
-            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
-        </div>
-    </template>
-
-    <template id="hubbleListItemTemplate" class="hubbletemplate">
-        <li class="hubble">
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
-            <span class="buttons">
-                <input type="checkbox" class="doneToggle" tabindex="0">
-                <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
-                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>
-                </span>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
-        </li>
-    </template>
-
-    <template id="hubbleArticleTemplate" data-userselectable class="hubbletemplate">
-        <article>
-            <div class="hubble">
-                <summary class="content" contenteditable="true"></summary>
-                <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
-            </div>
-        </article>
-    </template>
-
-    <template id="hubbleDetailsTemplate" class="hubbletemplate">
-        <div class="hubble">
-            <summary class="content" contenteditable="true"></summary>
-            <details class="children" data-childtemplate="hubbleDetailsTemplate"></details>
         </div>
     </template>
 
@@ -121,6 +99,19 @@
                 </div>
             </ul>
         </div>
+    </template>
+
+    <template id="hubbleListItemTemplate" class="hubbletemplate">
+        <li class="hubble">
+            <span class="buttons">
+                <input type="checkbox" class="doneToggle" tabindex="0">
+                <input type="checkbox" class="snoozeToggle" tabindex="0">
+                <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
+                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>
+            </span>
+            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+        </li>
     </template>
 
     <template id="cardViewChildTemplate" class="hubbletemplate">

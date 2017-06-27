@@ -4,9 +4,18 @@
                     text-decoration: inherit;
                 }
                 
-                body {
-                    font-family: 'Roboto'
+                html, body {
+                    font-family: 'Roboto';
+                     /* make sure that we have full background in fullscreen*/
+                    width: 100%;
+                    height: 100%;
+                    margin: 0;
                 }
+
+                body.nightMode {
+                    background: #000;
+                    color: #fff;
+                }                
                 
                 header {
                     align-items: center;
@@ -21,6 +30,49 @@
                 
                 header:hover>section {
                     opacity: 1;
+                }
+
+                #viewMenu {
+                    position: absolute;
+                    left: 10px;
+                }
+
+                #viewMenu input {
+                    -webkit-appearance: none;
+                    font-family: "Material Icons";
+                    font-size: 18pt;
+                    font-weight: 400;
+                    color: #ccc;
+                }
+
+                #viewMenu ul {
+                    list-style: none;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: opacity 0.5s;
+                }
+
+                #viewMenu:hover ul {
+                    visibility: visible;
+                    opacity: 1;
+                }
+                
+                #lightSwitch:after {
+                    content: "lightbulb_outline";
+                    border-radius: 100%;
+                    padding: 1px;
+                }
+
+                #bulletSwitch:after {
+                    content: "list";
+                    border-radius: 100%;
+                    padding: 1px;
+                }
+
+                #fullscreenSwitch:after {
+                    content: "fullscreen";
+                    border-radius: 100%;
+                    padding: 1px;
                 }
                 
                 .app-main {
@@ -44,7 +96,7 @@
                 }
                 
                 [contenteditable] {
-                    padding: 5px;
+                    padding: 2px;
                     outline-width: 1px;
                     outline-color: transparent;
                     outline-style: solid;
@@ -70,13 +122,12 @@
                 
                 .doneToggle:after {
                     content: "done";
-                    border-radius: 15px;
+                    border-radius: 100%;
                     padding: 1px;
                 }
                 
                 .doneToggle:checked:after {
                     background-color: #000;
-                    border-radius: 100%;
                 }
                 
                 .snoozeToggle:after {
@@ -179,11 +230,18 @@
                 
                 .hubbleListView .buttons {
                     position: absolute;
-                    left: 10px;
+                    float: left;
+                    vertical-align: top;
                     border-radius: 5px;
                     color: #555;
                 }
                 
+                .hubbleListView .hubble {
+                    line-height: 1.5;
+                    max-width: 700px;
+                    text-align: justify;
+                }
+
                 .hubbleListView .buttons:hover {
                     border: 1px solid #ddd;
                     background: #fff;
@@ -198,6 +256,14 @@
                 .hubbleListView .buttons:hover * {
                     opacity: 1;
                     visibility: visible;
+                }
+
+                .hubbleListView ul {
+                    list-style: disc;
+                }
+
+                .hubbleListView.noBulletView ul {
+                    list-style: none;
                 }
                 
                 .hubbleDocumentView .hubble {

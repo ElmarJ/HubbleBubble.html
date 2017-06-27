@@ -329,6 +329,48 @@ async function onEditorKeyPress(ev: KeyboardEvent) {
   }
 }
 
+function onLightSwitch() {
+  const lightCheckBox = <HTMLInputElement>document.getElementById("lightSwitch");
+  const bodyElement = document.querySelector("body");
+
+  if (lightCheckBox.checked) {
+    bodyElement.classList.add("nightMode");
+  }
+
+  else {
+    bodyElement.classList.remove("nightMode");
+  }
+}
+
+function onBulletSwitch() {
+  const bulletCheckBox = <HTMLInputElement>document.getElementById("bulletSwitch");
+  const templateElement = document.querySelector(".hubbleListView");
+
+  if (bulletCheckBox.checked) {
+    templateElement.classList.add("noBulletView");
+  }
+
+  else {
+    templateElement.classList.remove("noBulletView");
+  }
+}
+
+function onFullscreenSwitch() {
+  const fullscreenCheckBox = <HTMLInputElement>document.getElementById("fullscreenSwitch");
+
+  if (fullscreenCheckBox.checked) {
+
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
+  }
+
+  else {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
+}
+
+
 function setFocus(hubble: Hubble) {
   const hubbleElement = <HTMLElement>getElementOf(hubble);
   if (hubbleElement) {
