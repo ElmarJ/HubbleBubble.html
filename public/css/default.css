@@ -87,6 +87,7 @@
                     max-width: 800px;
                     width: calc(100% - 30px);
                     margin: 0 auto;
+                    height: 100%;
                 }
                 
                 .app-layout.is-small-screen .app-content {
@@ -115,28 +116,30 @@
                     font-family: "Material Icons";
                     font-size: 18pt;
                     font-weight: 400;
-                    color: #ccc;
                     margin: 0;
+                    color: inherit;
                 }
                 
                 .doneToggle:after {
                     content: "done";
                     border-radius: 100%;
                     padding: 1px;
+                    color: #ccc;
                 }
                 
                 .doneToggle:checked:after {
-                    background-color: #000;
+                    color: inherit;
                 }
                 
                 .snoozeToggle:after {
                     content: "snooze";
                     border-radius: 100%;
                     padding: 1px;
+                    color: #ccc;
                 }
                 
                 .snoozeToggle:checked:after {
-                    background-color: #000;
+                    color: inherit;
                 }
                 
                 .content {
@@ -239,15 +242,11 @@
                 }
 
                 .hubbleListView .buttons {
-                    margin-left: -120px;
+                    margin-left: -115px;
                     float: left;
                     position: absolute;
                     color: #ccc;
                     display: block;
-                }
-                
-                .hubbleListView .buttons:hover {
-                    background: #fff;
                 }
                 
                 .hubbleListView .buttons * {
@@ -267,4 +266,10 @@
 
                 .hubbleListView.noBulletView ul {
                     list-style: none;
+                }
+
+                .hubbleListView.root>.content {
+                    font-size: 30px;
+                    line-height: 55px;
+                    font-family: 'Rasa', serif;   
                 }
