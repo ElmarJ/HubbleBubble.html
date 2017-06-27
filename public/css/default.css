@@ -87,7 +87,7 @@
                 
                 .app-container {
                     max-width: 1000px;
-                    width: calc(100% - 16px);
+                    width: calc(100% - 30px);
                     margin: 0 auto;
                 }
                 
@@ -118,6 +118,7 @@
                     font-size: 18pt;
                     font-weight: 400;
                     color: #ccc;
+                    margin: 0;
                 }
                 
                 .doneToggle:after {
@@ -233,22 +234,21 @@
                     visibility: visible;
                 }
                 
-                .hubbleListView .buttons {
-                    position: absolute;
-                    float: left;
-                    vertical-align: top;
-                    border-radius: 5px;
-                    color: #555;
-                }
-                
                 .hubbleListView .hubble {
                     line-height: 1.5;
                     max-width: 700px;
                     text-align: justify;
                 }
 
+                .hubbleListView .buttons {
+                    margin-left: -120px;
+                    float: left;
+                    position: absolute;
+                    color: #ccc;
+                    display: block;
+                }
+                
                 .hubbleListView .buttons:hover {
-                    border: 1px solid #ddd;
                     background: #fff;
                 }
                 
@@ -269,37 +269,4 @@
 
                 .hubbleListView.noBulletView ul {
                     list-style: none;
-                }
-                
-                .hubbleDocumentView .hubble {
-                    padding-left: 15px;
-                    max-width: 700px;
-                    text-align: justify;
-                    line-height: 1.5;
-                }
-                
-                .hubbleDocumentView .hubble:not([data-active-children="0"]) {
-                    font-weight: bold;
-                }
-                
-                .hubbleDocumentView .hubble[data-active=false] {
-                    display: none;
-                }
-                
-                .hubbleDocumentView .buttons {
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: opacity .5s;
-                    position: absolute;
-                    float: left;
-                    left: 10px;
-                    background: #fff;
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
-                    color: #555;
-                }
-                
-                .hubbleDocumentView .buttons:hover {
-                    opacity: 1;
-                    visibility: visible;
                 }
