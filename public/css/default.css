@@ -215,6 +215,11 @@
                     opacity: 1;
                     visibility: visible;
                 }
+
+                .hubbleCardView .hubble_content_container:hover .buttons {
+                    opacity: 1;
+                    visibility: visible;
+                }
                 
                 .hubbleCardView .children .childcountinfo {
                     opacity: 0;

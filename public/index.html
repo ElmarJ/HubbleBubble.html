@@ -48,21 +48,6 @@
         </div>
     </div>
 
-    <template id="hubbleDocumentTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble hubbleDocumentView">
-            <p>
-                <span contenteditable="true" class="content" onkeypress="onEditorKeyPress(event)"></span>
-            </p>
-            <div class="buttons">
-                <input type="checkbox" class="doneToggle" tabindex="0">
-                <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <a class="hubblelink" href=""><i class="material-icons">fullscreen</i></a>
-                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>
-            </div>
-            <div class="children" data-childtemplate="hubbleDocumentTemplate"></div>
-        </div>
-    </template>
-
     <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble hubbleListView">
             <span class="buttons">
@@ -81,8 +66,10 @@
                 <div class="main-hubble-card">
                     <div class="content" contenteditable="true"></div>
                 </div>
-                <input type="checkbox" class="doneToggle" tabindex="0">
-                <input type="checkbox" class="snoozeToggle" tabindex="0">
+                <nav class="buttons">
+                    <input type="checkbox" class="doneToggle" tabindex="0">
+                    <input type="checkbox" class="snoozeToggle" tabindex="0">
+                </nav>
             </div>
             <ul class="children" data-childtemplate="cardViewChildTemplate">
                 <div class="special-children">
