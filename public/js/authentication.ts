@@ -101,7 +101,7 @@ var deleteAccount = function () {
  * Initializes the app.
  */
 var initApp = function () {
-    document.getElementById('sign-out').addEventListener('click', function () {
+    document.getElementById('signoutbutton').addEventListener('click', function () {
         firebase.auth().signOut();
     });
 };

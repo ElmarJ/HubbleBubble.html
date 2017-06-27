@@ -1,13 +1,4 @@
 var presenter = document.getElementById("hubblePresenter");
-var selector = <HTMLSelectElement>document.getElementById("template_selector");
-
-window.onload = function () {
-  selector.onchange = function () {
-    updatePresenter();
-  };
-
-  fillTemplateSelector();
-};
 
 window.onhashchange = function () {
   saveCurrentHubble();
@@ -26,15 +17,8 @@ function saveCurrentHubble() {
 
 function updatePresenter() {
   if (firebase.auth().currentUser !== null) {
-    if (selector !== null) {
-      var template = <HTMLTemplateElement>document.getElementById(
-        selector.value
-      );
-      if (template !== null) {
-        presenter.innerHTML = "";
-        renderHubble(getRootConnection(), template, presenter);
-      }
-    }
+    presenter.innerHTML = "";
+    renderHubble(getRootConnection(), getCurrentTemplate(), presenter);
   }
 }
 
@@ -48,23 +32,6 @@ function setCaretPosition() {
   }
 }
 
-function fillTemplateSelector() {
-  var selector = <HTMLSelectElement>document.getElementById(
-    "template_selector"
-  );
-
-  var templates = document.querySelectorAll(
-    "[data-userselectable].hubbletemplate"
-  );
-
-  Array.from(templates).forEach(function (element) {
-    var option = document.createElement("option");
-    option.text = element.id;
-    selector.add(option);
-  }, this);
-
-  selector.value = "cardViewTemplate";
-}
 
 class HubbleTemplateBuilder {
   templatedNode: DocumentFragment;
@@ -168,73 +135,73 @@ async function renderHubble(
   containerElement: HTMLElement
 ) {
   const data = await hubble.getHubbleData();
-    const templatedNode = <DocumentFragment>document.importNode(
-      template.content,
-      true
-    );
+  const templatedNode = <DocumentFragment>document.importNode(
+    template.content,
+    true
+  );
 
-    const hubbleElement = <HTMLElement>templatedNode.querySelector(".hubble");
-    hubbleElement.dataset.key = data.key;
-    hubbleElement.dataset.active = String(data.active);
-    hubbleElement.dataset.activeChildren = String(data.activechildren);
+  const hubbleElement = <HTMLElement>templatedNode.querySelector(".hubble");
+  hubbleElement.dataset.key = data.key;
+  hubbleElement.dataset.active = String(data.active);
+  hubbleElement.dataset.activeChildren = String(data.activechildren);
 
-    // add content:
-    const contentElement = <HTMLElement>templatedNode.querySelector(".content");
-    if (contentElement !== null) {
-      contentElement.innerText = data.content;
-      contentElement.onblur = () => persistHubbleContentElement(contentElement);
+  // add content:
+  const contentElement = <HTMLElement>templatedNode.querySelector(".content");
+  if (contentElement !== null) {
+    contentElement.innerText = data.content;
+    contentElement.onblur = () => persistHubbleContentElement(contentElement);
+  }
+
+  const linkElement = <HTMLLinkElement>templatedNode.querySelector(
+    ".hubblelink"
+  );
+  if (linkElement !== null) linkElement.href = "#" + data.key;
+
+  const parentlinkElement = <HTMLLinkElement>templatedNode.querySelector(
+    ".parentlink"
+  );
+  if (parentlinkElement !== null) parentlinkElement.href = "#" + data.parent;
+
+  const childCountElement = <HTMLElement>templatedNode.querySelector(
+    ".child-count"
+  );
+  if (childCountElement !== null)
+    childCountElement.innerText = String(data.activechildren);
+
+  const parentNode = <HTMLElement>templatedNode.querySelector(
+    ".parentcontent"
+  );
+  if (parentNode !== null) parentNode.dataset.key = data.parent;
+
+  // set done toggle:
+  const doneElement = <HTMLInputElement>templatedNode.querySelector(".doneToggle");
+  if (doneElement !== null) {
+    registerToggle(doneElement, data.done, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).done.set((<HTMLInputElement>ev.srcElement).checked));
+  }
+
+  // set snooze toggle:
+  const snoozeElement = <HTMLInputElement>templatedNode.querySelector(
+    ".snoozeToggle"
+  );
+  if (snoozeElement !== null) {
+    registerToggle(snoozeElement, data.snoozed, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).snoozed.set((<HTMLInputElement>ev.srcElement).checked));
+  }
+
+  // add children based on child template:
+  const childrenElement = <HTMLElement>templatedNode.querySelector(".children");
+  if (childrenElement !== null) {
+    // lookup childtemplate
+
+    var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
+
+    const childHubbles = await hubble.children.hubbles()
+    for (var child of childHubbles) {
+      renderHubble(child, childTemplate, childrenElement);
     }
+  }
 
-    const linkElement = <HTMLLinkElement>templatedNode.querySelector(
-      ".hubblelink"
-    );
-    if (linkElement !== null) linkElement.href = "#" + data.key;
-
-    const parentlinkElement = <HTMLLinkElement>templatedNode.querySelector(
-      ".parentlink"
-    );
-    if (parentlinkElement !== null) parentlinkElement.href = "#" + data.parent;
-
-    const childCountElement = <HTMLElement>templatedNode.querySelector(
-      ".child-count"
-    );
-    if (childCountElement !== null)
-      childCountElement.innerText = String(data.activechildren);
-
-    const parentNode = <HTMLElement>templatedNode.querySelector(
-      ".parentcontent"
-    );
-    if (parentNode !== null) parentNode.dataset.key = data.parent;
-
-    // set done toggle:
-    const doneElement = <HTMLInputElement>templatedNode.querySelector(".doneToggle");
-    if (doneElement !== null) {
-      registerToggle(doneElement, data.done, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).done.set((<HTMLInputElement>ev.srcElement).checked));
-    }
-
-    // set snooze toggle:
-    const snoozeElement = <HTMLInputElement>templatedNode.querySelector(
-      ".snoozeToggle"
-    );
-    if (snoozeElement !== null) {
-      registerToggle(snoozeElement, data.snoozed, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).snoozed.set((<HTMLInputElement>ev.srcElement).checked));
-    }
-
-    // add children based on child template:
-    const childrenElement = <HTMLElement>templatedNode.querySelector(".children");
-    if (childrenElement !== null) {
-      // lookup childtemplate
-
-      var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
-
-      const childHubbles = await hubble.children.hubbles()
-      for (var child of childHubbles) {
-        renderHubble(child, childTemplate, childrenElement);
-      }
-    }
-
-    // add rendered hubble to container:
-    containerElement.appendChild(templatedNode);
+  // add rendered hubble to container:
+  containerElement.appendChild(templatedNode);
 }
 
 function getRootConnection(): Hubble {
@@ -359,17 +326,41 @@ function onFullscreenSwitch() {
   const fullscreenCheckBox = <HTMLInputElement>document.getElementById("fullscreenSwitch");
 
   if (fullscreenCheckBox.checked) {
-
     if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
     else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
-  }
-
-  else {
+    else if (document.documentElement.mozRequestFullScreen) document.documentElement.mozRequestFullScreen();
+  } else {
     if (document.exitFullscreen) document.exitFullscreen();
     else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if (document.mozExitFullScreen) document.mozExitFullScreen();
   }
 }
 
+function onInactiveVisibleSwitch() {
+  const showInactiveVisibleCheckBox = <HTMLInputElement>document.getElementById("inactiveVisibleSwitch");
+  if (showInactiveVisibleCheckBox.checked) {
+    document.documentElement.classList.add("showInactive");
+  }
+
+  else {
+    document.documentElement.classList.remove("showInactive");
+  }
+}
+
+function onCardviewSwitch() {
+  presenter.innerHTML = "";
+  renderHubble(getRootConnection(), getCurrentTemplate(), presenter);
+}
+
+function getCurrentTemplate() {
+  const cardviewCheckBox = <HTMLInputElement>document.getElementById("cardviewSwitch");
+  var templatename = "hubbleListTemplate";
+
+  if (cardviewCheckBox.checked) {
+    templatename = "cardViewTemplate";
+  }
+  return <HTMLTemplateElement>document.getElementById(templatename);
+}
 
 function setFocus(hubble: Hubble) {
   const hubbleElement = <HTMLElement>getElementOf(hubble);
@@ -389,4 +380,15 @@ function newHubbleLinkClick(ev: MouseEvent) {
   ev.preventDefault();
   const hubble = getScopedHubble(<HTMLElement>ev.srcElement);
   addNewChild(hubble);
+}
+
+function collapseChange(ev:Event) {
+    const collapseCheckbox = <HTMLInputElement>ev.srcElement;
+    const hubbleElement = $(collapseCheckbox).closest(".hubble")[0];
+
+    if(collapseCheckbox.checked) {
+      hubbleElement.classList.add("collapsed");
+    } else {
+      hubbleElement.classList.remove("collapsed");      
+    }
 }
