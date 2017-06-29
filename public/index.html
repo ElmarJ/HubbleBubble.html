@@ -49,28 +49,39 @@
 
     <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
         <div class="hubble root hubbleListView">
-            <span class="buttons">
+            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
+            <a class="parentlink"><span class="material-icons">arrow_upward</span></a>
+            <nav class="buttons">
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
-            </span>
-            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
-            <a class="parentlink"><span class="material-icons">arrow_upward</span></a>
-            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+            </nav>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate">
+                <div class="special-children">
+                    <a class="parentlink">
+                        <li class="special-child parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+                                <span class="material-icons">arrow_upward</span>
+                        </li>
+                    </a>
+                    <a class="newhubble_link" href="javascript:navigateToNewChild()">
+                        <li class="special-child hubble">
+                                <span class="material-icons">add</span>
+                        </li>
+                    </a>
+                </div>
+            </ul>
         </div>
     </template>
 
     <template id="cardViewTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble hubbleCardView">
-            <div class="hubble_content_container">
-                <div class="main-hubble-card">
-                    <div class="content" contenteditable="true"></div>
-                </div>
-                <nav class="buttons">
-                    <input type="checkbox" class="doneToggle" tabindex="0">
-                    <input type="checkbox" class="snoozeToggle" tabindex="0">
-                </nav>
-            </div>
+        <div class="hubble root hubbleCardView">
+            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
+            <a class="parentlink"><span class="material-icons">arrow_upward</span></a>
+            <nav class="buttons">
+                <input type="checkbox" class="doneToggle" tabindex="0">
+                <input type="checkbox" class="snoozeToggle" tabindex="0">
+                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
+            </nav>
             <ul class="children" data-childtemplate="cardViewChildTemplate">
                 <div class="special-children">
                     <a class="parentlink">
@@ -89,31 +100,31 @@
     </template>
 
     <template id="hubbleListItemTemplate" class="hubbletemplate">
-        <li class="hubble collapsed">
-            <span class="buttons">
+        <li class="hubble collapsed" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+            <nav class="buttons" draggable="false">
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>
                 <a class="hubblelink" href="">all_out</a>
-            </span>
-            <input type="checkbox" class="collapseToggle" checked tabindex="0" onchange="collapseChange(event)">
+            </nav>
+            <input class="collapseToggle" type="checkbox" checked tabindex="0" onchange="collapseChange(event)">
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
 
     <template id="cardViewChildTemplate" class="hubbletemplate">
-        <li class="hubble">
-            <div draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-                <a class="hubblelink" href="" draggable="false">
-                    <span class="content"></span>
-                    <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
-                </a>
-                <div draggable="false" class="buttons">
-                    <input type="checkbox" class="doneToggle" tabindex="0">
-                    <input type="checkbox" class="snoozeToggle" tabindex="0">
-                </div>
-            </div>
+        <li class="hubble collapsed" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+            <a class="hubblelink" href="" draggable="false">
+                <span class="content"></span>
+                <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
+            </a>
+            <nav class="buttons" draggable="false">
+                <input type="checkbox" class="doneToggle" tabindex="0">
+                <input type="checkbox" class="snoozeToggle" tabindex="0">
+            </nav>
+            <input class="collapseToggle" type="checkbox" checked tabindex="0" onchange="collapseChange(event)">
+            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
 
