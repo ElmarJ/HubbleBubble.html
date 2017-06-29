@@ -220,8 +220,18 @@ class ChildrenProperty extends HubbleProperty<string[]> {
         const previousSibling = await this.hubbleAtPosition(position - 1);
         
         if (previousSibling) {
-            this.swapPosition(child, previousSibling);
+            await this.swapPosition(child, previousSibling);
         }
+    }
+
+    async moveDeep(child: Hubble) {
+        const position = await this.positionOf(child);
+        const previousSibling = await this.hubbleAtPosition(position - 1);
+        await this.myHubble.move(previousSibling);
+    }
+
+    async moveOut(child: Hubble) {
+        await child.moveAfter(this.myHubble);
     }
 
     async hubbleAtPosition(position: number) {
