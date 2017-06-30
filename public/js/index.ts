@@ -157,25 +157,16 @@ async function renderHubble(
     }
   }
 
-  const linkElement = <HTMLLinkElement>templatedNode.querySelector(
-    ".hubblelink"
-  );
-  if (linkElement !== null) linkElement.href = "#" + data.key;
+  const linkElements = <NodeListOf<HTMLLinkElement>>templatedNode.querySelectorAll(".hubblelink");
+  for (var linkElement of linkElements) { linkElement.href = "#" + data.key };
 
   const parentLinkElements = <NodeListOf<HTMLLinkElement>>templatedNode.querySelectorAll(".parentlink");
-  for (var parentLinkElement of parentLinkElements) {
-    parentLinkElement.href =  "#" + data.parent;
-  }
+  for (var parentLinkElement of parentLinkElements) {parentLinkElement.href =  "#" + data.parent;}
 
-  const childCountElement = <HTMLElement>templatedNode.querySelector(
-    ".child-count"
-  );
-  if (childCountElement !== null)
-    childCountElement.innerText = String(data.activechildren);
+  const childCountElement = <HTMLElement>templatedNode.querySelector(".child-count");
+  if (childCountElement !== null) childCountElement.innerText = String(data.activechildren);
 
-  const parentNode = <HTMLElement>templatedNode.querySelector(
-    ".parentcontent"
-  );
+  const parentNode = <HTMLElement>templatedNode.querySelector(".parentcontent");
   if (parentNode !== null) parentNode.dataset.key = data.parent;
 
   // set done toggle:
@@ -185,9 +176,7 @@ async function renderHubble(
   }
 
   // set snooze toggle:
-  const snoozeElement = <HTMLInputElement>templatedNode.querySelector(
-    ".snoozeToggle"
-  );
+  const snoozeElement = <HTMLInputElement>templatedNode.querySelector(".snoozeToggle");
   if (snoozeElement !== null) {
     registerToggle(snoozeElement, data.snoozed, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).snoozed.set((<HTMLInputElement>ev.srcElement).checked));
   }
