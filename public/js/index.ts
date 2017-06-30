@@ -304,27 +304,25 @@ async function onEditorKeyPress(ev: KeyboardEvent) {
 
 function onLightSwitch() {
   const lightCheckBox = <HTMLInputElement>document.getElementById("lightSwitch");
-  const bodyElement = document.querySelector("body");
 
   if (lightCheckBox.checked) {
-    bodyElement.classList.add("nightMode");
+    document.documentElement.classList.add("nightMode");
   }
 
   else {
-    bodyElement.classList.remove("nightMode");
+    document.documentElement.classList.remove("nightMode");
   }
 }
 
 function onBulletSwitch() {
   const bulletCheckBox = <HTMLInputElement>document.getElementById("bulletSwitch");
-  const templateElement = document.querySelector(".hubbleListView");
 
   if (bulletCheckBox.checked) {
-    templateElement.classList.add("noBulletView");
+    document.documentElement.classList.add("noBulletView");
   }
 
   else {
-    templateElement.classList.remove("noBulletView");
+    document.documentElement.classList.remove("noBulletView");
   }
 }
 
