@@ -39,7 +39,7 @@ class HubbleTemplateBuilder {
   hubbleElement: HTMLElement;
   contentElement: HTMLElement;
   linkElement: HTMLLinkElement;
-  parentLinkElement: HTMLLinkElement;
+  parentLinkElements: NodeListOf<HTMLLinkElement>;
   childCountElement: HTMLElement;
   parentHubbleElement: HTMLElement;
   doneElement: HTMLInputElement;
@@ -64,7 +64,7 @@ class HubbleTemplateBuilder {
     this.linkElement = <HTMLLinkElement>this.templatedNode.querySelector(
       ".hubblelink"
     );
-    this.parentLinkElement = <HTMLLinkElement>this.templatedNode.querySelector(
+    this.parentLinkElements = <NodeListOf<HTMLLinkElement>>this.templatedNode.querySelectorAll(
       ".parentlink"
     );
     this.childCountElement = <HTMLElement>this.templatedNode.querySelector(
@@ -110,7 +110,9 @@ class HubbleTemplateBuilder {
   }
   setLinks(data: HubbleData) {
     if (this.linkElement) this.linkElement.href = "#" + data.key;
-    if (this.parentLinkElement) this.parentLinkElement.href = "#" + data.parent;
+    for (var linkElement of this.parentLinkElements) {
+      linkElement.href =  "#" + data.parent;
+    }
   }
 
   setActivitySwitchElements(data: HubbleData) {
@@ -157,10 +159,10 @@ async function renderHubble(
   );
   if (linkElement !== null) linkElement.href = "#" + data.key;
 
-  const parentlinkElement = <HTMLLinkElement>templatedNode.querySelector(
-    ".parentlink"
-  );
-  if (parentlinkElement !== null) parentlinkElement.href = "#" + data.parent;
+  const parentLinkElements = <NodeListOf<HTMLLinkElement>>templatedNode.querySelectorAll(".parentlink");
+  for (var parentLinkElement of parentLinkElements) {
+    parentLinkElement.href =  "#" + data.parent;
+  }
 
   const childCountElement = <HTMLElement>templatedNode.querySelector(
     ".child-count"

@@ -1,5 +1,4 @@
                 @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro|Open+Sans|Raleway');
-                
                 a {
                     color: inherit;
                     text-decoration: inherit;
@@ -9,11 +8,11 @@
                     font-family: 'Roboto';
                     margin: 0;
                 }
-
+                
                 body.nightMode {
                     background: #000;
                     color: #fff;
-                }                
+                }
                 
                 header {
                     align-items: center;
@@ -29,33 +28,33 @@
                 header:hover>section {
                     opacity: 1;
                 }
-
+                
                 button {
                     background: inherit;
                     border-style: solid;
                     border-radius: 5px;
                     color: #ccc;
-
                 }
-
+                
                 #signoutbutton {
                     font-family: "Material Icons";
                     font-size: 18pt;
                     font-weight: 400;
                     visibility: hidden;
                 }
+                
                 #signoutbutton:before {
                     content: "account_circle";
                     visibility: visible;
                 }
-
+                
                 #viewMenu {
                     position: fixed;
                     left: 25px;
                     top: 100px;
                     list-style: none;
                 }
-
+                
                 #viewMenu ul {
                     padding: 0;
                     list-style: none;
@@ -63,7 +62,7 @@
                     opacity: 0;
                     transition: opacity 0.5s;
                 }
-
+                
                 #viewMenu:hover ul {
                     visibility: visible;
                     opacity: 1;
@@ -72,17 +71,16 @@
                 #viewMenu li {
                     padding: 5px;
                 }
-
+                
                 #viewMenu input {
                     display: none;
                 }
-
                 /* Replace labels of switches with nice material icons */
-
+                
                 #viewMenu label {
                     visibility: hidden;
                 }
-
+                
                 #viewMenu label::before {
                     font-family: "Material Icons";
                     font-size: 18pt;
@@ -90,35 +88,36 @@
                     color: #ccc;
                     visibility: visible;
                 }
-
-                #lightSwitch + label::before {
+                
+                #lightSwitch+label::before {
                     content: "lightbulb_outline";
                 }
-
-                #bulletSwitch + label::before {
+                
+                #bulletSwitch+label::before {
                     content: "chevron_right";
                 }
-
-                #fullscreenSwitch + label::before {
+                
+                #fullscreenSwitch+label::before {
                     content: "fullscreen";
                 }
-
-                #fullscreenSwitch:checked + label::before {
+                
+                #fullscreenSwitch:checked+label::before {
                     content: "fullscreen_exit";
                 }
-
-                #inactiveVisibleSwitch + label::before {
+                
+                #inactiveVisibleSwitch+label::before {
                     content: "visibility";
                 }
-
-                #inactiveVisibleSwitch:checked + label::before {
+                
+                #inactiveVisibleSwitch:checked+label::before {
                     content: "visibility_off";
                 }
-
-                #cardviewSwitch + label::before {
+                
+                #cardviewSwitch+label::before {
                     content: "view_module";
                 }
-                #cardviewSwitch:checked + label::before {
+                
+                #cardviewSwitch:checked+label::before {
                     content: "list";
                 }
                 
@@ -158,15 +157,35 @@
                 input:focus {
                     outline: none;
                 }
-                .hubbleListView .newhubble_link, .hubbleListView .hubblelink {
+                
+                .hubble .content:empty::before {
+                    content: "(...)";
+                    opacity: 0.3;
+                    font-style: italic;
+                }
+                
+                .hubbleListView .newhubble_link,
+                .hubbleListView .buttons .hubblelink {
                     font-family: "Material Icons";
                     font-size: 14pt;
                     font-weight: 400;
                     margin: 0;
                     color: inherit;
                     display: inline;
-                    
                 }
+                
+                .hubbleListView .special-children {
+                    display: none;
+                }
+                
+                .hubbleListView .hubblelink {
+                    pointer-events: none;
+                }
+                
+                .hubbleListView .hubblelink .content {
+                    pointer-events: initial;
+                }
+                
                 .doneToggle,
                 .snoozeToggle {
                     -webkit-appearance: none;
@@ -177,7 +196,7 @@
                     color: inherit;
                     display: inline;
                 }
-                                
+                
                 .doneToggle:after {
                     content: "done";
                     color: #ccc;
@@ -191,7 +210,7 @@
                     content: "snooze";
                     color: #ccc;
                 }
-
+                
                 .collapseToggle {
                     -webkit-appearance: none;
                     font-family: "Material Icons";
@@ -206,12 +225,12 @@
                 .noBulletView .collapseToggle {
                     visibility: hidden;
                 }
-
+                
                 .collapseToggle:after {
-                    content: "expand_more"; 
+                    content: "expand_more";
                     vertical-align: top;
                 }
-
+                
                 .hubble[data-active-children="0"] .collapseToggle:after {
                     content: "chevron_right";
                     font-weight: initial;
@@ -234,11 +253,19 @@
                     user-select: none;
                 }
                  */
-                                
-                .children .hubble[data-active=false] {
+                
+                .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
                 }
-
+                
+                .hubbleListView .children .hubble[data-active=false] .content::before {
+                    content: "("
+                }
+                
+                .hubbleListView .children .hubble[data-active=false] .content::after {
+                    content: ")"
+                }
+                
                 .hideInactive .children .hubble[data-active=false] {
                     display: none !important;
                 }
@@ -246,27 +273,40 @@
                 .hubble.collapsed .children {
                     display: none;
                 }
-
-                .hubbleCardView div.content {
+                
+                .hubbleCardView>.content {
+                    order: 1;
                     font-size: 36px;
                     line-height: 55px;
                     font-family: 'Rasa', serif;
+                    float: left;
+                    width: 100%;
                 }
                 
-                .hubbleCardView .main-hubble-card {
-                    width: 800px;
-                    margin: 30px;
+                .hubbleCardView>.parentlink {
+                    display: none;
+                }
+                
+                .hubbleCardView>.buttons {
+                    order: 2;
+                }
+                
+                .hubbleCardView>.children {
+                    order: 3;
+                }
+                
+                .hubbleCardView .collapseToggle {
+                    display: none;
                 }
                 
                 .hubbleCardView .hubble_content_container {
-                    align-items: center;
-                    justify-content: center;
                     flex-flow: row nowrap;
                     display: flex;
                 }
                 
                 .hubbleCardView .children {
                     max-width: 700px;
+                    padding-top: 20px;
                 }
                 
                 .hubbleCardView .children .hubble {
@@ -300,11 +340,15 @@
                     transition: opacity .5s;
                 }
                 
+                .hubbleCardView .buttons .newhubble_link {
+                    display: none;
+                }
+                
                 .hubbleCardView .hubble:hover .buttons {
                     opacity: 1;
                     visibility: visible;
                 }
-
+                
                 .hubbleCardView .hubble_content_container:hover .buttons {
                     opacity: 1;
                     visibility: visible;
@@ -321,7 +365,7 @@
                     opacity: 0.5;
                     visibility: visible;
                 }
-
+                
                 .hubbleCardView .children .children {
                     display: none;
                 }
@@ -331,16 +375,17 @@
                     max-width: 700px;
                     text-align: justify;
                 }
-
+                
                 .hubbleListView .buttons {
                     color: #ccc;
-                    display: inline-block;
+                    display: inline;
+                    line-height: initial;
                 }
                 
                 .hubbleListView li {
                     white-space: nowrap;
                 }
-
+                
                 .hubbleListView .buttons * {
                     transition: opacity .5s;
                     opacity: 0;
@@ -351,24 +396,37 @@
                     opacity: 1;
                     visibility: visible;
                 }
-
+                
                 .hubbleListView ul {
                     list-style: none;
                     padding-left: 20px;
                 }
-
+                
                 .hubbleListView.root>.content {
+                    order: 2;
                     font-size: 30px;
                     line-height: 55px;
-                    font-family: 'Rasa', serif;   
+                    font-family: 'Rasa', serif;
                 }
-
+                
+                .hubbleListView.root>.buttons {
+                    order: 1;
+                }
+                
+                .hubbleListView.root>.parentlink {
+                    order: 3;
+                }
+                
+                .hubbleListView.root>.children {
+                    order: 4;
+                }
+                
                 .hubbleListView .content {
                     display: inline-block;
                     white-space: normal;
                     vertical-align: top;
                 }
-
+                
                 .hubbleListView .parentlink {
                     color: #ddd;
                 }

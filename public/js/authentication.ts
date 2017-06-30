@@ -17,28 +17,13 @@ var uiConfig = {
     'signInOptions': [
         // TODO(developer): Remove the providers you don't need for your app.
         {
-            provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            scopes: ['https://www.googleapis.com/auth/plus.login']
-        },
-        {
-            provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            scopes: [
-                'public_profile',
-                'email',
-                'user_likes',
-                'user_friends'
-            ]
-        },
-        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        {
             provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
             // Whether the display name should be displayed in Sign Up page.
             requireDisplayName: true
         }
     ],
     // Terms of service url.
-    'tosUrl': 'https://www.google.com'
+    'tosUrl': 'https://hubblebubble.elmarjansen.nl'
 };
 
 // Initialize the FirebaseUI Widget using Firebase.
