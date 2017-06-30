@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="hubbleCardView">
 
 <head>
     <meta charset="utf-8">
@@ -13,10 +13,7 @@
 </head>
 
 <body>
-    <div id="container" class="app-layout">
-        <div id="loading">
-            <div id="p2" class=""></div>
-        </div>
+    <div id="container">
         <div id="loaded">
             <div id="user-signed-in" style="display: none;">
                 <header>
@@ -24,19 +21,17 @@
                         <button id="signoutbutton">log out</button>
                     </section>
                 </header>
-                <main id="main" class="app-main">
-                    <div class="app-container">
-                        <nav id="viewMenu" role="menubar">
-                            <ul>
-                                <li><input type="checkbox" role="switch" id="cardviewSwitch" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch">cards</label></li>
-                                <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" onchange="onInactiveVisibleSwitch();" checked><label for="inactiveVisibleSwitch">sleepers</label></li>
-                                <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"><label for="bulletSwitch">bullets</label></li>
-                                <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch">fullscreen</label></li>
-                                <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"><label for="lightSwitch">lights</label></li>
-                            </ul>
-                        </nav>
-                        <div id="hubblePresenter"></div>
-                    </div>
+                <main id="main">
+                    <nav id="viewMenu" role="menubar">
+                        <ul>
+                            <li><input type="checkbox" role="switch" id="cardviewSwitch" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch">cards</label></li>
+                            <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" onchange="onInactiveVisibleSwitch();" checked><label for="inactiveVisibleSwitch">sleepers</label></li>
+                            <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"><label for="bulletSwitch">bullets</label></li>
+                            <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch">fullscreen</label></li>
+                            <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"><label for="lightSwitch">lights</label></li>
+                        </ul>
+                    </nav>
+                    <div id="hubblePresenter"></div>
                 </main>
             </div>
             <div id="user-signed-out" style="display: none;">
@@ -45,17 +40,22 @@
                 </div>
             </div>
         </div>
+        <div id="loading">
+            <div id="p2" class=""></div>
+        </div>
     </div>
 
-    <template id="hubbleListTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble root hubbleListView">
-            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
-            <a class="parentlink"><span class="material-icons">arrow_upward</span></a>
-            <nav class="buttons">
-                <input type="checkbox" class="doneToggle" tabindex="0">
-                <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
-            </nav>
+    <template id="hubbleListTemplate">
+        <div class="hubble root">
+            <div class="rootContent">
+                <nav class="buttons">
+                    <input type="checkbox" class="doneToggle" tabindex="0">
+                    <input type="checkbox" class="snoozeToggle" tabindex="0">
+                    <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
+                    <a class="parentlink"><span class="material-icons">arrow_upward</span></a>
+                </nav>
+                <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
+            </div>
             <ul class="children" data-childtemplate="hubbleListItemTemplate">
                 <div class="special-children">
                     <a class="parentlink">
@@ -73,34 +73,12 @@
         </div>
     </template>
 
-    <template id="cardViewTemplate" data-userselectable class="hubbletemplate">
-        <div class="hubble root hubbleCardView">
-            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
-            <a class="parentlink"><span class="material-icons">arrow_upward</span></a>
-            <nav class="buttons">
-                <input type="checkbox" class="doneToggle" tabindex="0">
-                <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)"><i class="material-icons">add</i></a>     
-            </nav>
-            <ul class="children" data-childtemplate="cardViewChildTemplate">
-                <div class="special-children">
-                    <a class="parentlink">
-                        <li class="special-child parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-                                <span class="material-icons">arrow_upward</span>
-                        </li>
-                    </a>
-                    <a class="newhubble_link" href="javascript:navigateToNewChild()">
-                        <li class="special-child hubble">
-                                <span class="material-icons">add</span>
-                        </li>
-                    </a>
-                </div>
-            </ul>
-        </div>
-    </template>
-
-    <template id="hubbleListItemTemplate" class="hubbletemplate">
+    <template id="hubbleListItemTemplate">
         <li class="hubble collapsed" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+            <a class="hubblelink" href="" draggable="false">
+                <span class="content"></span>
+                <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
+            </a>
             <nav class="buttons" draggable="false">
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
@@ -112,22 +90,7 @@
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
-
-    <template id="cardViewChildTemplate" class="hubbletemplate">
-        <li class="hubble collapsed" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-            <a class="hubblelink" href="" draggable="false">
-                <span class="content"></span>
-                <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
-            </a>
-            <nav class="buttons" draggable="false">
-                <input type="checkbox" class="doneToggle" tabindex="0">
-                <input type="checkbox" class="snoozeToggle" tabindex="0">
-            </nav>
-            <input class="collapseToggle" type="checkbox" checked tabindex="0" onchange="collapseChange(event)">
-            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
-        </li>
-    </template>
-
+    
     <script src="/__/firebase/4.1.3/firebase-app.js"></script>
     <script src="/__/firebase/4.1.3/firebase-auth.js"></script>
     <script src="/__/firebase/4.1.3/firebase-database.js"></script>

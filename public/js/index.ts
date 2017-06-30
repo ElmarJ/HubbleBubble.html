@@ -148,10 +148,13 @@ async function renderHubble(
   hubbleElement.dataset.activeChildren = String(data.activechildren);
 
   // add content:
-  const contentElement = <HTMLElement>templatedNode.querySelector(".content");
-  if (contentElement !== null) {
+  const contentElements = <NodeListOf<HTMLElement>>templatedNode.querySelectorAll(".content");
+
+  for (var contentElement of contentElements) {
     contentElement.innerText = data.content;
-    contentElement.onblur = () => persistHubbleContentElement(contentElement);
+    if(contentElement.contentEditable) {
+      contentElement.onblur = () => persistHubbleContentElement(contentElement);
+    }
   }
 
   const linkElement = <HTMLLinkElement>templatedNode.querySelector(
@@ -362,17 +365,21 @@ function onInactiveVisibleSwitch() {
 }
 
 function onCardviewSwitch() {
-  presenter.innerHTML = "";
-  renderHubble(getRootConnection(), getCurrentTemplate(), presenter);
+//  presenter.innerHTML = "";
+//  renderHubble(getRootConnection(), getCurrentTemplate(), presenter);
+
+  const cardviewCheckBox = <HTMLInputElement>document.getElementById("cardviewSwitch");
+  if (cardviewCheckBox.checked) {
+    document.documentElement.classList.add("hubbleCardView");
+    document.documentElement.classList.remove("hubbleListView");
+  } else {
+    document.documentElement.classList.add("hubbleListView");
+    document.documentElement.classList.remove("hubbleCardView")  ;  
+  }
 }
 
 function getCurrentTemplate() {
-  const cardviewCheckBox = <HTMLInputElement>document.getElementById("cardviewSwitch");
   var templatename = "hubbleListTemplate";
-
-  if (cardviewCheckBox.checked) {
-    templatename = "cardViewTemplate";
-  }
   return <HTMLTemplateElement>document.getElementById(templatename);
 }
 

@@ -1,4 +1,5 @@
                 @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro|Open+Sans|Raleway');
+                
                 a {
                     color: inherit;
                     text-decoration: inherit;
@@ -28,6 +29,14 @@
                 header:hover>section {
                     opacity: 1;
                 }
+
+                main {
+                    max-width: 800px;
+                    width: calc(100% - 30px);
+                    margin: 0 auto;
+                    height: 100%;
+                }
+                
                 
                 button {
                     background: inherit;
@@ -36,6 +45,22 @@
                     color: #ccc;
                 }
                 
+                [contenteditable] {
+                    padding: 2px;
+                    outline-width: 1px;
+                    outline-color: transparent;
+                    outline-style: solid;
+                    transition: border-color 1s ease;
+                }
+                
+                [contenteditable]:focus {
+                    outline-color: #ccc;
+                }
+                
+                input:focus {
+                    outline: none;
+                }
+
                 #signoutbutton {
                     font-family: "Material Icons";
                     font-size: 18pt;
@@ -120,97 +145,88 @@
                 #cardviewSwitch:checked+label::before {
                     content: "list";
                 }
-                
-                .app-main {
-                    -webkit-flex-shrink: 0;
-                    -ms-flex-negative: 0;
-                    flex-shrink: 0;
-                }
-                
-                .app-header .mdl-layout__header-row {
-                    padding-left: 40px;
-                }
-                
-                .app-container {
-                    max-width: 800px;
-                    width: calc(100% - 30px);
-                    margin: 0 auto;
-                    height: 100%;
-                }
-                
-                .app-layout.is-small-screen .app-content {
-                    padding: 40px 28px;
-                }
-                
-                [contenteditable] {
-                    padding: 2px;
-                    outline-width: 1px;
-                    outline-color: transparent;
-                    outline-style: solid;
-                    transition: border-color 1s ease;
-                }
-                
-                [contenteditable]:focus {
-                    outline-color: #ccc;
-                }
-                
-                input:focus {
-                    outline: none;
-                }
-                
+
                 .hubble .content:empty::before {
                     content: "(...)";
                     opacity: 0.3;
                     font-style: italic;
                 }
                 
-                .hubbleListView .newhubble_link,
-                .hubbleListView .buttons .hubblelink {
+                .rootContent {
+                    float: left;
+                    width: 100%;
+                }
+
+                .rootContent .content {
+                    font-size: 36px;
+                    line-height: 55px;
+                    font-family: 'Rasa', serif;
+                    display: inline;
+                }
+                                
+                .root>.children {
+                    display: inline-block;
+                }
+                
+                .buttons * {
                     font-family: "Material Icons";
                     font-size: 14pt;
                     font-weight: 400;
                     margin: 0;
                     color: inherit;
                     display: inline;
+                    color: #ccc;
+                    line-height: initial;
+                }
+
+                .buttons * {
+                    transition: opacity .5s;
+                    opacity: 0;
+                    visibility: hidden;
                 }
                 
-                .hubbleListView .special-children {
-                    display: none;
+                .buttons:hover * {
+                    opacity: 1;
+                    visibility: visible;
                 }
                 
-                .hubbleListView .hubblelink {
-                    pointer-events: none;
-                }
-                
-                .hubbleListView .hubblelink .content {
-                    pointer-events: initial;
-                }
-                
-                .doneToggle,
-                .snoozeToggle {
+                .buttons input {
                     -webkit-appearance: none;
-                    font-family: "Material Icons";
-                    font-size: 14pt;
-                    font-weight: 400;
-                    margin: 0;
-                    color: inherit;
-                    display: inline;
+                    border-style: solid;
+                    border-color: transparent;
+                    border-width: 1px;
+                    border-radius: 50%;
+                    padding: 2px;
                 }
-                
-                .doneToggle:after {
-                    content: "done";
+
+                .buttons input:checked {
+                    border-color: initial;
+                }
+
+                .buttons input:after {
                     color: #ccc;
                 }
-                
-                .doneToggle:checked:after {
+
+                .buttons input:checked:after {
                     color: inherit;
+                }
+
+                .doneToggle:after {
+                    content: "done";
                 }
                 
                 .snoozeToggle:after {
                     content: "snooze";
-                    color: #ccc;
                 }
                 
+                .hideInactive .children .hubble[data-active=false] {
+                    display: none !important;
+                }
+                
+                .hubble.collapsed .children {
+                    display: none;
+                }
+
                 .collapseToggle {
                     -webkit-appearance: none;
                     font-family: "Material Icons";
@@ -221,6 +237,7 @@
                     font-weight: bold;
                     vertical-align: top;
                 }
+                
                 
                 .noBulletView .collapseToggle {
                     visibility: hidden;
@@ -239,10 +256,7 @@
                 .collapseToggle:checked:after {
                     content: "chevron_right";
                 }
-                
-                .content {
-                    display: block;
-                }
+
                 /* Todo: apparently this makes selection impossible for all elements
                  * that contain button elements (i.e. all elements)
                 
@@ -254,59 +268,18 @@
                 }
                  */
                 
+
+                
                 .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
                 }
-                
-                .hubbleListView .children .hubble[data-active=false] .content::before {
-                    content: "("
-                }
-                
-                .hubbleListView .children .hubble[data-active=false] .content::after {
-                    content: ")"
-                }
-                
-                .hideInactive .children .hubble[data-active=false] {
-                    display: none !important;
-                }
-                
-                .hubble.collapsed .children {
+
+                .hubbleCardView .root>.parentlink {
                     display: none;
-                }
-                
-                .hubbleCardView>.content {
-                    order: 1;
-                    font-size: 36px;
-                    line-height: 55px;
-                    font-family: 'Rasa', serif;
-                    float: left;
-                    width: 100%;
-                }
-                
-                .hubbleCardView>.parentlink {
-                    display: none;
-                }
-                
-                .hubbleCardView>.buttons {
-                    order: 2;
-                }
-                
-                .hubbleCardView>.children {
-                    order: 3;
                 }
                 
                 .hubbleCardView .collapseToggle {
                     display: none;
-                }
-                
-                .hubbleCardView .hubble_content_container {
-                    flex-flow: row nowrap;
-                    display: flex;
-                }
-                
-                .hubbleCardView .children {
-                    max-width: 700px;
-                    padding-top: 20px;
                 }
                 
                 .hubbleCardView .children .hubble {
@@ -333,27 +306,15 @@
                     width: 80px;
                     text-align: center;
                 }
-                
-                .hubbleCardView .buttons {
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: opacity .5s;
-                }
-                
-                .hubbleCardView .buttons .newhubble_link {
+                                
+                .hubbleCardView .buttons .hubblelink {
                     display: none;
                 }
-                
-                .hubbleCardView .hubble:hover .buttons {
-                    opacity: 1;
-                    visibility: visible;
+
+                .hubbleCardView .children .content[contenteditable] {
+                    display: none;
                 }
-                
-                .hubbleCardView .hubble_content_container:hover .buttons {
-                    opacity: 1;
-                    visibility: visible;
-                }
-                
+                                
                 .hubbleCardView .children .childcountinfo {
                     opacity: 0;
                     transition: opacity .5s;
@@ -369,64 +330,52 @@
                 .hubbleCardView .children .children {
                     display: none;
                 }
+
+                .hubbleListView .special-children {
+                    display: none;
+                }
                 
-                .hubbleListView .hubble {
+                .hubbleListView .children .hubble[data-active=false] .content {
+                    font-style: italic;
+                }
+
+                .hubbleListView .children .hubble[data-active=false] .content::before {
+                    content: "("
+                }
+                
+                .hubbleListView .children .hubble[data-active=false] .content::after {
+                    content: ")"
+                }
+
+                .hubbleListView .children .hubble {
                     line-height: 1.5;
                     max-width: 700px;
                     text-align: justify;
                 }
                 
-                .hubbleListView .buttons {
-                    color: #ccc;
-                    display: inline;
-                    line-height: initial;
-                }
-                
                 .hubbleListView li {
                     white-space: nowrap;
                 }
-                
-                .hubbleListView .buttons * {
-                    transition: opacity .5s;
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                
-                .hubbleListView .buttons:hover * {
-                    opacity: 1;
-                    visibility: visible;
-                }
-                
+ 
                 .hubbleListView ul {
                     list-style: none;
                     padding-left: 20px;
                 }
                 
-                .hubbleListView.root>.content {
-                    order: 2;
-                    font-size: 30px;
-                    line-height: 55px;
-                    font-family: 'Rasa', serif;
-                }
-                
-                .hubbleListView.root>.buttons {
-                    order: 1;
-                }
-                
-                .hubbleListView.root>.parentlink {
-                    order: 3;
-                }
-                
-                .hubbleListView.root>.children {
-                    order: 4;
-                }
-                
-                .hubbleListView .content {
+                .hubbleListView .children .content {
                     display: inline-block;
                     white-space: normal;
                     vertical-align: top;
                 }
                 
-                .hubbleListView .parentlink {
-                    color: #ddd;
+                .hubbleListView .hubble > .hubblelink {
+                    display: none;
+                }
+
+                .buttons {
+                    display: inline;
+                }
+
+                .root>.content {
+                    display: block;
                 }
