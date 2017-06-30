@@ -289,6 +289,10 @@
                 .hubbleCardView .collapseToggle {
                     display: none;
                 }
+
+                .hubbleCardView .buttons .newhubble_link {
+                    display: none;
+                }
                 
                 .hubbleCardView .children {
                     padding-left: 100px;
