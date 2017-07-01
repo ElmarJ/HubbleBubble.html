@@ -47,7 +47,7 @@ async function renderHubble(
   hubbleElement.dataset.key = data.key;
   hubbleElement.dataset.active = String(data.active);
   hubbleElement.dataset.activeChildren = String(data.activechildren);
-
+  hubbleElement.dataset.order = String(await hubble.position.get());
   // add content:
   const contentElements = <NodeListOf<HTMLElement>>templatedNode.querySelectorAll(".content");
 
