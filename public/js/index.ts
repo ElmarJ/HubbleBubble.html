@@ -266,6 +266,13 @@ function onCardviewSwitch() {
   }
 }
 
+function expandAll() {
+  const allHubbles = <NodeListOf<HTMLElement>>document.querySelectorAll(".hubble");
+  for (var hubbleElement of allHubbles) {
+    hubbleElement.classList.remove("collapsed");
+  }
+}
+
 function getCurrentTemplate() {
   var templatename = "hubbleListTemplate";
   return <HTMLTemplateElement>document.getElementById(templatename);

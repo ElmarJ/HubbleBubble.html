@@ -114,6 +114,20 @@
                     color: #ccc;
                     visibility: visible;
                 }
+
+                #expandAllButton{
+                    visibility: hidden;
+                    padding: 0;
+                }
+
+                #expandAllButton::before {
+                    font-family: "Material Icons";
+                    font-size: 18pt;
+                    font-weight: 400;
+                    color: #ccc;
+                    visibility: visible;
+                    content:"expand_more";
+                }
                 
                 #lightSwitch+label::before {
                     content: "lightbulb_outline";
