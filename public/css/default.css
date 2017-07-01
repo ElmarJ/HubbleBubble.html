@@ -80,7 +80,7 @@
                     list-style: none;
                 }
                 
-                #viewMenu ul {
+                #viewMenu {
                     padding: 0;
                     list-style: none;
                     visibility: hidden;
@@ -88,7 +88,7 @@
                     transition: opacity 0.5s;
                 }
                 
-                #viewMenu:hover ul {
+                #viewMenu:hover {
                     visibility: visible;
                     opacity: 1;
                 }
@@ -104,6 +104,7 @@
                 
                 #viewMenu label {
                     visibility: hidden;
+                    width: 0;
                 }
                 
                 #viewMenu label::before {

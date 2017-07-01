@@ -22,26 +22,25 @@
                     </section>
                 </header>
                 <main id="main">
-                    <nav id="viewMenu" role="menubar">
-                        <ul>
-                            <li><input type="checkbox" role="switch" id="cardviewSwitch" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch">cards</label></li>
-                            <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" onchange="onInactiveVisibleSwitch();" checked><label for="inactiveVisibleSwitch">sleepers</label></li>
-                            <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"><label for="bulletSwitch">bullets</label></li>
-                            <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch">fullscreen</label></li>
-                            <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"><label for="lightSwitch">lights</label></li>
-                        </ul>
-                    </nav>
+                    <menu id="viewMenu" role="menubar">
+                        <li><input type="checkbox" role="switch" id="cardviewSwitch" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch">cards</label></li>
+                        <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" onchange="onInactiveVisibleSwitch();" checked><label for="inactiveVisibleSwitch">sleepers</label></li>
+                        <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"><label for="bulletSwitch">bullets</label></li>
+                        <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch">fullscreen</label></li>
+                        <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"><label for="lightSwitch">lights</label></li>
+                    </menu>
                     <div id="hubblePresenter"></div>
                 </main>
             </div>
             <div id="user-signed-out" style="display: none;">
+                <h1>sign in</h1>
                 <div id="firebaseui-spa">
                     <div id="firebaseui-container"></div>
                 </div>
             </div>
         </div>
         <div id="loading">
-            <div id="p2" class=""></div>
+            <div id="p2" class="">loading...</div>
         </div>
     </div>
 
