@@ -130,8 +130,6 @@ class ParentHubbleProperty extends StringHubbleProperty {
     }
 }
 
-
-
 class PositionHubbleProperty extends NumberHubbleProperty {
     private async siblings() {
         const parent = await this.owner.parent.getHubble();
@@ -153,7 +151,7 @@ class PositionHubbleProperty extends NumberHubbleProperty {
     }
 
     async moveUp() {
-        await this.movePositions(1);
+        await this.movePositions(-1);
     }
 
     async moveDown() {
