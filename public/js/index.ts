@@ -47,7 +47,6 @@ async function renderHubble(
   hubbleElement.dataset.key = data.key;
   hubbleElement.dataset.active = String(data.active);
   hubbleElement.dataset.activeChildren = String(data.activechildren);
-  hubbleElement.style.order = String(await hubble.position.get());
   // add content:
   const contentElements = <NodeListOf<HTMLElement>>templatedNode.querySelectorAll(".content");
 
@@ -330,7 +329,7 @@ async function moveDown(event: MouseEvent) {
     event.preventDefault();
 
     const hubble = getScopedHubble(<HTMLElement>event.srcElement);
-    await hubble.position.moveDown();
+    await hubble.moveDown();
     
     renderSiblingsOf(hubble);
 }
@@ -338,7 +337,7 @@ async function moveDown(event: MouseEvent) {
 async function moveUp(event: MouseEvent) {
     event.preventDefault();
     const hubble = getScopedHubble(<HTMLElement>event.srcElement);
-    await hubble.position.moveUp();
+    await hubble.moveUp();
 
     renderSiblingsOf(hubble);
 }
