@@ -95,7 +95,7 @@ async function renderHubble(
 async function renderChildren(childrenElement: HTMLElement, hubble: Hubble) {
     var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
     childrenElement.dataset.rendered = "true"; //strictly speaking, it's not yet rendered, but it will be soon (and we don't want it to be rendered more than once)
-
+    childrenElement.innerHTML = "";
     const childHubbles = await hubble.children.getHubbleArray();
     for (var child of childHubbles) {
       renderHubble(child, childTemplate, childrenElement);
@@ -161,6 +161,9 @@ function placeCaretAtEnd(el: HTMLElement) {
 }
 
 function getScopedHubble(element: HTMLElement): Hubble {
+  if(element.classList.contains("hubble")) {
+    return new Hubble(element.dataset.key);
+  }
   var ancestor = $(element).closest(".hubble")[0];
   return new Hubble(ancestor.dataset.key);
 }
@@ -323,26 +326,33 @@ function respondToVisibility(element: HTMLElement, callback: (visbility: boolean
     observer.observe(element);
 }
 
-async function moveOut(event: MouseEvent) {
-    event.preventDefault();
-    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
-    await hubble.move(await hubble.parent.getHubble());
-}
-
-async function moveIn(event: MouseEvent) {
-    event.preventDefault();
-    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
-    await hubble.moveAfter(await hubble.position.previous());
-}
-
 async function moveDown(event: MouseEvent) {
     event.preventDefault();
+
     const hubble = getScopedHubble(<HTMLElement>event.srcElement);
     await hubble.position.moveDown();
+    
+    renderSiblingsOf(hubble);
 }
 
 async function moveUp(event: MouseEvent) {
     event.preventDefault();
     const hubble = getScopedHubble(<HTMLElement>event.srcElement);
     await hubble.position.moveUp();
+
+    renderSiblingsOf(hubble);
+}
+
+async function renderSiblingsOf(hubble: Hubble) {
+  const parent = await hubble.parent.getHubble();
+  await renderChildrenOf(parent);
+}
+
+function renderChildrenOf(hubble: Hubble) {
+  const childrenElement = getChildrenElement(getElementOf(hubble));
+  renderChildren(childrenElement, hubble);
+}
+
+function getChildrenElement(element: HTMLElement) {
+    return <HTMLElement>element.querySelector(".children");
 }

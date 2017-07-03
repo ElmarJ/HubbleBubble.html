@@ -151,26 +151,16 @@ class PositionHubbleProperty extends NumberHubbleProperty {
     }
 
     async moveUp() {
-        await this.movePositions(-1);
+        await this.swapRelative(-1);
     }
 
     async moveDown() {
-        await this.movePositions(-1);
+        await this.swapRelative(1);
     }
 
-    async moveAfter(sibling: Hubble) {
-        const position = await sibling.position.get() + 1;
-        await this.moveTo(position);
-    }
-
-    async moveTo(position: number) {
+    async swapRelative(distance: number) {
         const siblings = await this.siblings();
-        await siblings.moveTo(this.owner, position);
-    }
-
-    async movePositions(shift: number) {
-        const siblings = await this.siblings();
-        await siblings.move(this.owner, shift);
+        await siblings.swapRelative(this.owner, distance);
     }
 }
 
@@ -213,10 +203,9 @@ class ChildrenProperty extends HubbleProperty<string[]> {
 
     async push(hubble: Hubble) {
         const children = await this.getHubbleArray();
-        const position = children.push(hubble);
+        const position = children.push(hubble) - 1;
         await hubble.position.set(position);
-        this.setHubbleArray(children);
-        this.owner.activechildren.rebuild();
+        await this.setHubbleArray(children);
         return position;
     }
 
@@ -251,6 +240,23 @@ class ChildrenProperty extends HubbleProperty<string[]> {
 
     async setHubbleArray(hubbles: Hubble[]) {
         await this.set(hubbles.map(hubble => hubble.hubbleKey));
+        await this.updatePositionPropertyOfChildren();
+        await this.owner.activechildren.rebuild();
+    }
+
+    async swapRelative(hubble: Hubble, distance: number) {
+        const children = await this.getHubbleArray();
+        const oldPos = children.findIndex(item => item.hubbleKey == hubble.hubbleKey);
+        const newPos = oldPos + distance;
+        
+        if(newPos < 0 || newPos >= children.length) return;
+
+        const otherHubble = children[newPos];
+
+        children[newPos] = hubble;
+        children[oldPos] = otherHubble;
+
+        await this.setHubbleArray(children);
     }
 
     addnew() {
@@ -269,62 +275,6 @@ class ChildrenProperty extends HubbleProperty<string[]> {
             return child;
         });
     }
-
-    /**
-     * Only for internal use - use move functions to change position.
-     * Function updates position both in children list of parent as well
-     * as this position property.
-     */
-    async updatePosition(child: Hubble, position: number) {
-        const childSlotRef = this.ref().child(String(position));
-        const originalPosition = await child.position.get();
-
-        // if there is still a child present at this location, push it out of the way:
-        const currentHubbleKey = (await childSlotRef.once("value")).val();
-        if (currentHubbleKey) {
-            const currentHubble = new Hubble(currentHubbleKey);
-            await this.shiftPosition(currentHubble, 1);
-        }
-
-        // Because of denormalization, this has to be saved twice:
-        // Update my position in parent's child list:
-        await childSlotRef.set(this.owner.hubbleKey);
-        // Update my position as my own property:
-        await child.position.set(position);
-
-        // Finally, if there are children past my original position,
-        //   let them take my old place:
-        const originalFollower = await this.getChildAt(originalPosition +1);
-        if (originalFollower) {
-            await this.shiftPosition(originalFollower, -1);
-        }
-    }
-
-    async shiftPosition(child: Hubble, shift: number) {
-        const currentPosition = await child.position.get();
-        await this.updatePosition(child, currentPosition + shift);
-    }
-
-    async moveTo(hubble: Hubble, position: number) {
-        const children = await this.getHubbleArray();
-        const oldPos = children.indexOf(hubble);
-
-        children.splice(position, 0, children.splice(oldPos, 1)[0]);
-
-        this.setHubbleArray(children);
-        this.updatePositionPropertyOfChildren();
-    }
-
-    async move(hubble: Hubble, steps: number) {
-        const children = await this.getHubbleArray();
-        const oldPos = children.indexOf(hubble);
-
-        children.splice(oldPos + steps, 0, children.splice(oldPos, 1)[0]);
-
-        this.setHubbleArray(children);
-        this.updatePositionPropertyOfChildren();        
-    }
-
 }
 
 class Hubble {
@@ -370,21 +320,15 @@ class Hubble {
 
     async move(newParent: Hubble) {
         const oldParent = await this.parent.getHubble();
-        oldParent.children.remove(this);
-        newParent.children.push(this);
+        await oldParent.children.remove(this);
+        await newParent.children.push(this);
         this.parent.set(newParent.hubbleKey);
-    }
-
-    async moveAfter(newSibling: Hubble) {
-        const newParent = await newSibling.parent.getHubble();
-        await this.move(newParent);
-        await this.position.moveAfter(newSibling);
     }
 
     async delete() {
         const parent = await this.parent.getHubble()
-        parent.children.remove(this);
-        this.ref.remove();
+        await parent.children.remove(this);
+        await this.ref.remove();
     }
 
     async sanatize() {
