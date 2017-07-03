@@ -47,7 +47,7 @@ async function renderHubble(
   hubbleElement.dataset.key = data.key;
   hubbleElement.dataset.active = String(data.active);
   hubbleElement.dataset.activeChildren = String(data.activechildren);
-  hubbleElement.dataset.order = String(await hubble.position.get());
+  hubbleElement.style.order = String(await hubble.position.get());
   // add content:
   const contentElements = <NodeListOf<HTMLElement>>templatedNode.querySelectorAll(".content");
 
@@ -96,7 +96,7 @@ async function renderChildren(childrenElement: HTMLElement, hubble: Hubble) {
     var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
     childrenElement.dataset.rendered = "true"; //strictly speaking, it's not yet rendered, but it will be soon (and we don't want it to be rendered more than once)
 
-    const childHubbles = await hubble.children.hubbles();
+    const childHubbles = await hubble.children.getHubbleArray();
     for (var child of childHubbles) {
       renderHubble(child, childTemplate, childrenElement);
     }
@@ -198,7 +198,7 @@ async function onEditorKeyPress(ev: KeyboardEvent) {
   if (ev.key == "Enter") {
     ev.preventDefault();
     const hubble = getScopedHubble(<HTMLElement>ev.srcElement);
-    await hubble.parent.hubble();
+    await hubble.parent.getHubble();
     parent => addNewChild(parent);
   }
 }
@@ -321,4 +321,28 @@ function respondToVisibility(element: HTMLElement, callback: (visbility: boolean
     }, options);
 
     observer.observe(element);
+}
+
+async function moveOut(event: MouseEvent) {
+    event.preventDefault();
+    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
+    await hubble.move(await hubble.parent.getHubble());
+}
+
+async function moveIn(event: MouseEvent) {
+    event.preventDefault();
+    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
+    await hubble.moveAfter(await hubble.position.previous());
+}
+
+async function moveDown(event: MouseEvent) {
+    event.preventDefault();
+    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
+    await hubble.position.moveDown();
+}
+
+async function moveUp(event: MouseEvent) {
+    event.preventDefault();
+    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
+    await hubble.position.moveUp();
 }

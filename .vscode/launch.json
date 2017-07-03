@@ -19,6 +19,11 @@
             "request": "launch",
             "url": "http://localhost:5000/maintenance.html",
             "webRoot": "${workspaceRoot}/public",
+            "skipFiles": [
+                "**/bower_components",
+                "**/node_modules",
+                "/__/**"
+            ],
             "preLaunchTask": "build"
         },
         {
@@ -46,5 +51,4 @@
             "preLaunchTask": "build"
         }
     ]
-}]
 }

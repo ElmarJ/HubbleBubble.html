@@ -14,17 +14,18 @@ interface HubbleData {
 
 abstract class HubbleProperty<T>{
     name: string;
-    protected myHubble: Hubble;
+    protected owner: Hubble;
     prepareChange: (newValue: T) => void;
+    ref = () => this.owner.ref.child(this.name);
 
     constructor(name: string, hubble: Hubble) {
         this.name = name;
-        this.myHubble = hubble;
+        this.owner = hubble;
         this.prepareChange = (value) => { };
     }
 
     async get() {
-        const snapshot = await this.ref().once('value');
+        const snapshot = await this.ref().orderByValue().once('value');
         return <T>snapshot.val();
     }
 
@@ -36,11 +37,7 @@ abstract class HubbleProperty<T>{
     abstract setString(value: string);
 
     update(newValueCreator: (Hubble: Hubble) => T) {
-        return <Promise<void>>this.set(newValueCreator(this.myHubble));
-    }
-
-    ref() {
-        return this.myHubble.ref.child(this.name);
+        return <Promise<void>>this.set(newValueCreator(this.owner));
     }
 
     bindContent(element: HTMLElement) {
@@ -93,19 +90,19 @@ class NumberHubbleProperty extends HubbleProperty<number> {
     }
 }
 
-class IsActiveHubbleProperty extends BooleanHubbleProperty{
+class IsActiveHubbleProperty extends BooleanHubbleProperty {
     async rebuild() {
-        const hubble = await this.myHubble.getProperties([this.myHubble.snoozed, this.myHubble.done, this.myHubble.activechildren]);
+        const hubble = await this.owner.getProperties([this.owner.snoozed, this.owner.done, this.owner.activechildren]);
         this.set(!hubble.snoozed && (!hubble.done || (hubble.activechildren > 0)));
-        
-        const parent = await this.myHubble.parent.hubble();
+
+        const parent = await this.owner.parent.getHubble();
         parent.activechildren.rebuild();
     }
 }
 
-class ActivityChildCountHubbleProperty extends NumberHubbleProperty{
+class ActivityChildCountHubbleProperty extends NumberHubbleProperty {
     rebuild() {
-        return this.myHubble.children.hubbles().then(hubbles => {
+        return this.owner.children.getHubbleArray().then(hubbles => {
             const promisesToGetChildActivity = hubbles.map(hubble => hubble.active.get());
 
             Promise.all(promisesToGetChildActivity).then(childActivities => {
@@ -113,13 +110,13 @@ class ActivityChildCountHubbleProperty extends NumberHubbleProperty{
                     if (activity) counter++; return counter;
                 }, 0);
                 this.set(activeChildCount);
-                this.myHubble.active.rebuild();
+                this.owner.active.rebuild();
             });
         });
     }
 }
 
-class StatusHubbleProperty extends BooleanHubbleProperty{
+class StatusHubbleProperty extends BooleanHubbleProperty {
     constructor(name: string, hubble: Hubble) {
         super(name, hubble);
         this.prepareChange = () => hubble.active.rebuild();
@@ -127,73 +124,113 @@ class StatusHubbleProperty extends BooleanHubbleProperty{
 }
 
 class ParentHubbleProperty extends StringHubbleProperty {
-    async hubble() {
+    async getHubble() {
         const value = await this.get();
         return new Hubble(value);
     }
 }
 
 class PositionHubbleProperty extends NumberHubbleProperty {
-    async moveTo(position: number) {
-        const parent = await this.myHubble.parent.hubble();
-        const currentlyAtPosition = await parent.children.childAt(position);
-        currentlyAtPosition.position.moveTo(position + 1);
-        this.set(position);
+    private async siblings() {
+        const parent = await this.owner.parent.getHubble();
+        return parent.children;
     }
 
-    async moveAfter(previousSibling: Hubble) {
-        const position = await previousSibling.position.get();
-        await this.moveTo(position);
+    private async getRelativeSibling(distance: number) {
+        const siblings = await this.siblings();
+        const myPosition = await this.get();
+        return await siblings.getChildAt(myPosition + distance);
+    }
+
+    async rebuild() {
+        const siblings = await this.siblings();
+        const myPosResult = await siblings.ref().child(this.owner.hubbleKey).once("value");
+        this.set(<number>myPosResult.val());
+    }
+
+    async previous() {
+        return await this.getRelativeSibling(-1);
+    }
+
+    async next() {
+        return await this.getRelativeSibling(+1);
+    }
+
+    async moveUp() {
+        const siblings = await this.siblings();
+        siblings.shiftPosition(this.owner, -1);
+    }
+
+    async moveDown() {
+        const siblings = await this.siblings();
+        siblings.shiftPosition(this.owner, +1);
+    }
+
+    async moveAfter(sibling: Hubble) {
+        const position = await sibling.position.get() + 1;
+        const siblings = await this.siblings();
+        await siblings.updatePosition(this.owner, position);
     }
 }
 
-class ChildrenProperty extends HubbleProperty<object> {
+class ChildrenProperty extends HubbleProperty<string[]> {
     setString(value: string) {
         throw new Error("Method not implemented.");
     }
-    
+
     async rebuild() {
         // Need to get the old child-query from previous code version to sanatize properly
         // Query to all hubbles that have me as a parent (i.e. my children):
-        const childrenQuery = this.ref().parent.parent.orderByChild("parent").equalTo(this.myHubble.hubbleKey);
+        const childrenQuery = this.ref().parent.parent.orderByChild("parent").equalTo(this.owner.hubbleKey);
         const snapshot = await childrenQuery.once("value");
-        const children: object = new Object();
+        const children = [];
         const childKeys = snapshot.val();
 
         for (var childKey in childKeys) {
-            children[childKey] = true;
+            children.push(childKey);
         }
 
         this.set(children)
     }
 
+    /**
+     * Returns current highest position in children list.
+     */
+    async getMaxPos() {
+        const snapshot = await this.ref().once("value");
+        const children = snapshot.val();
+        if (children) { return children.length; } else { return 0; }
+    }
+
     async push(hubble: Hubble) {
         const ref = this.ref().child(hubble.hubbleKey);
-        await ref.set(true);
+        var maxPos = await this.getMaxPos();
+        this.updatePosition(hubble, maxPos + 1);
 
-        this.myHubble.activechildren.rebuild();
+        this.owner.activechildren.rebuild();
         return hubble;
     }
 
     async remove(hubble: Hubble) {
-        const ref = this.ref().child(hubble.hubbleKey);
-        await ref.remove();
-        this.myHubble.activechildren.rebuild();
+        const nextSibling = await hubble.position.next();
+        const childRef = this.ref().child(hubble.hubbleKey);
+        await childRef.remove();
+
+        // let the next sibling take my old position:
+        this.shiftPosition(nextSibling, -1);
+        this.owner.activechildren.rebuild();
     }
 
-    async childAt(position: number) {
-        const ref = this.ref().orderByValue().equalTo(position);
+    async getChildAt(position: number) {
+        const ref = this.ref().child(String(position));
         const snapshot = await ref.once("value");
-        return new Hubble(snapshot.val()[0].key);
+        const key = snapshot.val();
+        if (key) {
+            return new Hubble(key);
+        }
+        return null;
     }
-
-    async positionOf(hubble: Hubble) {
-        const query = this.ref().child(hubble.hubbleKey);
-        const snapshot = await query.once("value");
-        return Number(snapshot.val());
-    }
-
-    async hubbles() {
+    async getHubbleArray_old() {
         const childKeys = await this.get();
 
         if (childKeys) {
@@ -204,11 +241,22 @@ class ChildrenProperty extends HubbleProperty<object> {
         }
     }
 
+    async getHubbleArray() {
+        const childKeys = await this.get();
+
+        if (childKeys) {
+            return childKeys.map(childKey => new Hubble(childKey));
+        }
+        else {
+            return [];
+        }
+    }
+
     addnew() {
         const updatePromises: Promise<any>[] = []
-        const child = new Hubble(this.myHubble.ref.parent.push().key)
+        const child = new Hubble(this.owner.ref.parent.push().key)
 
-        updatePromises.push(child.parent.set(this.myHubble.hubbleKey));
+        updatePromises.push(child.parent.set(this.owner.hubbleKey));
         updatePromises.push(child.content.set(""));
         updatePromises.push(child.snoozed.set(false));
         updatePromises.push(child.done.set(false));
@@ -219,6 +267,41 @@ class ChildrenProperty extends HubbleProperty<object> {
         return Promise.all(updatePromises).then(() => {
             return child;
         });
+    }
+
+    /**
+     * Only for internal use - use move functions to change position.
+     * Function updates position both in children list of parent as well
+     * as this position property.
+     */
+    async updatePosition(child: Hubble, position: number) {
+        const childSlotRef = this.ref().child(String(position));
+        const originalPosition = await child.position.get();
+
+        // if there is still a child present at this location, push it out of the way:
+        const currentHubbleKey = (await childSlotRef.once("value")).val();
+        if (currentHubbleKey) {
+            const currentHubble = new Hubble(currentHubbleKey);
+            await this.shiftPosition(currentHubble, 1);
+        }
+
+        // Because of denormalization, this has to be saved twice:
+        // Update my position in parent's child list:
+        await childSlotRef.set(this.owner.hubbleKey);
+        // Update my position as my own property:
+        await child.position.set(position);
+
+        // Finally, if there are children past my original position,
+        //   let them take my old place:
+        const originalFollower = await this.getChildAt(originalPosition +1);
+        if (originalFollower) {
+            await this.shiftPosition(originalFollower, -1);
+        }
+    }
+
+    async shiftPosition(child: Hubble, shift: number) {
+        const currentPosition = await child.position.get();
+        await this.updatePosition(child, currentPosition + shift);
     }
 }
 
@@ -238,6 +321,8 @@ class Hubble {
     position = new PositionHubbleProperty("position", this);
 
     constructor(hubbleKey: string) {
+        if(!hubbleKey) throw "Hubble key cannot be empty";
+        
         this.hubbleKey = hubbleKey;
         this.ref = this.database.ref('users/' + this.user.uid + '/hubbles/' + hubbleKey);
     }
@@ -251,7 +336,7 @@ class Hubble {
 
     getProperties(properties: HubbleProperty<any>[]) {
         const promises = properties.map(property => property.get().then(value => ({ name: property.name, value: value })));
-        
+
         return Promise.all(promises).then(properties => {
             const hubble = <HubbleData>(new Object);
             for (const property of properties) {
@@ -262,21 +347,20 @@ class Hubble {
     }
 
     async move(newParent: Hubble) {
-        const oldParent = await this.parent.hubble();
+        const oldParent = await this.parent.getHubble();
         oldParent.children.remove(this);
         newParent.children.push(this);
         this.parent.set(newParent.hubbleKey);
     }
 
     async moveAfter(newSibling: Hubble) {
-        const newParent = await newSibling.parent.hubble();
+        const newParent = await newSibling.parent.getHubble();
         await this.move(newParent);
         await this.position.moveAfter(newSibling);
     }
 
-
     async delete() {
-        const parent = await this.parent.hubble()
+        const parent = await this.parent.getHubble()
         parent.children.remove(this);
         this.ref.remove();
     }
@@ -284,6 +368,7 @@ class Hubble {
     async sanatize() {
         await this.children.rebuild();
         await this.activechildren.rebuild();
+        await this.position.rebuild();
     }
 
     async recurse(childrenFirst: boolean, task: (Hubble: Hubble) => void) {
@@ -293,7 +378,7 @@ class Hubble {
         }
 
         // then, get child hubbles and do it for all my children:
-        const children = await this.children.hubbles();
+        const children = await this.children.getHubbleArray();
         for (const child of children) {
             child.recurse(childrenFirst, task);
         }
@@ -302,6 +387,12 @@ class Hubble {
         if (childrenFirst) {
             task(this);
         }
+    }
+
+    static create(parent: Hubble) {
+        const updatePromises: Promise<any>[] = []
+        const child = new Hubble(parent.ref.parent.push().key)
+
     }
 }
 

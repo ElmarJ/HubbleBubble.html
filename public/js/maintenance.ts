@@ -3,6 +3,7 @@ const rootKey = "-KlYdxmFkIiWOFXp0UIP";
 function sanatizeAllChildrenLists() {
     const rootConnection = new Hubble(rootKey);
     rootConnection.recurse(false, hubble => hubble.children.rebuild());
+    // rootConnection.recurse(false, hubble => hubble.position.rebuild());
 }
 
 function sanatizeAllActivity() {
