@@ -165,11 +165,25 @@ class ChildrenProperty extends HubbleProperty<string[]> {
         return position;
     }
 
+    async insertAt(hubble: Hubble, position: number) {
+        const children = await this.getHubbleArray();
+        children.splice(position, 0 ,hubble);
+        await this.setHubbleArray(children);        
+    }
+
     async remove(hubble: Hubble) {
         const children = await this.getHubbleArray();
         const index = children.indexOf(hubble);
         children.splice(index, 1);
         await this.setHubbleArray(children);
+    }
+
+    async shiftTo(hubble: Hubble, position: number) {
+        const children = await this.getHubbleArray();
+        const index = children.indexOf(hubble);
+        children.splice(index, 1);
+        children.splice(position, 0 ,hubble);
+        await this.setHubbleArray(children);                
     }
 
     async getChildAt(position: number) {
@@ -193,6 +207,12 @@ class ChildrenProperty extends HubbleProperty<string[]> {
         }
     }
 
+    async getPositionOf(hubble: Hubble) {
+        const query = this.ref().orderByValue().equalTo(hubble.hubbleKey);
+        var snapshot = await query.once("value");
+        return snapshot.key;
+    }
+
     async setHubbleArray(hubbles: Hubble[]) {
         await this.set(hubbles.map(hubble => hubble.hubbleKey));
         await this.owner.activechildren.rebuild();
@@ -212,6 +232,8 @@ class ChildrenProperty extends HubbleProperty<string[]> {
 
         await this.setHubbleArray(children);
     }
+
+
 
     addnew() {
         const updatePromises: Promise<any>[] = []
@@ -278,6 +300,12 @@ class Hubble {
         this.parent.set(newParent.hubbleKey);
     }
 
+    async shiftAfter(sibling: Hubble) {
+        const parent = await this.parent.getHubble();
+        const position = await parent.children.getPositionOf(sibling);
+        parent.children.shiftTo(this, position);
+    }
+
     async delete() {
         const parent = await this.parent.getHubble()
         await parent.children.remove(this);
@@ -319,6 +347,10 @@ class Hubble {
 
     async moveDown() {
         await this.swap(1);
+    }
+
+    async moveToPosition(position: number) {
+
     }
 
     async swap(distance: number) {
