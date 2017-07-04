@@ -185,8 +185,9 @@ function getScopedHubble(element: HTMLElement): Hubble {
   if(element.classList.contains("hubble")) {
     return new Hubble(element.dataset.key);
   }
-  var ancestor = $(element).closest(".hubble")[0];
-  return new Hubble(ancestor.dataset.key);
+
+  const hubbleElement = hubbleElementOf(element);
+  return new Hubble(hubbleElement.dataset.key);
 }
 
 function registerToggle(
@@ -324,7 +325,7 @@ function newHubbleLinkClick(ev: MouseEvent) {
 
 function collapseChange(ev:Event) {
     const collapseCheckbox = <HTMLInputElement>ev.srcElement;
-    const hubbleElement = $(collapseCheckbox).closest(".hubble")[0];
+    const hubbleElement = hubbleElementOf(collapseCheckbox);
 
     if(collapseCheckbox.checked) {
       hubbleElement.classList.add("collapsed");
@@ -347,21 +348,76 @@ function respondToVisibility(element: HTMLElement, callback: (visbility: boolean
     observer.observe(element);
 }
 
-async function moveDown(event: MouseEvent) {
+function moveDown(event: Event) {
     event.preventDefault();
-
-    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
-    await hubble.moveDown();
-    
-    renderSiblingsOf(hubble);
+    moveHubbleElementDown(hubbleElementOf(<HTMLElement>event.srcElement));
 }
 
-async function moveUp(event: MouseEvent) {
+function moveUp(event: Event) {
     event.preventDefault();
-    const hubble = getScopedHubble(<HTMLElement>event.srcElement);
-    await hubble.moveUp();
+    moveHubbleElementUp(hubbleElementOf(<HTMLElement>event.srcElement));
+}
 
-    renderSiblingsOf(hubble);
+function moveIn(event: Event) {
+  event.preventDefault();
+  moveHubbleElementInPrevious(hubbleElementOf(<HTMLElement>event.srcElement));
+}
+
+function hubbleElementOf(element: HTMLElement) {
+  return findAncestor(element, "hubble");
+}
+
+function moveHubbleElementDown(element: HTMLElement) {
+  if(element.nextElementSibling){
+    element.parentElement.insertBefore(element, element.nextElementSibling.nextElementSibling);
+    storeChildlist(hubbleElementOf(element.parentElement));
+  }
+}
+
+function moveHubbleElementUp (element: HTMLElement) {
+  if(element.previousElementSibling){
+    element.parentElement.insertBefore(element, element.previousElementSibling);
+
+    storeChildlist(hubbleElementOf(element.parentElement));
+  }
+}
+
+function moveHubbleElementInPrevious(element: HTMLElement) {
+  const newChildrenElement = <HTMLElement>element.previousElementSibling;
+  const oldParent = element.parentElement;
+  const targethubble = getScopedHubble(newChildrenElement);
+  if(newChildrenElement) {
+    if(newChildrenElement.dataset.rendered != "true") {
+      renderChildren(newChildrenElement, targethubble);
+    }
+    newChildrenElement.appendChild(element);
+
+    storeChildlist(hubbleElementOf(newChildrenElement));
+    storeChildlist(hubbleElementOf(oldParent));
+    storeParent(element);
+  }
+}
+
+function storeChildlist(hubbleElement: HTMLElement) {
+  const childrenElement = getChildrenElement(hubbleElement);
+  const hubble = new Hubble(hubbleElement.dataset.key)
+
+  var childrenArray = [];
+  var childelement = <HTMLElement>childrenElement.firstElementChild;
+
+  while (childelement) {
+    childrenArray.push(childelement.dataset.key)
+    childelement = <HTMLElement>childelement.nextElementSibling;
+  }
+
+  hubble.children.set(childrenArray);
+}
+
+function storeParent(hubbleElement: HTMLElement) {
+  const hubble = getScopedHubble(hubbleElement);
+  const parentHubble = getScopedHubble(hubbleElement.parentElement);
+
+  hubble.parent.set(parentHubble.hubbleKey);
 }
 
 async function renderSiblingsOf(hubble: Hubble) {
@@ -376,4 +432,9 @@ function renderChildrenOf(hubble: Hubble) {
 
 function getChildrenElement(element: HTMLElement) {
     return <HTMLElement>element.querySelector(".children");
+}
+
+function findAncestor (element: HTMLElement, className: string) {
+    while ((element = element.parentElement) && !element.classList.contains(className));
+    return element;
 }
