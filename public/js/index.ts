@@ -9,6 +9,27 @@ window.onunload = function () {
   saveCurrentHubble();
 };
 
+currentUid = "";
+
+// Listen to change in auth state so it displays the correct UI for when
+// the user is signed in or not.
+firebase.auth().onAuthStateChanged(function (user) {
+    // The observer is also triggered when the user's token has expired and is
+    // automatically refreshed. In that case, the user hasn't changed so we should
+    // not update the UI.
+    if (user && user.uid === currentUid) {
+        return;
+    }
+
+    if (!user) {
+      window.location.href ="/login.html";
+    }
+
+    currentUid = user.uid;
+
+    updatePresenter();
+});
+
 function saveCurrentHubble() {
   // Is this necessarry at all now we save after leaving each editable field?
   var contentelement = document.querySelectorAll("[contenteditable].content")[0];

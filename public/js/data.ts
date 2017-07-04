@@ -268,7 +268,9 @@ class Hubble {
     activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
 
     constructor(hubbleKey: string) {
-        if(!hubbleKey) throw "Hubble key cannot be empty";
+        if(!hubbleKey) {
+            throw "Hubble key cannot be empty";
+        }
         
         this.hubbleKey = hubbleKey;
         this.ref = this.database.ref('users/' + this.user.uid + '/hubbles/' + hubbleKey);
