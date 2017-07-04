@@ -9,13 +9,19 @@
             "skipFiles": [
                 "**/bower_components",
                 "**/node_modules",
-                "/__/**"
+                "__/**/*"
             ],
             "preLaunchTask": "build",
-            "smartStep": true
+            "smartStep": true,
+            "sourceMapPathOverrides": {
+                "webpack:///*": "*",
+                "webpack:///./*": " ${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/*",
+                "webpack:///./~/*": "${webRoot}/node_modules/*"
+            }
         },
         {
-            "name": "Launch chrome localhost no sourcemaps",
+            "name": "Launch chrome localhost with debugging firebase source",
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:5000/index.html",
@@ -23,10 +29,16 @@
             "skipFiles": [
                 "**/bower_components",
                 "**/node_modules",
-                "/__/**"
             ],
             "preLaunchTask": "build",
-            "sourceMaps": false
+            "smartStep": true,
+            "sourceMapPathOverrides": {
+                "webpack:///*": "*",
+                "webpack:///./*": " ${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/*",
+                "webpack:///./~/*": "${webRoot}/node_modules/*",
+                "/src/*": "C:/Users/Elmar/Source/Repos/firebase-js-sdk/src/*"
+            }
         },
         {
             "name": "Launch chrome maintenance page (localhost)",
