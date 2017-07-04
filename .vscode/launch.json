@@ -11,7 +11,22 @@
                 "**/node_modules",
                 "/__/**"
             ],
-            "preLaunchTask": "build"
+            "preLaunchTask": "build",
+            "smartStep": true
+        },
+        {
+            "name": "Launch chrome localhost no sourcemaps",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5000/index.html",
+            "webRoot": "${workspaceRoot}/public",
+            "skipFiles": [
+                "**/bower_components",
+                "**/node_modules",
+                "/__/**"
+            ],
+            "preLaunchTask": "build",
+            "sourceMaps": false
         },
         {
             "name": "Launch chrome maintenance page (localhost)",
@@ -24,30 +39,6 @@
                 "**/node_modules",
                 "/__/**"
             ],
-            "preLaunchTask": "build"
-        },
-        {
-            "name": "Launch chrome index.html",
-            "type": "chrome",
-            "request": "launch",
-            "sourceMaps": false,
-            "file": "${workspaceRoot}/index.html",
-            "preLaunchTask": "build"
-        },
-        {
-            "name": "Launch edge localhost",
-            "type": "edge",
-            "request": "launch",
-            "url": "http://localhost:5000/index.html",
-            "webRoot": "${workspaceRoot}/public",
-            "preLaunchTask": "build"
-        },
-        {
-            "name": "Launch edge index.html",
-            "type": "edge",
-            "request": "launch",
-            "sourceMaps": false,
-            "file": "${workspaceRoot}/index.html",
             "preLaunchTask": "build"
         }
     ]
