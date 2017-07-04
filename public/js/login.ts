@@ -34,16 +34,13 @@ var currentUid = null;
 
 
 var handleSignedInUser = function (user: firebase.User) {
-    currentUid = user.uid;
-    document.getElementById('user-signed-in').style.display = 'block';
-    document.getElementById('user-signed-out').style.display = 'none';
+    window.location.href = "/";
 };
 
 /**
  * Displays the UI for a signed out user.
  */
 var handleSignedOutUser = function () {
-    document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'block';
     ui.start('#firebaseui-container', uiConfig);
 };
@@ -60,7 +57,6 @@ firebase.auth().onAuthStateChanged(function (user) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('loaded').style.display = 'block';
     user ? handleSignedInUser(user) : handleSignedOutUser();
-    updatePresenter();
 });
 
 /**
@@ -86,9 +82,8 @@ var deleteAccount = function () {
  * Initializes the app.
  */
 var initApp = function () {
-    document.getElementById('signoutbutton').addEventListener('click', function () {
-        firebase.auth().signOut();
-    });
+    // signout user if still signed in:
+    firebase.auth().signOut();
 };
 
 window.addEventListener('load', initApp);

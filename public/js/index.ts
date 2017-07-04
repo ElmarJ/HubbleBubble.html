@@ -23,6 +23,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
     if (!user) {
       window.location.href ="/login.html";
+      return;
     }
 
     currentUid = user.uid;
