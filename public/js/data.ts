@@ -172,10 +172,11 @@ class ChildrenProperty extends HubbleProperty<string[]> {
     }
 
     async remove(hubble: Hubble) {
-        const children = await this.getHubbleArray();
-        const index = children.indexOf(hubble);
+        const children = await this.get();
+        const index = children.indexOf(hubble.hubbleKey);
         children.splice(index, 1);
-        await this.setHubbleArray(children);
+        await this.set(children);
+        await this.owner.activechildren.rebuild();
     }
 
     async shiftTo(hubble: Hubble, position: number) {
