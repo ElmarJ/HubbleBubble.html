@@ -116,7 +116,6 @@ async function renderHubble(
 async function renderChildren(childrenElement: HTMLElement, hubble: Hubble) {
     var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
     childrenElement.dataset.rendered = "true"; //strictly speaking, it's not yet rendered, but it will be soon (and we don't want it to be rendered more than once)
-    childrenElement.innerHTML = "";
     const childHubbles = await hubble.children.getHubbleArray();
     for (var child of childHubbles) {
       renderHubble(child, childTemplate, childrenElement);
@@ -389,7 +388,7 @@ function moveHubbleElementInPrevious(element: HTMLElement) {
   const newChildrenElement = getChildrenElement(newParent);
   const oldParent = hubbleElementOf(oldChildrenElement);
 
-  if(newChildrenElement && !newParent.classList.contains("collapsed") && (newParent.dataset.rendered == "true")) {
+  if(newChildrenElement && !newParent.classList.contains("collapsed") && (newChildrenElement.dataset.rendered == "true")) {
     newChildrenElement.appendChild(element);
 
     storeChildlist(oldParent);
