@@ -149,6 +149,7 @@ async function navigateToNewChild() {
   location.hash = hubble.hubbleKey;
 }
 
+// TODO: switch to this for reordering: https://github.com/RubaXa/Sortable/issues/1008
 function check_card_drop(ev: DragEvent) {
   ev.preventDefault();
 }
@@ -383,17 +384,16 @@ function moveHubbleElementUp (element: HTMLElement) {
 }
 
 function moveHubbleElementInPrevious(element: HTMLElement) {
-  const newChildrenElement = <HTMLElement>element.previousElementSibling;
-  const oldParent = element.parentElement;
-  const targethubble = getScopedHubble(newChildrenElement);
-  if(newChildrenElement) {
-    if(newChildrenElement.dataset.rendered != "true") {
-      renderChildren(newChildrenElement, targethubble);
-    }
+  const newParent = <HTMLElement>element.previousElementSibling;
+  const oldChildrenElement = element.parentElement;
+  const newChildrenElement = getChildrenElement(newParent);
+  const oldParent = hubbleElementOf(oldChildrenElement);
+
+  if(newChildrenElement && !newParent.classList.contains("collapsed") && (newParent.dataset.rendered == "true")) {
     newChildrenElement.appendChild(element);
 
-    storeChildlist(hubbleElementOf(newChildrenElement));
-    storeChildlist(hubbleElementOf(oldParent));
+    storeChildlist(oldParent);
+    storeChildlist(newParent);
     storeParent(element);
   }
 }
