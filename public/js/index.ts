@@ -222,11 +222,18 @@ function getElementOf(hubble: Hubble) {
 async function onEditorKeyPress(ev: KeyboardEvent) {
   if (ev.key == "Enter") {
     ev.preventDefault();
-    const hubble = getScopedHubble(<HTMLElement>ev.srcElement);
-    await hubble.parent.getHubble();
-    parent => addNewChild(parent);
+    const hubble = getScopedHubble(hubbleElementOf(<HTMLElement>ev.srcElement).parentElement);
+    addNewChild(hubble);
   }
 }
+
+function keyDown(ev: KeyboardEvent) {
+  if (ev.key == "Tab") {
+    ev.preventDefault();
+    moveHubbleElementInPrevious(hubbleElementOf(<HTMLElement>event.srcElement));
+  }
+}
+
 
 function onLightSwitch() {
   const lightCheckBox = <HTMLInputElement>document.getElementById("lightSwitch");
