@@ -397,7 +397,7 @@ function moveHubbleElementInPrevious(element: HTMLElement) {
   }
 }
 
-function storeChildlist(hubbleElement: HTMLElement) {
+async function storeChildlist(hubbleElement: HTMLElement) {
   const childrenElement = getChildrenElement(hubbleElement);
   const hubble = new Hubble(hubbleElement.dataset.key)
 
@@ -405,11 +405,13 @@ function storeChildlist(hubbleElement: HTMLElement) {
   var childelement = <HTMLElement>childrenElement.firstElementChild;
 
   while (childelement) {
-    childrenArray.push(childelement.dataset.key)
+    if(!childelement.classList.contains("special-children")) {
+      childrenArray.push(childelement.dataset.key);
+    }
     childelement = <HTMLElement>childelement.nextElementSibling;
   }
 
-  hubble.children.set(childrenArray);
+  await hubble.children.set(childrenArray);
 }
 
 function storeParent(hubbleElement: HTMLElement) {
