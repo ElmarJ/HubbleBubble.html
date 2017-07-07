@@ -234,28 +234,14 @@ function keyDown(ev: KeyboardEvent) {
   }
 }
 
-
-function onLightSwitch() {
-  const lightCheckBox = <HTMLInputElement>document.getElementById("lightSwitch");
-
-  if (lightCheckBox.checked) {
-    document.documentElement.classList.add("nightMode");
+function switchUISetting(event: Event) {
+  const checkbox = <HTMLInputElement>event.srcElement;
+  if (checkbox.checked) {
+    document.documentElement.classList.add(checkbox.dataset.themeSwitch);
   }
 
   else {
-    document.documentElement.classList.remove("nightMode");
-  }
-}
-
-function onBulletSwitch() {
-  const bulletCheckBox = <HTMLInputElement>document.getElementById("bulletSwitch");
-
-  if (bulletCheckBox.checked) {
-    document.documentElement.classList.add("noBulletView");
-  }
-
-  else {
-    document.documentElement.classList.remove("noBulletView");
+    document.documentElement.classList.remove(checkbox.dataset.themeSwitch);
   }
 }
 
@@ -270,17 +256,6 @@ function onFullscreenSwitch() {
     if (document.exitFullscreen) document.exitFullscreen();
     else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     else if (document.mozExitFullScreen) document.mozExitFullScreen();
-  }
-}
-
-function onInactiveVisibleSwitch() {
-  const showInactiveVisibleCheckBox = <HTMLInputElement>document.getElementById("inactiveVisibleSwitch");
-  if (showInactiveVisibleCheckBox.checked) {
-    document.documentElement.classList.remove("hideInactive");
-  }
-
-  else {
-    document.documentElement.classList.add("hideInactive");
   }
 }
 

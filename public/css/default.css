@@ -14,6 +14,10 @@
                     background: #000;
                     color: #fff;
                 }
+
+                html * {
+                    transition: opacity 0.5s;
+                }
                 
                 header {
                     align-items: center;
@@ -43,6 +47,7 @@
                     border-style: solid;
                     border-radius: 5px;
                     color: #ccc;
+                    font: inherit;
                 }
                 
                 [contenteditable] {
@@ -61,6 +66,38 @@
                     outline: none;
                 }
 
+                menu {
+                    font-family: "Material Icons";
+                    font-size: 18pt;
+                    font-weight: 400;
+                    color: #ccc;
+                    list-style: none;
+                    padding: 0;
+                }
+
+                menu * {
+                    visibility: hidden;
+                    opacity: 0;
+                }
+
+                menu:hover * {
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                menu li {
+                    padding: 5px;
+                }
+
+                menu input {
+                    display: none;
+                }
+
+                menu button {
+                    padding: 0;
+                    border: none;
+                }
+
                 #signoutbutton {
                     font-family: "Material Icons";
                     font-size: 18pt;
@@ -73,59 +110,13 @@
                     visibility: visible;
                 }
                 
-                #viewMenu {
+                menu#viewMenu {
                     position: fixed;
                     left: 25px;
                     top: 100px;
-                    list-style: none;
                 }
                 
-                #viewMenu {
-                    padding: 0;
-                    list-style: none;
-                    visibility: hidden;
-                    opacity: 0;
-                    transition: opacity 0.5s;
-                }
-                
-                #viewMenu:hover {
-                    visibility: visible;
-                    opacity: 1;
-                }
-                
-                #viewMenu li {
-                    padding: 5px;
-                }
-                
-                #viewMenu input {
-                    display: none;
-                }
-                /* Replace labels of switches with nice material icons */
-                
-                #viewMenu label {
-                    visibility: hidden;
-                    width: 0;
-                }
-                
-                #viewMenu label::before {
-                    font-family: "Material Icons";
-                    font-size: 18pt;
-                    font-weight: 400;
-                    color: #ccc;
-                    visibility: visible;
-                }
-
-                #expandAllButton{
-                    visibility: hidden;
-                    padding: 0;
-                }
-
                 #expandAllButton::before {
-                    font-family: "Material Icons";
-                    font-size: 18pt;
-                    font-weight: 400;
-                    color: #ccc;
-                    visibility: visible;
                     content:"expand_more";
                 }
                 

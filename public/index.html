@@ -18,12 +18,12 @@
     </header>
     <main id="main">
         <menu id="viewMenu" role="menubar">
-            <li><input type="checkbox" role="switch" id="cardviewSwitch" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch">cards</label></li>
-            <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" onchange="onInactiveVisibleSwitch();" checked><label for="inactiveVisibleSwitch">sleepers</label></li>
-            <li><button id="expandAllButton" onclick="expandAll();">expand all</button></li>
-            <li><input type="checkbox" role="switch" id="bulletSwitch" onchange="onBulletSwitch();"><label for="bulletSwitch">bullets</label></li>
-            <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch">fullscreen</label></li>
-            <li><input type="checkbox" role="switch" id="lightSwitch" onchange="onLightSwitch();"><label for="lightSwitch">lights</label></li>
+            <li><input type="checkbox" role="switch" id="cardviewSwitch" data-theme-switch="hubbleCardView" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch"></label></li>
+            <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" data-theme-switch="hideInactive" onchange="switchUISetting(event);" checked><label for="inactiveVisibleSwitch"></label></li>
+            <li><button id="expandAllButton" onclick="expandAll();"></button></li>
+            <li><input type="checkbox" role="switch" id="bulletSwitch" data-theme-switch="noBulletView" onchange="switchUISetting(event);"><label for="bulletSwitch"></label></li>
+            <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch"></label></li>
+            <li><input type="checkbox" role="switch" id="lightSwitch" data-theme-switch="nightMode" onchange="switchUISetting(event);"><label for="lightSwitch"></label></li>
         </menu>
         <div id="hubblePresenter"></div>
     </main>
