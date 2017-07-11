@@ -368,9 +368,10 @@ HTMLElement.prototype.getHubbleChildrenElement = function() {
 }
 
 HTMLElement.prototype.renderHubbleOnVisible = function () {
-  this.respondToVisibility(this, visible => {
+  this.respondToVisibility(visible => {
     if (visible && !this.rendered) {
       this.renderHubble();
+      this.rendered = true;
     }
   });
 }
@@ -437,7 +438,6 @@ HTMLElement.prototype.findAncestor = function (className: string) {
   return element;
 }
 
-
 async function renderChildren(childrenElement: HTMLElement, hubble: Hubble) {
   var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
   childrenElement.dataset.rendered = "true"; //strictly speaking, it's not yet rendered, but it will be soon (and we don't want it to be rendered more than once)
@@ -445,10 +445,6 @@ async function renderChildren(childrenElement: HTMLElement, hubble: Hubble) {
   for (var child of childHubbles) {
     const childElement = getNewHubbleElement(child, "hubbleListItemTemplate");
     childrenElement.appendChild(childElement);
-    childElement.respondToVisibility(visible => {
-      if (visible) {
-        childElement.renderHubble();
-      }
-    });
+    childElement.renderHubbleOnVisible();
   }
 }
