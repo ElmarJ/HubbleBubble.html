@@ -82,7 +82,9 @@ class ActivityChildCountHubbleProperty extends NumberHubbleProperty {
 
             Promise.all(promisesToGetChildActivity).then(childActivities => {
                 const activeChildCount = childActivities.reduce<number>((counter, activity) => {
-                    if (activity) counter++; return counter;
+                    if (activity) {
+                        counter++; return counter;
+                    }
                 }, 0);
                 this.set(activeChildCount);
             });
@@ -190,17 +192,18 @@ class Hubble {
     activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
 
     constructor(hubbleKey?: string) {
-        if(!hubbleKey || hubbleKey == "") {
-            hubbleKey = this.ref.parent.push().key
+        if(!hubbleKey || hubbleKey === "") {
+            // Generate a new key:
+            hubbleKey = this.database.ref("users/" + this.user.uid + "/hubbles").push().key;
         }
-        
+
         this.hubbleKey = hubbleKey;
-        this.ref = this.database.ref('users/' + this.user.uid + '/hubbles/' + hubbleKey);
+        this.ref = this.database.ref("users/" + this.user.uid + "/hubbles/" + hubbleKey);
     }
-    
+
 
     async getHubbleData() {
-        const snapshot = await this.ref.once('value')
+        const snapshot = await this.ref.once("value")
         const hubble = <HubbleData>snapshot.val();
         hubble.key = this.hubbleKey;
         return hubble;

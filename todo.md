@@ -23,3 +23,5 @@ List:
     * Store children on DOM manipulation
 * data.js
   * V defaults for properties
+* Breadcrumb (index.html + index.js)
+  * Create breadcrumb with rendered hubbles

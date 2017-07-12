@@ -151,12 +151,19 @@ function registerToggle(
   }
 }
 
-async function addNewChild(parentHubble: Hubble) {
+async function addNewChild(parentHubble: Hubble, before?: Hubble) {
   const childrenElement = <HTMLElement>getElementOf(parentHubble).getElementsByClassName("children")[0];
   const hubble = new Hubble();
   if (childrenElement) {
     const hubbleElement = getNewHubbleElement(hubble, "hubbleListItemTemplate");
-    childrenElement.appendChild(hubbleElement);
+
+    if(before) {
+      const beforeElement = getElementOf(before);
+      childrenElement.insertBefore(hubbleElement, beforeElement);
+    } else {
+        childrenElement.appendChild(hubbleElement);
+    }
+
     await hubbleElement.renderHubble();
     setFocus(hubble);
   } else {
@@ -171,15 +178,16 @@ function getElementOf(hubble: Hubble) {
 }
 
 async function onEditorKeyPress(ev: KeyboardEvent) {
-  if (ev.key == "Enter") {
+  if (ev.key === "Enter") {
     ev.preventDefault();
     const hubble = getScopedHubble(hubbleElementOf(<HTMLElement>ev.srcElement).parentElement);
-    addNewChild(hubble);
+    const beforeHubble = getScopedHubble(<HTMLElement>ev.srcElement.nextElementSibling);
+    addNewChild(hubble, beforeHubble);
   }
 }
 
 function keyDown(ev: KeyboardEvent) {
-  if (ev.key == "Tab") {
+  if (ev.key === "Tab") {
     ev.preventDefault();
     moveHubbleElementInPrevious(hubbleElementOf(<HTMLElement>event.srcElement));
   }
@@ -200,13 +208,21 @@ function onFullscreenSwitch() {
   const fullscreenCheckBox = <HTMLInputElement>document.getElementById("fullscreenSwitch");
 
   if (fullscreenCheckBox.checked) {
-    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
-    else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
-    else if (document.documentElement.mozRequestFullScreen) document.documentElement.mozRequestFullScreen();
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if(document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    }
   } else {
-    if (document.exitFullscreen) document.exitFullscreen();
-    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-    else if (document.mozExitFullScreen) document.mozExitFullScreen();
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozExitFullScreen) {
+      document.mozExitFullScreen();
+    }
   }
 }
 
@@ -312,7 +328,7 @@ function moveHubbleElementInPrevious(element: HTMLElement) {
   const newChildrenElement = newParent.getHubbleChildrenElement();
   const oldParent = hubbleElementOf(oldChildrenElement);
 
-  if (newChildrenElement && !newParent.classList.contains("collapsed") && (newChildrenElement.dataset.rendered == "true")) {
+  if (newChildrenElement && !newParent.classList.contains("collapsed") && (newChildrenElement.dataset.rendered === "true")) {
     newChildrenElement.appendChild(element);
 
     oldParent.persistHubbleChildlist();
@@ -398,10 +414,14 @@ HTMLElement.prototype.renderHubble = async function () {
   for (var parentLinkElement of parentLinkElements) { parentLinkElement.href = "#" + data.parent; }
 
   const childCountElement = <HTMLElement>this.querySelector(".child-count");
-  if (childCountElement !== null) childCountElement.innerText = String(data.activechildren);
+  if (childCountElement !== null) {
+    childCountElement.innerText = String(data.activechildren);
+  }
 
   const parentNode = <HTMLElement>this.querySelector(".parentcontent");
-  if (parentNode !== null) parentNode.dataset.key = data.parent;
+  if (parentNode !== null) {
+    parentNode.dataset.key = data.parent;
+  }
 
   // set done toggle:
   const doneElement = <HTMLInputElement>this.querySelector(".doneToggle");
@@ -434,7 +454,7 @@ HTMLElement.prototype.respondToVisibility = function(callback) {
 
 HTMLElement.prototype.findAncestor = function (className: string) {
   var element = this;
-  while ((element = element.parentElement) && !element.classList.contains(className));
+  while ((element = element.parentElement) && !element.classList.contains(className)) {}
   return element;
 }
 
