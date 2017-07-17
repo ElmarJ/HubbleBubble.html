@@ -41,9 +41,11 @@ async function updatePresenter() {
   if (firebase.auth().currentUser !== null) {
     presenter.innerHTML = "";
     const root = getRootHubble();
-    const rootElement = getNewHubbleElement(root, "hubbleListTemplate");
-    presenter.appendChild(rootElement);
-    await rootElement.renderHubble();
+    const rootHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListTemplate");;
+    const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
+    const rootRenderer = new HubbleRenderer(root, rootHubbleTemplate, childHubbleTemplate);
+    presenter.appendChild(rootRenderer.element);
+    await rootRenderer.renderOnVisible();
   }
 }
 
@@ -58,15 +60,6 @@ function setCaretPosition() {
 }
 
 
-
-function getNewHubbleElement(hubble: Hubble, templateName: string) {
-  const template = <HTMLTemplateElement>document.getElementById(templateName);
-  const hubbleElement = <HTMLElement>document.importNode(template.content, true).querySelector(".hubble");
-  hubbleElement.dataset.key = hubble.hubbleKey;
-  hubbleElement.hubble = hubble;
-
-  return hubbleElement;
-}
 
 function startUpdatingActivity(hubble: Hubble) {
   const element = getElementOf(hubble);
@@ -152,7 +145,8 @@ function registerToggle(
 }
 
 async function addNewChild(parentHubble: Hubble, before?: Hubble) {
-  const childrenElement = <HTMLElement>getElementOf(parentHubble).getElementsByClassName("children")[0];
+  const parentElement = <HTMLElement>getElementOf(parentHubble)
+  const childrenElement = parentElement.getElementsByClassName("children")[0];
   const hubble = new Hubble();
   if (childrenElement) {
     const hubbleElement = getNewHubbleElement(hubble, "hubbleListItemTemplate");
@@ -161,13 +155,13 @@ async function addNewChild(parentHubble: Hubble, before?: Hubble) {
       const beforeElement = getElementOf(before);
       childrenElement.insertBefore(hubbleElement, beforeElement);
     } else {
-        childrenElement.appendChild(hubbleElement);
+      childrenElement.appendChild(hubbleElement);
     }
 
+    setFocus(hubbleElement);
+
     await hubbleElement.renderHubble();
-    setFocus(hubble);
-  } else {
-    setFocus(hubble);
+    parentElement.persistHubbleChildlist();
   }
 }
 
@@ -180,9 +174,14 @@ function getElementOf(hubble: Hubble) {
 async function onEditorKeyPress(ev: KeyboardEvent) {
   if (ev.key === "Enter") {
     ev.preventDefault();
-    const hubble = getScopedHubble(hubbleElementOf(<HTMLElement>ev.srcElement).parentElement);
-    const beforeHubble = getScopedHubble(<HTMLElement>ev.srcElement.nextElementSibling);
-    addNewChild(hubble, beforeHubble);
+    const hubbleElement = hubbleElementOf(<HTMLElement>ev.srcElement)
+    const parentHubble = getScopedHubble(hubbleElement.parentElement);
+    if (hubbleElement.nextElementSibling) {
+      const beforeHubble = getScopedHubble(<HTMLElement>hubbleElement.nextElementSibling);
+      addNewChild(parentHubble, beforeHubble);
+    } else {
+      addNewChild(parentHubble);
+    }
   }
 }
 
@@ -247,17 +246,12 @@ function expandAll() {
   }
 }
 
-function setFocus(hubble: Hubble) {
-  const hubbleElement = <HTMLElement>getElementOf(hubble);
+function setFocus(hubbleElement: HTMLElement) {
   if (hubbleElement) {
-    const contentElement = <HTMLElement>hubbleElement.getElementsByClassName("content")[0];
-    if (contentElement.contentEditable) {
+    const contentElement = <HTMLElement>hubbleElement.querySelector("[contenteditable].content");
       contentElement.focus();
-    } else {
-      location.hash = hubble.hubbleKey;
-    }
   } else {
-    location.hash = hubble.hubbleKey;
+    location.hash = hubbleElement.dataset.key;
   }
 }
 
@@ -300,11 +294,13 @@ function hubbleElementOf(element: HTMLElement) {
 
 function move(target: Hubble, destination: Hubble) {
   const targetElement = getElementOf(target);
+  const targetParentElement = targetElement.getParentHubbleElement();
   const destinationElement = getElementOf(destination);
   const destinationChildrenElement = destinationElement.getHubbleChildrenElement();
 
   destinationChildrenElement.appendChild(targetElement);
   destinationElement.persistHubbleChildlist();
+  targetParentElement.persistHubbleChildlist();
 }
 
 function moveHubbleElementDown(element: HTMLElement) {
@@ -379,65 +375,6 @@ HTMLElement.prototype.persistHubbleChildlist = async function () {
   await hubble.children.set(childrenArray);
 }
 
-HTMLElement.prototype.getHubbleChildrenElement = function() {
-  return <HTMLElement>this.querySelector(".children");
-}
-
-HTMLElement.prototype.renderHubbleOnVisible = function () {
-  this.respondToVisibility(visible => {
-    if (visible && !this.rendered) {
-      this.renderHubble();
-      this.rendered = true;
-    }
-  });
-}
-
-HTMLElement.prototype.renderHubble = async function () {
-  const data = await this.hubble.getHubbleData();
-
-  this.dataset.active = String(data.active);
-  this.dataset.activeChildren = String(data.activechildren);
-
-  const contentElements = <NodeListOf<HTMLElement>>this.querySelectorAll(".content");
-
-  for (var contentElement of contentElements) {
-    contentElement.innerText = data.content;
-    if (contentElement.contentEditable) {
-      contentElement.onblur = () => persistHubbleContentElement(contentElement);
-    }
-  }
-
-  const linkElements = <NodeListOf<HTMLLinkElement>>this.querySelectorAll(".hubblelink");
-  for (var linkElement of linkElements) { linkElement.href = "#" + data.key };
-
-  const parentLinkElements = <NodeListOf<HTMLLinkElement>>this.querySelectorAll(".parentlink");
-  for (var parentLinkElement of parentLinkElements) { parentLinkElement.href = "#" + data.parent; }
-
-  const childCountElement = <HTMLElement>this.querySelector(".child-count");
-  if (childCountElement !== null) {
-    childCountElement.innerText = String(data.activechildren);
-  }
-
-  const parentNode = <HTMLElement>this.querySelector(".parentcontent");
-  if (parentNode !== null) {
-    parentNode.dataset.key = data.parent;
-  }
-
-  // set done toggle:
-  const doneElement = <HTMLInputElement>this.querySelector(".doneToggle");
-  if (doneElement !== null) {
-    registerToggle(doneElement, data.done, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).done.set((<HTMLInputElement>ev.srcElement).checked));
-  }
-
-  // set snooze toggle:
-  const snoozeElement = <HTMLInputElement>this.querySelector(".snoozeToggle");
-  if (snoozeElement !== null) {
-    registerToggle(snoozeElement, data.snoozed, ev => getScopedHubble(<HTMLInputElement>ev.srcElement).snoozed.set((<HTMLInputElement>ev.srcElement).checked));
-  }
-  const childrenElement = <HTMLElement>this.querySelector(".children");
-  await renderChildren(childrenElement, this.hubble);
-}
-
 HTMLElement.prototype.respondToVisibility = function(callback) {
   var options: IntersectionObserverInit = {
     root: document.documentElement
@@ -458,13 +395,3 @@ HTMLElement.prototype.findAncestor = function (className: string) {
   return element;
 }
 
-async function renderChildren(childrenElement: HTMLElement, hubble: Hubble) {
-  var childTemplate = <HTMLTemplateElement>document.getElementById(childrenElement.dataset.childtemplate);
-  childrenElement.dataset.rendered = "true"; //strictly speaking, it's not yet rendered, but it will be soon (and we don't want it to be rendered more than once)
-  const childHubbles = await hubble.children.getHubbleArray();
-  for (var child of childHubbles) {
-    const childElement = getNewHubbleElement(child, "hubbleListItemTemplate");
-    childrenElement.appendChild(childElement);
-    childElement.renderHubbleOnVisible();
-  }
-}

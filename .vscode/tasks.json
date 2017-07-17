@@ -5,14 +5,31 @@
     "tasks": [{
             "taskName": "serve",
             "command": "firebase",
-            "isBackground": true,
             "args": [
                 "serve"
             ]
         },
         {
             "taskName": "deploy",
-            "command": "firebase deploy",
+            "command": "firebase",
+            "args": [
+                "deploy"
+            ]
+        },
+        {
+            "type": "npm",
+            "script": "build"
+        },
+        {
+            "type": "npm",
+            "script": "serve"
+        },
+        {
+            "type": "npm",
+            "script": "watch",
+            "problemMatcher": [
+                "$tsc-watch"
+            ]
         }
     ]
 }

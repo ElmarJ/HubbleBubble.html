@@ -17,7 +17,7 @@
         "build": "tsc",
         "watch": "tsc --watch",
         "deploy": "tsc && firebase deploy",
-        "serve": "tsc && firebase serve"
+        "serve": "firebase serve"
     },
     "repository": {
         "type": "git",

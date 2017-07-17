@@ -9,7 +9,6 @@ interface HubbleData {
     active: boolean;
     key: string;
     children: string[];
-    position: number;
 }
 
 abstract class HubbleProperty<T>{
@@ -57,6 +56,8 @@ abstract class StringHubbleProperty extends HubbleProperty<string> {
     setString(value: string) {
         this.set(value);
     }
+
+    default = "";
 }
 
 abstract class NumberHubbleProperty extends HubbleProperty<number> {
@@ -64,6 +65,8 @@ abstract class NumberHubbleProperty extends HubbleProperty<number> {
         // todo: check parameter
         this.set(new Number(value).valueOf());
     }
+
+    default = 0;
 }
 
 class IsActiveHubbleProperty extends BooleanHubbleProperty {
@@ -201,13 +204,6 @@ class Hubble {
         this.ref = this.database.ref("users/" + this.user.uid + "/hubbles/" + hubbleKey);
     }
 
-
-    async getHubbleData() {
-        const snapshot = await this.ref.once("value")
-        const hubble = <HubbleData>snapshot.val();
-        hubble.key = this.hubbleKey;
-        return hubble;
-    }
 
     getProperties(properties: HubbleProperty<any>[]) {
         const promises = properties.map(property => property.get().then(value => ({ name: property.name, value: value })));

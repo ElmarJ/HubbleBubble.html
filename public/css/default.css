@@ -1,5 +1,4 @@
                 @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro|Open+Sans|Raleway');
-                
                 a {
                     color: inherit;
                     text-decoration: inherit;
@@ -14,7 +13,7 @@
                     background: #000;
                     color: #fff;
                 }
-
+                
                 html * {
                     transition: opacity 0.5s;
                 }
@@ -33,14 +32,13 @@
                 header:hover>* {
                     opacity: 1;
                 }
-
+                
                 main {
                     max-width: 800px;
                     width: calc(100% - 30px);
                     margin: 0 auto;
                     height: 100%;
                 }
-                
                 
                 button {
                     background: inherit;
@@ -65,7 +63,7 @@
                 input:focus {
                     outline: none;
                 }
-
+                
                 menu {
                     font-family: "Material Icons";
                     font-size: 18pt;
@@ -74,30 +72,30 @@
                     list-style: none;
                     padding: 0;
                 }
-
+                
                 menu * {
                     visibility: hidden;
                     opacity: 0;
                 }
-
+                
                 menu:hover * {
                     visibility: visible;
                     opacity: 1;
                 }
-
+                
                 menu li {
                     padding: 5px;
                 }
-
+                
                 menu input {
                     display: none;
                 }
-
+                
                 menu button {
                     padding: 0;
                     border: none;
                 }
-
+                
                 #signoutbutton {
                     font-family: "Material Icons";
                     font-size: 18pt;
@@ -117,7 +115,7 @@
                 }
                 
                 #expandAllButton::before {
-                    content:"expand_more";
+                    content: "expand_more";
                 }
                 
                 #lightSwitch+label::before {
@@ -151,7 +149,7 @@
                 #cardviewSwitch:checked+label::before {
                     content: "list";
                 }
-
+                
                 .hubble .content:empty::before {
                     content: "(...)";
                     opacity: 0.3;
@@ -163,7 +161,7 @@
                     width: 100%;
                     white-space: nowrap;
                 }
-
+                
                 .rootContent .content {
                     font-size: 30px;
                     line-height: 55px;
@@ -171,13 +169,13 @@
                     display: inline-block;
                     white-space: normal;
                 }
-
+                
                 .rootContent .buttons {
                     vertical-align: top;
                     display: inline-block;
                     margin-top: 20px;
                 }
-                                
+                
                 .root>.children {
                     display: inline-block;
                 }
@@ -192,7 +190,7 @@
                     color: #ccc;
                     line-height: initial;
                 }
-
+                
                 .buttons * {
                     transition: opacity .5s;
                     opacity: 0;
@@ -212,19 +210,19 @@
                     border-radius: 50%;
                     padding: 2px;
                 }
-
+                
                 .buttons input:checked {
                     border-color: initial;
                 }
-
+                
                 .buttons input:after {
                     color: #ccc;
                 }
-
+                
                 .buttons input:checked:after {
                     color: inherit;
                 }
-
+                
                 .doneToggle:after {
                     content: "done";
                 }
@@ -240,7 +238,7 @@
                 .hubble.collapsed .children {
                     display: none;
                 }
-
+                
                 .collapseToggle {
                     -webkit-appearance: none;
                     font-family: "Material Icons";
@@ -251,7 +249,6 @@
                     font-weight: bold;
                     vertical-align: top;
                 }
-                
                 
                 .noBulletView .collapseToggle {
                     visibility: hidden;
@@ -270,7 +267,6 @@
                 .collapseToggle:checked:after {
                     content: "chevron_right";
                 }
-
                 /* Todo: apparently this makes selection impossible for all elements
                  * that contain button elements (i.e. all elements)
                 
@@ -282,12 +278,10 @@
                 }
                  */
                 
-
-                
                 .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
                 }
-
+                
                 .hubbleCardView .root>.parentlink {
                     display: none;
                 }
@@ -295,7 +289,7 @@
                 .hubbleCardView .collapseToggle {
                     display: none;
                 }
-
+                
                 .hubbleCardView .buttons .newhubble_link {
                     display: none;
                 }
@@ -303,7 +297,7 @@
                 .hubbleCardView .children {
                     padding-left: 100px;
                 }
-
+                
                 .hubbleCardView .children .hubble {
                     max-width: 200px;
                     border-width: 1px;
@@ -328,15 +322,15 @@
                     width: 80px;
                     text-align: center;
                 }
-                                
+                
                 .hubbleCardView .buttons .hubblelink {
                     display: none;
                 }
-
+                
                 .hubbleCardView .children .content[contenteditable] {
                     display: none;
                 }
-                                
+                
                 .hubbleCardView .children .childcountinfo {
                     opacity: 0;
                     transition: opacity .5s;
@@ -352,23 +346,15 @@
                 .hubbleCardView .children .children {
                     display: none;
                 }
-
+                
                 .hubbleListView .special-children {
                     display: none;
                 }
                 
                 .hubbleListView .children .hubble[data-active=false] .content {
-                    font-style: italic;
-                }
-
-                .hubbleListView .children .hubble[data-active=false] .content::before {
-                    content: "("
+                    color: #888;
                 }
                 
-                .hubbleListView .children .hubble[data-active=false] .content::after {
-                    content: ")"
-                }
-
                 .hubbleListView .children .hubble {
                     line-height: 1.7;
                     max-width: 700px;
@@ -378,7 +364,7 @@
                 .hubbleListView li {
                     white-space: nowrap;
                 }
- 
+                
                 .hubbleListView ul {
                     list-style: none;
                     padding-left: 20px;
@@ -389,23 +375,23 @@
                     white-space: normal;
                     vertical-align: top;
                 }
-
+                
                 .showline.hubbleListView .hubble li {
                     border-left: 1px solid;
                 }
-
+                
                 .serif {
                     font-family: 'Rasa', serif;
                 }
-
-                .hubbleListView .hubble > .hubblelink {
+                
+                .hubbleListView .hubble>.hubblelink {
                     display: none;
                 }
-
+                
                 .buttons {
                     display: inline;
                 }
-
+                
                 .root>.content {
                     display: block;
                 }

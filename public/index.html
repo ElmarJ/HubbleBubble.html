@@ -72,16 +72,17 @@
                 <a class="hubblelink" href="">all_out</a>
             </nav>
             <input class="collapseToggle" type="checkbox" checked tabindex="0" onchange="collapseChange(event)">
-            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
+            <span class="content editor" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
-    
+
     <script src="/__/firebase/4.1.3/firebase-app.js"></script>
     <script src="/__/firebase/4.1.3/firebase-auth.js"></script>
     <script src="/__/firebase/4.1.3/firebase-database.js"></script>
     <script src="/__/firebase/init.js"></script>
     <script src="js/data.js"></script>
+    <script src="js/renderer.js"></script>
     <script src="js/index.js"></script>
 </body>
 
