@@ -100,18 +100,17 @@ function check_card_drop(ev: DragEvent) {
 function card_drop(ev: DragEvent) {
   ev.preventDefault();
 
+  // move me into the children-element of the element I was dropped on:
   const sourceKey = ev.dataTransfer.getData("text/plain");
-  const source = new Hubble(sourceKey);
-  const destination = getScopedHubble(<HTMLElement>ev.target);
-
-  if (source.hubbleKey !== destination.hubbleKey) {
-    move(source, destination);
-  }
+  const sourceHubbleElement = <HTMLElement>document.querySelector(`[data-key=${sourceKey}].hubble`);
+  const destinationHubbleElement = (<HTMLElement>ev.target).findAncestor("hubble");
+  const destinationChildrenElement = destinationHubbleElement.querySelector(".children");
+  destinationChildrenElement.appendChild(sourceHubbleElement);
 }
 
 function card_drag(ev: DragEvent) {
-  const source = getScopedHubble(<HTMLElement>ev.target);
-  ev.dataTransfer.setData("text/plain", source.hubbleKey);
+  const sourceHubbleKey = (<HTMLElement>ev.target).dataset.key;
+  ev.dataTransfer.setData("text/plain", sourceHubbleKey);
 }
 
 function placeCaretAtEnd(el: HTMLElement) {
@@ -133,36 +132,18 @@ function getScopedHubble(element: HTMLElement): Hubble {
   return new Hubble(hubbleElement.dataset.key);
 }
 
-function registerToggle(
-  element: HTMLInputElement,
-  initialValue: boolean,
-  onchange: (this: HTMLElement, ev: Event) => any
-) {
-  if (element !== null) {
-    element.checked = initialValue;
-    element.onchange = onchange;
+async function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
+  const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
+  const renderer = new HubbleRenderer(new Hubble(), childHubbleTemplate);
+
+  if (before) {
+    childrenElement.insertBefore(renderer.element, before);
+  } else {
+    childrenElement.appendChild(renderer.element);
   }
-}
+  renderer.renderOnVisible();
 
-async function addNewChild(parentHubble: Hubble, before?: Hubble) {
-  const parentElement = <HTMLElement>getElementOf(parentHubble)
-  const childrenElement = parentElement.getElementsByClassName("children")[0];
-  const hubble = new Hubble();
-  if (childrenElement) {
-    const hubbleElement = getNewHubbleElement(hubble, "hubbleListItemTemplate");
-
-    if(before) {
-      const beforeElement = getElementOf(before);
-      childrenElement.insertBefore(hubbleElement, beforeElement);
-    } else {
-      childrenElement.appendChild(hubbleElement);
-    }
-
-    setFocus(hubbleElement);
-
-    await hubbleElement.renderHubble();
-    parentElement.persistHubbleChildlist();
-  }
+  setFocus(renderer.element);
 }
 
 function getElementOf(hubble: Hubble) {
@@ -174,13 +155,12 @@ function getElementOf(hubble: Hubble) {
 async function onEditorKeyPress(ev: KeyboardEvent) {
   if (ev.key === "Enter") {
     ev.preventDefault();
-    const hubbleElement = hubbleElementOf(<HTMLElement>ev.srcElement)
-    const parentHubble = getScopedHubble(hubbleElement.parentElement);
+    const hubbleElement = hubbleElementOf(<HTMLElement>ev.srcElement);
+    const childrenElement = hubbleElement.findAncestor("children");
     if (hubbleElement.nextElementSibling) {
-      const beforeHubble = getScopedHubble(<HTMLElement>hubbleElement.nextElementSibling);
-      addNewChild(parentHubble, beforeHubble);
+      addNewChild(childrenElement, <HTMLElement>hubbleElement.nextElementSibling);
     } else {
-      addNewChild(parentHubble);
+      addNewChild(childrenElement);
     }
   }
 }
@@ -209,7 +189,7 @@ function onFullscreenSwitch() {
   if (fullscreenCheckBox.checked) {
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen();
-    } else if(document.documentElement.webkitRequestFullscreen) {
+    } else if (document.documentElement.webkitRequestFullscreen) {
       document.documentElement.webkitRequestFullscreen();
     } else if (document.documentElement.mozRequestFullScreen) {
       document.documentElement.mozRequestFullScreen();
@@ -226,9 +206,6 @@ function onFullscreenSwitch() {
 }
 
 function onCardviewSwitch() {
-  //  presenter.innerHTML = "";
-  //  renderHubble(getRootConnection(), getCurrentTemplate(), presenter);
-
   const cardviewCheckBox = <HTMLInputElement>document.getElementById("cardviewSwitch");
   if (cardviewCheckBox.checked) {
     document.documentElement.classList.add("hubbleCardView");
@@ -249,16 +226,10 @@ function expandAll() {
 function setFocus(hubbleElement: HTMLElement) {
   if (hubbleElement) {
     const contentElement = <HTMLElement>hubbleElement.querySelector("[contenteditable].content");
-      contentElement.focus();
+    contentElement.focus();
   } else {
     location.hash = hubbleElement.dataset.key;
   }
-}
-
-function newHubbleLinkClick(ev: MouseEvent) {
-  ev.preventDefault();
-  const hubble = getScopedHubble(<HTMLElement>ev.srcElement);
-  addNewChild(hubble);
 }
 
 function collapseChange(ev: Event) {
@@ -292,62 +263,32 @@ function hubbleElementOf(element: HTMLElement) {
   return element.findAncestor("hubble");
 }
 
-function move(target: Hubble, destination: Hubble) {
-  const targetElement = getElementOf(target);
-  const targetParentElement = targetElement.getParentHubbleElement();
-  const destinationElement = getElementOf(destination);
-  const destinationChildrenElement = destinationElement.getHubbleChildrenElement();
-
-  destinationChildrenElement.appendChild(targetElement);
-  destinationElement.persistHubbleChildlist();
-  targetParentElement.persistHubbleChildlist();
-}
-
 function moveHubbleElementDown(element: HTMLElement) {
   if (element.nextElementSibling) {
     element.parentElement.insertBefore(element, element.nextElementSibling.nextElementSibling);
-    hubbleElementOf(element.parentElement).persistHubbleChildlist();
   }
 }
 
 function moveHubbleElementUp(element: HTMLElement) {
   if (element.previousElementSibling) {
     element.parentElement.insertBefore(element, element.previousElementSibling);
-
-    hubbleElementOf(element.parentElement).persistHubbleChildlist();
   }
 }
 
 function moveHubbleElementInPrevious(element: HTMLElement) {
   const newParent = <HTMLElement>element.previousElementSibling;
-  const oldChildrenElement = element.parentElement;
-  const newChildrenElement = newParent.getHubbleChildrenElement();
-  const oldParent = hubbleElementOf(oldChildrenElement);
-
-  if (newChildrenElement && !newParent.classList.contains("collapsed") && (newChildrenElement.dataset.rendered === "true")) {
-    newChildrenElement.appendChild(element);
-
-    oldParent.persistHubbleChildlist();
-    oldParent.persistHubbleChildlist();
-    element.persistHubbleParent();
-  }
+  const newChildrenElement = <HTMLElement>newParent.querySelector(".children");
+  newChildrenElement.appendChild(element);
 }
-
-
 
 interface HTMLElement {
   hubble: Hubble;
   renderedHubble: boolean;
-  renderHubble: () => Promise<void>;
-  renderChildren: () => Promise<void>;
-  getHubbleElement: () => HTMLElement;
   getParentHubbleElement: () => HTMLElement;
   getHubbleChildrenElement: () => HTMLElement;
-  renderHubbleOnVisible: () => void;
   findAncestor: (className: string) => HTMLElement;
   respondToVisibility: (callback: (visibility: boolean) => void) => void;
   persistHubbleParent: () => Promise<void>;
-  persistHubbleChildlist: () => Promise<void>;
 }
 
 HTMLElement.prototype.persistHubbleParent = () => {
@@ -357,25 +298,7 @@ HTMLElement.prototype.persistHubbleParent = () => {
   return hubble.parent.set(parentHubble.hubbleKey);
 }
 
-
-HTMLElement.prototype.persistHubbleChildlist = async function () {
-  const childrenElement = this.getHubbleChildrenElement();
-  const hubble = new Hubble(this.dataset.key)
-
-  var childrenArray = [];
-  var childelement = <HTMLElement>childrenElement.firstElementChild;
-
-  while (childelement) {
-    if (!childelement.classList.contains("special-children")) {
-      childrenArray.push(childelement.dataset.key);
-    }
-    childelement = <HTMLElement>childelement.nextElementSibling;
-  }
-
-  await hubble.children.set(childrenArray);
-}
-
-HTMLElement.prototype.respondToVisibility = function(callback) {
+HTMLElement.prototype.respondToVisibility = function (callback) {
   var options: IntersectionObserverInit = {
     root: document.documentElement
   }
@@ -391,7 +314,7 @@ HTMLElement.prototype.respondToVisibility = function(callback) {
 
 HTMLElement.prototype.findAncestor = function (className: string) {
   var element = this;
-  while ((element = element.parentElement) && !element.classList.contains(className)) {}
+  while (!element.classList.contains(className) && (element = element.parentElement)) {}
   return element;
 }
 

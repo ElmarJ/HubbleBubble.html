@@ -4,12 +4,13 @@ class HubbleRenderer {
     template: HTMLTemplateElement;
     childTemplate: HTMLTemplateElement;
     contentLoaded: boolean;
+    childrenElement: HTMLElement;
 
-    constructor(hubble: Hubble, template: HTMLTemplateElement, childTemplate?: HTMLTemplateElement) {
+    constructor(hubble: Hubble, template: HTMLTemplateElement, childTemplate: HTMLTemplateElement = template) {
         this.hubble = hubble;
         this.template = template;
-        this.childTemplate = childTemplate || template;
-        this.createEmptyTemplate();
+        this.childTemplate = childTemplate;
+        this.setupTemplate();
     }
 
     private async render() {
@@ -17,61 +18,35 @@ class HubbleRenderer {
 
         this.element.dataset.active = String(await this.hubble.active.get());
         this.element.dataset.activeChildren = String(await this.hubble.activechildren.get());
+        
+        this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".content"), true);
+        this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".summary"), false);
+        (<HTMLLinkElement>this.element.querySelector(".hubblelink")).href = "#" + this.hubble.hubbleKey;
+        (<HTMLLinkElement>this.element.querySelector(".parentlink")).href = "#" + await this.hubble.parent.get();
+        this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
+        this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
+        this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);
 
-        const contentElements = <NodeListOf<HTMLElement>>this.element.querySelectorAll(".content");
-
-        for (var contentElement of contentElements) {
-            contentElement.innerText = await this.hubble.content.get();
-            if (contentElement.contentEditable) {
-                contentElement.onblur = () => persistHubbleContentElement(contentElement);
-            }
-        }
-
-        const linkElements = <NodeListOf<HTMLLinkElement>>this.element.querySelectorAll(".hubblelink");
-        for (var linkElement of linkElements) { linkElement.href = "#" + this.hubble.hubbleKey };
-
-        const parentLinkElements = <NodeListOf<HTMLLinkElement>>this.element.querySelectorAll(".parentlink");
-        for (var parentLinkElement of parentLinkElements) { parentLinkElement.href = "#" + await this.hubble.parent.get(); }
-
-        const childCountElement = <HTMLElement>this.element.querySelector(".child-count");
-        if (childCountElement !== null) {
-            childCountElement.innerText = String(await this.hubble.activechildren.get());
-        }
-
-        const parentNode = <HTMLElement>this.element.querySelector(".parentcontent");
-        if (parentNode !== null) {
-            parentNode.dataset.key = await this.hubble.parent.get();
-        }
-
-        // set done toggle:
-        const doneElement = <HTMLInputElement>this.element.querySelector(".doneToggle");
-        if (doneElement !== null) {
-            registerToggle(doneElement, await this.hubble.done.get(), ev => getScopedHubble(<HTMLInputElement>ev.srcElement).done.set((<HTMLInputElement>ev.srcElement).checked));
-        }
-
-        // set snooze toggle:
-        const snoozeElement = <HTMLInputElement>this.element.querySelector(".snoozeToggle");
-        if (snoozeElement !== null) {
-            registerToggle(snoozeElement, await this.hubble.snoozed.get(), ev => getScopedHubble(<HTMLInputElement>ev.srcElement).snoozed.set((<HTMLInputElement>ev.srcElement).checked));
-        }
-
-        const childrenElement = <HTMLElement>this.element.querySelector(".children");
-        await this.renderChildren();
+        await this.addChildren();
+        this.beginPersistingChildlistOnChange();
     }
-    private createEmptyTemplate() {
+
+    private setupTemplate() {
         this.element = <HTMLElement>document.importNode(this.template.content, true).querySelector(".hubble");
+        this.childrenElement = <HTMLElement>this.element.querySelector(".children");
         this.element.dataset.key = this.hubble.hubbleKey;
-        return this.element;
     }
 
-    private async renderChildren() {
-        const childrenElement = this.getChildrenElement();
+    private async storeContent(element: HTMLElement, property: HubbleProperty<any>) {
+        property.setString(element.innerText);
+    }
 
+    private async addChildren() {
         const childHubbles = await this.hubble.children.getHubbleArray();
 
         for (var child of childHubbles) {
             const childRenderer = new HubbleRenderer(child, this.childTemplate);
-            childrenElement.appendChild(childRenderer.element);
+            this.childrenElement.appendChild(childRenderer.element);
             childRenderer.renderOnVisible();
         }
     }
@@ -84,25 +59,22 @@ class HubbleRenderer {
         });
     }
 
+    private beginPersistingChildlistOnChange() {
+        const observer = new MutationObserver(() => this.persistChildList());
+        observer.observe(this.childrenElement, { attributes: false, childList: true, characterData: false, subtree: false })
+    }
 
-    private getChildrenElement = () => <HTMLElement>this.element.querySelector(".children");
+    private async persistChildList() {
+        var childrenArray = [];
+        var childelement = <HTMLElement>this.childrenElement.firstElementChild;
 
-    async addNewChild(before?: HTMLElement) {
-        const parentElement = this.element;
-        const childrenElement = this.getChildrenElement();
-        const hubble = new Hubble();
-
-        const childRenderer = new HubbleRenderer(hubble, this.childTemplate);
-
-        if (before) {
-            childrenElement.insertBefore(childRenderer.element, before);
-        } else {
-            childrenElement.appendChild(childRenderer.element);
+        while (childelement) {
+            if (!childelement.classList.contains("special-children")) {
+                childrenArray.push(childelement.dataset.key);
+            }
+            childelement = <HTMLElement>childelement.nextElementSibling;
         }
 
-        setFocus(childRenderer.element);
-
-        await childRenderer.render();
-        parentElement.persistHubbleChildlist();
+        await this.hubble.children.set(childrenArray);
     }
 }

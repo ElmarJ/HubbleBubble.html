@@ -22,7 +22,8 @@
         },
         {
             "type": "npm",
-            "script": "serve"
+            "script": "serve",
+            "problemMatcher": []
         },
         {
             "type": "npm",

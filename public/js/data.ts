@@ -33,6 +33,10 @@ abstract class HubbleProperty<T>{
         return value;
     }
 
+    async getString() {
+        return String(await this.get());
+    }
+
     async set(value: T) {
         this.prepareChange(value);
         await this.ref().set(value);
@@ -43,12 +47,27 @@ abstract class HubbleProperty<T>{
     update(newValueCreator: (Hubble: Hubble) => T) {
         return <Promise<void>>this.set(newValueCreator(this.owner));
     }
+
+    async bindToContent(element: HTMLElement, twoway = false) {
+        element.innerText = await this.getString();
+
+        if (twoway && element.contentEditable) {
+            element.onblur = () => this.setString(element.innerText);;
+        }
+    }
 }
 
 abstract class BooleanHubbleProperty extends HubbleProperty<boolean> {
     setString(value: string) {
         // todo: check parameter
         this.set(new Boolean(value).valueOf());
+    }
+
+    async bindToCheckbox(element: HTMLInputElement, twoway = false) {
+        element.checked = await this.get();
+        if(twoway) {
+            element.onchange = () => this.set(element.checked);
+        }
     }
 }
 
@@ -195,7 +214,7 @@ class Hubble {
     activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
 
     constructor(hubbleKey?: string) {
-        if(!hubbleKey || hubbleKey === "") {
+        if (!hubbleKey || hubbleKey === "") {
             // Generate a new key:
             hubbleKey = this.database.ref("users/" + this.user.uid + "/hubbles").push().key;
         }

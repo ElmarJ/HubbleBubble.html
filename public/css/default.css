@@ -180,6 +180,10 @@
                     display: inline-block;
                 }
                 
+                .root>.hubblelink {
+                    display: none;
+                }
+                
                 .buttons * {
                     font-family: "Material Icons";
                     font-size: 14pt;
@@ -307,20 +311,6 @@
                     padding: 10px;
                     display: inline-block;
                     border-radius: 4px;
-                }
-                
-                .hubbleCardView .special-children {
-                    display: inline-block;
-                    vertical-align: top;
-                }
-                
-                .hubbleCardView .special-children .hubble {
-                    display: block;
-                }
-                
-                .hubbleCardView .children .special-child {
-                    width: 80px;
-                    text-align: center;
                 }
                 
                 .hubbleCardView .buttons .hubblelink {

@@ -12,23 +12,23 @@ List:
   * hubble removed: remove all children, and remove from parent.
 * index.js
   * Rendering:
-    * V HTMLElement: renderOnVisible();
-    * HTMLElement: hubbleBindAttribute(HubbleProperty, attributeName)
-    * HTMLElement: hubbleBindContent(HubbleProperty)
+    * ~~HTMLElement: renderOnVisible();~~
+    * ~~HTMLElement: hubbleBindAttribute(HubbleProperty, attributeName)~~
+    * ~~HTMLElement: hubbleBindContent(HubbleProperty)~~
   * Tree Manipulation
-    * V Rewrite move as DOM manipulation that is persisted afterwards
-    * V Rewrite insert as DOM manipulation that is persisted afterwards
+    * ~~Rewrite move as DOM manipulation that is persisted afterwards~~
+    * ~~Rewrite insert as DOM manipulation that is persisted afterwards~~
     * Later: move up (ctrl+up) / down (ctrl+down) / deeper(ctrl+right - w/ descendants) / higher (ctrl+left - w/ descendants) / in (tab - w/o descendants) / out (shift+tab - w/o descendants)
     * On enter: move everything after the cursor to the new hubble.
   * Persistence
-    * Store children on DOM manipulation
+    * ~~Store children on DOM manipulation~~
 * data.js
-  * V defaults for properties
+  * ~~defaults for properties~~
 * Breadcrumb (index.html + index.js)
   * Create breadcrumb with rendered hubbles
 
 * Bugs
   * When creating a new hubble:
-    * One position too high.
+    * ~~One position too high.~~
     * activechildrencount incorrect in DOM
-    * Set cursor on new hubble
+    * ~~Set cursor on new hubble~~

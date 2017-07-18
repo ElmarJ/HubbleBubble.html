@@ -30,6 +30,10 @@
 
     <template id="hubbleListTemplate">
         <div class="hubble root">
+            <a class="hubblelink" href="" draggable="false">
+                <span class="summary"></span>
+                <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
+            </a>
             <div class="rootContent">
                 <nav class="buttons">
                     <input type="checkbox" class="doneToggle" tabindex="0">
@@ -39,27 +43,14 @@
                 </nav>
                 <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
             </div>
-            <ul class="children" data-childtemplate="hubbleListItemTemplate">
-                <div class="special-children">
-                    <a class="parentlink">
-                        <li class="special-child parentcontent hubble" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-                                <span class="material-icons">arrow_upward</span>
-                        </li>
-                    </a>
-                    <a class="newhubble_link" href="javascript:navigateToNewChild()">
-                        <li class="special-child hubble">
-                                <span class="material-icons">add</span>
-                        </li>
-                    </a>
-                </div>
-            </ul>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </div>
     </template>
 
     <template id="hubbleListItemTemplate">
         <li class="hubble collapsed" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
             <a class="hubblelink" href="" draggable="false">
-                <span class="content"></span>
+                <span class="summary"></span>
                 <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
             </a>
             <nav class="buttons" draggable="false">
@@ -70,9 +61,10 @@
                 <a class="moveInButton" href="" onclick="moveIn(event)">arrow_right</a>
                 <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>
                 <a class="hubblelink" href="">all_out</a>
+                <a class="parentlink">arrow_upward</a>
             </nav>
             <input class="collapseToggle" type="checkbox" checked tabindex="0" onchange="collapseChange(event)">
-            <span class="content editor" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
+            <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>
