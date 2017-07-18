@@ -26,15 +26,12 @@ abstract class HubbleProperty<T>{
 
     async get() {
         const snapshot = await this.ref().orderByValue().once('value');
-        let value = <T>snapshot.val();
-        if (!value) {
-            value = this.default;
-        }
-        return value;
+        return <T>snapshot.val();
     }
 
     async getString() {
-        return String(await this.get());
+        const value = await this.get();
+        return value ? String(value) : null;
     }
 
     async set(value: T) {
@@ -49,7 +46,10 @@ abstract class HubbleProperty<T>{
     }
 
     async bindToContent(element: HTMLElement, twoway = false) {
-        element.innerText = await this.getString();
+        const value = await this.getString();
+        if (value) { 
+            element.innerText = value;
+        }
 
         if (twoway && element.contentEditable) {
             element.onblur = () => this.setString(element.innerText);;
@@ -64,7 +64,10 @@ abstract class BooleanHubbleProperty extends HubbleProperty<boolean> {
     }
 
     async bindToCheckbox(element: HTMLInputElement, twoway = false) {
-        element.checked = await this.get();
+        const value = await this.get();
+        if (value) {
+            element.checked = value;
+        }
         if(twoway) {
             element.onchange = () => this.set(element.checked);
         }

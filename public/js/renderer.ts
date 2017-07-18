@@ -22,7 +22,6 @@ class HubbleRenderer {
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".content"), true);
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".summary"), false);
         (<HTMLLinkElement>this.element.querySelector(".hubblelink")).href = "#" + this.hubble.hubbleKey;
-        (<HTMLLinkElement>this.element.querySelector(".parentlink")).href = "#" + await this.hubble.parent.get();
         this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
         this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);

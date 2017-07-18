@@ -18,7 +18,10 @@
         },
         {
             "type": "npm",
-            "script": "build"
+            "script": "build",
+            "problemMatcher": [
+                "$tsc"
+            ]
         },
         {
             "type": "npm",
@@ -30,6 +33,13 @@
             "script": "watch",
             "problemMatcher": [
                 "$tsc-watch"
+            ]
+        },
+        {
+            "type": "npm",
+            "script": "deploy",
+            "problemMatcher": [
+                "$tsc"
             ]
         }
     ]

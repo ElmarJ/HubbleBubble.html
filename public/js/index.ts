@@ -132,7 +132,7 @@ function getScopedHubble(element: HTMLElement): Hubble {
   return new Hubble(hubbleElement.dataset.key);
 }
 
-async function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
+function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
   const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
   const renderer = new HubbleRenderer(new Hubble(), childHubbleTemplate);
 
@@ -143,7 +143,7 @@ async function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
   }
   renderer.renderOnVisible();
 
-  setFocus(renderer.element);
+  return renderer.element;
 }
 
 function getElementOf(hubble: Hubble) {
@@ -155,13 +155,27 @@ function getElementOf(hubble: Hubble) {
 async function onEditorKeyPress(ev: KeyboardEvent) {
   if (ev.key === "Enter") {
     ev.preventDefault();
-    const hubbleElement = hubbleElementOf(<HTMLElement>ev.srcElement);
+    
+    const currentContentElement = <HTMLElement>ev.srcElement
+    const hubbleElement = hubbleElementOf(currentContentElement);
     const childrenElement = hubbleElement.findAncestor("children");
+    
+    let newElement: HTMLElement;
     if (hubbleElement.nextElementSibling) {
-      addNewChild(childrenElement, <HTMLElement>hubbleElement.nextElementSibling);
+      newElement = addNewChild(childrenElement, <HTMLElement>hubbleElement.nextElementSibling);
     } else {
-      addNewChild(childrenElement);
+      newElement = addNewChild(childrenElement);
     }
+
+    const cursorPos = window.getSelection().anchorOffset;
+    const currentContent = currentContentElement.textContent;
+    const beforeCursor = currentContent.substr(0, cursorPos);
+    const afterCursor = currentContent.substr(cursorPos, currentContent.length);
+
+    currentContentElement.innerHTML = beforeCursor;
+    newElement.querySelector(".content").innerHTML = afterCursor;
+    
+    setFocus(newElement);
   }
 }
 
@@ -282,20 +296,8 @@ function moveHubbleElementInPrevious(element: HTMLElement) {
 }
 
 interface HTMLElement {
-  hubble: Hubble;
-  renderedHubble: boolean;
-  getParentHubbleElement: () => HTMLElement;
-  getHubbleChildrenElement: () => HTMLElement;
   findAncestor: (className: string) => HTMLElement;
   respondToVisibility: (callback: (visibility: boolean) => void) => void;
-  persistHubbleParent: () => Promise<void>;
-}
-
-HTMLElement.prototype.persistHubbleParent = () => {
-  const hubble = getScopedHubble(this);
-  const parentHubble = getScopedHubble(this.parentElement);
-
-  return hubble.parent.set(parentHubble.hubbleKey);
 }
 
 HTMLElement.prototype.respondToVisibility = function (callback) {
