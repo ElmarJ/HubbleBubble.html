@@ -150,7 +150,7 @@
                     content: "list";
                 }
                 
-                .hubble .content:empty::before {
+                .hubble .content:empty:not(:focus)::before {
                     content: "(...)";
                     opacity: 0.3;
                     font-style: italic;
@@ -264,7 +264,6 @@
                 }
                 
                 .hubble[data-active-children="0"] .collapseToggle:after {
-                    content: "chevron_right";
                     font-weight: initial;
                 }
                 

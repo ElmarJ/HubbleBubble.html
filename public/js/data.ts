@@ -47,12 +47,21 @@ abstract class HubbleProperty<T>{
 
     async bindToContent(element: HTMLElement, twoway = false) {
         const value = await this.getString();
-        if (value) { 
+        if (value) {
             element.innerText = value;
         }
 
         if (twoway && element.contentEditable) {
             element.onblur = () => this.setString(element.innerText);;
+        }
+    }
+
+    async bindToAttribute(element: HTMLElement, attribute: string) {
+        const value = await this.getString();
+        if (value) {
+            element.setAttribute(attribute, value);
+        } else {
+            element.setAttribute(attribute, String(this.default));
         }
     }
 }
@@ -68,7 +77,7 @@ abstract class BooleanHubbleProperty extends HubbleProperty<boolean> {
         if (value) {
             element.checked = value;
         }
-        if(twoway) {
+        if (twoway) {
             element.onchange = () => this.set(element.checked);
         }
     }
@@ -101,20 +110,6 @@ class IsActiveHubbleProperty extends BooleanHubbleProperty {
 }
 
 class ActivityChildCountHubbleProperty extends NumberHubbleProperty {
-    rebuild() {
-        return this.owner.children.getHubbleArray().then(hubbles => {
-            const promisesToGetChildActivity = hubbles.map(hubble => hubble.active.get());
-
-            Promise.all(promisesToGetChildActivity).then(childActivities => {
-                const activeChildCount = childActivities.reduce<number>((counter, activity) => {
-                    if (activity) {
-                        counter++; return counter;
-                    }
-                }, 0);
-                this.set(activeChildCount);
-            });
-        });
-    }
 
     default = 0;
 }
@@ -142,60 +137,6 @@ class ChildrenProperty extends HubbleProperty<string[]> {
     }
 
     default = [];
-
-    async rebuild() {
-        // Need to get the old child-query from previous code version to sanatize properly
-        // Query to all hubbles that have me as a parent (i.e. my children):
-        const childrenQuery = this.ref().parent.parent.orderByChild("parent").equalTo(this.owner.hubbleKey);
-        const snapshot = await childrenQuery.once("value");
-        const children = [];
-        const childKeys = snapshot.val();
-
-        for (var childKey in childKeys) {
-            children.push(childKey);
-        }
-
-        this.set(children)
-    }
-
-    /**
-     * Returns the number of children.
-     */
-    async length() {
-        const children = await this.get();
-        return children.length;
-    }
-
-    async getChildAt(position: number) {
-        const ref = this.ref().child(String(position));
-        const snapshot = await ref.once("value");
-        const key = snapshot.val();
-        if (key) {
-            return new Hubble(key);
-        }
-        return null;
-    }
-
-    async getPositionOf(hubble: Hubble) {
-        const query = this.ref().orderByValue().equalTo(hubble.hubbleKey);
-        var snapshot = await query.once("value");
-        return snapshot.key;
-    }
-
-    async getHubbleArray() {
-        const childKeys = await this.get();
-
-        if (childKeys) {
-            return childKeys.map(childKey => new Hubble(childKey));
-        }
-        else {
-            return [];
-        }
-    }
-
-    async setHubbleArray(hubbles: Hubble[]) {
-        await this.set(hubbles.map(hubble => hubble.hubbleKey));
-    }
 }
 
 class ContentHubbleProperty extends StringHubbleProperty {
@@ -215,6 +156,7 @@ class Hubble {
     snoozed = new StatusHubbleProperty("snoozed", this);
     done = new StatusHubbleProperty("done", this);
     activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
+    childrenref: firebase.database.Reference;
 
     constructor(hubbleKey?: string) {
         if (!hubbleKey || hubbleKey === "") {
@@ -224,6 +166,7 @@ class Hubble {
 
         this.hubbleKey = hubbleKey;
         this.ref = this.database.ref("users/" + this.user.uid + "/hubbles/" + hubbleKey);
+        this.childrenref = this.ref.parent.parent.child("childrenof").child(this.hubbleKey);
     }
 
 
@@ -244,7 +187,7 @@ class Hubble {
     }
 
     async deleteRecursively() {
-        const children = await this.children.getHubbleArray();
+        const children = await this.getChildren();
         for (var child of children) {
             await child.deleteRecursively();
         }
@@ -258,7 +201,7 @@ class Hubble {
         }
 
         // then, get child hubbles and do it for all my children:
-        const children = await this.children.getHubbleArray();
+        const children = await this.getChildren();
         for (const child of children) {
             child.recurse(childrenFirst, task);
         }
@@ -268,5 +211,33 @@ class Hubble {
             task(this);
         }
     }
+
+    async getChildrenKeys() {
+        const snapshot = await this.childrenref.orderByValue().once("value");
+        let keys = [];
+        for (const key in snapshot.val()) {
+            keys.push(key);
+        }
+        return keys;
+    }
+
+    async getChildren() {
+        const keys = await this.getChildrenKeys();
+        return keys.map(key => new Hubble(key));
+    }
+
+    async rebuildChildren() {
+        const childrenQuery = this.ref.parent.orderByChild("parent").equalTo(this.hubbleKey);
+        const snapshot = await childrenQuery.once("value");
+        const children = [];
+        const childKeys = snapshot.val();
+
+        const newchildrenref = this.ref.parent.parent.child("childrenof").child(this.hubbleKey);
+        let order = 1;
+        for (let childKey in childKeys) {
+            newchildrenref.child(childKey).set(order++);
+        }
+    }
+
 }
 

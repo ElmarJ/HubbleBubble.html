@@ -13,11 +13,11 @@ class HubbleRenderer {
         this.setupTemplate();
     }
 
-    private async render() {
+    private startRender() {
         this.contentLoaded = true;
 
-        this.element.dataset.active = String(await this.hubble.active.get());
-        this.element.dataset.activeChildren = String(await this.hubble.activechildren.get());
+        this.hubble.active.bindToAttribute(this.element, "data-active");
+        this.hubble.activechildren.bindToAttribute(this.element, "data-active-children");
         
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".content"), true);
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".summary"), false);
@@ -26,8 +26,7 @@ class HubbleRenderer {
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
         this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);
 
-        await this.addChildren();
-        this.beginPersistingChildlistOnChange();
+        this.addChildren();
     }
 
     private setupTemplate() {
@@ -41,19 +40,21 @@ class HubbleRenderer {
     }
 
     private async addChildren() {
-        const childHubbles = await this.hubble.children.getHubbleArray();
+        const snapshot = await this.hubble.childrenref.once("value");
 
-        for (var child of childHubbles) {
-            const childRenderer = new HubbleRenderer(child, this.childTemplate);
+        for (var childkey in snapshot.val()) {
+            const childRenderer = new HubbleRenderer(new Hubble(childkey), this.childTemplate);
             this.childrenElement.appendChild(childRenderer.element);
             childRenderer.renderOnVisible();
         }
+
+        this.beginPersistingChildlistOnChange();
     }
 
     renderOnVisible() {
         this.element.respondToVisibility(visible => {
             if (visible && !this.contentLoaded) {
-                this.render();
+                this.startRender();
             }
         });
     }
@@ -64,16 +65,15 @@ class HubbleRenderer {
     }
 
     private async persistChildList() {
-        var childrenArray = [];
+        var childobject = {};
         var childelement = <HTMLElement>this.childrenElement.firstElementChild;
 
+        let order = 1;
         while (childelement) {
-            if (!childelement.classList.contains("special-children")) {
-                childrenArray.push(childelement.dataset.key);
-            }
+            childobject[childelement.dataset.key] = order++;
             childelement = <HTMLElement>childelement.nextElementSibling;
         }
 
-        await this.hubble.children.set(childrenArray);
+        await this.hubble.childrenref.set(childobject);
     }
 }

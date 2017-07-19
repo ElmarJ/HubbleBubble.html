@@ -7,7 +7,8 @@
             "command": "firebase",
             "args": [
                 "serve"
-            ]
+            ],
+            "isBackground": true
         },
         {
             "taskName": "deploy",
@@ -26,14 +27,16 @@
         {
             "type": "npm",
             "script": "serve",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "isBackground": true
         },
         {
             "type": "npm",
             "script": "watch",
             "problemMatcher": [
                 "$tsc-watch"
-            ]
+            ],
+            "isBackground": true
         },
         {
             "type": "npm",
