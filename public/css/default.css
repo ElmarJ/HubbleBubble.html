@@ -47,6 +47,11 @@
                     color: #ccc;
                     font: inherit;
                 }
+                /* reset Chrome styling of focussed elements */
+                
+                *:focus {
+                    outline: none;
+                }
                 
                 [contenteditable] {
                     padding: 2px;
@@ -60,8 +65,19 @@
                     outline-color: #ccc;
                 }
                 
-                input:focus {
-                    outline: none;
+                #timeSlider {
+                    width: 500px;
+                    /*or any other size*/
+                    height: 150px;
+                    /*or any other size*/
+                    overflow: hidden;
+                    position: fixed;
+                    bottom: 0px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    left: 0;
+                    right: 0;
+                    vertical-align: center;
                 }
                 
                 menu {
