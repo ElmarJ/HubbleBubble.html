@@ -14,7 +14,14 @@
             "taskName": "deploy",
             "command": "firebase",
             "args": [
-                "deploy"
+                "deploy --only hosting"
+            ]
+        },
+        {
+            "taskName": "deploy",
+            "command": "firebase",
+            "args": [
+                "deploy --only functions"
             ]
         },
         {
