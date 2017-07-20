@@ -141,7 +141,7 @@ function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
   } else {
     childrenElement.appendChild(renderer.element);
   }
-  renderer.renderOnVisible();
+  renderer.renderOnParentVisible();
 
   return renderer.element;
 }
@@ -245,18 +245,6 @@ function setFocus(hubbleElement: HTMLElement) {
     location.hash = hubbleElement.dataset.key;
   }
 }
-
-function collapseChange(ev: Event) {
-  const collapseCheckbox = <HTMLInputElement>ev.srcElement;
-  const hubbleElement = hubbleElementOf(collapseCheckbox);
-
-  if (collapseCheckbox.checked) {
-    hubbleElement.classList.add("collapsed");
-  } else {
-    hubbleElement.classList.remove("collapsed");
-  }
-}
-
 
 function moveDown(event: Event) {
   event.preventDefault();

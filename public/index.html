@@ -47,7 +47,7 @@
     </template>
 
     <template id="hubbleListItemTemplate">
-        <li class="hubble collapsed" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+        <li class="hubble" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
             <a class="hubblelink" href="" draggable="false">
                 <span class="summary"></span>
                 <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
@@ -61,7 +61,7 @@
                 <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>
                 <a class="hubblelink" href="">all_out</a>
             </nav>
-            <input class="collapseToggle" type="checkbox" checked tabindex="0" onchange="collapseChange(event)">
+            <input class="collapseToggle" type="checkbox" checked tabindex="0">
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>

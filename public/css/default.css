@@ -239,7 +239,7 @@
                     display: none !important;
                 }
                 
-                .hubble.collapsed .children {
+                .collapseToggle:checked~.children {
                     display: none;
                 }
                 
@@ -267,7 +267,7 @@
                     font-weight: initial;
                 }
                 
-                .collapseToggle:checked:after {
+                .collapseToggle:checked::after {
                     content: "chevron_right";
                 }
                 /* Todo: apparently this makes selection impossible for all elements

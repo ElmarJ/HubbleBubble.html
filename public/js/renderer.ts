@@ -21,7 +21,7 @@ class HubbleRenderer {
         
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".content"), true);
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".summary"), false);
-        (<HTMLLinkElement>this.element.querySelector(".hubblelink")).href = "#" + this.hubble.hubbleKey;
+        this.element.querySelectorAll(".hubblelink").forEach((link) => (<HTMLAnchorElement>link).href = "#" + this.hubble.hubbleKey);
         this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
         this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);
@@ -45,7 +45,9 @@ class HubbleRenderer {
         for (var childkey in snapshot.val()) {
             const childRenderer = new HubbleRenderer(new Hubble(childkey), this.childTemplate);
             this.childrenElement.appendChild(childRenderer.element);
-            childRenderer.renderOnVisible();
+             // rendering as soon as the parent is in sight to precache (children may be shown soon):
+             // to improve UI responsiveness / prevent UI rendering lags.
+            childRenderer.renderOnParentVisible();
         }
 
         this.beginPersistingChildlistOnChange();
@@ -53,6 +55,14 @@ class HubbleRenderer {
 
     renderOnVisible() {
         this.element.respondToVisibility(visible => {
+            if (visible && !this.contentLoaded) {
+                this.startRender();
+            }
+        });
+    }
+
+    renderOnParentVisible() {
+        this.element.parentElement.findAncestor("hubble").respondToVisibility(visible => {
             if (visible && !this.contentLoaded) {
                 this.startRender();
             }
