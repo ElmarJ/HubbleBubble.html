@@ -17,13 +17,13 @@
         <a href="/login.html" id="signoutbutton">log out</a>
     </header>
     <main id="main">
-        <menu id="viewMenu" role="menubar">
-            <li><input type="checkbox" role="switch" id="cardviewSwitch" data-theme-switch="hubbleCardView" onchange="onCardviewSwitch();" checked><label for="cardviewSwitch"></label></li>
-            <li><input type="checkbox" role="switch" id="inactiveVisibleSwitch" data-theme-switch="hideInactive" onchange="switchUISetting(event);" checked><label for="inactiveVisibleSwitch"></label></li>
+        <menu id="viewMenu" role="menubar" class=" material-icons">
+            <li><button id="cardviewSwitch" onclick="toggleUISetting('hubbleCardView');"></button></li>
+            <li><button id="inactiveVisibleSwitch" onclick="toggleUISetting('hideInactive');"></button></li>
             <li><button id="expandAllButton" onclick="expandAll();"></button></li>
-            <li><input type="checkbox" role="switch" id="bulletSwitch" data-theme-switch="noBulletView" onchange="switchUISetting(event);"><label for="bulletSwitch"></label></li>
+            <li><button id="bulletSwitch" onclick="toggleUISetting('noBulletView');"></button></li>
             <li><input type="checkbox" role="switch" id="fullscreenSwitch" onchange="onFullscreenSwitch();"><label for="fullscreenSwitch"></label></li>
-            <li><input type="checkbox" role="switch" id="lightSwitch" data-theme-switch="nightMode" onchange="switchUISetting(event);"><label for="lightSwitch"></label></li>
+            <li><button id="lightSwitch" onclick="toggleUISetting('nightMode');"></button></li>
         </menu>
         <div id="hubblePresenter"></div>
     </main>
@@ -35,7 +35,7 @@
                 <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
             </a>
             <div class="rootContent">
-                <nav class="buttons">
+                <nav class="buttons material-icons">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
                     <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>     
@@ -52,7 +52,7 @@
                 <span class="summary"></span>
                 <p class="childcountinfo"><i><span class="child-count"></span></i> active children</p>
             </a>
-            <nav class="buttons" draggable="false">
+            <nav class="buttons material-icons" draggable="false">
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <a class="moveUpButton" href="" onclick="moveUp(event)">arrow_upward</a>
@@ -61,7 +61,7 @@
                 <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>
                 <a class="hubblelink" href="">all_out</a>
             </nav>
-            <input class="collapseToggle" type="checkbox" checked tabindex="0">
+            <input class="collapseToggle material-icons" type="checkbox" checked tabindex="0">
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>

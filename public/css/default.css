@@ -118,11 +118,11 @@
                     content: "expand_more";
                 }
                 
-                #lightSwitch+label::before {
+                #lightSwitch::before {
                     content: "lightbulb_outline";
                 }
                 
-                #bulletSwitch+label::before {
+                #bulletSwitch::before {
                     content: "chevron_right";
                 }
                 
@@ -134,19 +134,19 @@
                     content: "fullscreen_exit";
                 }
                 
-                #inactiveVisibleSwitch+label::before {
+                #inactiveVisibleSwitch::before {
                     content: "visibility";
                 }
                 
-                #inactiveVisibleSwitch:checked+label::before {
+                 :root.hideInactive #inactiveVisibleSwitch::before {
                     content: "visibility_off";
                 }
                 
-                #cardviewSwitch+label::before {
+                #cardviewSwitch::before {
                     content: "view_module";
                 }
                 
-                #cardviewSwitch:checked+label::before {
+                 :root.hubbleCardView #cardviewSwitch::before {
                     content: "list";
                 }
                 
@@ -281,6 +281,37 @@
                 }
                  */
                 
+                ul {
+                    list-style: none;
+                    padding-left: 20px;
+                }
+                
+                .children .content {
+                    display: inline-block;
+                    white-space: normal;
+                    vertical-align: top;
+                }
+                
+                .hubble>.hubblelink {
+                    display: none;
+                }
+                
+                .buttons {
+                    display: inline;
+                }
+                
+                .root>.content {
+                    display: block;
+                }
+                
+                .showline .hubble li {
+                    border-left: 1px solid;
+                }
+                
+                .serif {
+                    font-family: 'Rasa', serif;
+                }
+                
                 .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
                 }
@@ -336,51 +367,20 @@
                     display: none;
                 }
                 
-                .hubbleListView .special-children {
-                    display: none;
-                }
-                
-                .hubbleListView .children .hubble[data-active=false] .content {
+                .children .hubble[data-active=false] .content {
                     color: #888;
                 }
                 
-                .hubbleListView .children .hubble {
+                .children .hubble {
                     line-height: 1.7;
                     max-width: 700px;
                     padding-top: 4px;
                 }
                 
-                .hubbleListView li {
+                .hubbleCardView li {
                     white-space: nowrap;
                 }
                 
-                .hubbleListView ul {
-                    list-style: none;
-                    padding-left: 20px;
-                }
-                
-                .hubbleListView .children .content {
-                    display: inline-block;
-                    white-space: normal;
-                    vertical-align: top;
-                }
-                
-                .showline.hubbleListView .hubble li {
-                    border-left: 1px solid;
-                }
-                
-                .serif {
-                    font-family: 'Rasa', serif;
-                }
-                
-                .hubbleListView .hubble>.hubblelink {
-                    display: none;
-                }
-                
-                .buttons {
-                    display: inline;
-                }
-                
-                .root>.content {
+                .hubbleCardView .children .hubble>.hubblelink {
                     display: block;
                 }

@@ -186,6 +186,10 @@ function keyDown(ev: KeyboardEvent) {
   }
 }
 
+function toggleUISetting(setting: string) {
+  document.documentElement.classList.toggle(setting);
+}
+
 function switchUISetting(event: Event) {
   const checkbox = <HTMLInputElement>event.srcElement;
   if (checkbox.checked) {
@@ -216,17 +220,6 @@ function onFullscreenSwitch() {
     } else if (document.mozExitFullScreen) {
       document.mozExitFullScreen();
     }
-  }
-}
-
-function onCardviewSwitch() {
-  const cardviewCheckBox = <HTMLInputElement>document.getElementById("cardviewSwitch");
-  if (cardviewCheckBox.checked) {
-    document.documentElement.classList.add("hubbleCardView");
-    document.documentElement.classList.remove("hubbleListView");
-  } else {
-    document.documentElement.classList.add("hubbleListView");
-    document.documentElement.classList.remove("hubbleCardView");
   }
 }
 
