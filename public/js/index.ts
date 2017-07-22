@@ -1,12 +1,7 @@
 var presenter = document.getElementById("hubblePresenter");
 
 window.onhashchange = function () {
-  saveCurrentHubble();
   updatePresenter();
-};
-
-window.onunload = function () {
-  saveCurrentHubble();
 };
 
 currentUid = "";
@@ -30,12 +25,6 @@ firebase.auth().onAuthStateChanged(function (user) {
 
   updatePresenter();
 });
-
-function saveCurrentHubble() {
-  // Is this necessarry at all now we save after leaving each editable field?
-  var contentelement = document.querySelectorAll("[contenteditable].content")[0];
-  persistHubbleContentElement(<HTMLElement>contentelement);
-}
 
 async function updatePresenter() {
   if (firebase.auth().currentUser !== null) {
