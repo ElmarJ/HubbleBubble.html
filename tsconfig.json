@@ -1,8 +1,6 @@
 {
     "include": [
-        "public/**/*",
-        "node_modules/@types/jquery",
-        "node_modules/@material"
+        "public/**/*"
     ],
     "exclude": [],
     "compileOnSave": true,
