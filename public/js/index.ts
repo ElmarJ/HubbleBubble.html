@@ -133,7 +133,6 @@ function keyDown(ev: KeyboardEvent) {
       case "ArrowUp":
         ev.preventDefault();
         setFocus(<HTMLElement>hubbleEl.previousElementSibling);    
-        placeCaretAtEnd(hubbleEl);
         break;
       case "ArrowLeft":
         ev.preventDefault();
@@ -164,7 +163,7 @@ function keyDown(ev: KeyboardEvent) {
         break;
       case "ArrowLeft":
         ev.preventDefault();
-        // Todo: move element under parent
+        moveHubbleElementAfterParent(hubbleEl);
         break;
       case "ArrowRight":
         ev.preventDefault();
@@ -216,8 +215,6 @@ function setFocus(hubbleEl: HTMLElement) {
     makeVisible(<HTMLElement>hubbleEl)
     const contentEl = <HTMLElement>hubbleEl.querySelector("[contenteditable].content");
     contentEl.focus();
-  } else {
-    location.hash = hubbleEl.dataset.key;
   }
 }
 
@@ -226,7 +223,7 @@ function makeVisible(hubbleEl: HTMLElement) {
     const parentHubbleEl = hubbleEl.parentElement.findAncestor("hubble")
     const checkBox = <HTMLInputElement>parentHubbleEl.querySelector(".collapseToggle");
     makeVisible(parentHubbleEl);
-    checkBox.checked = true;
+    checkBox.checked = false;
   }
 }
 
@@ -246,6 +243,11 @@ function moveHubbleElementInPrevious(element: HTMLElement) {
   const newParent = <HTMLElement>element.previousElementSibling;
   const newChildrenElement = <HTMLElement>newParent.querySelector(".children");
   newChildrenElement.appendChild(element);
+}
+
+function moveHubbleElementAfterParent(element: HTMLElement) {
+  const currentParentElement = element.parentElement.findAncestor("hubble");
+  currentParentElement.parentElement.insertBefore(element, currentParentElement.nextElementSibling);
 }
 
 interface HTMLElement {

@@ -383,7 +383,7 @@
                     display: none;
                 }
                 
-                .children .hubble[data-active=false] .content {
+                .turnedOffUntilActivityWorks .children .hubble[data-active=false] .content {
                     color: #888;
                 }
                 
