@@ -38,47 +38,12 @@ async function updatePresenter() {
   }
 }
 
-function setCaretPosition() {
-  var content_element = <HTMLElement>document.getElementsByClassName(
-    "content"
-  )[0];
-
-  if (content_element !== null && content_element.contentEditable) {
-    placeCaretAtEnd(content_element);
-  }
-}
-
-
-
-function startUpdatingActivity(hubble: Hubble) {
-  const element = getElementOf(hubble);
-  const ref = hubble.ref.child("active");
-  const updater = snapshot => element.dataset.active = String(snapshot.val());
-
-  if (element) {
-    ref.on("value", updater);
-  } else {
-    ref.off("value", updater)
-  }
-}
-
-
 function getRootHubble(): Hubble {
   var key = window.location.hash.substr(1);
   if (key === null || key === "") {
     key = "-KlYdxmFkIiWOFXp0UIP";
   }
   return new Hubble(key);
-}
-
-function persistHubbleContentElement(contentElement: HTMLElement) {
-  getScopedHubble(contentElement).content.set(contentElement.innerText);
-}
-
-async function navigateToNewChild() {
-  const hubble = new Hubble();
-
-  location.hash = hubble.hubbleKey;
 }
 
 // TODO: switch to this for reordering: https://github.com/RubaXa/Sortable/issues/1008
@@ -112,15 +77,6 @@ function placeCaretAtEnd(el: HTMLElement) {
   sel.addRange(range);
 }
 
-function getScopedHubble(element: HTMLElement): Hubble {
-  if (element.classList.contains("hubble")) {
-    return new Hubble(element.dataset.key);
-  }
-
-  const hubbleElement = hubbleElementOf(element);
-  return new Hubble(hubbleElement.dataset.key);
-}
-
 function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
   const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
   const renderer = new HubbleRenderer(new Hubble(), childHubbleTemplate);
@@ -135,59 +91,95 @@ function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
   return renderer.element;
 }
 
-function getElementOf(hubble: Hubble) {
-  return <HTMLElement>document.querySelector(
-    ".hubble[data-key=" + hubble.hubbleKey + "]"
-  );
-}
-
 async function onEditorKeyPress(ev: KeyboardEvent) {
+  const hubbleEl = (<HTMLElement>event.srcElement).findAncestor("hubble");
+
   if (ev.key === "Enter") {
     ev.preventDefault();
     
-    const currentContentElement = <HTMLElement>ev.srcElement
-    const hubbleElement = hubbleElementOf(currentContentElement);
-    const childrenElement = hubbleElement.findAncestor("children");
-    
-    let newElement: HTMLElement;
-    if (hubbleElement.nextElementSibling) {
-      newElement = addNewChild(childrenElement, <HTMLElement>hubbleElement.nextElementSibling);
-    } else {
-      newElement = addNewChild(childrenElement);
-    }
+    const currentContentEl = <HTMLElement>ev.srcElement
+    const childrenEl = hubbleEl.findAncestor("children");    
+    const newHubbleEl = addNewChild(childrenEl, <HTMLElement>hubbleEl.nextElementSibling);
 
+    // SPlit the text of the current Hubble in the part before and the part after the cursor:
     const cursorPos = window.getSelection().anchorOffset;
-    const currentContent = currentContentElement.textContent;
-    const beforeCursor = currentContent.substr(0, cursorPos);
-    const afterCursor = currentContent.substr(cursorPos, currentContent.length);
+    const beforeCursor = currentContentEl.textContent.substr(0, cursorPos);
+    const afterCursor = currentContentEl.textContent.substr(cursorPos, currentContentEl.textContent.length);
 
-    currentContentElement.innerHTML = beforeCursor;
-    newElement.querySelector(".content").innerHTML = afterCursor;
+    // Before the cursor remains in the current hubble:
+    currentContentEl.innerHTML = beforeCursor;
     
-    setFocus(newElement);
+    // After the cursor goes into the new hubble:
+    newHubbleEl.querySelector(".content").innerHTML = afterCursor;
+    
+    setFocus(newHubbleEl);
   }
 }
 
 function keyDown(ev: KeyboardEvent) {
+  const hubbleEl = (<HTMLElement>event.srcElement).findAncestor("hubble");
+
   if (ev.key === "Tab") {
     ev.preventDefault();
-    moveHubbleElementInPrevious(hubbleElementOf(<HTMLElement>event.srcElement));
+  }
+  
+  // Ctrl + key:
+  if(ev.ctrlKey && !ev.altKey && !ev.shiftKey) {
+    switch (ev.key) {
+      case "ArrowDown":
+        ev.preventDefault();
+        setFocus(<HTMLElement>hubbleEl.nextElementSibling);    
+        break;
+      case "ArrowUp":
+        ev.preventDefault();
+        setFocus(<HTMLElement>hubbleEl.previousElementSibling);    
+        placeCaretAtEnd(hubbleEl);
+        break;
+      case "ArrowLeft":
+        ev.preventDefault();
+        setFocus(hubbleEl.parentElement.findAncestor("hubble"));    
+        break;
+      case "ArrowRight":
+        ev.preventDefault();
+        setFocus(<HTMLElement>hubbleEl.querySelector(".children").firstElementChild);    
+        break;
+      case " ":
+        ev.preventDefault();
+        (<HTMLInputElement>hubbleEl.querySelector(".collapseToggle")).checked = !(<HTMLInputElement>hubbleEl.querySelector(".collapseToggle")).checked;
+      default:
+        break;
+    }
+  }
+  
+  // ctrl + alt + key:
+  if(ev.ctrlKey && ev.altKey && !ev.shiftKey) {
+    switch (ev.key) {
+      case "ArrowDown":
+        ev.preventDefault();
+        moveHubbleElementDown(hubbleEl);
+        break;
+      case "ArrowUp":
+        ev.preventDefault();
+        moveHubbleElementUp(hubbleEl);
+        break;
+      case "ArrowLeft":
+        ev.preventDefault();
+        // Todo: move element under parent
+        break;
+      case "ArrowRight":
+        ev.preventDefault();
+        moveHubbleElementInPrevious(hubbleEl);
+        break;
+      default:
+        break;
+    }
+
+    setFocus(hubbleEl);
   }
 }
 
 function toggleUISetting(setting: string) {
   document.documentElement.classList.toggle(setting);
-}
-
-function switchUISetting(event: Event) {
-  const checkbox = <HTMLInputElement>event.srcElement;
-  if (checkbox.checked) {
-    document.documentElement.classList.add(checkbox.dataset.themeSwitch);
-  }
-
-  else {
-    document.documentElement.classList.remove(checkbox.dataset.themeSwitch);
-  }
 }
 
 function onFullscreenSwitch() {
@@ -213,38 +205,29 @@ function onFullscreenSwitch() {
 }
 
 function expandAll() {
-  const allHubbles = <NodeListOf<HTMLElement>>document.querySelectorAll(".hubble");
-  for (var hubbleElement of allHubbles) {
-    hubbleElement.classList.remove("collapsed");
+  const allCheckboxes = <NodeListOf<HTMLElement>>document.querySelectorAll(".collapseToggle");
+  for (var checkBox of allCheckboxes) {
+    (<HTMLInputElement>checkBox).checked = false;
   }
 }
 
-function setFocus(hubbleElement: HTMLElement) {
-  if (hubbleElement) {
-    const contentElement = <HTMLElement>hubbleElement.querySelector("[contenteditable].content");
-    contentElement.focus();
+function setFocus(hubbleEl: HTMLElement) {
+  if (hubbleEl) {
+    makeVisible(<HTMLElement>hubbleEl)
+    const contentEl = <HTMLElement>hubbleEl.querySelector("[contenteditable].content");
+    contentEl.focus();
   } else {
-    location.hash = hubbleElement.dataset.key;
+    location.hash = hubbleEl.dataset.key;
   }
 }
 
-function moveDown(event: Event) {
-  event.preventDefault();
-  moveHubbleElementDown(hubbleElementOf(<HTMLElement>event.srcElement));
-}
-
-function moveUp(event: Event) {
-  event.preventDefault();
-  moveHubbleElementUp(hubbleElementOf(<HTMLElement>event.srcElement));
-}
-
-function moveIn(event: Event) {
-  event.preventDefault();
-  moveHubbleElementInPrevious(hubbleElementOf(<HTMLElement>event.srcElement));
-}
-
-function hubbleElementOf(element: HTMLElement) {
-  return element.findAncestor("hubble");
+function makeVisible(hubbleEl: HTMLElement) {
+  if (hubbleEl.offsetParent === null) {
+    const parentHubbleEl = hubbleEl.parentElement.findAncestor("hubble")
+    const checkBox = <HTMLInputElement>parentHubbleEl.querySelector(".collapseToggle");
+    makeVisible(parentHubbleEl);
+    checkBox.checked = true;
+  }
 }
 
 function moveHubbleElementDown(element: HTMLElement) {

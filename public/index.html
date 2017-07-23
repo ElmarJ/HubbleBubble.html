@@ -39,9 +39,9 @@
                 <nav class="buttons material-icons">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
-                    <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>     
+                    <a class="hubblelink" href="">all_out</a>
                 </nav>
-                <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)"></span>
+                <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
             </div>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </div>
@@ -56,10 +56,6 @@
             <nav class="buttons material-icons" draggable="false">
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <a class="moveUpButton" href="" onclick="moveUp(event)">arrow_upward</a>
-                <a class="moveDownButton" href="" onclick="moveDown(event)">arrow_downward</a>
-                <a class="moveInButton" href="" onclick="moveIn(event)">arrow_right</a>
-                <a class="newhubble_link" href="" onclick="newHubbleLinkClick(event)">add</a>
                 <a class="hubblelink" href="">all_out</a>
             </nav>
             <input class="collapseToggle material-icons" type="checkbox" checked tabindex="0">

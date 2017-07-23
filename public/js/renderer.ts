@@ -86,4 +86,16 @@ class HubbleRenderer {
 
         await this.hubble.childrenref.set(childobject);
     }
+
+    
+private startUpdatingActivity() {
+    const ref = this.hubble.ref.child("active");
+    const updater = snapshot => this.element.dataset.active = String(snapshot.val());
+
+    if (this.element) {
+        ref.on("value", updater);
+    } else {
+        ref.off("value", updater)
+    }
+    }
 }
