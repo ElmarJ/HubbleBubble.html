@@ -302,6 +302,10 @@
                     padding-left: 20px;
                 }
                 
+                .children .hubble {
+                    white-space: nowrap;
+                }
+                
                 .children .content {
                     display: inline-block;
                     white-space: normal;
@@ -326,6 +330,10 @@
                 
                 .serif {
                     font-family: 'Rasa', serif;
+                }
+                
+                .hubbleCardView .children .hubble {
+                    white-space: normal;
                 }
                 
                 .hubbleCardView .children .hubble[data-active=false] {
