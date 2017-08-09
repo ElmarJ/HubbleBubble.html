@@ -1,13 +1,16 @@
 {
     "include": [
-        "public/**/*"
+        "public/**/*",
+        "node_modules/firebase/**/*"
     ],
     "exclude": [],
     "compileOnSave": true,
     "compilerOptions": {
         "target": "es2017",
         "sourceMap": true,
-        "removeComments": true,
-        "watch": false
+        "removeComments": true
+    },
+    "typeAcquisition": {
+        "enable": true
     }
 }

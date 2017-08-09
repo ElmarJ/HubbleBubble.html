@@ -1,5 +1,3 @@
-
-
 interface HubbleData {
     snoozed: boolean;
     done: boolean;

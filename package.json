@@ -3,8 +3,13 @@
     "version": "1.0.0",
     "description": "hubble bubble",
     "main": "public/index.html",
-    "dependencies": {},
-    "devDependencies": {},
+    "dependencies": {
+        "firebase": "^4.2.0",
+        "googleapis": "^20.1.0"
+    },
+    "devDependencies": {
+        "firebase-admin": "^5.1.0"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc",
