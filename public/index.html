@@ -8,7 +8,6 @@
     <link rel="manifest" href="manifest.json">
 
     <link href="css/default.css" rel="stylesheet" type="text/css" media="screen">
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -17,7 +16,7 @@
         <a href="/login.html" id="signoutbutton">log out</a>
     </header>
     <main id="main">
-        <menu id="viewMenu" role="menubar" class=" material-icons">
+        <menu id="viewMenu" role="menubar" class="material-icons">
             <li><button id="cardviewSwitch" onclick="toggleUISetting('hubbleCardView');"></button></li>
             <li><button id="inactiveVisibleSwitch" onclick="toggleUISetting('hideInactive');"></button></li>
             <li><button id="expandAllButton" onclick="expandAll();"></button></li>
@@ -28,9 +27,9 @@
         <div id="hubblePresenter"></div>
     </main>
 
-    <script src="/__/firebase/4.1.3/firebase-app.js"></script>
-    <script src="/__/firebase/4.1.3/firebase-auth.js"></script>
-    <script src="/__/firebase/4.1.3/firebase-database.js"></script>
+    <script src="/__/firebase/4.2.0/firebase-app.js"></script>
+    <script src="/__/firebase/4.2.0/firebase-auth.js"></script>
+    <script src="/__/firebase/4.2.0/firebase-database.js"></script>
     <script src="/__/firebase/init.js"></script>
     <script src="js/data.js"></script>
     <script src="js/renderer.js"></script>
