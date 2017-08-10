@@ -88,7 +88,7 @@ function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
   }
   renderer.renderOnParentVisible();
 
-  return renderer.element;
+  return renderer;
 }
 
 async function onEditorKeyPress(ev: KeyboardEvent) {
@@ -96,10 +96,10 @@ async function onEditorKeyPress(ev: KeyboardEvent) {
 
   if (ev.key === "Enter") {
     ev.preventDefault();
-    
+
     const currentContentEl = <HTMLElement>ev.srcElement
-    const childrenEl = hubbleEl.findAncestor("children");    
-    const newHubbleEl = addNewChild(childrenEl, <HTMLElement>hubbleEl.nextElementSibling);
+    const childrenEl = hubbleEl.findAncestor("children");
+    const renderer = addNewChild(childrenEl, <HTMLElement>hubbleEl.nextElementSibling);
 
     // SPlit the text of the current Hubble in the part before and the part after the cursor:
     const cursorPos = window.getSelection().anchorOffset;
@@ -108,11 +108,11 @@ async function onEditorKeyPress(ev: KeyboardEvent) {
 
     // Before the cursor remains in the current hubble:
     currentContentEl.innerHTML = beforeCursor;
-    
+
     // After the cursor goes into the new hubble:
-    newHubbleEl.querySelector(".content").innerHTML = afterCursor;
-    
-    setFocus(newHubbleEl);
+    renderer.element.querySelector(".content").innerHTML = afterCursor;
+
+    setFocus(renderer.element);
   }
 }
 
@@ -122,25 +122,25 @@ function keyDown(ev: KeyboardEvent) {
   if (ev.key === "Tab") {
     ev.preventDefault();
   }
-  
+
   // Ctrl + key:
-  if(ev.ctrlKey && !ev.altKey && !ev.shiftKey) {
+  if (ev.ctrlKey && !ev.altKey && !ev.shiftKey) {
     switch (ev.key) {
       case "ArrowDown":
         ev.preventDefault();
-        setFocus(<HTMLElement>hubbleEl.nextElementSibling);    
+        setFocus(<HTMLElement>hubbleEl.nextElementSibling);
         break;
       case "ArrowUp":
         ev.preventDefault();
-        setFocus(<HTMLElement>hubbleEl.previousElementSibling);    
+        setFocus(<HTMLElement>hubbleEl.previousElementSibling);
         break;
       case "ArrowLeft":
         ev.preventDefault();
-        setFocus(hubbleEl.parentElement.findAncestor("hubble"));    
+        setFocus(hubbleEl.parentElement.findAncestor("hubble"));
         break;
       case "ArrowRight":
         ev.preventDefault();
-        setFocus(<HTMLElement>hubbleEl.querySelector(".children").firstElementChild);    
+        setFocus(<HTMLElement>hubbleEl.querySelector(".children").firstElementChild);
         break;
       case " ":
         ev.preventDefault();
@@ -149,9 +149,9 @@ function keyDown(ev: KeyboardEvent) {
         break;
     }
   }
-  
+
   // ctrl + alt + key:
-  if(ev.ctrlKey && ev.altKey && !ev.shiftKey) {
+  if (ev.ctrlKey && ev.altKey && !ev.shiftKey) {
     switch (ev.key) {
       case "ArrowDown":
         ev.preventDefault();
@@ -271,7 +271,50 @@ HTMLElement.prototype.respondToVisibility = function (callback) {
 
 HTMLElement.prototype.findAncestor = function (className: string) {
   var element = this;
-  while (!element.classList.contains(className) && (element = element.parentElement)) {}
+  while (!element.classList.contains(className) && (element = element.parentElement)) { }
   return element;
+}
+
+function launchOneDrivePicker() {
+  var odOptions = {
+   /*
+    * Required. Provide the AppId for a registered application. Register an
+    * app on https://apps.dev.microsoft.com
+    */
+    clientId: "5edfe457-c20b-4ad4-ba94-ea609bd21aa3",
+    action: "share",
+    multiSelect: false,
+    advanced: {},
+    success: function (response) { 
+      const urlBox = <HTMLInputElement>document.getElementById("urlBox");
+      const urlNameElt = <HTMLInputElement>document.getElementById("urlNameBox");
+      urlBox.value = response.value[0].webUrl;
+      urlNameElt.value = response.value[0].name;
+     },
+    cancel: function () { console.log("oh"); },
+    error: function (e) { console.log("oops"); }
+  }
+  OneDrive.open(odOptions);
+}
+
+function startAddLinkUI(event: MouseEvent) {
+  const dialog = <any>document.getElementById("dialog");
+  const childrenElt = (<HTMLElement>event.srcElement).findAncestor("hubble").querySelector(".children");
+
+  dialog.showModal();
+  dialog.addEventListener('close', async function (event) {
+    if (dialog.returnValue === 'confirm') {
+      const urlElt = <HTMLInputElement>document.getElementById("urlBox");
+      const urlNameElt = <HTMLInputElement>document.getElementById("urlNameBox");
+
+      const hubble = new Hubble();
+      await hubble.url.setString(urlElt.value);
+      await hubble.content.setString(urlNameElt.value);
+
+      const renderer = new HubbleRenderer(hubble, <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate"));
+      childrenElt.appendChild(renderer.element);
+      renderer.renderOnParentVisible();
+   }
+ });
 }
 

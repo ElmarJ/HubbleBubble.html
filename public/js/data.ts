@@ -22,19 +22,26 @@ abstract class HubbleProperty<T>{
         this.prepareChange = (value) => { };
     }
 
-    async get() {
+    async get(defaultIfEmpty?: boolean) {
         const snapshot = await this.ref().orderByValue().once('value');
+        if (defaultIfEmpty && !snapshot.val()) {
+            return this.default;
+        }
         return <T>snapshot.val();
     }
 
-    async getString() {
-        const value = await this.get();
+    async getString(defaultIfEmpty = false) {
+        const value = await this.get(defaultIfEmpty);
         return value ? String(value) : null;
     }
 
-    async set(value: T) {
+    async set(value: T, emptyIfDefault = true) {
         this.prepareChange(value);
-        await this.ref().set(value);
+        if (emptyIfDefault && value === this.default) {
+            await this.ref().remove();
+        } else {
+            await this.ref().set(value);
+        }
     }
 
     abstract setString(value: string);
@@ -43,8 +50,8 @@ abstract class HubbleProperty<T>{
         return <Promise<void>>this.set(newValueCreator(this.owner));
     }
 
-    async bindToContent(element: HTMLElement, twoway = false) {
-        const value = await this.getString();
+    async bindToContent(element: HTMLElement, twoway = false, defaultIfEmpty = false) {
+        const value = await this.getString(defaultIfEmpty);
         if (value) {
             element.innerText = value;
         }
@@ -141,6 +148,13 @@ class ContentHubbleProperty extends StringHubbleProperty {
     default: "";
 }
 
+class UrlHubbleProperty extends HubbleProperty<string> {
+    default = "";
+    setString(value: string) {
+        this.set(value);
+    }
+}
+
 class Hubble {
     database = firebase.database();
     user = firebase.auth().currentUser;
@@ -155,6 +169,7 @@ class Hubble {
     done = new StatusHubbleProperty("done", this);
     activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
     childrenref: firebase.database.Reference;
+    url = new UrlHubbleProperty("url", this);
 
     constructor(hubbleKey?: string) {
         if (!hubbleKey || hubbleKey === "") {
@@ -164,6 +179,7 @@ class Hubble {
 
         this.hubbleKey = hubbleKey;
         this.ref = this.database.ref("users/" + this.user.uid + "/hubbles/" + hubbleKey);
+        this.url.default  = "#" + hubbleKey;
         this.childrenref = this.ref.parent.parent.child("childrenof").child(this.hubbleKey);
     }
 
