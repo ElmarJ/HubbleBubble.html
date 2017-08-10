@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "HubbleBubble",
+    "version": "0.0.1",
+    "app": {
+        "launch": {
+            "web_url": "https://hubblebubble.elmarjansen.nl/"
+        }
+    },
+    "icons": {
+        "48": "images/homescreen48.png",
+        "72": "images/homescreen72.png",
+        "96": "images/homescreen96.png",
+        "128": "128x128.png",
+        "144": "images/homescreen144.png",
+        "168": "images/homescreen168.png",
+        "192": "images/homescreen192.png"
+    }
+}

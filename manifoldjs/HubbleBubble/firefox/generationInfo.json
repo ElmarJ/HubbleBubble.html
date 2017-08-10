@@ -1,0 +1,10 @@
+{
+    "generationTool": "manifoldjs",
+    "generationToolVersion": "0.7.6",
+    "platformId": "firefox",
+    "platformPackage": "manifoldjs-firefox",
+    "platformVersion": "0.1.3",
+    "generatedFrom": "CLI",
+    "generationDate": "2017-08-10 17:33:48 Z",
+    "generatedURL": "https://hubblebubble.elmarjansen.nl/manifest.json"
+}

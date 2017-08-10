@@ -13,7 +13,7 @@ class HubbleRenderer {
         this.setupTemplate();
     }
 
-    private startRender() {
+    private render() {
         this.contentLoaded = true;
 
         this.hubble.active.bindToAttribute(this.element, "data-active");
@@ -21,7 +21,7 @@ class HubbleRenderer {
         
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".content"), true);
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".summary"), false);
-        this.element.querySelectorAll(".hubblelink").forEach((link) => (<HTMLAnchorElement>link).href = "#" + this.hubble.hubbleKey);
+        this.element.querySelectorAll(".hubblelink").forEach((link) => this.hubble.url.bindToAttribute(<HTMLElement>link, "href"));
         this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
         this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);
@@ -56,17 +56,19 @@ class HubbleRenderer {
     renderOnVisible() {
         this.element.respondToVisibility(visible => {
             if (visible && !this.contentLoaded) {
-                this.startRender();
+                this.render();
             }
         });
+        return this.element;
     }
 
     renderOnParentVisible() {
         this.element.parentElement.findAncestor("hubble").respondToVisibility(visible => {
             if (visible && !this.contentLoaded) {
-                this.startRender();
+                this.render();
             }
         });
+        return this.element;
     }
 
     private beginPersistingChildlistOnChange() {
