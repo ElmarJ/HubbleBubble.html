@@ -253,5 +253,20 @@ class Hubble {
         }
     }
 
+    static async getRootHubble() {
+        const database = firebase.database();
+        const user = firebase.auth().currentUser;
+        const rootRef = database.ref("users/" + user.uid + "/root");
+        const rootResponse = await rootRef.once("value");
+        const rootId = rootResponse.val();
+        if(rootId) {
+            return new Hubble(rootId); 
+        } else {
+            const hubble = new Hubble();
+            rootRef.set(hubble.hubbleKey);
+            return hubble;
+        }
+    }
+
 }
 
