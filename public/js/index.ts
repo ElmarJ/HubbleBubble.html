@@ -29,13 +29,21 @@ firebase.auth().onAuthStateChanged(function (user) {
 async function updatePresenter() {
   if (firebase.auth().currentUser !== null) {
     presenter.innerHTML = "";
-    const root = await Hubble.getRootHubble();
+    const root = await getScopedHubble();
     const rootHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListTemplate");;
     const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
     const rootRenderer = new HubbleRenderer(root, rootHubbleTemplate, childHubbleTemplate);
     presenter.appendChild(rootRenderer.element);
     await rootRenderer.renderOnVisible();
   }
+}
+
+async function getScopedHubble() {
+  var key = window.location.hash.substr(1);
+  if (key === null || key === "") {
+    return await Hubble.getRootHubble();
+  }
+  return new Hubble(key);
 }
 
 // TODO: switch to this for reordering: https://github.com/RubaXa/Sortable/issues/1008
