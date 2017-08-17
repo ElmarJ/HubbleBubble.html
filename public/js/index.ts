@@ -4,6 +4,10 @@ window.onhashchange = function () {
   updatePresenter();
 };
 
+// Load / save view-settings for this user:
+window.onload = () => document.documentElement.setAttribute("class", window.localStorage.getItem("viewerSettings"));
+window.onblur = () => window.localStorage.setItem("viewerSettings", document.documentElement.getAttribute("class"));
+
 currentUid = "";
 
 // Listen to change in auth state so it displays the correct UI for when
