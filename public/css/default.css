@@ -34,8 +34,7 @@
                 }
                 
                 main {
-                    max-width: 800px;
-                    width: calc(100% - 30px);
+                    width: calc(100% - 50px);
                     margin: 0 auto;
                     height: 100%;
                 }
@@ -164,7 +163,6 @@
                 
                 .children .hubble {
                     line-height: 1.7;
-                    max-width: 700px;
                     padding-top: 4px;
                 }
                 
@@ -312,6 +310,7 @@
                     display: inline-block;
                     white-space: normal;
                     vertical-align: top;
+                    max-width: 600px;
                 }
                 
                 .hubble>.hubblelink {
@@ -339,7 +338,6 @@
                 }
                 
                 .hubbleCardView .children {
-                    padding-left: 100px;
                     display: flex;
                     flex-wrap: wrap;
                 }
@@ -349,9 +347,9 @@
                     border-width: 1px;
                     border-color: #ddd;
                     border-style: solid;
+                    border-radius: 4px;
                     margin: 10px;
                     padding: 10px;
-                    border-radius: 4px;
                     position: relative;
                 }
                 
@@ -393,8 +391,19 @@
                 
                 .hubbleCardView .buttons {
                     position: absolute;
-                    left: 0;
-                    top: -5px;
+                    left: -10px;
+                    top: -20px;
+                    opacity: 0;
+                    border-width: 1px;
+                    border-color: #ddd;
+                    border-style: solid;
+                    border-radius: 4px;
+                    background: #fff;
+                    padding: 3px;
+                }
+                
+                .hubbleCardView .buttons:hover {
+                    opacity: 1;
                 }
                 
                 .hubbleCardView .buttons .newhubble_link {
