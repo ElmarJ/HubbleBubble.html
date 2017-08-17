@@ -26,6 +26,8 @@ class HubbleRenderer {
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
         this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);
 
+        useDragoverClass(this.element);
+
         this.addChildren();
     }
 

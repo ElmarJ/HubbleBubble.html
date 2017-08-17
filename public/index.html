@@ -56,19 +56,16 @@
     </template>
 
     <template id="hubbleListItemTemplate">
-        <li class="hubble" draggable="true" ondragstart="card_drag(event)" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
-            <nav class="buttons material-icons" draggable="false">
-                <input type="checkbox" class="doneToggle" tabindex="0">
-                <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <a class="hubblelink" href="">all_out</a>
-                <button onclick="startAddLinkUI(event);">link</button>
-            </nav>
-            <a class="hubblelink" href="" draggable="false">
-                <section class="summary"></section>
-                <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
-            </a>
+        <li class="hubble" draggable="true" ondragstart="card_drag(event)" ondragend="onHubbleDragEnd()" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+            <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
             <input class="collapseToggle material-icons" type="checkbox" checked tabindex="0">
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
+            <a class="hubblelink material-icons" href="">launch</a>
+            <menu class="buttons hubble-switches material-icons" draggable="false">
+                <input type="checkbox" class="doneToggle" tabindex="0">
+                <input type="checkbox" class="snoozeToggle" tabindex="0">
+                <button onclick="startAddLinkUI(event);">link</button>
+            </menu>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
     </template>

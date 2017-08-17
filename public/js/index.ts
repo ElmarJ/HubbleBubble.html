@@ -53,11 +53,78 @@ async function getScopedHubble() {
 // TODO: switch to this for reordering: https://github.com/RubaXa/Sortable/issues/1008
 function check_card_drop(ev: DragEvent) {
   ev.preventDefault();
+  var elt = <HTMLElement>ev.srcElement;
+  if (!elt.classList.contains("hubble")) {
+    elt = elt.findAncestor("hubble");
+  }
+  addDropTargets(elt);
+  for(const e of document.getElementsByClassName("dragover") {
+    if (e !== elt) {
+      e.classList.remove("dragover");
+    }
+  }
+  elt.classList.add("dragover");
 }
+
+function addDropTargets(elt: HTMLElement) {
+  if(!dropTargetBeforeElt) {
+    dropTargetBeforeElt = generateNewDropTarget();
+  }
+  if(!dropTargetAfterElt) {
+    dropTargetAfterElt = generateNewDropTarget();
+  }
+
+  elt.parentElement.insertBefore(dropTargetBeforeElt, elt);
+  elt.parentElement.insertBefore(dropTargetAfterElt, elt.nextElementSibling);
+}
+
+function generateNewDropTarget() {
+  const elt = document.createElement("div");
+  elt.classList.add("dropTarget");
+
+  elt.addEventListener("drop", (event) => {
+    const sourceKey = event.dataTransfer.getData("text/plain");
+    const sourceHubbleElement = <HTMLElement>document.querySelector(`[data-key=${sourceKey}].hubble`);
+    elt.parentElement.insertBefore(sourceHubbleElement, elt);
+    removeDropTargets();
+  });
+
+  elt.addEventListener("dragover", (event) => {
+    event.preventDefault();
+  });
+
+  useDragoverClass(elt);
+
+  return elt;
+}
+
+function useDragoverClass(elt: HTMLElement) {
+  elt.addEventListener("dragenter", event => {
+    elt.classList.add("dragOver");
+  });
+  elt.addEventListener("dragleave", event => {
+    elt.classList.remove("dragOver");
+  });
+}
+
+function removeDropTargets() {
+  if(dropTargetAfterElt) {
+    dropTargetAfterElt.remove();
+  }
+
+  if(dropTargetBeforeElt) {
+    dropTargetBeforeElt.remove();
+  }
+}
+
+var dropTargetBeforeElt: HTMLDivElement;
+var dropTargetAfterElt: HTMLDivElement;
+
 
 function card_drop(ev: DragEvent) {
   ev.preventDefault();
 
+  removeDropTargets();
   // move me into the children-element of the element I was dropped on:
   const sourceKey = ev.dataTransfer.getData("text/plain");
   const sourceHubbleElement = <HTMLElement>document.querySelector(`[data-key=${sourceKey}].hubble`);
@@ -220,6 +287,10 @@ function setFocus(hubbleEl: HTMLElement) {
     const contentEl = <HTMLElement>hubbleEl.querySelector("[contenteditable].content");
     contentEl.focus();
   }
+}
+
+function onHubbleDragEnd() {
+  removeDropTargets();
 }
 
 function makeVisible(hubbleEl: HTMLElement) {
