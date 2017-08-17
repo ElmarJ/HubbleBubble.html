@@ -162,8 +162,10 @@
                     content: "view_module";
                 }
                 
-                 :root.hubbleCardView #cardviewSwitch::before {
-                    content: "list";
+                .children .hubble {
+                    line-height: 1.7;
+                    max-width: 700px;
+                    padding-top: 4px;
                 }
                 
                 .hubble .content:empty:not(:focus)::before {
@@ -202,7 +204,7 @@
                 
                 .buttons * {
                     font-family: "Material Icons";
-                    font-size: 14pt;
+                    font-size: 10pt;
                     font-weight: 400;
                     margin: 0;
                     color: inherit;
@@ -332,12 +334,53 @@
                     font-family: 'Rasa', serif;
                 }
                 
+                .hubbleCardView #cardviewSwitch::before {
+                    content: "list";
+                }
+                
+                .hubbleCardView .children {
+                    padding-left: 100px;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                
                 .hubbleCardView .children .hubble {
                     white-space: normal;
+                    border-width: 1px;
+                    border-color: #ddd;
+                    border-style: solid;
+                    margin: 10px;
+                    padding: 10px;
+                    border-radius: 4px;
+                    position: relative;
                 }
                 
                 .hubbleCardView .children .hubble[data-active=false] {
                     opacity: 0.5;
+                }
+                
+                .hubbleCardView .children .hubble:hover .childcountinfo {
+                    opacity: 0.5;
+                    visibility: visible;
+                }
+                
+                .hubbleCardView .children .hubble>.hubblelink {
+                    display: block;
+                }
+                
+                .hubbleCardView .children .content[contenteditable] {
+                    display: none;
+                }
+                
+                .hubbleCardView .children .children {
+                    display: none;
+                }
+                
+                .hubbleCardView .children .childcountinfo {
+                    opacity: 0;
+                    transition: opacity .5s;
+                    visibility: hidden;
+                    font-size: x-small;
                 }
                 
                 .hubbleCardView .root>.parentlink {
@@ -348,63 +391,25 @@
                     display: none;
                 }
                 
+                .hubbleCardView .buttons {
+                    position: absolute;
+                    left: 0;
+                    top: -5px;
+                }
+                
                 .hubbleCardView .buttons .newhubble_link {
                     display: none;
-                }
-                
-                .hubbleCardView .children {
-                    padding-left: 100px;
-                }
-                
-                .hubbleCardView .children .hubble {
-                    max-width: 200px;
-                    border-width: 1px;
-                    border-color: #ddd;
-                    border-style: solid;
-                    margin: 10px;
-                    padding: 10px;
-                    display: inline-block;
-                    border-radius: 4px;
                 }
                 
                 .hubbleCardView .buttons .hubblelink {
                     display: none;
                 }
                 
-                .hubbleCardView .children .content[contenteditable] {
-                    display: none;
-                }
-                
-                .hubbleCardView .children .childcountinfo {
-                    opacity: 0;
-                    transition: opacity .5s;
-                    visibility: hidden;
-                    font-size: small;
-                }
-                
-                .hubbleCardView .children .hubble:hover .childcountinfo {
-                    opacity: 0.5;
-                    visibility: visible;
-                }
-                
-                .hubbleCardView .children .children {
+                .hubbleCardView #expandAllButton,
+                .hubbleCardView #bulletSwitch {
                     display: none;
                 }
                 
                 .turnedOffUntilActivityWorks .children .hubble[data-active=false] .content {
                     color: #888;
-                }
-                
-                .children .hubble {
-                    line-height: 1.7;
-                    max-width: 700px;
-                    padding-top: 4px;
-                }
-                
-                .hubbleCardView li {
-                    white-space: nowrap;
-                }
-                
-                .hubbleCardView .children .hubble>.hubblelink {
-                    display: block;
                 }
