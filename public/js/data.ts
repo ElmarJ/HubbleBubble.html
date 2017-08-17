@@ -77,6 +77,16 @@ abstract class BooleanHubbleProperty extends HubbleProperty<boolean> {
         this.set(new Boolean(value).valueOf());
     }
 
+    async bindToAttributePresence(element: HTMLElement, attribute: string){
+        const value = await this.get();
+        if (value) {
+            element.setAttribute(attribute, "");
+        }
+        else {
+            element.removeAttribute(attribute);
+        }
+    }
+
     async bindToCheckbox(element: HTMLInputElement, twoway = false) {
         const value = await this.get();
         if (value) {

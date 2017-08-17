@@ -16,11 +16,10 @@ class HubbleRenderer {
     private render() {
         this.contentLoaded = true;
 
-        this.hubble.active.bindToAttribute(this.element, "data-active");
+        this.hubble.active.bindToAttributePresence(this.element, "data-active");
         this.hubble.activechildren.bindToAttribute(this.element, "data-active-children");
         
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".content"), true);
-        this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".summary"), false);
         this.element.querySelectorAll(".hubblelink").forEach((link) => this.hubble.url.bindToAttribute(<HTMLElement>link, "href"));
         this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
