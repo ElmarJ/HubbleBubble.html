@@ -18,8 +18,8 @@ List:
   * Tree Manipulation
     * ~~Rewrite move as DOM manipulation that is persisted afterwards~~
     * ~~Rewrite insert as DOM manipulation that is persisted afterwards~~
-    * Later: move up (ctrl+up) / down (ctrl+down) / deeper(ctrl+right - w/ descendants) / higher (ctrl+left - w/ descendants) / in (tab - w/o descendants) / out (shift+tab - w/o descendants)
-    * On enter: move everything after the cursor to the new hubble.
+    * ~~Later: move up (ctrl+up) / down (ctrl+down) / deeper(ctrl+right - w/ descendants) / higher (ctrl+left - w/ descendants) / in (tab - w/o descendants) / out (shift+tab - w/o descendants)~~
+    * ~~On enter: move everything after the cursor to the new hubble.~~
   * Persistence
     * ~~Store children on DOM manipulation~~
 * data.js
