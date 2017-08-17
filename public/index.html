@@ -8,7 +8,6 @@
     <link rel="manifest" href="manifest.json">
 
     <link href="css/default.css" rel="stylesheet" type="text/css" media="screen">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -39,17 +38,13 @@
 
     <template id="hubbleListTemplate">
         <div class="hubble root">
-            <a class="hubblelink" href="" draggable="false">
-                <section class="summary"></section>
-                <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
-            </a>
             <div class="rootContent">
-                <nav class="buttons material-icons">
+                <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
+                <menu class="buttons hubble-switches material-icons" draggable="false">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
-                    <a class="hubblelink" href="">all_out</a>
-                </nav>
-                <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
+                    <button onclick="startAddLinkUI(event);">link</button>
+                </menu>
             </div>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </div>

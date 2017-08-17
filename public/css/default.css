@@ -1,318 +1,374 @@
-                @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Inconsolata|Khula|Lato|Montserrat|Nunito|Open+Sans:400,600|Oxygen|PT+Serif|Raleway:400,500|Rasa|Source+Sans+Pro|Open+Sans|Raleway');
-                 :root {
-                    --bg-color: white;
-                    --text-color: black;
-                    --UI-font: "Roboto";
-                    --content-font: "Rasa"
-                }
-                
-                 :root.nightMode {
-                    --bg-color: black;
-                    --text-color: white;
-                }
-                
-                 :root.redish {
-                    --bg-color: brown;
-                    --text-color: white;
-                }
-                
-                a {
-                    color: inherit;
-                    text-decoration: inherit;
-                }
-                
-                html {
-                    font-family: var(--UI-font);
-                    margin: 0;
-                    background: var(--bg-color);
-                    color: var(--text-color);
-                    height: 100%;
-                    width: 100%;
-                }
-                
-                html * {
-                    transition: opacity 0.5s;
-                }
-                
-                header {
-                    align-items: center;
-                    justify-content: center;
-                    flex-flow: row nowrap;
-                }
-                
-                header>* {
-                    opacity: 0;
-                    transition: opacity .5s;
-                }
-                
-                header:hover>* {
-                    opacity: 1;
-                }
-                
-                main {
-                    width: calc(100% - 50px);
-                    margin: 0 auto;
-                    height: 100%;
-                }
-                
-                button {
-                    background: inherit;
-                    border-style: solid;
-                    border-radius: 5px;
-                    color: #ccc;
-                    font: inherit;
-                }
-                /* reset Chrome styling of focussed elements */
-                
-                *:focus {
-                    outline: none;
-                }
-                
-                [contenteditable] {
-                    padding: 2px;
-                    outline-width: 1px;
-                    outline-color: transparent;
-                    outline-style: solid;
-                    transition: border-color 1s ease;
-                }
-                
-                [contenteditable]:focus {
-                    outline-color: #aaa;
-                }
-                
-                #timeSlider {
-                    width: 500px;
-                    /*or any other size*/
-                    height: 150px;
-                    /*or any other size*/
-                    overflow: hidden;
-                    position: fixed;
-                    bottom: 0px;
-                    margin-left: auto;
-                    margin-right: auto;
-                    left: 0;
-                    right: 0;
-                    vertical-align: center;
-                }
-                
-                menu {
-                    font-family: "Material Icons";
-                    font-size: 18pt;
-                    font-weight: 400;
-                    color: #ccc;
-                    list-style: none;
-                    padding: 0;
-                }
-                
-                menu * {
-                    visibility: hidden;
-                    opacity: 0;
-                }
-                
-                menu:hover * {
-                    visibility: visible;
-                    opacity: 1;
-                }
-                
-                menu li {
-                    padding: 5px;
-                }
-                
-                menu input {
-                    display: none;
-                }
-                
-                menu button {
-                    padding: 0;
-                    border: none;
-                }
-                
-                #signoutbutton {
-                    font-family: "Material Icons";
-                    font-size: 18pt;
-                    font-weight: 400;
-                    visibility: hidden;
-                }
-                
-                #signoutbutton:before {
-                    content: "account_circle";
-                    visibility: visible;
-                }
-                
-                menu#viewMenu {
-                    position: fixed;
-                    left: 25px;
-                    top: 100px;
-                }
-                
-                #expandAllButton::before {
-                    content: "expand_more";
-                }
-                
-                #lightSwitch::before {
-                    content: "lightbulb_outline";
-                }
-                
-                #bulletSwitch::before {
-                    content: "chevron_right";
-                }
-                
-                #fullscreenSwitch+label::before {
-                    content: "fullscreen";
-                }
-                
-                #fullscreenSwitch:checked+label::before {
-                    content: "fullscreen_exit";
-                }
-                
-                #inactiveVisibleSwitch::before {
-                    content: "visibility";
-                }
-                
-                 :root.hideInactive #inactiveVisibleSwitch::before {
-                    content: "visibility_off";
-                }
-                
-                #cardviewSwitch::before {
-                    content: "view_module";
-                }
-                
-                .hubble .content:empty:not(:focus)::before {
-                    content: "(...)";
-                    opacity: 0.3;
-                    font-style: italic;
-                }
-                
-                .rootContent {
-                    float: left;
-                    width: 100%;
-                    white-space: nowrap;
-                }
-                
-                .rootContent .content {
-                    font-size: 30px;
-                    line-height: 55px;
-                    font-family: 'Rasa', serif;
-                    display: inline-block;
-                    white-space: normal;
-                }
-                
-                .rootContent .buttons {
-                    vertical-align: top;
-                    display: inline-block;
-                    margin-top: 20px;
-                }
-                
-                .root>.children {
-                    display: inline-block;
-                }
-                
-                .root>.hubblelink {
-                    display: none;
-                }
-                
-                .buttons * {
-                    font-family: "Material Icons";
-                    font-size: 10pt;
-                    font-weight: 400;
-                    margin: 0;
-                    color: inherit;
-                    display: inline;
-                    color: #ccc;
-                    line-height: initial;
-                }
-                
-                .buttons * {
-                    transition: opacity .5s;
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                
-                .buttons:hover * {
-                    opacity: 1;
-                    visibility: visible;
-                }
-                
-                .buttons input {
-                    -webkit-appearance: none;
-                    border-style: solid;
-                    border-color: transparent;
-                    border-width: 1px;
-                    border-radius: 50%;
-                    padding: 2px;
-                }
-                
-                .buttons input:checked {
-                    border-color: initial;
-                }
-                
-                .buttons input:after {
-                    color: #ccc;
-                }
-                
-                .buttons input:checked:after {
-                    color: inherit;
-                }
-                
-                .doneToggle:after {
-                    content: "done";
-                }
-                
-                .snoozeToggle:after {
-                    content: "snooze";
-                }
-                
-                .hideInactive .children .hubble[data-active=false] {
-                    display: none !important;
-                }
-                
-                .collapseToggle:checked~.children {
-                    display: none;
-                }
-                
-                .collapseToggle,
-                .hubblelink {
-                    -webkit-appearance: none;
-                    font-family: "Material Icons";
-                    font-size: 14pt;
-                    margin: 0;
-                    display: inline;
-                    color: #ccc;
-                    font-weight: bold;
-                    vertical-align: top;
-                }
-                
-                .hubblelink.material-icons {
-                    font-size: 12pt;
-                }
-                
-                .hubblelink {
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                
-                .hubble:hover>.hubblelink {
-                    opacity: 1;
-                    visibility: visible;
-                }
-                
-                .noBulletView .collapseToggle {
-                    visibility: hidden;
-                }
-                
-                .collapseToggle:after {
-                    content: "expand_more";
-                    vertical-align: top;
-                }
-                
-                .hubble[data-active-children="0"] .collapseToggle:after {
-                    font-weight: initial;
-                }
-                
-                .collapseToggle:checked::after {
-                    content: "chevron_right";
-                }
-                /* Todo: apparently this makes selection impossible for all elements
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v28/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+
+/* latin-ext */
+
+@font-face {
+    font-family: 'Rasa';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Rasa Regular'), local('Rasa-Regular'), url(https://fonts.gstatic.com/s/rasa/v2/4A8vW8DIg9GWXGYz7D0Oww.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* latin */
+
+@font-face {
+    font-family: 'Rasa';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Rasa Regular'), local('Rasa-Regular'), url(https://fonts.gstatic.com/s/rasa/v2/ZYFGdK7w7tvjLebnCRT01Q.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+
+/* latin-ext */
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v16/Fcx7Wwv8OzT71A3E1XOAjvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* latin */
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v16/CWB0XYA8bzo0kSThX0UTuA.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+:root {
+    --bg-color: white;
+    --text-color: black;
+    --UI-font: "Roboto";
+    --content-font: "Rasa"
+}
+
+ :root.nightMode {
+    --bg-color: black;
+    --text-color: white;
+}
+
+ :root.redish {
+    --bg-color: brown;
+    --text-color: white;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+html {
+    font-family: var(--UI-font);
+    margin: 0;
+    background: var(--bg-color);
+    color: var(--text-color);
+    height: 100%;
+    width: 100%;
+}
+
+html * {
+    transition: opacity 0.5s;
+}
+
+header {
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+
+header>* {
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+header:hover>* {
+    opacity: 1;
+}
+
+main {
+    width: calc(100% - 50px);
+    margin: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    background: inherit;
+    border-style: solid;
+    border-radius: 5px;
+    color: #ccc;
+    font: inherit;
+}
+
+
+/* reset Chrome styling of focussed elements */
+
+*:focus {
+    outline: none;
+}
+
+[contenteditable] {
+    padding: 2px;
+    outline-width: 1px;
+    outline-color: transparent;
+    outline-style: solid;
+    transition: border-color 1s ease;
+}
+
+[contenteditable]:focus {
+    outline-color: #aaa;
+}
+
+#timeSlider {
+    width: 500px;
+    /*or any other size*/
+    height: 150px;
+    /*or any other size*/
+    overflow: hidden;
+    position: fixed;
+    bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    vertical-align: center;
+}
+
+menu {
+    font-family: "Material Icons";
+    font-size: 12pt;
+    font-weight: 400;
+    color: #ccc;
+    list-style: none;
+    padding: 0;
+    line-height: 1;
+}
+
+menu * {
+    visibility: hidden;
+    opacity: 0;
+}
+
+menu:hover * {
+    visibility: visible;
+    opacity: 1;
+}
+
+menu li {
+    padding: 5px;
+}
+
+menu input {
+    display: none;
+}
+
+menu button {
+    padding: 0;
+    border: none;
+}
+
+#signoutbutton {
+    font-family: "Material Icons";
+    font-size: 18pt;
+    font-weight: 400;
+    visibility: hidden;
+}
+
+#signoutbutton:before {
+    content: "account_circle";
+    visibility: visible;
+}
+
+menu#viewMenu {
+    position: fixed;
+    left: 25px;
+    top: 100px;
+}
+
+#expandAllButton::before {
+    content: "expand_more";
+}
+
+#lightSwitch::before {
+    content: "lightbulb_outline";
+}
+
+#bulletSwitch::before {
+    content: "chevron_right";
+}
+
+#fullscreenSwitch+label::before {
+    content: "fullscreen";
+}
+
+#fullscreenSwitch:checked+label::before {
+    content: "fullscreen_exit";
+}
+
+#inactiveVisibleSwitch::before {
+    content: "visibility";
+}
+
+ :root.hideInactive #inactiveVisibleSwitch::before {
+    content: "visibility_off";
+}
+
+#cardviewSwitch::before {
+    content: "view_module";
+}
+
+.hubble .content:empty:not(:focus)::before {
+    content: "(...)";
+    opacity: 0.3;
+    font-style: italic;
+}
+
+.rootContent {
+    float: left;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.rootContent .content {
+    font-size: 30px;
+    line-height: 55px;
+    font-family: 'Rasa', serif;
+    display: inline-block;
+    white-space: normal;
+}
+
+.rootContent .buttons {
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.root>.children {
+    display: inline-block;
+}
+
+.root>.hubblelink {
+    display: none;
+}
+
+.buttons * {
+    font-family: "Material Icons";
+    font-size: 10pt;
+    font-weight: 400;
+    margin: 0;
+    color: inherit;
+    display: inline;
+    color: #ccc;
+    line-height: initial;
+}
+
+.buttons * {
+    transition: opacity .5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.buttons:hover * {
+    opacity: 1;
+    visibility: visible;
+}
+
+.buttons input {
+    -webkit-appearance: none;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.buttons input:checked {
+    border-color: initial;
+}
+
+.buttons input:after {
+    color: #ccc;
+}
+
+.buttons input:checked:after {
+    color: inherit;
+}
+
+.doneToggle:after {
+    content: "done";
+}
+
+.snoozeToggle:after {
+    content: "snooze";
+}
+
+.hideInactive .children .hubble[data-active=false] {
+    display: none !important;
+}
+
+.collapseToggle:checked~.children {
+    display: none;
+}
+
+.collapseToggle,
+.hubblelink {
+    -webkit-appearance: none;
+    font-family: "Material Icons";
+    font-size: 14pt;
+    margin: 0;
+    display: inline;
+    color: #ccc;
+    vertical-align: top;
+}
+
+.hubblelink.material-icons {
+    font-size: 12pt;
+}
+
+.hubblelink {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.hubble:hover>.hubblelink {
+    opacity: 1;
+    visibility: visible;
+}
+
+.noBulletView .collapseToggle {
+    visibility: hidden;
+}
+
+.collapseToggle:after {
+    content: "expand_more";
+    vertical-align: top;
+}
+
+.hubble[data-active-children="0"] .collapseToggle:after {
+    font-weight: initial;
+}
+
+.collapseToggle:checked::after {
+    content: "chevron_right";
+}
+
+
+/* Todo: apparently this makes selection impossible for all elements
                  * that contain button elements (i.e. all elements)
                 
                 .buttons {
@@ -322,144 +378,144 @@
                     user-select: none;
                 }
                  */
-                
-                ul {
-                    list-style: none;
-                    padding-left: 20px;
-                }
-                
-                .children .hubble {
-                    white-space: nowrap;
-                    line-height: 1.7;
-                    padding-top: 4px;
-                    position: relative;
-                }
-                
-                .children .content {
-                    display: inline-block;
-                    white-space: normal;
-                    vertical-align: top;
-                    max-width: 600px;
-                }
-                
-                .childcountinfo {
-                    display: none;
-                }
-                
-                .buttons {
-                    display: inline;
-                    opacity: 0;
-                    visibility: none;
-                    border-radius: 4px;
-                    background: var(--bg-color);
-                    padding: 0px;
-                    margin: 0;
-                }
-                
-                .buttons:hover {
-                    opacity: 1;
-                }
-                
-                .buttons .newhubble_link {
-                    display: none;
-                }
-                
-                .root>.content {
-                    display: block;
-                }
-                
-                .showline .hubble li {
-                    border-left: 1px solid;
-                }
-                
-                .serif {
-                    font-family: 'Rasa', serif;
-                }
-                
-                .hubbleCardView #cardviewSwitch::before {
-                    content: "list";
-                }
-                
-                .hubbleCardView .children {
-                    display: flex;
-                    flex-wrap: wrap;
-                }
-                
-                .hubbleCardView .children .hubble {
-                    white-space: normal;
-                    border-width: 1px;
-                    border-color: #ddd;
-                    border-style: solid;
-                    border-radius: 4px;
-                    margin: 10px;
-                    padding: 10px;
-                    position: relative;
-                    display: flex;
-                    flex-flow: row wrap;
-                }
-                
-                .hubbleCardView .children .hubble[data-active] {
-                    border-color: #a22
-                }
-                
-                .hubbleCardView .children .content {
-                    order: -1;
-                }
-                
-                .hubbleCardView .children .content:focus {
-                    font-size: 30px;
-                    line-height: 55px;
-                    font-family: 'Rasa', serif;
-                    display: inline-block;
-                    white-space: normal;
-                    background-color: var(--bg-color);
-                }
-                
-                .hubbleCardView .children .hubble:hover .childcountinfo {
-                    opacity: 0.5;
-                    visibility: visible;
-                }
-                
-                .hubbleCardView .children .childcountinfo {
-                    opacity: 0;
-                    transition: opacity .5s;
-                    visibility: hidden;
-                    font-size: x-small;
-                }
-                
-                .hubbleCardView #expandAllButton,
-                .hubbleCardView #bulletSwitch {
-                    display: none;
-                }
-                
-                .hubbleCardView [contenteditable]:focus {
-                    outline: none;
-                }
-                
-                .hubbleCardView .buttons {
-                    position: absolute;
-                    top: -20px;
-                    left: 10px;
-                }
-                
-                .dropTarget {
-                    min-height: 5px;
-                    min-width: 5px;
-                    border-radius: 4px;
-                }
-                
-                .dragOver {
-                    min-height: 30px;
-                    min-width: 30px;
-                    border-style: dashed !important;
-                    border-width: 2px !important;
-                    border-color: #aaa;
-                }
-                
-                .turnedOffUntilActivityWorks .children .hubble[data-active=false] .content {
-                    color: #888;
-                }
-                
-                .timeSlider {
-                    background: none;
-                }
+
+ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.children .hubble {
+    white-space: nowrap;
+    line-height: 1.7;
+    position: relative;
+    margin-top: 5px;
+}
+
+.children .content {
+    display: inline-block;
+    white-space: normal;
+    vertical-align: top;
+    max-width: 600px;
+}
+
+.childcountinfo {
+    display: none;
+}
+
+.buttons {
+    display: inline;
+    opacity: 0;
+    visibility: none;
+    border-radius: 4px;
+    background: var(--bg-color);
+    padding: 0px;
+    margin: 0;
+}
+
+.buttons:hover {
+    opacity: 1;
+}
+
+.buttons .newhubble_link {
+    display: none;
+}
+
+.root>.content {
+    display: block;
+}
+
+.showline .hubble li {
+    border-left: 1px solid;
+}
+
+.serif {
+    font-family: 'Rasa', serif;
+}
+
+.hubbleCardView #cardviewSwitch::before {
+    content: "list";
+}
+
+.hubbleCardView .children {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hubbleCardView .children .hubble {
+    white-space: normal;
+    border-width: 1px;
+    border-color: #ddd;
+    border-style: solid;
+    border-radius: 4px;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.hubbleCardView .children .hubble[data-active] {
+    border-color: #a22
+}
+
+.hubbleCardView .children .content {
+    order: -1;
+}
+
+.hubbleCardView .children .content:focus {
+    font-size: 30px;
+    line-height: 55px;
+    font-family: 'Rasa', serif;
+    display: inline-block;
+    white-space: normal;
+    background-color: var(--bg-color);
+}
+
+.hubbleCardView .children .hubble:hover .childcountinfo {
+    opacity: 0.5;
+    visibility: visible;
+}
+
+.hubbleCardView .children .childcountinfo {
+    opacity: 0;
+    transition: opacity .5s;
+    visibility: hidden;
+    font-size: x-small;
+}
+
+.hubbleCardView #expandAllButton,
+.hubbleCardView #bulletSwitch {
+    display: none;
+}
+
+.hubbleCardView [contenteditable]:focus {
+    outline: none;
+}
+
+.hubbleCardView .buttons {
+    position: absolute;
+    top: -20px;
+    left: 10px;
+}
+
+.dropTarget {
+    min-height: 5px;
+    min-width: 5px;
+    border-radius: 4px;
+}
+
+.dragOver {
+    min-height: 30px;
+    min-width: 30px;
+    border-style: dashed !important;
+    border-width: 2px !important;
+    border-color: #aaa;
+}
+
+.turnedOffUntilActivityWorks .children .hubble[data-active=false] .content {
+    color: #888;
+}
+
+.timeSlider {
+    background: none;
+}
