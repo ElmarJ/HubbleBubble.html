@@ -79,7 +79,7 @@ function addDropTargets(elt: HTMLElement) {
 }
 
 function generateNewDropTarget() {
-  const elt = document.createElement("div");
+  const elt = document.createElement("li");
   elt.classList.add("dropTarget");
 
   elt.addEventListener("drop", (event) => {

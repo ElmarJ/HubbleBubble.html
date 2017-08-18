@@ -74,7 +74,12 @@ class HubbleRenderer {
 
     private beginPersistingChildlistOnChange() {
         const observer = new MutationObserver(() => this.persistChildList());
-        observer.observe(this.childrenElement, { attributes: false, childList: true, characterData: false, subtree: false })
+        observer.observe(this.childrenElement, {
+            attributes: false,
+            childList: true,
+            characterData: false,
+            subtree: false
+        });
     }
 
     private async persistChildList() {
@@ -83,10 +88,12 @@ class HubbleRenderer {
 
         let order = 1;
         while (childelement) {
-            childobject[childelement.dataset.key] = order++;
+            if(childelement.classList.contains("hubble")) {
+                childobject[childelement.dataset.key] = order++;
+            }
             childelement = <HTMLElement>childelement.nextElementSibling;
         }
-
+        
         await this.hubble.childrenref.set(childobject);
     }
 
