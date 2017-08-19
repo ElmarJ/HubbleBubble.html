@@ -1,7 +1,8 @@
 {
     "include": [
         "public/**/*",
-        "node_modules/firebase/**/*"
+        "node_modules/firebase/**/*",
+        "node_nodules/@types/**/*"
     ],
     "exclude": [],
     "compileOnSave": true,
