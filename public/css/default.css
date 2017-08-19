@@ -350,17 +350,17 @@ menu#viewMenu {
     visibility: visible;
 }
 
-.noBulletView .collapseToggle {
+.noBulletView .hubble[data-child-count="0"] .collapseToggle {
     visibility: hidden;
+}
+
+.noBulletView .collapseToggle {
+    opacity: 0.4;
 }
 
 .collapseToggle:after {
     content: "expand_more";
     vertical-align: top;
-}
-
-.hubble[data-active-children="0"] .collapseToggle:after {
-    font-weight: initial;
 }
 
 .collapseToggle:checked::after {
@@ -447,7 +447,7 @@ ul {
     border-color: #ddd;
     border-style: solid;
     border-radius: 4px;
-    margin: 10px;
+    margin: calc(10px + 3%);
     padding: 10px;
     position: relative;
     display: flex;
