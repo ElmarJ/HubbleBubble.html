@@ -373,7 +373,7 @@ function launchOneDrivePicker() {
 }
 
 function startAddLinkUI(event: MouseEvent) {
-  const dialog = <any>document.getElementById("dialog");
+  const dialog = <any>document.getElementById("addExternalLinkDialog");
   const childrenElt = (<HTMLElement>event.srcElement).findAncestor("hubble").querySelector(".children");
 
   dialog.showModal();
@@ -391,5 +391,16 @@ function startAddLinkUI(event: MouseEvent) {
       renderer.renderOnParentVisible();
    }
  });
+}
+
+function startScheduleUI(event: MouseEvent) {
+  const dialog = <any>document.getElementById("addExternalLinkDialog");
+  const hubbleElt = (<HTMLElement>event.srcElement).findAncestor("hubble");
+  const hubbleKey = hubbleElt.dataset.key;
+
+  dialog.showModal();
+  dialog.addEventListener("close", async function (event){
+
+  });
 }
 

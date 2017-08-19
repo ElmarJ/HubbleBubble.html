@@ -65,19 +65,21 @@
         </li>
     </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.8/dialog-polyfill.min.js"></script>
-    <dialog id="dialog">
+    <dialog id="addExternalLinkDialog">
         <form method="dialog">
-            <section>
-                <label for="urlNameBox">Link name:</label>
-                <input id="urlNameBox" type="text">
-                <label for="urlBox">URL:</label>
-                <input id="urlBox" type="url">
-                <button id="pickOnedriveButton" onclick="launchOneDrivePicker();">Get from OneDrive</button>
-            </section>
-            <section>
-                <button id="cancel" type="reset">Cancel</button>
-                <button type="submit" value="confirm">Confirm</button>
-            </section>
+            <label for="urlNameBox">Link name:</label><input id="urlNameBox" type="text">
+            <label for="urlBox">URL:</label><input id="urlBox" type="url">
+            <button id="pickOnedriveButton" onclick="launchOneDrivePicker();">Get from OneDrive</button>
+            <button id="cancel" type="reset">Cancel</button>
+            <button type="submit" value="confirm">Confirm</button>
+        </form>
+    </dialog>
+    <dialog id="scheduleDialog">
+        <form method="dialog">
+            <label for="startTimeSelector">start:</label><input type="datetime" id="startTimeSelector">
+            <label for="endTimeSelector">end:</label><input type="datetime" id="startTimeSelector">
+            <button id="cancel" type="reset">Cancel</button>
+            <button type="submit" value="confirm">Confirm</button>
         </form>
     </dialog>
 
