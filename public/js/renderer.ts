@@ -18,7 +18,7 @@ class HubbleRenderer {
 
         this.hubble.active.bindToAttributePresence(this.element, "data-active");
         this.hubble.activechildren.bindToAttribute(this.element, "data-active-children");
-        
+
         this.hubble.content.bindToContent(<HTMLElement>this.element.querySelector(".content"), true);
         this.element.querySelectorAll(".hubblelink").forEach((link) => this.hubble.url.bindToAttribute(<HTMLElement>link, "href"));
         this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
@@ -46,12 +46,14 @@ class HubbleRenderer {
         for (var childkey in snapshot.val()) {
             const childRenderer = new HubbleRenderer(new Hubble(childkey), this.childTemplate);
             this.childrenElement.appendChild(childRenderer.element);
-             // rendering as soon as the parent is in sight to precache (children may be shown soon):
-             // to improve UI responsiveness / prevent UI rendering lags.
+            // rendering as soon as the parent is in sight to precache (children may be shown soon):
+            // to improve UI responsiveness / prevent UI rendering lags.
             childRenderer.renderOnParentVisible();
         }
 
         this.beginPersistingChildlistOnChange();
+        this.element.dataset.childCount = this.childrenElement.childElementCount.toString();
+        this.updateActiveChildCount();
     }
 
     renderOnVisible() {
@@ -88,17 +90,35 @@ class HubbleRenderer {
         }
 
         await this.hubble.childrenref.set(childobject);
+
+        // also update the childcount data attribute:
+        this.element.dataset.childCount = order.toString();
+        this.updateActiveChildCount();
     }
 
-    
-private startUpdatingActivity() {
-    const ref = this.hubble.ref.child("active");
-    const updater = snapshot => this.element.dataset.active = String(snapshot.val());
+    private startUpdatingActivity() {
+        const ref = this.hubble.ref.child("active");
+        const updater = snapshot => this.element.dataset.active = String(snapshot.val());
 
-    if (this.element) {
-        ref.on("value", updater);
-    } else {
-        ref.off("value", updater)
+        if (this.element) {
+            ref.on("value", updater);
+        } else {
+            ref.off("value", updater)
+        }
     }
+
+    private aa() {
+        this.element.querySelector(".doneToggle").addEventListener("change", listener, useCapture)
     }
+
+    private updateActiveChildCount() {
+        var i = 0;
+        for (const child of this.childrenElement.childNodes) {
+            if ((<HTMLElement>child).dataset.active) {
+                i++;
+            }
+        }
+        this.element.dataset.activeChildCount = i.toString();
+    }
+
 }
