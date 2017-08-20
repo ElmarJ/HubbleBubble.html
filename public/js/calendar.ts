@@ -6,7 +6,7 @@
 
         // Authorization scopes required by the API; multiple scopes can be
         // included, separated by spaces.
-        var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+        var SCOPES = "https://www.googleapis.com/auth/calendar";
 
         var authorizeButton = document.getElementById('authorize-button');
 
@@ -32,8 +32,8 @@
                 gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
                 // Handle the initial sign-in state.
-                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-                authorizeButton.onclick = handleAuthClick;
+                // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                // authorizeButton.onclick = handleAuthClick;
             });
         }
 
@@ -43,10 +43,10 @@
          */
         function updateSigninStatus(isSignedIn) {
             if (isSignedIn) {
-                authorizeButton.style.display = 'none';
-                listUpcomingEvents();
+                // authorizeButton.style.display = 'none';
+                // listUpcomingEvents();
             } else {
-                authorizeButton.style.display = 'block';
+                // authorizeButton.style.display = 'block';
             }
         }
 
@@ -121,8 +121,16 @@
             ctx.stroke();
         }
 
-        function linkEventToHubble(hubble: Hubble, event: gapi.client.calendar.Event) {
+        async function linkEventToHubble(hubble: Hubble, event: gapi.client.calendar.Event) {
             event.extendedProperties.private["linked-bubble"] = hubble.hubbleKey;
+
+            const response = await gapi.client.calendar.events.update({
+                calendarId: "primary",
+                eventId: event.id,
+                resource: event
+            });
+
+            return response.result;
         }
 
         async function getLinkedEvents(hubble: Hubble){
@@ -132,13 +140,13 @@
                 'singleEvents': true,
                 'maxResults': 10,
                 'orderBy': 'startTime',
-                'privateExtendedProperty': 'linked-bubble=' + hubble.hubbleKey
+                'privateExtendedProperty': 'linked-hubble-key=' + hubble.hubbleKey
             });
             return response.result.items;
         }
 
         function getLinkedHubble(event: gapi.client.calendar.Event) {
-            return new Hubble(event.extendedProperties.private["linked-bubble"]);
+            return new Hubble(event.extendedProperties.private["linked-hubble-key"]);
         }
 
         async function getCurrentEvents() {
@@ -173,4 +181,24 @@
             var now = new Date();
 
             return (now.getTime() - startTime.getTime()) / (endTime.getTime() - startTime.getTime());
+        }
+
+        async function createLinkedEvent(startsAt: Date, endsAt: Date, hubble: Hubble) {
+            const eventData: gapi.client.calendar.EventInput = {
+                summary: await hubble.content.get(),
+                start: { dateTime: startsAt.toISOString() },
+                end: { dateTime: endsAt.toISOString() },
+                extendedProperties: {
+                    private: {
+                        "linked-hubble-key": hubble.hubbleKey
+                    }
+                }
+            };
+
+            const response = await gapi.client.calendar.events.insert({
+                calendarId: 'primary',
+                resource: eventData
+              });
+              
+            return response.result;
         }

@@ -30,7 +30,10 @@
     <script src="/__/firebase/4.2.0/firebase-auth.js"></script>
     <script src="/__/firebase/4.2.0/firebase-database.js"></script>
     <script src="/__/firebase/init.js"></script>
+    <script src="https://js.live.net/v7.2/OneDrive.js"></script>
+    <script src="https://apis.google.com/js/api.js" async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleGoogleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
     <script src="js/data.js"></script>
+    <script src="js/calendar.js"></script>
     <script src="js/renderer.js"></script>
     <script src="js/index.js"></script>
 
@@ -40,6 +43,7 @@
         <div class="hubble root">
             <div class="rootContent">
                 <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
+                <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
                 <menu class="buttons hubble-switches material-icons" draggable="false">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
@@ -60,6 +64,7 @@
                 <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <button onclick="startAddLinkUI(event);">link</button>
+                <button onclick="startScheduleUI(event);">schedule</button>
             </menu>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </li>
@@ -76,15 +81,13 @@
     </dialog>
     <dialog id="scheduleDialog">
         <form method="dialog">
-            <label for="startTimeSelector">start:</label><input type="datetime" id="startTimeSelector">
-            <label for="endTimeSelector">end:</label><input type="datetime" id="startTimeSelector">
+            <label for="startTimeSelector">start:</label><input type="datetime-local" id="startTimeSelector">
+            <label for="endTimeSelector">end:</label><input type="datetime-local" id="endTimeSelector">
             <button id="cancel" type="reset">Cancel</button>
             <button type="submit" value="confirm">Confirm</button>
         </form>
     </dialog>
 
-    <script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js" async defer></script>
-    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleGoogleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 
 </html>

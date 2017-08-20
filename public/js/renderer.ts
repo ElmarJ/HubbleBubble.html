@@ -114,10 +114,6 @@ class HubbleRenderer {
         }
     }
 
-    private aa() {
-        this.element.querySelector(".doneToggle").addEventListener("change", listener, useCapture)
-    }
-
     private updateActiveChildCount() {
         var i = 0;
         for (const child of this.childrenElement.childNodes) {

@@ -58,7 +58,7 @@ function check_card_drop(ev: DragEvent) {
     elt = elt.findAncestor("hubble");
   }
   addDropTargets(elt);
-  for(const e of document.getElementsByClassName("dragover") {
+  for(const e of document.querySelectorAll(".dragover")) {
     if (e !== elt) {
       e.classList.remove("dragover");
     }
@@ -117,8 +117,8 @@ function removeDropTargets() {
   }
 }
 
-var dropTargetBeforeElt: HTMLDivElement;
-var dropTargetAfterElt: HTMLDivElement;
+var dropTargetBeforeElt: HTMLElement;
+var dropTargetAfterElt: HTMLElement;
 
 
 function card_drop(ev: DragEvent) {
@@ -163,7 +163,7 @@ function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
 }
 
 async function onEditorKeyPress(ev: KeyboardEvent) {
-  const hubbleEl = (<HTMLElement>event.srcElement).findAncestor("hubble");
+  const hubbleEl = (<HTMLElement>ev.srcElement).findAncestor("hubble");
 
   if (ev.key === "Enter") {
     ev.preventDefault();
@@ -188,7 +188,7 @@ async function onEditorKeyPress(ev: KeyboardEvent) {
 }
 
 function keyDown(ev: KeyboardEvent) {
-  const hubbleEl = (<HTMLElement>event.srcElement).findAncestor("hubble");
+  const hubbleEl = (<HTMLElement>ev.srcElement).findAncestor("hubble");
 
   if (ev.key === "Tab") {
     ev.preventDefault();
@@ -394,13 +394,16 @@ function startAddLinkUI(event: MouseEvent) {
 }
 
 function startScheduleUI(event: MouseEvent) {
-  const dialog = <any>document.getElementById("addExternalLinkDialog");
-  const hubbleElt = (<HTMLElement>event.srcElement).findAncestor("hubble");
-  const hubbleKey = hubbleElt.dataset.key;
+  const dialog = <any>document.getElementById("scheduleDialog");
+  const hubbleElt = (<HTMLElement>event.currentTarget).findAncestor("hubble");
+  const hubble = new Hubble(hubbleElt.dataset.key);
 
+  const startTimeElt = <HTMLInputElement>document.getElementById("startTimeSelector");
+  const endTimeElt = <HTMLInputElement>document.getElementById("endTimeSelector");
+  
   dialog.showModal();
-  dialog.addEventListener("close", async function (event){
-
+  dialog.addEventListener("close", async (event) => {
+    createLinkedEvent(new Date(startTimeElt.value), new Date(endTimeElt.value), hubble);
   });
 }
 
