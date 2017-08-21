@@ -403,7 +403,7 @@ function startScheduleUI(event: MouseEvent) {
   
   dialog.showModal();
   dialog.addEventListener("close", async (event) => {
-    createLinkedEvent(new Date(startTimeElt.value), new Date(endTimeElt.value), hubble);
+    schedule(new Date(startTimeElt.value), new Date(endTimeElt.value), hubble);
   });
 }
 

@@ -202,3 +202,13 @@
               
             return response.result;
         }
+
+        async function schedule(startsAt: Date, endsAt: Date, hubble: Hubble) {
+            const event = await createLinkedEvent(startsAt, endsAt, hubble);
+            // Todo: we should check whether this actually is now the first upcoming
+            //    scheduled date.
+            if (startsAt > new Date()) {
+                hubble.scheduled.set(startsAt);
+            }
+
+        }            

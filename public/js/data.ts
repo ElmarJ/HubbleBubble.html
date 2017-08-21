@@ -30,6 +30,10 @@ abstract class HubbleProperty<T>{
         return <T>snapshot.val();
     }
 
+    subscribe(callback: (value: T) => void) {
+        this.ref().orderByValue().on("value", response => callback(<T>response.val()));
+    }
+
     async getString(defaultIfEmpty = false) {
         const value = await this.get(defaultIfEmpty);
         return value ? String(value) : null;
@@ -62,12 +66,13 @@ abstract class HubbleProperty<T>{
     }
 
     async bindToAttribute(element: HTMLElement, attribute: string) {
-        const value = await this.getString();
-        if (value) {
-            element.setAttribute(attribute, value);
-        } else {
-            element.setAttribute(attribute, String(this.default));
-        }
+        this.subscribe(value => {
+            if (value) {
+                element.setAttribute(attribute, String(value));
+            } else {
+                element.setAttribute(attribute, String(this.default));
+            }
+        });
     }
 }
 
@@ -113,6 +118,18 @@ abstract class NumberHubbleProperty extends HubbleProperty<number> {
     }
 
     default = 0;
+}
+
+abstract class DateHubbleProperty extends HubbleProperty<Date> {
+    setString(value: string) {
+        this.set(new Date(value));
+    }
+
+}
+
+class ScheduledProperty extends DateHubbleProperty {
+    default=null;
+    
 }
 
 class IsActiveHubbleProperty extends BooleanHubbleProperty {
@@ -180,6 +197,8 @@ class Hubble {
     activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
     childrenref: firebase.database.Reference;
     url = new UrlHubbleProperty("url", this);
+
+    scheduled = new ScheduledProperty("scheduled", this);
 
     constructor(hubbleKey?: string) {
         if (!hubbleKey || hubbleKey === "") {
