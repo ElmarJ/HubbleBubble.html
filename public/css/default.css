@@ -309,8 +309,34 @@ menu#viewMenu {
     color: inherit;
 }
 
-.doneToggle:after {
-    content: "done";
+input.doneToggle {
+    display: none;
+}
+
+label.doneToggleLabel span.description {
+    display: none;
+}
+
+label.doneToggleLabel .icon::before {
+    content: "\2022";
+    color: #a22;
+    font-size: 20pt;
+}
+
+label.doneToggleLabel .icon {
+    opacity: 0;
+}
+
+input.doneToggle:checked+.icon {
+    opacity: 1;
+}
+
+input.doneToggle+.icon:hover {
+    opacity: 0.5;
+}
+
+.doneToggle:checked+label {
+    content: "&#8226;";
 }
 
 .snoozeToggle:after {
@@ -456,6 +482,17 @@ ul {
 
 .hubbleCardView .children .hubble[data-active] {
     border-color: #a22
+}
+
+.hubbleCardView .children .doneToggleLabel {
+    order: -2;
+}
+
+.hubbleCardView .children .doneToggleLabel {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    line-height: 5px;
 }
 
 .hubbleCardView .children .content {

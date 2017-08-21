@@ -56,12 +56,12 @@
 
     <template id="hubbleListItemTemplate">
         <li class="hubble" draggable="true" ondragstart="card_drag(event)" ondragend="onHubbleDragEnd()" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+            <label class="doneToggleLabel"><input type="checkbox" class="doneToggle" tabindex="0"><span class="icon"></span><span class="description">flag</span></label>
             <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
             <input class="collapseToggle material-icons" type="checkbox" checked tabindex="0">
             <span class="content" contenteditable="true" onkeypress="onEditorKeyPress(event)" onkeydown="keyDown(event)"></span>
             <a class="hubblelink material-icons" href="">launch</a>
             <menu class="buttons hubble-switches material-icons" draggable="false">
-                <input type="checkbox" class="doneToggle" tabindex="0">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <button onclick="startAddLinkUI(event);">link</button>
                 <button onclick="startScheduleUI(event);">schedule</button>
