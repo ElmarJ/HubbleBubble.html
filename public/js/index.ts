@@ -45,9 +45,26 @@ async function updatePresenter() {
 async function getScopedHubble() {
   var key = window.location.hash.substr(1);
   if (key === null || key === "") {
+    const currentEvents = await getCurrentEvents();
+    if (currentEvents){
+      const currentHubble = getLinkedHubble(currentEvents[0]);
+      if (currentHubble) {
+        return currentHubble;
+      }
+    }
     return await Hubble.getRootHubble();
   }
   return new Hubble(key);
+}
+
+async function navigateToScheduledHubble() {
+  const currentEvents = await getCurrentEvents();
+  if (currentEvents && currentEvents[0]){
+    const currentHubble = getLinkedHubble(currentEvents[0]);
+    if (currentHubble) {
+      window.location.hash = "#" + currentHubble.hubbleKey;
+    }
+  }
 }
 
 // TODO: switch to this for reordering: https://github.com/RubaXa/Sortable/issues/1008
@@ -406,4 +423,60 @@ function startScheduleUI(event: MouseEvent) {
     schedule(new Date(startTimeElt.value), new Date(endTimeElt.value), hubble);
   });
 }
+
+
+function placeSliderPosition(startTime: Date, endTime: Date, ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) {
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.beginPath();
+  ctx.moveTo(0, 5);
+  ctx.lineTo(300, 5);
+  ctx.stroke();
+  const now = new Date();
+  const pct = (now.getTime() - startTime.getTime()) / (endTime.getTime() - startTime.getTime())
+  ctx.moveTo(pct * 300, 0);
+  ctx.lineTo(pct * 300, 10);
+  ctx.stroke();
+}
+
+        /**
+         * Print the summary and start datetime/date of the next ten events in
+         * the authorized user's calendar. If no events are found an
+         * appropriate message is printed.
+         */
+        async function showCurrentEvent() {
+          var events = await getCurrentEvents();
+
+          if (events.length > 0) {
+              for (var i = 0; i < events.length; i++) {
+                  var event = events[i];
+                  var start = event.start.dateTime;
+                  var end = event.end.dateTime;
+                  if (!start) {
+                      start = event.start.date;
+                      end = event.end.date;
+                  }
+                  var startTime = new Date(start);
+                  var endTime = new Date(end);
+
+                  document.getElementById("current-event-name").innerHTML = event.summary;
+
+                  const startTimeElt = <HTMLTimeElement>document.getElementById("current-event-end");
+                  const endTimeElt = <HTMLTimeElement>document.getElementById("current-event-start");
+
+                  startTimeElt.innerHTML = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                  startTimeElt.dateTime = startTime.toISOString();
+
+                  endTimeElt.innerHTML = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                  endTimeElt.dateTime = endTime.toISOString();
+                  
+                  var c = <HTMLCanvasElement>document.getElementById("progress-indicator");
+                  var ctx = c.getContext("2d");
+                  ctx.strokeStyle = "#666";
+
+                  placeSliderPosition(startTime, endTime, ctx, c);
+                  window.setInterval(() => placeSliderPosition(startTime, endTime, ctx, c), 1000);
+              }
+          } else { // no current event
+          }
+   }
 

@@ -1,14 +1,14 @@
         // Client ID and API key from the Developer Console
-        var CLIENT_ID = '889012243145-4ov1voghuk72q9k4k32pseqcrc5gg02b.apps.googleusercontent.com';
+        const CLIENT_ID = '889012243145-4ov1voghuk72q9k4k32pseqcrc5gg02b.apps.googleusercontent.com';
 
         // Array of API discovery doc URLs for APIs used by the quickstart
-        var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 
         // Authorization scopes required by the API; multiple scopes can be
         // included, separated by spaces.
-        var SCOPES = "https://www.googleapis.com/auth/calendar";
+        const SCOPES = "https://www.googleapis.com/auth/calendar";
 
-        var authorizeButton = document.getElementById('authorize-button');
+        const authorizeButton = document.getElementById('authorize-button');
 
         /**
          *  On load, called to load the auth2 library and API client library.
@@ -22,19 +22,19 @@
          *  Initializes the API client library and sets up sign-in state
          *  listeners.
          */
-        function initGoogleClient() {
-            gapi.client.init({
+        async function initGoogleClient() {
+            await gapi.client.init({
                 discoveryDocs: DISCOVERY_DOCS,
                 clientId: CLIENT_ID,
                 scope: SCOPES
-            }).then(function() {
-                // Listen for sign-in state changes.
-                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-                // Handle the initial sign-in state.
-                // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-                // authorizeButton.onclick = handleAuthClick;
             });
+            
+            // Listen for sign-in state changes.
+            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+            // Handle the initial sign-in state.
+            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                // authorizeButton.onclick = handleAuthClick;
         }
 
         /**
@@ -44,7 +44,8 @@
         function updateSigninStatus(isSignedIn) {
             if (isSignedIn) {
                 // authorizeButton.style.display = 'none';
-                // listUpcomingEvents();
+                showCurrentEvent();
+                navigateToScheduledHubble();
             } else {
                 // authorizeButton.style.display = 'block';
             }
@@ -67,59 +68,6 @@
 
         function setupProgressIndiciator() {}
 
-        /**
-         * Print the summary and start datetime/date of the next ten events in
-         * the authorized user's calendar. If no events are found an
-         * appropriate message is printed.
-         */
-         async function listUpcomingEvents() {
-                var events = await getCurrentEvents();
-
-                if (events.length > 0) {
-                    for (var i = 0; i < events.length; i++) {
-                        var event = events[i];
-                        var start = event.start.dateTime;
-                        var end = event.end.dateTime;
-                        if (!start) {
-                            start = event.start.date;
-                            end = event.end.date;
-                        }
-                        var startTime = new Date(start);
-                        var endTime = new Date(end);
-
-                        document.getElementById("title").innerHTML = event.summary;
-                        document.getElementById("endtime").innerHTML = endTime.toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
-                        document.getElementById("starttime").innerHTML = startTime.toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
-
-                        var c = <HTMLCanvasElement>document.getElementById("progressIndicator");
-                        var ctx = c.getContext("2d");
-                        ctx.strokeStyle = "#666";
-
-                        placeSliderPosition(startTime, endTime, ctx, c);
-                        window.setInterval(() => placeSliderPosition(startTime, endTime, ctx, c), 1000);
-                    }
-                } else { // no current event
-                }
-         }
-
-        function placeSliderPosition(startTime: Date, endTime: Date, ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) {
-            ctx.clearRect(0, 0, c.width, c.height);
-            ctx.beginPath();
-            ctx.moveTo(0, 5);
-            ctx.lineTo(300, 5);
-            ctx.stroke();
-            const now = new Date();
-            const pct = (now.getTime() - startTime.getTime()) / (endTime.getTime() - startTime.getTime())
-            ctx.moveTo(pct * 300, 0);
-            ctx.lineTo(pct * 300, 10);
-            ctx.stroke();
-        }
 
         async function linkEventToHubble(hubble: Hubble, event: gapi.client.calendar.Event) {
             event.extendedProperties.private["linked-bubble"] = hubble.hubbleKey;
@@ -150,6 +98,10 @@
         }
 
         async function getCurrentEvents() {
+            if (!gapi.client) {
+                return null;
+            }
+
             const now = new Date();
             const soon = new Date();
             soon.setMinutes(soon.getMinutes() + 1); // apparently, you don't get current event if timeMax = timeMin;
