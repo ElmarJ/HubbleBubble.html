@@ -98,7 +98,7 @@
         }
 
         async function getCurrentEvents() {
-            if (!gapi.client) {
+            if (!gapi.client || !gapi.client.calendar) {
                 return null;
             }
 

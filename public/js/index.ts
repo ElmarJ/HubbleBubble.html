@@ -460,9 +460,9 @@ function placeSliderPosition(startTime: Date, endTime: Date, ctx: CanvasRenderin
 
                   document.getElementById("current-event-name").innerHTML = event.summary;
 
-                  const startTimeElt = <HTMLTimeElement>document.getElementById("current-event-end");
-                  const endTimeElt = <HTMLTimeElement>document.getElementById("current-event-start");
-
+                  const startTimeElt = <HTMLTimeElement>document.getElementById("current-event-start");
+                  const endTimeElt = <HTMLTimeElement>document.getElementById("current-event-end");
+                  
                   startTimeElt.innerHTML = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                   startTimeElt.dateTime = startTime.toISOString();
 
