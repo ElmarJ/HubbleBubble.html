@@ -40,11 +40,8 @@
     <script src="/__/firebase/init.js"></script>
     <script src="https://js.live.net/v7.2/OneDrive.js"></script>
     <script src="https://apis.google.com/js/api.js" async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleGoogleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
-    <script src="js/data.js"></script>
-    <script src="js/calendar.js"></script>
-    <script src="js/renderer.js"></script>
-    <script src="js/helpers.js"></script>
-    <script src="js/index.js"></script>
+    <script type="module" src="js/calendar.js"></script>
+    <script type="module" src="js/index.js"></script>
 
 
     <template id="hubbleListTemplate">
@@ -55,8 +52,9 @@
                 <menu class="buttons hubble-switches material-icons" draggable="false">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
-                    <button onclick="startAddLinkUI(event);">link</button>
-                    <button class="addChildButton">add</button>
+                    <button class="linkButton">link</button>
+                    <button class="scheduleButton">schedule</button>
+                        <button class="addChildButton">add</button>
                 </menu>
             </div>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
@@ -64,7 +62,7 @@
     </template>
 
     <template id="hubbleListItemTemplate">
-        <li class="hubble" draggable="true" ondragstart="card_drag(event)" ondragend="onHubbleDragEnd()" ondragover="check_card_drop(event)" ondrop="card_drop(event)">
+        <li class="hubble" draggable="true">
             <label class="doneToggleLabel"><input type="checkbox" class="doneToggle" tabindex="0"><span class="icon"></span><span class="description">flag</span></label>
             <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
             <input class="collapseToggle material-icons" type="checkbox" checked tabindex="0">
@@ -72,8 +70,8 @@
             <a class="hubblelink material-icons" href="">launch</a>
             <menu class="buttons hubble-switches material-icons" draggable="false">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
-                <button onclick="startAddLinkUI(event);">link</button>
-                <button onclick="startScheduleUI(event);">schedule</button>
+                <button class="linkButton">link</button>
+                <button class="scheduleButton">schedule</button>
                 <button class="addChildButton">add</button>
             </menu>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>

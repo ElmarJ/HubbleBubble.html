@@ -9,7 +9,7 @@ interface HubbleData {
     children: string[];
 }
 
-abstract class HubbleProperty<T>{
+export abstract class HubbleProperty<T>{
     name: string;
     protected owner: Hubble;
     prepareChange: (newValue: T) => void;
@@ -182,7 +182,7 @@ class UrlHubbleProperty extends HubbleProperty<string> {
     }
 }
 
-class Hubble {
+export class Hubble {
     database = firebase.database();
     user = firebase.auth().currentUser;
     hubbleKey: string;

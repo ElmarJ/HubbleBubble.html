@@ -1,12 +1,14 @@
+import { Hubble } from "./data.js";
+
 const rootKey = "-KlYdxmFkIiWOFXp0UIP";
 
-function sanatizeAllChildrenLists() {
+export function sanatizeAllChildrenLists() {
     const rootConnection = new Hubble(rootKey);
     rootConnection.recurse(false, hubble => hubble.rebuildChildren());
     // rootConnection.recurse(false, hubble => hubble.position.rebuild());
 }
 
-function sanatizeAllActivity() {
+export function sanatizeAllActivity() {
     // const rootConnection = new Hubble(rootKey);
     // rootConnection.recurse(true, hubble => {
     //     hubble.activechildren.rebuild();

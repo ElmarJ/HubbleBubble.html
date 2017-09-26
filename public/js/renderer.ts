@@ -1,4 +1,7 @@
-class HubbleRenderer {
+import { findElementAncestor, respondElementToVisibility } from "./helpers.js";
+import { Hubble, HubbleProperty } from "./data.js";
+import { schedule } from "./calendar.js";
+export class HubbleRenderer {
     hubble: Hubble;
     element: HTMLElement;
     template: HTMLTemplateElement;
@@ -30,9 +33,14 @@ class HubbleRenderer {
         this.hubble.scheduled.bindToAttribute(this.element, "data-scheduled-for");
 
         this.element.querySelector(".addChildButton").addEventListener("click", event => this.onAddChildButtonClick(<MouseEvent>event));
+        this.element.querySelector(".scheduleButton").addEventListener("click", startScheduleUI);
+        this.element.querySelector(".linkButton").addEventListener("click", startAddLinkUI);
         this.contentElement.addEventListener("keypress", event => this.onEditorKeyPress(<KeyboardEvent>event));
         this.contentElement.addEventListener("keydown", event => this.onKeyDown(<KeyboardEvent>event));
-
+        this.element.addEventListener("dragstart", onDragStart);
+        this.element.addEventListener("dragend", onDragEnd);
+        this.element.addEventListener("dragover", onDragOver);
+        this.element.addEventListener("drop", onDrop);
         this.useDragoverClass();
 
         this.addChildren();
@@ -289,3 +297,134 @@ class HubbleRenderer {
   }
   
 }
+
+
+function onDragEnd(event: MouseEvent) {
+    removeDropTargets();
+  }
+  
+function removeDropTargets() {
+    if(dropTargetAfterElt) {
+      dropTargetAfterElt.remove();
+    }
+  
+    if(dropTargetBeforeElt) {
+      dropTargetBeforeElt.remove();
+    }
+  }
+  
+  var dropTargetBeforeElt: HTMLElement;
+  var dropTargetAfterElt: HTMLElement;
+  
+  
+  function onDrop(ev: DragEvent) {
+    ev.preventDefault();
+  
+    removeDropTargets();
+    // move me into the children-element of the element I was dropped on:
+    const sourceKey = ev.dataTransfer.getData("text/plain");
+    const sourceHubbleElement = <HTMLElement>document.querySelector(`[data-key=${sourceKey}].hubble`);
+    const destinationHubbleElement = findElementAncestor(<HTMLElement>ev.target, "hubble");
+    const destinationChildrenElement = destinationHubbleElement.querySelector(".children");
+    destinationChildrenElement.appendChild(sourceHubbleElement);
+  }
+  
+  function onDragStart(ev: DragEvent) {
+    const sourceHubbleKey = (<HTMLElement>ev.target).dataset.key;
+    ev.dataTransfer.setData("text/plain", sourceHubbleKey);
+  }
+  
+  
+// TODO: switch to this for reordering: https://github.com/RubaXa/Sortable/issues/1008
+function onDragOver(ev: DragEvent) {
+    ev.preventDefault();
+    var elt = <HTMLElement>ev.srcElement;
+    if (!elt.classList.contains("hubble")) {
+      elt = findElementAncestor(elt, "hubble");
+    }
+    addDropTargets(elt);
+    for(const e of document.querySelectorAll(".dragover")) {
+      if (e !== elt) {
+        e.classList.remove("dragover");
+      }
+    }
+    elt.classList.add("dragover");
+  }
+  
+  function addDropTargets(elt: HTMLElement) {
+    if(!dropTargetBeforeElt) {
+      dropTargetBeforeElt = generateNewDropTarget();
+    }
+    if(!dropTargetAfterElt) {
+      dropTargetAfterElt = generateNewDropTarget();
+    }
+  
+    elt.parentElement.insertBefore(dropTargetBeforeElt, elt);
+    elt.parentElement.insertBefore(dropTargetAfterElt, elt.nextElementSibling);
+  }
+  
+  function generateNewDropTarget() {
+    const elt = document.createElement("li");
+    elt.classList.add("dropTarget");
+  
+    elt.addEventListener("drop", (event) => {
+      const sourceKey = event.dataTransfer.getData("text/plain");
+      const sourceHubbleElement = <HTMLElement>document.querySelector(`[data-key=${sourceKey}].hubble`);
+      elt.parentElement.insertBefore(sourceHubbleElement, elt);
+      removeDropTargets();
+    });
+  
+    elt.addEventListener("dragover", (event) => {
+      event.preventDefault();
+    });
+  
+    useDragoverClass(elt);
+  
+    return elt;
+  }
+  
+  function useDragoverClass(elt: HTMLElement) {
+    elt.addEventListener("dragenter", event => {
+      elt.classList.add("dragOver");
+    });
+    elt.addEventListener("dragleave", event => {
+      elt.classList.remove("dragOver");
+    });
+  }
+  
+  
+  function startAddLinkUI(event: MouseEvent) {
+    const dialog = <any>document.getElementById("addExternalLinkDialog");
+    const childrenElt = findElementAncestor(<HTMLElement>event.srcElement,"hubble").querySelector(".children");
+  
+    dialog.showModal();
+    dialog.addEventListener('close', async function (event) {
+      if (dialog.returnValue === 'confirm') {
+        const urlElt = <HTMLInputElement>document.getElementById("urlBox");
+        const urlNameElt = <HTMLInputElement>document.getElementById("urlNameBox");
+  
+        const hubble = new Hubble();
+        await hubble.url.setString(urlElt.value);
+        await hubble.content.setString(urlNameElt.value);
+  
+        const renderer = new HubbleRenderer(hubble, <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate"));
+        childrenElt.appendChild(renderer.element);
+        renderer.renderOnParentVisible();
+     }
+   });
+  }
+  
+  function startScheduleUI(event: MouseEvent) {
+    const dialog = <any>document.getElementById("scheduleDialog");
+    const hubbleElt = findElementAncestor(<HTMLElement>event.currentTarget,"hubble");
+    const hubble = new Hubble(hubbleElt.dataset.key);
+  
+    const startTimeElt = <HTMLInputElement>document.getElementById("startTimeSelector");
+    const endTimeElt = <HTMLInputElement>document.getElementById("endTimeSelector");
+    
+    dialog.showModal();
+    dialog.addEventListener("close", async (event) => {
+      schedule(new Date(startTimeElt.value), new Date(endTimeElt.value), hubble);
+    });
+  }
+  

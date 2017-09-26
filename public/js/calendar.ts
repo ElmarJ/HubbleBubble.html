@@ -1,3 +1,4 @@
+import { Hubble } from "./data.js";
 // Client ID and API key from the Developer Console
         const CLIENT_ID = '889012243145-4ov1voghuk72q9k4k32pseqcrc5gg02b.apps.googleusercontent.com';
 
@@ -93,11 +94,11 @@
             return response.result.items;
         }
 
-        function getLinkedHubble(event: gapi.client.calendar.Event) {
+        export function getLinkedHubble(event: gapi.client.calendar.Event) {
             return new Hubble(event.extendedProperties.private["linked-hubble-key"]);
         }
 
-        async function getCurrentEvents() {
+        export async function getCurrentEvents() {
             if (!gapi.client || !gapi.client.calendar) {
                 return null;
             }
@@ -155,7 +156,7 @@
             return response.result;
         }
 
-        async function schedule(startsAt: Date, endsAt: Date, hubble: Hubble) {
+        export async function schedule(startsAt: Date, endsAt: Date, hubble: Hubble) {
             const event = await createLinkedEvent(startsAt, endsAt, hubble);
             // Todo: we should check whether this actually is now the first upcoming
             //    scheduled date.
@@ -164,3 +165,71 @@
             }
 
         }            
+
+        
+                /**
+                 * Print the summary and start datetime/date of the next ten events in
+                 * the authorized user's calendar. If no events are found an
+                 * appropriate message is printed.
+                 */
+                async function showCurrentEvent() {
+                    var events = await getCurrentEvents();
+          
+                    if (events.length > 0) {
+                        for (var i = 0; i < events.length; i++) {
+                            var event = events[i];
+                            var start = event.start.dateTime;
+                            var end = event.end.dateTime;
+                            if (!start) {
+                                start = event.start.date;
+                                end = event.end.date;
+                            }
+                            var startTime = new Date(start);
+                            var endTime = new Date(end);
+          
+                            document.getElementById("current-event-name").innerHTML = event.summary;
+          
+                            const startTimeElt = <HTMLTimeElement>document.getElementById("current-event-start");
+                            const endTimeElt = <HTMLTimeElement>document.getElementById("current-event-end");
+                            
+                            startTimeElt.innerHTML = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            startTimeElt.dateTime = startTime.toISOString();
+          
+                            endTimeElt.innerHTML = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            endTimeElt.dateTime = endTime.toISOString();
+                            
+                            var c = <HTMLCanvasElement>document.getElementById("progress-indicator");
+                            var ctx = c.getContext("2d");
+                            ctx.strokeStyle = "#666";
+          
+                            placeSliderPosition(startTime, endTime, ctx, c);
+                            window.setInterval(() => placeSliderPosition(startTime, endTime, ctx, c), 1000);
+                        }
+                    } else { // no current event
+                    }
+             }
+        
+             
+        function placeSliderPosition(startTime: Date, endTime: Date, ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) {
+            ctx.clearRect(0, 0, c.width, c.height);
+            ctx.beginPath();
+            ctx.moveTo(0, 5);
+            ctx.lineTo(300, 5);
+            ctx.stroke();
+            const now = new Date();
+            const pct = (now.getTime() - startTime.getTime()) / (endTime.getTime() - startTime.getTime())
+            ctx.moveTo(pct * 300, 0);
+            ctx.lineTo(pct * 300, 10);
+            ctx.stroke();
+          }
+          
+
+          async function navigateToScheduledHubble() {
+            const currentEvents = await getCurrentEvents();
+            if (currentEvents && currentEvents[0]){
+              const currentHubble = getLinkedHubble(currentEvents[0]);
+              if (currentHubble) {
+                window.location.hash = "#" + currentHubble.hubbleKey;
+              }
+            }
+          }
