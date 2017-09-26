@@ -179,6 +179,13 @@ function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
   return renderer;
 }
 
+function onAddChildButtonClick(ev: MouseEvent) {
+  const hubbleEl = findElementAncestor(<HTMLElement>ev.srcElement, "hubble");
+  const childrenEl = <HTMLElement>hubbleEl.querySelector(".children");
+  const renderer = addNewChild(childrenEl);
+  setFocus(renderer.element); 
+}
+
 async function onEditorKeyPress(ev: KeyboardEvent) {
   const hubbleEl = findElementAncestor(<HTMLElement>ev.srcElement, "hubble");
 

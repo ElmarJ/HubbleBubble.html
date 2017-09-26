@@ -56,6 +56,7 @@
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
                     <button onclick="startAddLinkUI(event);">link</button>
+                    <button onclick="onAddChildButtonClick(event);">add</button>
                 </menu>
             </div>
             <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
@@ -73,8 +74,10 @@
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <button onclick="startAddLinkUI(event);">link</button>
                 <button onclick="startScheduleUI(event);">schedule</button>
+                <button onclick="onAddChildButtonClick(event);">add</button>
             </menu>
-            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+            <ul class="children" data-childtemplate="hubbleListItemTemplate">
+            </ul>
         </li>
     </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.8/dialog-polyfill.min.js"></script>
