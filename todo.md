@@ -32,3 +32,14 @@ List:
     * ~~One position too high.~~
     * activechildrencount incorrect in DOM
     * ~~Set cursor on new hubble~~
+
+## For Polymer
+
+* Hubble Element
+  * Decouple li and div class="hubble" as a child, to allow for a single template for both top-level as well as child hubbles.
+  * Hubble-key as attribute / property of element
+  * All renderer-logic moved to element-code.
+  * Incrementally implement support for data-binding
+* Time Slider
+  * Only needs currently logged on user (gapi) -> how to get that?
+  * Or make it entirely independent, login-logic (back) to the element

@@ -1,28 +1,29 @@
 {
-  "name": "hubblebubble",
-  "version": "1.0.0",
-  "description": "hubble bubble",
-  "main": "public/index.html",
-  "dependencies": {
-    "firebase": "^4.2.0"
-  },
-  "devDependencies": {
-    "@types/gapi": "0.0.35",
-    "@types/gapi.auth2": "0.0.43",
-    "@types/gapi.calendar": "^3.0.1",
-    "firebase-admin": "^5.1.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "deploy": "tsc && firebase deploy",
-    "serve": "firebase serve"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://elmarj.visualstudio.com/_git/HubbleBubble.html"
-  },
-  "author": "Elmar Jansen",
-  "license": "UNLICENSED"
+    "name": "hubblebubble",
+    "version": "1.0.0",
+    "description": "hubble bubble",
+    "main": "public/index.html",
+    "dependencies": {
+        "firebase": "^4.2.0"
+    },
+    "devDependencies": {
+        "@types/gapi": "0.0.35",
+        "@types/gapi.auth2": "0.0.43",
+        "@types/gapi.calendar": "^3.0.1",
+        "@types/polymer": "^1.2.1",
+        "firebase-admin": "^5.1.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "deploy": "tsc && firebase deploy",
+        "serve": "firebase serve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://elmarj.visualstudio.com/_git/HubbleBubble.html"
+    },
+    "author": "Elmar Jansen",
+    "license": "UNLICENSED"
 }
