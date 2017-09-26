@@ -30,7 +30,7 @@ var uiConfig = {
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 // Keep track of the currently signed in user.
-var currentUid = null;
+var currentUid: string;
 
 
 var handleSignedInUser = function (user: firebase.User) {

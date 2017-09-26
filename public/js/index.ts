@@ -8,7 +8,7 @@ window.onhashchange = function () {
 window.onload = () => document.documentElement.setAttribute("class", window.localStorage.getItem("viewerSettings"));
 window.onblur = () => window.localStorage.setItem("viewerSettings", document.documentElement.getAttribute("class"));
 
-currentUid = "";
+var currentUid = "";
 
 // Listen to change in auth state so it displays the correct UI for when
 // the user is signed in or not.
@@ -72,7 +72,7 @@ function check_card_drop(ev: DragEvent) {
   ev.preventDefault();
   var elt = <HTMLElement>ev.srcElement;
   if (!elt.classList.contains("hubble")) {
-    elt = elt.findAncestor("hubble");
+    elt = findElementAncestor(elt, "hubble");
   }
   addDropTargets(elt);
   for(const e of document.querySelectorAll(".dragover")) {
@@ -145,7 +145,7 @@ function card_drop(ev: DragEvent) {
   // move me into the children-element of the element I was dropped on:
   const sourceKey = ev.dataTransfer.getData("text/plain");
   const sourceHubbleElement = <HTMLElement>document.querySelector(`[data-key=${sourceKey}].hubble`);
-  const destinationHubbleElement = (<HTMLElement>ev.target).findAncestor("hubble");
+  const destinationHubbleElement = findElementAncestor(<HTMLElement>ev.target, "hubble");
   const destinationChildrenElement = destinationHubbleElement.querySelector(".children");
   destinationChildrenElement.appendChild(sourceHubbleElement);
 }
@@ -180,13 +180,13 @@ function addNewChild(childrenElement: HTMLElement, before?: HTMLElement) {
 }
 
 async function onEditorKeyPress(ev: KeyboardEvent) {
-  const hubbleEl = (<HTMLElement>ev.srcElement).findAncestor("hubble");
+  const hubbleEl = findElementAncestor(<HTMLElement>ev.srcElement, "hubble");
 
   if (ev.key === "Enter") {
     ev.preventDefault();
 
     const currentContentEl = <HTMLElement>ev.srcElement
-    const childrenEl = hubbleEl.findAncestor("children");
+    const childrenEl = findElementAncestor(hubbleEl, "children");
     const renderer = addNewChild(childrenEl, <HTMLElement>hubbleEl.nextElementSibling);
 
     // SPlit the text of the current Hubble in the part before and the part after the cursor:
@@ -205,7 +205,7 @@ async function onEditorKeyPress(ev: KeyboardEvent) {
 }
 
 function keyDown(ev: KeyboardEvent) {
-  const hubbleEl = (<HTMLElement>ev.srcElement).findAncestor("hubble");
+  const hubbleEl = findElementAncestor(<HTMLElement>ev.srcElement, "hubble");
 
   if (ev.key === "Tab") {
     ev.preventDefault();
@@ -224,7 +224,7 @@ function keyDown(ev: KeyboardEvent) {
         break;
       case "ArrowLeft":
         ev.preventDefault();
-        setFocus(hubbleEl.parentElement.findAncestor("hubble"));
+        setFocus(findElementAncestor(hubbleEl.parentElement, "hubble"));
         break;
       case "ArrowRight":
         ev.preventDefault();
@@ -312,7 +312,7 @@ function onHubbleDragEnd() {
 
 function makeVisible(hubbleEl: HTMLElement) {
   if (hubbleEl.offsetParent === null) {
-    const parentHubbleEl = hubbleEl.parentElement.findAncestor("hubble")
+    const parentHubbleEl = findElementAncestor(hubbleEl.parentElement, "hubble")
     const checkBox = <HTMLInputElement>parentHubbleEl.querySelector(".collapseToggle");
     makeVisible(parentHubbleEl);
     checkBox.checked = false;
@@ -338,34 +338,10 @@ function moveHubbleElementInPrevious(element: HTMLElement) {
 }
 
 function moveHubbleElementAfterParent(element: HTMLElement) {
-  const currentParentElement = element.parentElement.findAncestor("hubble");
+  const currentParentElement = findElementAncestor(element.parentElement, "hubble");
   currentParentElement.parentElement.insertBefore(element, currentParentElement.nextElementSibling);
 }
 
-interface HTMLElement {
-  findAncestor: (className: string) => HTMLElement;
-  respondToVisibility: (callback: (visibility: boolean) => void) => void;
-}
-
-HTMLElement.prototype.respondToVisibility = function (callback) {
-  var options: IntersectionObserverInit = {
-    root: document.documentElement
-  }
-
-  var observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      callback(entry.intersectionRatio > 0);
-    });
-  }, options);
-
-  observer.observe(this);
-}
-
-HTMLElement.prototype.findAncestor = function (className: string) {
-  var element = this;
-  while (!element.classList.contains(className) && (element = element.parentElement)) { }
-  return element;
-}
 
 function launchOneDrivePicker() {
   var odOptions = {
@@ -391,7 +367,7 @@ function launchOneDrivePicker() {
 
 function startAddLinkUI(event: MouseEvent) {
   const dialog = <any>document.getElementById("addExternalLinkDialog");
-  const childrenElt = (<HTMLElement>event.srcElement).findAncestor("hubble").querySelector(".children");
+  const childrenElt = findElementAncestor(<HTMLElement>event.srcElement,"hubble").querySelector(".children");
 
   dialog.showModal();
   dialog.addEventListener('close', async function (event) {
@@ -412,7 +388,7 @@ function startAddLinkUI(event: MouseEvent) {
 
 function startScheduleUI(event: MouseEvent) {
   const dialog = <any>document.getElementById("scheduleDialog");
-  const hubbleElt = (<HTMLElement>event.currentTarget).findAncestor("hubble");
+  const hubbleElt = findElementAncestor(<HTMLElement>event.currentTarget,"hubble");
   const hubble = new Hubble(hubbleElt.dataset.key);
 
   const startTimeElt = <HTMLInputElement>document.getElementById("startTimeSelector");
@@ -424,59 +400,60 @@ function startScheduleUI(event: MouseEvent) {
   });
 }
 
-
-function placeSliderPosition(startTime: Date, endTime: Date, ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) {
-  ctx.clearRect(0, 0, c.width, c.height);
-  ctx.beginPath();
-  ctx.moveTo(0, 5);
-  ctx.lineTo(300, 5);
-  ctx.stroke();
-  const now = new Date();
-  const pct = (now.getTime() - startTime.getTime()) / (endTime.getTime() - startTime.getTime())
-  ctx.moveTo(pct * 300, 0);
-  ctx.lineTo(pct * 300, 10);
-  ctx.stroke();
-}
-
-        /**
-         * Print the summary and start datetime/date of the next ten events in
-         * the authorized user's calendar. If no events are found an
-         * appropriate message is printed.
-         */
-        async function showCurrentEvent() {
-          var events = await getCurrentEvents();
-
-          if (events.length > 0) {
-              for (var i = 0; i < events.length; i++) {
-                  var event = events[i];
-                  var start = event.start.dateTime;
-                  var end = event.end.dateTime;
-                  if (!start) {
-                      start = event.start.date;
-                      end = event.end.date;
-                  }
-                  var startTime = new Date(start);
-                  var endTime = new Date(end);
-
-                  document.getElementById("current-event-name").innerHTML = event.summary;
-
-                  const startTimeElt = <HTMLTimeElement>document.getElementById("current-event-start");
-                  const endTimeElt = <HTMLTimeElement>document.getElementById("current-event-end");
-                  
-                  startTimeElt.innerHTML = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                  startTimeElt.dateTime = startTime.toISOString();
-
-                  endTimeElt.innerHTML = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                  endTimeElt.dateTime = endTime.toISOString();
-                  
-                  var c = <HTMLCanvasElement>document.getElementById("progress-indicator");
-                  var ctx = c.getContext("2d");
-                  ctx.strokeStyle = "#666";
-
-                  placeSliderPosition(startTime, endTime, ctx, c);
-                  window.setInterval(() => placeSliderPosition(startTime, endTime, ctx, c), 1000);
-              }
-          } else { // no current event
+                
+                /**
+                 * Print the summary and start datetime/date of the next ten events in
+                 * the authorized user's calendar. If no events are found an
+                 * appropriate message is printed.
+                 */
+                async function showCurrentEvent() {
+                    var events = await getCurrentEvents();
+          
+                    if (events.length > 0) {
+                        for (var i = 0; i < events.length; i++) {
+                            var event = events[i];
+                            var start = event.start.dateTime;
+                            var end = event.end.dateTime;
+                            if (!start) {
+                                start = event.start.date;
+                                end = event.end.date;
+                            }
+                            var startTime = new Date(start);
+                            var endTime = new Date(end);
+          
+                            document.getElementById("current-event-name").innerHTML = event.summary;
+          
+                            const startTimeElt = <HTMLTimeElement>document.getElementById("current-event-start");
+                            const endTimeElt = <HTMLTimeElement>document.getElementById("current-event-end");
+                            
+                            startTimeElt.innerHTML = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            startTimeElt.dateTime = startTime.toISOString();
+          
+                            endTimeElt.innerHTML = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            endTimeElt.dateTime = endTime.toISOString();
+                            
+                            var c = <HTMLCanvasElement>document.getElementById("progress-indicator");
+                            var ctx = c.getContext("2d");
+                            ctx.strokeStyle = "#666";
+          
+                            placeSliderPosition(startTime, endTime, ctx, c);
+                            window.setInterval(() => placeSliderPosition(startTime, endTime, ctx, c), 1000);
+                        }
+                    } else { // no current event
+                    }
+             }
+        
+             
+        function placeSliderPosition(startTime: Date, endTime: Date, ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) {
+            ctx.clearRect(0, 0, c.width, c.height);
+            ctx.beginPath();
+            ctx.moveTo(0, 5);
+            ctx.lineTo(300, 5);
+            ctx.stroke();
+            const now = new Date();
+            const pct = (now.getTime() - startTime.getTime()) / (endTime.getTime() - startTime.getTime())
+            ctx.moveTo(pct * 300, 0);
+            ctx.lineTo(pct * 300, 10);
+            ctx.stroke();
           }
-   }
-
+          

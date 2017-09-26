@@ -27,11 +27,19 @@ class HubbleRenderer {
 
         this.hubble.scheduled.bindToAttribute(this.element, "data-scheduled-for");
 
-        useDragoverClass(this.element);
+        this.useDragoverClass();
 
         this.addChildren();
     }
 
+    private useDragoverClass() {
+        this.element.addEventListener("dragenter", event => {
+            this.element.classList.add("dragOver");
+        });
+        this.element.addEventListener("dragleave", event => {
+            this.element.classList.remove("dragOver");
+        });
+      }
     private setupTemplate() {
         this.element = <HTMLElement>document.importNode(this.template.content, true).querySelector(".hubble");
         this.childrenElement = <HTMLElement>this.element.querySelector(".children");
@@ -59,7 +67,7 @@ class HubbleRenderer {
     }
 
     renderOnVisible() {
-        this.element.respondToVisibility(visible => {
+        respondElementToVisibility(this.element, visible => {
             if (visible && !this.contentLoaded) {
                 this.render();
             }
@@ -68,7 +76,8 @@ class HubbleRenderer {
     }
 
     renderOnParentVisible() {
-        this.element.parentElement.findAncestor("hubble").respondToVisibility(visible => {
+        const element = findElementAncestor(this.element.parentElement, "hubble")
+        respondElementToVisibility(element, visible => {
             if (visible && !this.contentLoaded) {
                 this.render();
             }
