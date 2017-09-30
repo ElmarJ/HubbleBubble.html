@@ -5,6 +5,7 @@ export class HubbleRenderer {
     hubble: Hubble;
     element: HTMLElement;
     template: HTMLTemplateElement;
+    navigator: Navigator;
     childTemplate: HTMLTemplateElement;
     contentLoaded: boolean;
     childrenElement: HTMLElement;
@@ -56,6 +57,8 @@ export class HubbleRenderer {
       }
     private setupTemplate() {
         this.element = <HTMLElement>document.importNode(this.template.content, true).querySelector(".hubble");
+        this.navigator = new Navigator(this.element)        
+
         this.childrenElement = <HTMLElement>this.element.querySelector(".children");
         this.contentElement = <HTMLElement>this.element.querySelector(".content");
         this.element.dataset.key = this.hubble.hubbleKey;
@@ -214,19 +217,19 @@ export class HubbleRenderer {
           switch (ev.key) {
             case "ArrowDown":
               ev.preventDefault();
-              this.moveHubbleElementDown();
+              this.navigator.moveDown();
               break;
             case "ArrowUp":
               ev.preventDefault();
-              this.moveHubbleElementUp();
+              this.navigator.moveUp();
               break;
             case "ArrowLeft":
               ev.preventDefault();
-              this.moveHubbleElementAfterParent();
+              this.navigator.moveAfterParent();
               break;
             case "ArrowRight":
               ev.preventDefault();
-              this.moveHubbleElementInPrevious();
+              this.navigator.moveInPrevious();
               break;
             default:
               break;
@@ -272,31 +275,42 @@ export class HubbleRenderer {
         }
       }
 
-      
- moveHubbleElementDown() {
-    if (this.element.nextElementSibling) {
-        this.element.parentElement.insertBefore(this.element, this.element.nextElementSibling.nextElementSibling);
     }
-  }
+    class Navigator {
+      element: HTMLElement;
+
+      constructor(element: HTMLElement) {
+        this.element = element;
+      }
+
+      moveDown() {
+        if (this.element.nextElementSibling) {
+          this.element.parentElement.insertBefore(this.element, this.element.nextElementSibling.nextElementSibling);
+        }
+      }
   
-   moveHubbleElementUp() {
+   moveUp() {
     if (this.element.previousElementSibling) {
         this.element.parentElement.insertBefore(this.element, this.element.previousElementSibling);
     }
   }
   
-   moveHubbleElementInPrevious() {
+   moveInPrevious() {
     const newParent = <HTMLElement>this.element.previousElementSibling;
     const newChildrenElement = <HTMLElement>newParent.querySelector(".children");
     newChildrenElement.appendChild(this.element);
   }
   
-   moveHubbleElementAfterParent() {
-    const currentParentElement = findElementAncestor(this.element.parentElement, "hubble");
+   moveAfterParent() {
+    const currentParentElement = this.getParentHubbleElement();
     currentParentElement.parentElement.insertBefore(this.element, currentParentElement.nextElementSibling);
   }
-  
+
+  getParentHubbleElement() {
+    return findElementAncestor(this.element.parentElement, "hubble");
+  }
 }
+
 
 
 function onDragEnd(event: MouseEvent) {
@@ -335,7 +349,6 @@ function removeDropTargets() {
   }
   
   
-// TODO: switch to this for reordering: https://github.com/RubaXa/Sortable/issues/1008
 function onDragOver(ev: DragEvent) {
     ev.preventDefault();
     var elt = <HTMLElement>ev.srcElement;
