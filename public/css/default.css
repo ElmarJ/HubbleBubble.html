@@ -53,7 +53,8 @@
     --bg-color: white;
     --text-color: black;
     --UI-font: "Roboto";
-    --content-font: "Rasa"
+    --content-font: "Rasa";
+    --hubble-content-is-link: false;
 }
 
  :root.nightMode {
@@ -476,6 +477,7 @@ ul {
 }
 
 .hubbleCardView .children .hubble {
+    --hubble-content-is-link: true;
     white-space: normal;
     border-width: 1px;
     border-color: #ddd;
@@ -505,6 +507,10 @@ ul {
 
 .hubbleCardView .children .content {
     order: -1;
+}
+
+.hubbleCardView .children .content:hover {
+    cursor: pointer;
 }
 
 .hubbleCardView .children .content:focus {

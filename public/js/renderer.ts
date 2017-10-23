@@ -36,8 +36,9 @@ export class HubbleRenderer {
         this.element.querySelector(".addChildButton").addEventListener("click", event => this.onAddChildButtonClick(<MouseEvent>event));
         this.element.querySelector(".scheduleButton").addEventListener("click", startScheduleUI);
         this.element.querySelector(".linkButton").addEventListener("click", startAddLinkUI);
-        this.contentElement.addEventListener("keypress", event => this.onEditorKeyPress(<KeyboardEvent>event));
-        this.contentElement.addEventListener("keydown", event => this.onKeyDown(<KeyboardEvent>event));
+        this.contentElement.addEventListener("keypress", event => this.onEditorKeyPress(event));
+        this.contentElement.addEventListener("keydown", event => this.onKeyDown(event));
+        this.contentElement.addEventListener("click", event => this.onContentClick(event));
         this.element.addEventListener("dragstart", onDragStart);
         this.element.addEventListener("dragend", onDragEnd);
         this.element.addEventListener("dragover", onDragOver);
@@ -274,8 +275,18 @@ export class HubbleRenderer {
           checkBox.checked = false;
         }
       }
-
+  
+      async onContentClick(ev: MouseEvent) {
+        const element = ev.srcElement
+        const isLinkStyle = new Boolean(getComputedStyle(element).getPropertyValue("--hubble-content-is-link"));
+      
+        if (isLinkStyle) {
+          ev.preventDefault();
+          window.location.hash = this.hubble.hubbleKey;
+        }
+      }
     }
+
     class Navigator {
       element: HTMLElement;
 
@@ -363,7 +374,8 @@ function onDragOver(ev: DragEvent) {
     }
     elt.classList.add("dragover");
   }
-  
+
+
   function addDropTargets(elt: HTMLElement) {
     if(!dropTargetBeforeElt) {
       dropTargetBeforeElt = generateNewDropTarget();
