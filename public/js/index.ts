@@ -9,8 +9,16 @@ window.onhashchange = function () {
   updatePresenter();
 };
 
-// Load / save view-settings for this user:
-window.onload = () => document.documentElement.setAttribute("class", window.localStorage.getItem("viewerSettings"));
+window.addEventListener("load", () => {
+  // Load / save view-settings for this user:
+  document.documentElement.setAttribute("class", window.localStorage.getItem("viewerSettings"));
+  document.getElementById("cardviewSwitch").addEventListener("mousedown", () => toggleUISetting("hubbleCardView"));
+  document.getElementById("inactiveVisibleSwitch").addEventListener("mousedown", () => toggleUISetting("hideInactive"));
+  document.getElementById("lightSwitch").addEventListener("mousedown", () => toggleUISetting("nightMode"));
+  document.getElementById("expandAllButton").addEventListener("mousedown", () => expandAll());
+  document.getElementById("bulletSwitch").addEventListener("mousedown", () => toggleUISetting("noBulletView"));
+  document.getElementById("fullscreenSwitch").addEventListener("change", () => onFullscreenSwitch());
+})
 window.onblur = () => window.localStorage.setItem("viewerSettings", document.documentElement.getAttribute("class"));
 
 var currentUid = "";
