@@ -267,7 +267,7 @@ export class HubbleRenderer {
   
       async onContentClick(ev: MouseEvent) {
         const element = ev.srcElement
-        const isLinkStyle = new Boolean(getComputedStyle(element).getPropertyValue("--hubble-content-is-link"));
+        const isLinkStyle = (window.getComputedStyle(element).getPropertyValue("--hubble-content-is-link").trim() == "true");
       
         if (isLinkStyle) {
           ev.preventDefault();

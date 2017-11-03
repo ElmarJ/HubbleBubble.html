@@ -160,7 +160,7 @@ button {
 
 menu {
     font-family: "Material Icons";
-    font-size: 12pt;
+    font-size: 20pt;
     font-weight: 400;
     color: #ccc;
     list-style: none;
@@ -277,7 +277,7 @@ menu#viewMenu {
 
 .buttons * {
     font-family: "Material Icons";
-    font-size: 10pt;
+    font-size: 16pt;
     font-weight: 400;
     margin: 0;
     color: inherit;
@@ -431,6 +431,8 @@ ul {
     white-space: normal;
     vertical-align: top;
     max-width: 600px;
+    font-family: var(--content-font);
+    font-size: 18pt;
 }
 
 .childcountinfo {
@@ -483,8 +485,8 @@ ul {
     border-color: #ddd;
     border-style: solid;
     border-radius: 4px;
-    margin: calc(10px + 3%);
-    padding: 10px;
+    margin: calc(5px + 2%);
+    padding: 5px;
     position: relative;
     display: flex;
     flex-flow: row wrap;
@@ -507,6 +509,7 @@ ul {
 
 .hubbleCardView .children .content {
     order: -1;
+    font-family: var(--UI-font);
 }
 
 .hubbleCardView .children .content:hover {
@@ -516,7 +519,7 @@ ul {
 .hubbleCardView .children .content:focus {
     font-size: 30px;
     line-height: 55px;
-    font-family: 'Rasa', serif;
+    font-family: var(--content-font);
     display: inline-block;
     white-space: normal;
     background-color: var(--bg-color);
