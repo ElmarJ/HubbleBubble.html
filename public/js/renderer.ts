@@ -70,10 +70,10 @@ export class HubbleRenderer {
     }
 
     private async addChildren() {
-        const snapshot = await this.hubble.childrenref.once("value");
+        const children = await this.hubble.getChildren();
 
-        for (var childkey in snapshot.val()) {
-            const childRenderer = new HubbleRenderer(new Hubble(childkey), this.childTemplate);
+        for (var child of children) {
+            const childRenderer = new HubbleRenderer(child, this.childTemplate);
             this.childrenElement.appendChild(childRenderer.element);
             // rendering as soon as the parent is in sight to precache (children may be shown soon):
             // to improve UI responsiveness / prevent UI rendering lags.
@@ -118,30 +118,19 @@ export class HubbleRenderer {
         var childobject = {};
         var childelement = <HTMLElement>this.childrenElement.firstElementChild;
 
-        let order = 1;
+        let position = 1;
         while (childelement) {
             if(childelement.classList.contains("hubble")) {
-                childobject[childelement.dataset.key] = order++;
+              const childHubble = new Hubble(childelement.dataset.key);
+              childHubble.position.set(position);
+              this.hubble.makeParentOf(childHubble);
             }
             childelement = <HTMLElement>childelement.nextElementSibling;
         }
         
-        await this.hubble.childrenref.set(childobject);
-
         // also update the childcount data attribute:
-        this.element.dataset.childCount = order.toString();
+        this.element.dataset.childCount = position.toString();
         this.updateActiveChildCount();
-    }
-
-    private startUpdatingActivity() {
-        const ref = this.hubble.ref.child("active");
-        const updater = snapshot => this.element.dataset.active = String(snapshot.val());
-
-        if (this.element) {
-            ref.on("value", updater);
-        } else {
-            ref.off("value", updater)
-        }
     }
 
     private updateActiveChildCount() {
@@ -164,7 +153,7 @@ export class HubbleRenderer {
     
         if (ev.key === "Enter") {
             ev.preventDefault();
-            const newChildRenderer = this.addNewChild(<HTMLElement>this.element.nextElementSibling);
+            const newChildRenderer = await this.addNewChild(<HTMLElement>this.element.nextElementSibling);
     
             // SPlit the text of the current Hubble in the part before and the part after the cursor:
             const cursorPos = window.getSelection().anchorOffset;
@@ -240,9 +229,9 @@ export class HubbleRenderer {
         }
       }
       
-    private addNewChild(before?: HTMLElement) {
+    private async addNewChild(before?: HTMLElement) {
         const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
-        const childRenderer = new HubbleRenderer(new Hubble(), childHubbleTemplate);
+        const childRenderer = new HubbleRenderer(await Hubble.create(), childHubbleTemplate);
       
         if (before) {
           this.childrenElement.insertBefore(childRenderer.element, before);
@@ -418,7 +407,7 @@ function onDragOver(ev: DragEvent) {
   }
   
   
-  function startAddLinkUI(event: MouseEvent) {
+  async function startAddLinkUI(event: MouseEvent) {
     const dialog = <any>document.getElementById("addExternalLinkDialog");
     const childrenElt = findElementAncestor(<HTMLElement>event.srcElement,"hubble").querySelector(".children");
   
@@ -428,7 +417,7 @@ function onDragOver(ev: DragEvent) {
         const urlElt = <HTMLInputElement>document.getElementById("urlBox");
         const urlNameElt = <HTMLInputElement>document.getElementById("urlNameBox");
   
-        const hubble = new Hubble();
+        const hubble = await Hubble.create();
         await hubble.url.setString(urlElt.value);
         await hubble.content.setString(urlNameElt.value);
   

@@ -4,10 +4,11 @@
 <head>
     <title>HubbleBubble Maintenance</title>
 
-    <script src="/__/firebase/4.4.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
     <script src="/__/firebase/init.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script module src="js/maintenance.js"></script>
+    <script src="js/maintenance.js"></script>
     <script src="js/export_old_json_to_database.js"></script>
 </head>
 
@@ -15,6 +16,7 @@
     <button onclick="sanatizeAllActivity();">Update all activity and active count</button>
     <button onclick="sanatizeAllChildrenLists();">Sanatize all children</button>
     <button onclick="export_to_database();">Export old hubblebubble data</button>
+    <button onclick="exportRealtimeDBtoFirestore();">testie</button>
 </body>
 
 </html>
