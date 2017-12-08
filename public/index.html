@@ -34,30 +34,31 @@
         </div>
     </footer>
 
-    <script src="/__/firebase/4.6.0/firebase-app.js"></script>
-    <script src="/__/firebase/4.6.0/firebase-auth.js"></script>
-    <script src="/__/firebase/4.6.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/4.8.0/firebase-app.js"></script>
+    <script src="/__/firebase/4.8.0/firebase-auth.js"></script>
+    <script src="/__/firebase/4.8.0/firebase-firestore.js"></script>
     <script src="/__/firebase/init.js"></script>
     <script src="https://js.live.net/v7.2/OneDrive.js"></script>
     <script id="gapi-script" src="https://apis.google.com/js/api.js" async src="https://apis.google.com/js/api.js"></script>
     <script type="module" src="js/calendar.js"></script>
     <script type="module" src="js/index.js"></script>
 
-
     <template id="hubbleListTemplate">
         <div class="hubble root">
             <div class="rootContent">
-                <span class="content" contenteditable="true"></span>
                 <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
                 <menu class="buttons hubble-switches material-icons" draggable="false">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
                     <button class="linkButton">link</button>
                     <button class="scheduleButton">schedule</button>
-                        <button class="addChildButton">add</button>
+                    <button class="addChildButton">add</button>
                 </menu>
+                <details>
+                    <summary><span class="content" contenteditable="true"></span></summary>
+                    <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+                </details>
             </div>
-            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
         </div>
     </template>
 
@@ -65,8 +66,6 @@
         <li class="hubble" draggable="true">
             <label class="doneToggleLabel"><input type="checkbox" class="doneToggle" tabindex="0"><span class="icon"></span><span class="description">flag</span></label>
             <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
-            <input class="collapseToggle material-icons" type="checkbox" checked tabindex="0">
-            <span class="content" contenteditable="true"></span>
             <a class="hubblelink material-icons" href="">launch</a>
             <menu class="buttons hubble-switches material-icons" draggable="false">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
@@ -74,8 +73,11 @@
                 <button class="scheduleButton">schedule</button>
                 <button class="addChildButton">add</button>
             </menu>
-            <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
-        </li>
+            <details>
+                <summary><span class="content" contenteditable="true"></span></summary>
+                <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+            </details>
+    </li>
     </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.8/dialog-polyfill.min.js"></script>
     <dialog id="addExternalLinkDialog">

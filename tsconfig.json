@@ -1,7 +1,7 @@
 {
     "include": [
         "public/**/*",
-        "node_modules/firebase/**/*",
+        "node_modules/firebase/index.d.ts",
         "node_nodules/@types/**/*"
     ],
     "exclude": [],
@@ -9,7 +9,8 @@
     "compilerOptions": {
         "target": "es2017",
         "sourceMap": true,
-        "removeComments": true
+        "removeComments": true,
+        "module": "esnext"
     },
     "typeAcquisition": {
         "enable": true

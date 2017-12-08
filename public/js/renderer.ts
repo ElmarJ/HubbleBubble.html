@@ -196,7 +196,7 @@ export class HubbleRenderer {
               break;
             case " ":
               ev.preventDefault();
-              (<HTMLInputElement>this.element.querySelector(".collapseToggle")).checked = !(<HTMLInputElement>this.element.querySelector(".collapseToggle")).checked;
+              (<HTMLDetailsElement>this.element.querySelector("details")).open = !(<HTMLDetailsElement>this.element.querySelector("details")).open;
             default:
               break;
           }

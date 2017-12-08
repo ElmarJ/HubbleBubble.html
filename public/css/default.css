@@ -356,11 +356,7 @@ input.doneToggle+.icon:hover {
     display: none !important;
 }
 
-.collapseToggle:checked~.children {
-    display: none;
-}
 
-.collapseToggle,
 .hubblelink {
     -webkit-appearance: none;
     font-family: "Material Icons";
@@ -384,24 +380,6 @@ input.doneToggle+.icon:hover {
     opacity: 1;
     visibility: visible;
 }
-
-.noBulletView .hubble[data-child-count="0"] .collapseToggle {
-    visibility: hidden;
-}
-
-.noBulletView .collapseToggle {
-    opacity: 0.4;
-}
-
-.collapseToggle:after {
-    content: "expand_more";
-    vertical-align: top;
-}
-
-.collapseToggle:checked::after {
-    content: "chevron_right";
-}
-
 
 /* Todo: apparently this makes selection impossible for all elements
                  * that contain button elements (i.e. all elements)
