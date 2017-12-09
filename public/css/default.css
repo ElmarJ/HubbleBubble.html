@@ -81,24 +81,41 @@ html {
     width: 100%;
 }
 
+.rootContent menu.buttons {
+    display: none;
+}
+
+
 html * {
     transition: opacity 0.5s;
 }
 
+.hubble details {
+    /* padding:  0; */
+    /* margin:  0; */
+    line-height: 1em;
+    display: inline;
+}
+
 body {
     display: flex;
-    flex-direction: column;
+    flex-flow: row wrap;
     margin: 0;
-    height: 100%;
-    min-height: 100%;
+    /* height: 100%; */
+    /* min-height: 100%; */
 }
 
 header {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row nowrap;
-    flex: 0 0 25px;
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* flex-flow: row nowrap; */
+    /* flex: 0 0 25px; */
+}
+
+body > * {
+    flex: 1 100%;
+    padding: 10px;
 }
 
 header>* {
@@ -113,13 +130,16 @@ header:hover>* {
 main {
     width: 100%;
     display: flex;
-    justify-content: center;
-    flex: 1;
+    /* justify-content: center; */
+    flex: 3 0px;
     overflow-y: auto;
+    /* padding: 100px; */
+    order:  2;
 }
 
 footer {
-    flex: 0 0 25px;
+    /* flex: 0 0 25px; */
+    order: 3;
     background-color: var(--bg-color);
 }
 
@@ -204,9 +224,11 @@ menu button {
 }
 
 menu#viewMenu {
-    position: fixed;
-    left: 25px;
-    top: 100px;
+    /* position: fixed; */
+    /* left: 25px; */
+    /* top: 100px; */
+    flex: 0 auto;
+    order: 1;
 }
 
 #expandAllButton::before {
@@ -250,21 +272,22 @@ menu#viewMenu {
 .rootContent {
     float: left;
     width: 100%;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .rootContent .content {
     font-size: 30px;
-    line-height: 55px;
+    /* line-height: 55px; */
     font-family: 'Rasa', serif;
     display: inline-block;
     white-space: normal;
+    line-height: 1.5em;
 }
 
 .rootContent .buttons {
     vertical-align: top;
     display: inline-block;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .root>.children {
@@ -277,7 +300,7 @@ menu#viewMenu {
 
 .buttons * {
     font-family: "Material Icons";
-    font-size: 16pt;
+    font-size: 10pt;
     font-weight: 400;
     margin: 0;
     color: inherit;
@@ -356,19 +379,23 @@ input.doneToggle+.icon:hover {
     display: none !important;
 }
 
+.collapseToggle:checked~.children {
+    display: none;
+}
 
+.collapseToggle,
 .hubblelink {
-    -webkit-appearance: none;
+    /* -webkit-appearance: none; */
     font-family: "Material Icons";
     font-size: 14pt;
-    margin: 0;
-    display: inline;
+    /* margin: 0; */
+    /* display: inline; */
     color: #ccc;
     vertical-align: top;
 }
 
 .hubblelink.material-icons {
-    font-size: 12pt;
+    font-size: 10pt;
 }
 
 .hubblelink {
@@ -380,6 +407,24 @@ input.doneToggle+.icon:hover {
     opacity: 1;
     visibility: visible;
 }
+
+.noBulletView .hubble[data-child-count="0"] .collapseToggle {
+    visibility: hidden;
+}
+
+.noBulletView .collapseToggle {
+    opacity: 0.4;
+}
+
+.collapseToggle:after {
+    content: "expand_more";
+    vertical-align: top;
+}
+
+.collapseToggle:checked::after {
+    content: "chevron_right";
+}
+
 
 /* Todo: apparently this makes selection impossible for all elements
                  * that contain button elements (i.e. all elements)
@@ -399,15 +444,15 @@ ul {
 
 .children .hubble {
     white-space: nowrap;
-    line-height: 1.7;
-    position: relative;
-    margin-top: 5px;
+    /* line-height: 1.7; */
+    /* position: relative; */
+    /* margin-top: 5px; */
 }
 
 .children .content {
     display: inline-block;
     white-space: normal;
-    vertical-align: top;
+    vertical-align: text-top;
     max-width: 600px;
     font-family: var(--content-font);
     font-size: 18pt;
@@ -420,8 +465,8 @@ ul {
 .buttons {
     display: inline;
     opacity: 0;
-    visibility: none;
-    border-radius: 4px;
+    /* visibility: hidden; */
+    /* border-radius: 4px; */
     background: var(--bg-color);
     padding: 0px;
     margin: 0;
@@ -458,16 +503,18 @@ ul {
 
 .hubbleCardView .children .hubble {
     --hubble-content-is-link: true;
-    white-space: normal;
+    /* white-space: normal; */
+    /* vertical-align: top; */
     border-width: 1px;
-    border-color: #ddd;
+    border-color: #dddddd52;
     border-style: solid;
-    border-radius: 4px;
+    border-radius: 10px;
     margin: calc(5px + 2%);
-    padding: 5px;
-    position: relative;
+    padding: 1em;
+    /* position: relative; */
     display: flex;
     flex-flow: row wrap;
+    flex: 1;
 }
 
 .hubbleCardView .children .hubble[data-active] {
@@ -487,7 +534,8 @@ ul {
 
 .hubbleCardView .children .content {
     order: -1;
-    font-family: var(--UI-font);
+    /* vertical-align: inherit; */
+    /* font-family: var(--UI-font); */
 }
 
 .hubbleCardView .children .content:hover {
