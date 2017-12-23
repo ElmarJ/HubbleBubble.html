@@ -144,7 +144,7 @@ export class HubbleRenderer {
     }
     
     private onAddChildButtonClick(ev: MouseEvent) {
-        const newChildRenderer = this.addNewChild();
+        const newChildRenderer = this.addNewChildHubble();
         this.setFocus(); 
     }
 
@@ -153,7 +153,7 @@ export class HubbleRenderer {
     
         if (ev.key === "Enter") {
             ev.preventDefault();
-            const newChildRenderer = await this.addNewChild(<HTMLElement>this.element.nextElementSibling);
+            const newChildRenderer = await this.addNewSiblingHubble(<HTMLElement>this.element.nextElementSibling);
     
             // SPlit the text of the current Hubble in the part before and the part after the cursor:
             const cursorPos = window.getSelection().anchorOffset;
@@ -228,15 +228,31 @@ export class HubbleRenderer {
           this.setFocus();
         }
       }
+    private async getNewHubble() {
+      const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
+      return new HubbleRenderer(await Hubble.create(), childHubbleTemplate);
+    }
       
-    private async addNewChild(before?: HTMLElement) {
-        const childHubbleTemplate = <HTMLTemplateElement>document.getElementById("hubbleListItemTemplate");
-        const childRenderer = new HubbleRenderer(await Hubble.create(), childHubbleTemplate);
-      
+    private async addNewChildHubble(before?: HTMLElement) {
+        const childRenderer = await this.getNewHubble();
+
         if (before) {
           this.childrenElement.insertBefore(childRenderer.element, before);
         } else {
           this.childrenElement.appendChild(childRenderer.element);
+        }
+        childRenderer.renderOnParentVisible();
+      
+        return childRenderer;
+      }
+
+      private async addNewSiblingHubble(before?: HTMLElement) {
+        const childRenderer = await this.getNewHubble();
+
+        if (before) {
+          this.element.parentElement.insertBefore(childRenderer.element, before);
+        } else {
+          this.element.parentElement.appendChild(childRenderer.element);
         }
         childRenderer.renderOnParentVisible();
       
@@ -267,7 +283,7 @@ export class HubbleRenderer {
   
       async onContentClick(ev: MouseEvent) {
         const element = ev.srcElement
-        const isLinkStyle = (window.getComputedStyle(element).getPropertyValue("--hubble-content-is-link").trim() == "true");
+        const isLinkStyle = (window.getComputedStyle(element).getPropertyValue("--hubble-content-is-link").trim() === "true");
       
         if (isLinkStyle) {
           ev.preventDefault();
