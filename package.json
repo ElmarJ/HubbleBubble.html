@@ -4,7 +4,7 @@
   "description": "hubble bubble",
   "main": "public/index.html",
   "dependencies": {
-    "firebase": "^4.2.0",
+    "firebase": "4.8.0",
     "googleapis": "^23.0.0"
   },
   "devDependencies": {

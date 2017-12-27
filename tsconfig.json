@@ -1,9 +1,8 @@
 {
     "include": [
-        "node_modules/@firebase/app-types/index.d.ts",
-        "node_modules/@firebase/app/dist/esm/index.d.ts",
-        "node_modules/firebase/app/index.d.ts",
         "public/src/**/*",
+        "node_modules/firebase/*.d.ts",
+        "node_modules/@firebase/*.d.ts"
     ],
     "exclude": [],
     "compileOnSave": true,
@@ -12,8 +11,8 @@
         "sourceMap": true,
         "removeComments": true,
         "module": "esnext",
-        "outDir": "public/js",
-        "rootDir": "public/src"
+        "outDir": "./public/js",
+        "rootDir": "./public/src"
     },
     "typeAcquisition": {
         "enable": true
