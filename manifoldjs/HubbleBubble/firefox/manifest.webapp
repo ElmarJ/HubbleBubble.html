@@ -1,9 +1,0 @@
-{
-    "name": "HubbleBubble",
-    "description": "HubbleBubble",
-    "launch_path": "/",
-    "icons": {
-        "48": "images/homescreen48.png",
-        "128": "128x128.png"
-    }
-}
