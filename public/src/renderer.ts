@@ -429,8 +429,8 @@ function onDragOver(ev: DragEvent) {
     const childrenElt = findElementAncestor(<HTMLElement>event.srcElement,"hubble").querySelector(".children");
   
     dialog.showModal();
-    dialog.addEventListener('close', async function (event) {
-      if (dialog.returnValue === 'confirm') {
+    dialog.addEventListener("close", async function (event) {
+      if (dialog.returnValue === "confirm") {
         const urlElt = <HTMLInputElement>document.getElementById("urlBox");
         const urlNameElt = <HTMLInputElement>document.getElementById("urlNameBox");
   

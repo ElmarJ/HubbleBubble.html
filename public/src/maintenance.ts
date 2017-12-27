@@ -22,7 +22,7 @@ function sanatizeAllActivity() {
 async function count() {
     const realtimedb = firebase.database();
     const user = firebase.auth().currentUser;
-    const refAllData = realtimedb.ref('/users/' + user.uid);
+    const refAllData = realtimedb.ref("/users/" + user.uid);
     const returnObject = await refAllData.once("value");
     const data = returnObject.val();
     
@@ -31,7 +31,7 @@ async function count() {
 async function exportRealtimeDBtoFirestore() {
     const realtimedb = firebase.database();
     const user = firebase.auth().currentUser;
-    const refAllData = realtimedb.ref('/users/' + user.uid);
+    const refAllData = realtimedb.ref("/users/" + user.uid);
     const returnObject = await refAllData.once("value");
     const data = returnObject.val();
 

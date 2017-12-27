@@ -1,7 +1,7 @@
 import { Hubble } from "data";
 
 // Client ID and API key from the Developer Console
-const CLIENT_ID = '889012243145-4ov1voghuk72q9k4k32pseqcrc5gg02b.apps.googleusercontent.com';
+const CLIENT_ID = "889012243145-4ov1voghuk72q9k4k32pseqcrc5gg02b.apps.googleusercontent.com";
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -10,9 +10,9 @@ const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v
 // included, separated by spaces.
 const SCOPES = "https://www.googleapis.com/auth/calendar";
 
-const authorizeButton = document.getElementById('authorize-button');
+const authorizeButton = document.getElementById("authorize-button");
 
-document.getElementById("gapi-script").addEventListener("load", () => gapi.load('client:auth2', initGoogleClient));
+document.getElementById("gapi-script").addEventListener("load", () => gapi.load("client:auth2", initGoogleClient));
 
 
 /**
@@ -40,11 +40,11 @@ async function initGoogleClient() {
  */
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
-        // authorizeButton.style.display = 'none';
+        // authorizeButton.style.display = "none";
         showCurrentEvent();
         navigateToScheduledHubble();
     } else {
-        // authorizeButton.style.display = 'block';
+        // authorizeButton.style.display = "block";
     }
 }
 
@@ -80,12 +80,12 @@ async function linkEventToHubble(hubble: Hubble, event: gapi.client.calendar.Eve
 
 async function getLinkedEvents(hubble: Hubble){
     const response = await gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime',
-        'privateExtendedProperty': 'linked-hubble-key=' + hubble.hubbleKey
+        "calendarId": "primary",
+        "showDeleted": false,
+        "singleEvents": true,
+        "maxResults": 10,
+        "orderBy": "startTime",
+        "privateExtendedProperty": "linked-hubble-key=" + hubble.hubbleKey
     });
     return response.result.items;
 }
@@ -101,16 +101,16 @@ export async function getCurrentEvents() {
 
     const now = new Date();
     const soon = new Date();
-    soon.setMinutes(soon.getMinutes() + 1); // apparently, you don't get current event if timeMax = timeMin;
+    soon.setMinutes(soon.getMinutes() + 1); // apparently, you don"t get current event if timeMax = timeMin;
     
     const response = await gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': now.toISOString(),
-        'timeMax': soon.toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
+        "calendarId": "primary",
+        "timeMin": now.toISOString(),
+        "timeMax": soon.toISOString(),
+        "showDeleted": false,
+        "singleEvents": true,
+        "maxResults": 10,
+        "orderBy": "startTime"
     });
 
     return response.result.items;
@@ -145,7 +145,7 @@ async function createLinkedEvent(startsAt: Date, endsAt: Date, hubble: Hubble) {
     };
 
     const response = await gapi.client.calendar.events.insert({
-        calendarId: 'primary',
+        calendarId: "primary",
         resource: eventData
         });
         
@@ -165,7 +165,7 @@ export async function schedule(startsAt: Date, endsAt: Date, hubble: Hubble) {
 
         /**
          * Print the summary and start datetime/date of the next ten events in
-         * the authorized user's calendar. If no events are found an
+         * the authorized user"s calendar. If no events are found an
          * appropriate message is printed.
          */
         async function showCurrentEvent() {
@@ -188,10 +188,10 @@ export async function schedule(startsAt: Date, endsAt: Date, hubble: Hubble) {
                     const startTimeElt = <HTMLTimeElement>document.getElementById("current-event-start");
                     const endTimeElt = <HTMLTimeElement>document.getElementById("current-event-end");
                     
-                    startTimeElt.innerHTML = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    startTimeElt.innerHTML = startTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
                     startTimeElt.dateTime = startTime.toISOString();
     
-                    endTimeElt.innerHTML = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    endTimeElt.innerHTML = endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
                     endTimeElt.dateTime = endTime.toISOString();
                     
                     var c = <HTMLCanvasElement>document.getElementById("progress-indicator");
