@@ -1,6 +1,7 @@
-import { findElementAncestor, respondElementToVisibility } from "./helpers.js";
-import { Hubble, HubbleProperty } from "./data.js";
-import { schedule } from "./calendar.js";
+import { findElementAncestor, respondElementToVisibility } from "helpers";
+import { Hubble, HubbleProperty } from "data";
+import { schedule } from "calendar";
+
 export class HubbleRenderer {
     hubble: Hubble;
     element: HTMLElement;

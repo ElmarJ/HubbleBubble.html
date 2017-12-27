@@ -1,7 +1,7 @@
-import { findElementAncestor } from "./helpers.js";
-import { HubbleRenderer } from "./renderer.js";
-import { Hubble } from "./data.js";
-import * as Calendar from "./calendar.js";
+import { findElementAncestor } from "helpers";
+import { HubbleRenderer } from "renderer";
+import { Hubble } from "data";
+import * as Calendar from "calendar";
 
 var presenter = document.getElementById("hubblePresenter");
 
