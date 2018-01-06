@@ -1,6 +1,6 @@
-import { findElementAncestor, respondElementToVisibility } from "helpers";
-import { Hubble, HubbleProperty } from "data";
-import { schedule } from "calendar";
+import { findElementAncestor, respondElementToVisibility } from "./helpers.js";
+import { Hubble, HubbleProperty } from "./data.js";
+import { schedule } from "./calendar.js";
 
 export class HubbleRenderer {
     hubble: Hubble;
@@ -10,7 +10,9 @@ export class HubbleRenderer {
     childTemplate: HTMLTemplateElement;
     contentLoaded: boolean;
     childrenElement: HTMLElement;
-
+    detailsElement: HTMLDetailsElement;
+    linkDescriptionElement: HTMLSpanElement;
+    linkIconElement: HTMLElement;
     contentElement: HTMLElement;
 
     constructor(hubble: Hubble, template: HTMLTemplateElement, childTemplate: HTMLTemplateElement = template) {
@@ -27,6 +29,7 @@ export class HubbleRenderer {
         this.hubble.activechildren.bindToAttribute(this.element, "data-active-children");
 
         this.hubble.content.bindToContent(this.contentElement, true);
+        this.hubble.content.bindToContent(this.linkDescriptionElement, false);
         this.element.querySelectorAll(".hubblelink").forEach((link) => this.hubble.url.bindToAttribute(<HTMLElement>link, "href"));
         this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
@@ -63,6 +66,9 @@ export class HubbleRenderer {
 
         this.childrenElement = <HTMLElement>this.element.querySelector(".children");
         this.contentElement = <HTMLElement>this.element.querySelector(".content");
+        this.detailsElement = <HTMLDetailsElement>this.element.querySelector("details")
+        this.linkDescriptionElement = <HTMLSpanElement>this.element.querySelector("a.hubblelink span.description");
+        this.linkIconElement = <HTMLElement>this.element.querySelector("a.hubblelink i.icon");
         this.element.dataset.key = this.hubble.hubbleKey;
     }
 
@@ -121,7 +127,7 @@ export class HubbleRenderer {
 
         let position = 1;
         while (childelement) {
-            if(childelement.classList.contains("hubble")) {
+            if(childelement.classList.contains("hubble") && !childelement.classList.contains("specialHubble")) {
               const childHubble = new Hubble(childelement.dataset.key);
               childHubble.position.set(position);
               this.hubble.makeParentOf(childHubble);
@@ -136,8 +142,8 @@ export class HubbleRenderer {
 
     private updateActiveChildCount() {
         var i = 0;
-        for (const child of this.childrenElement.childNodes) {
-            if ((<HTMLElement>child).dataset.active) {
+        for (const child of this.childrenElement.children) {
+            if (!(<HTMLElement>child).classList.contains("specialHubble") && (<HTMLElement>child).dataset.active) {
                 i++;
             }
         }
@@ -151,7 +157,6 @@ export class HubbleRenderer {
 
     
     private async onEditorKeyPress(ev: KeyboardEvent) {
-    
         if (ev.key === "Enter") {
             ev.preventDefault();
             const newChildRenderer = await this.addNewSiblingHubble(<HTMLElement>this.element.nextElementSibling);

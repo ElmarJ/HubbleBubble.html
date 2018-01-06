@@ -8,7 +8,5 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/bower_components": true,
-        "public/**/*.js": true,
-        "public/**/*.js.map": true
     }
 }

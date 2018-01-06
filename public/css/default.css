@@ -275,6 +275,14 @@ menu#viewMenu {
     /* white-space: nowrap; */
 }
 
+.rootContent > details > summary {
+    list-style: none;
+}
+
+.rootContent > details > summary::-webkit-details-marker {
+    display: none;
+  }
+  
 .rootContent .content {
     font-size: 30px;
     /* line-height: 55px; */
@@ -294,7 +302,7 @@ menu#viewMenu {
     display: inline-block;
 }
 
-.root>.hubblelink {
+.rootContent>.hubblelink {
     display: none;
 }
 
@@ -379,50 +387,29 @@ input.doneToggle+.icon:hover {
     display: none !important;
 }
 
-.collapseToggle:checked~.children {
-    display: none;
-}
-
-.collapseToggle,
-.hubblelink {
+.hubblelink .icon {
     /* -webkit-appearance: none; */
     font-family: "Material Icons";
-    font-size: 14pt;
+    font-size: 10pt;
     /* margin: 0; */
     /* display: inline; */
     color: #ccc;
     vertical-align: top;
 }
 
-.hubblelink.material-icons {
-    font-size: 10pt;
-}
 
-.hubblelink {
+.hubblelink .icon {
     opacity: 0;
     visibility: hidden;
 }
 
-.hubble:hover>.hubblelink {
+.hubble:hover>.hubblelink>.icon {
     opacity: 1;
     visibility: visible;
 }
 
-.noBulletView .hubble[data-child-count="0"] .collapseToggle {
-    visibility: hidden;
-}
-
-.noBulletView .collapseToggle {
-    opacity: 0.4;
-}
-
-.collapseToggle:after {
-    content: "expand_more";
-    vertical-align: top;
-}
-
-.collapseToggle:checked::after {
-    content: "chevron_right";
+.hubblelink .description {
+    display: none;
 }
 
 
@@ -508,7 +495,7 @@ ul {
     border-width: 1px;
     border-color: #dddddd52;
     border-style: solid;
-    border-radius: 10px;
+    border-radius: 4px;
     margin: calc(5px + 2%);
     padding: 1em;
     /* position: relative; */
@@ -578,10 +565,26 @@ ul {
     left: 10px;
 }
 
+.hubbleCardView .hubblelink .icon {
+    display: none;
+}
+
+.hubbleCardView .children .hubblelink .description {
+    display: inline;
+}
+
+.hubbleCardView .children details {
+    display: none;
+}
+
+.hubbleCardView .specialHubble {
+    display: initial;
+}
+
 .dropTarget {
     min-height: 5px;
     min-width: 5px;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .dragOver {

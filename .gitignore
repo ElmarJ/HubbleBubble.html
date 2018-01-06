@@ -1,6 +1,7 @@
 node_modules/
 public/bower_components
 firebase-debug.log
+js/
 *.js
 *.js.map
 *.log

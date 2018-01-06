@@ -54,10 +54,14 @@
                     <button class="scheduleButton">schedule</button>
                     <button class="addChildButton">add</button>
                 </menu>
-                <details>
+                <details open>
                     <summary><span class="content" contenteditable="true"></span></summary>
-                    <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+                    <ul class="children" data-childtemplate="hubbleListItemTemplate">
+                        <li class="hubble specialHubble newChildHubble"><a class="addhubblelink" href=""><i class="icon material-icons">add</i></a></li>
+                        <li class="hubble specialHubble newChildHubble"><a class="parenthubblelink" href=""><i class="icon material-icons">launch</i></a></li>
+                    </ul>
                 </details>
+                <a class="hubblelink" href=""><i class="icon material-icons">launch</i><span class="description"></span></a>
             </div>
         </div>
     </template>
@@ -74,9 +78,20 @@
             </menu>
             <details>
                 <summary><span class="content" contenteditable="true"></span></summary>
-                <ul class="children" data-childtemplate="hubbleListItemTemplate"></ul>
+                <ul class="children" data-childtemplate="hubbleListItemTemplate">
+                    <li class="hubble specialHubble newChildHubble">
+                        <a class="addhubblelink" href="">
+                            <i class="icon material-icons">add</i>
+                        </a>        
+                    </li>
+                    <li class="hubble specialHubble newChildHubble">
+                        <a class="parenthubblelink" href="">
+                            <i class="icon material-icons">launch</i>
+                        </a>        
+                    </li>                    
+                </ul>
             </details>
-            <a class="hubblelink material-icons" href="">launch</a>
+            <a class="hubblelink" href=""><i class="icon material-icons">launch</i><span class="description"></span></a>
         </li>
     </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.8/dialog-polyfill.min.js"></script>
