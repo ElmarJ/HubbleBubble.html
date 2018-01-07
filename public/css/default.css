@@ -85,7 +85,6 @@ html {
     display: none;
 }
 
-
 html * {
     transition: opacity 0.5s;
 }
@@ -113,7 +112,7 @@ header {
     /* flex: 0 0 25px; */
 }
 
-body > * {
+body>* {
     flex: 1 100%;
     padding: 10px;
 }
@@ -134,7 +133,7 @@ main {
     flex: 3 0px;
     overflow-y: auto;
     /* padding: 100px; */
-    order:  2;
+    order: 2;
 }
 
 footer {
@@ -275,14 +274,14 @@ menu#viewMenu {
     /* white-space: nowrap; */
 }
 
-.rootContent > details > summary {
+.rootContent>details>summary {
     list-style: none;
 }
 
-.rootContent > details > summary::-webkit-details-marker {
+.rootContent>details>summary::-webkit-details-marker {
     display: none;
-  }
-  
+}
+
 .rootContent .content {
     font-size: 30px;
     /* line-height: 55px; */
@@ -396,7 +395,6 @@ input.doneToggle+.icon:hover {
     color: #ccc;
     vertical-align: top;
 }
-
 
 .hubblelink .icon {
     opacity: 0;
