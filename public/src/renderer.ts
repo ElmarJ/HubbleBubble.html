@@ -3,22 +3,17 @@ import { Hubble, HubbleProperty } from "./data.js";
 import { schedule } from "./calendar.js";
 
 export class HubbleRenderer {
-    hubble: Hubble;
     element: HTMLElement;
-    template: HTMLTemplateElement;
     navigator: Navigator;
-    childTemplate: HTMLTemplateElement;
     contentLoaded: boolean;
     childrenElement: HTMLElement;
     detailsElement: HTMLDetailsElement;
     linkDescriptionElement: HTMLSpanElement;
     linkIconElement: HTMLElement;
     contentElement: HTMLElement;
+    parentLinkElement: HTMLAnchorElement;
 
-    constructor(hubble: Hubble, template: HTMLTemplateElement, childTemplate: HTMLTemplateElement = template) {
-        this.hubble = hubble;
-        this.template = template;
-        this.childTemplate = childTemplate;
+    constructor(readonly hubble: Hubble, readonly template: HTMLTemplateElement, readonly childTemplate: HTMLTemplateElement = template) {
         this.setupTemplate();
     }
 
@@ -34,8 +29,8 @@ export class HubbleRenderer {
         this.hubble.activechildren.bindToContent(<HTMLElement>this.element.querySelector(".child-count"), false);
         this.hubble.done.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".doneToggle"), true);
         this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);
-
         this.hubble.scheduled.bindToAttribute(this.element, "data-scheduled-for");
+        this.hubble.parent.bindToAttribute(this.parentLinkElement, "href", "#");
 
         this.element.querySelector(".addChildButton").addEventListener("click", event => this.onAddChildButtonClick(<MouseEvent>event));
         this.element.querySelector(".scheduleButton").addEventListener("click", startScheduleUI);
@@ -47,6 +42,7 @@ export class HubbleRenderer {
         this.element.addEventListener("dragend", onDragEnd);
         this.element.addEventListener("dragover", onDragOver);
         this.element.addEventListener("drop", onDrop);
+        
         this.useDragoverClass();
 
         this.addChildren();
@@ -69,6 +65,7 @@ export class HubbleRenderer {
         this.detailsElement = <HTMLDetailsElement>this.element.querySelector("details")
         this.linkDescriptionElement = <HTMLSpanElement>this.element.querySelector("a.hubblelink span.description");
         this.linkIconElement = <HTMLElement>this.element.querySelector("a.hubblelink i.icon");
+        this.parentLinkElement = <HTMLAnchorElement>this.element.querySelector(".parenthubblelink")
         this.element.dataset.key = this.hubble.hubbleKey;
     }
 
@@ -299,11 +296,7 @@ export class HubbleRenderer {
     }
 
     class Navigator {
-      element: HTMLElement;
-
-      constructor(element: HTMLElement) {
-        this.element = element;
-      }
+      constructor(readonly element: HTMLElement) { }
 
       moveDown() {
         if (this.element.nextElementSibling) {

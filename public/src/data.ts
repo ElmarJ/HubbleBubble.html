@@ -1,3 +1,5 @@
+import { firestore } from "../../node_modules/firebase/index";
+
 interface HubbleData {
     snoozed: boolean;
     done: boolean;
@@ -11,14 +13,10 @@ interface HubbleData {
 
 // Todo: reimplement using Proxy objects?
 export abstract class HubbleProperty<T>{
-    name: string;
-    protected owner: Hubble;
     prepareChange: (newValue: T) => void;
     abstract default: T;
 
-    constructor(name: string, hubble: Hubble) {
-        this.name = name;
-        this.owner = hubble;
+    constructor(readonly name: string, readonly owner: Hubble) {
         this.prepareChange = (value) => { };
     }
 
@@ -33,11 +31,13 @@ export abstract class HubbleProperty<T>{
         return <T>value;
     }
 
-
+    valueToString(value: T) {
+        return String(value);
+    }
 
     async getString(defaultIfEmpty = false) {
         const value = await this.get(defaultIfEmpty);
-        return value ? String(value) : null;
+        return value ? this.valueToString(value) : null;
     }
 
     async set(value: T, emptyIfDefault = true) {
@@ -64,14 +64,14 @@ export abstract class HubbleProperty<T>{
         }
     }
 
-    async bindToAttribute(element: HTMLElement, attribute: string) {
+    async bindToAttribute(element: HTMLElement, attribute: string, prefix = "") {
         // Todo: this no longer subscribes / listens for updates.
 
-        const value = await this.get();
+        const value = await this.getString();
         if (value) {
-            element.setAttribute(attribute, String(value));
+            element.setAttribute(attribute, prefix + String(value));
         } else {
-            element.setAttribute(attribute, String(this.default));
+            element.setAttribute(attribute, prefix + String(this.default));
         }
     }
 }
@@ -111,6 +111,12 @@ abstract class StringHubbleProperty extends HubbleProperty<string> {
     default = "";
 }
 
+abstract class HubbleReferenceHubbleProperty extends HubbleProperty<firestore.DocumentReference> {
+    valueToString(value: firestore.DocumentReference) {
+        return value.id;
+    }
+}
+
 class NumberHubbleProperty extends HubbleProperty<number> {
     setString(value: string) {
         // todo: check parameter
@@ -129,7 +135,6 @@ abstract class DateHubbleProperty extends HubbleProperty<Date> {
 
 class ScheduledProperty extends DateHubbleProperty {
     default=null;
-    
 }
 
 class IsActiveHubbleProperty extends BooleanHubbleProperty {
@@ -142,22 +147,20 @@ class IsActiveHubbleProperty extends BooleanHubbleProperty {
 }
 
 class ActivityChildCountHubbleProperty extends NumberHubbleProperty {
-
     default = 0;
 }
 
 class StatusHubbleProperty extends BooleanHubbleProperty {
-    constructor(name: string, hubble: Hubble) {
-        super(name, hubble);
-    }
-
     default = false;
 }
 
-class ParentHubbleProperty extends StringHubbleProperty {
+class ParentHubbleProperty extends HubbleReferenceHubbleProperty {
+    setString(value: string) {
+        throw new Error("Method not implemented.");
+    }
     async getHubble() {
         const value = await this.get();
-        return new Hubble(value);
+        return new Hubble(value.id);
     }
 
     default = null;
@@ -185,8 +188,7 @@ class UrlHubbleProperty extends HubbleProperty<string> {
 export class Hubble {
     database = firebase.firestore();
     user = firebase.auth().currentUser;
-    hubbleKey: string;
-    ref: firebase.firestore.DocumentReference;
+    ref: firestore.DocumentReference;
 
     parent = new ParentHubbleProperty("parent", this);
     children = new ChildrenProperty("children", this);
@@ -199,8 +201,7 @@ export class Hubble {
     url = new UrlHubbleProperty("url", this);
     scheduled = new ScheduledProperty("scheduled", this);
 
-    constructor(hubbleKey: string) {
-        this.hubbleKey = hubbleKey;
+    constructor(readonly hubbleKey: string) {
         this.ref = this.database.collection("users/").doc(this.user.uid).collection("/hubbles").doc(hubbleKey);
         this.url.default  = "#" + hubbleKey;
     }
@@ -312,7 +313,7 @@ export class Hubble {
         const user = firebase.auth().currentUser;
         const userDoc = database.collection("users/").doc(user.uid);
         const userDocSnapshot = await userDoc.get();
-        const rootHubbleDoc = <firebase.firestore.DocumentReference>userDocSnapshot.get("root");
+        const rootHubbleDoc = <firestore.DocumentReference>userDocSnapshot.get("root");
 
         if(rootHubbleDoc) {
             return new Hubble(rootHubbleDoc.id); 

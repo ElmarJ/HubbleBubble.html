@@ -386,9 +386,13 @@ input.doneToggle+.icon:hover {
     display: none !important;
 }
 
+.icon {
+    font-family: "Material Icons";
+    font-style: normal;
+}
+
 .hubblelink .icon {
     /* -webkit-appearance: none; */
-    font-family: "Material Icons";
     font-size: 10pt;
     /* margin: 0; */
     /* display: inline; */
@@ -577,6 +581,7 @@ ul {
 
 .hubbleCardView .specialHubble {
     display: initial;
+    font-size: 18pt;
 }
 
 .dropTarget {
