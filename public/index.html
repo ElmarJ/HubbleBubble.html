@@ -15,12 +15,25 @@
         <a href="/login.html" id="signoutbutton">log out</a>
     </header>
     <menu id="viewMenu" role="menubar" class="material-icons">
-        <li><button id="cardviewSwitch"></button></li>
-        <li><button id="inactiveVisibleSwitch"></button></li>
-        <li><input type="checkbox" role="switch" id="fullscreenSwitch"><label for="fullscreenSwitch"></label></li>
-        <li><button id="lightSwitch"></button></li>
-        <li><button id="expandAllButton"></button></li>
-        <li><button id="bulletSwitch"></button></li>
+        <li>
+            <button id="cardviewSwitch"></button>
+        </li>
+        <li>
+            <button id="inactiveVisibleSwitch"></button>
+        </li>
+        <li>
+            <input type="checkbox" role="switch" id="fullscreenSwitch">
+            <label for="fullscreenSwitch"></label>
+        </li>
+        <li>
+            <button id="lightSwitch"></button>
+        </li>
+        <li>
+            <button id="expandAllButton"></button>
+        </li>
+        <li>
+            <button id="bulletSwitch"></button>
+        </li>
     </menu>
     <main id="main">
         <div id="hubblePresenter"></div>
@@ -46,7 +59,10 @@
     <template id="hubbleListTemplate">
         <div class="hubble root">
             <div class="rootContent">
-                <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
+                <section class="childcountinfo">
+                    <i>
+                        <span class="child-count"></span>
+                    </i> active children</section>
                 <menu class="buttons hubble-switches material-icons" draggable="false">
                     <input type="checkbox" class="doneToggle" tabindex="0">
                     <input type="checkbox" class="snoozeToggle" tabindex="0">
@@ -55,21 +71,41 @@
                     <button class="addChildButton">add</button>
                 </menu>
                 <details open>
-                    <summary><span class="content" contenteditable="true"></span></summary>
+                    <summary>
+                        <span class="content" contenteditable="true"></span>
+                    </summary>
                     <ul class="children" data-childtemplate="hubbleListItemTemplate">
-                        <li class="hubble specialHubble"><a class="addhubblelink" href=""><i class="icon material-icons">add</i></a></li>
-                        <li class="hubble specialHubble"><a class="parenthubblelink" href=""><i class="icon material-icons">arrow_upward</i></a></li>
+                        <li class="hubble specialHubble">
+                            <a class="addhubblelink" href="">
+                                <i class="icon material-icons">add</i>
+                            </a>
+                        </li>
+                        <li class="hubble specialHubble">
+                            <a class="parenthubblelink" href="">
+                                <i class="icon material-icons">arrow_upward</i>
+                            </a>
+                        </li>
                     </ul>
                 </details>
-                <a class="hubblelink" href=""><i class="icon material-icons">launch</i><span class="description"></span></a>
+                <a class="hubblelink" href="">
+                    <i class="icon material-icons">launch</i>
+                    <span class="description"></span>
+                </a>
             </div>
         </div>
     </template>
 
     <template id="hubbleListItemTemplate">
         <li class="hubble" draggable="true">
-            <label class="doneToggleLabel"><input type="checkbox" class="doneToggle" tabindex="0"><span class="icon"></span><span class="description">flag</span></label>
-            <section class="childcountinfo"><i><span class="child-count"></span></i> active children</section>
+            <label class="doneToggleLabel">
+                <input type="checkbox" class="doneToggle" tabindex="0">
+                <span class="icon"></span>
+                <span class="description">flag</span>
+            </label>
+            <section class="childcountinfo">
+                <i>
+                    <span class="child-count"></span>
+                </i> active children</section>
             <menu class="buttons hubble-switches material-icons" draggable="false">
                 <input type="checkbox" class="snoozeToggle" tabindex="0">
                 <button class="linkButton">link</button>
@@ -77,7 +113,9 @@
                 <button class="addChildButton">add</button>
             </menu>
             <details>
-                <summary><span class="content" contenteditable="true"></span></summary>
+                <summary>
+                    <span class="content" contenteditable="true"></span>
+                </summary>
                 <ul class="children" data-childtemplate="hubbleListItemTemplate">
                     <li class="hubble specialHubble newChildHubble">
                         <a class="addhubblelink" href="">
@@ -91,14 +129,19 @@
                     </li>
                 </ul>
             </details>
-            <a class="hubblelink" href=""><i class="icon material-icons">launch</i><span class="description"></span></a>
+            <a class="hubblelink" href="">
+                <i class="icon material-icons">launch</i>
+                <span class="description"></span>
+            </a>
         </li>
     </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.8/dialog-polyfill.min.js"></script>
     <dialog id="addExternalLinkDialog">
         <form method="dialog">
-            <label for="urlNameBox">Link name:</label><input id="urlNameBox" type="text">
-            <label for="urlBox">URL:</label><input id="urlBox" type="url">
+            <label for="urlNameBox">Link name:</label>
+            <input id="urlNameBox" type="text">
+            <label for="urlBox">URL:</label>
+            <input id="urlBox" type="url">
             <button id="pickOnedriveButton" onclick="launchOneDrivePicker();">Get from OneDrive</button>
             <button id="cancel" type="reset">Cancel</button>
             <button type="submit" value="confirm">Confirm</button>
@@ -106,8 +149,10 @@
     </dialog>
     <dialog id="scheduleDialog">
         <form method="dialog">
-            <label for="startTimeSelector">start:</label><input type="datetime-local" id="startTimeSelector">
-            <label for="endTimeSelector">end:</label><input type="datetime-local" id="endTimeSelector">
+            <label for="startTimeSelector">start:</label>
+            <input type="datetime-local" id="startTimeSelector">
+            <label for="endTimeSelector">end:</label>
+            <input type="datetime-local" id="endTimeSelector">
             <button id="cancel" type="reset">Cancel</button>
             <button type="submit" value="confirm">Confirm</button>
         </form>

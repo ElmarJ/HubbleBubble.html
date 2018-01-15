@@ -4,10 +4,9 @@ declare const OneDrive: any;
 declare const firebase: any;
 
 interface Element {
-    mozRequestFullScreen(): Promise<void>;
+  mozRequestFullScreen(): Promise<void>;
 }
 
 interface Document {
-    mozExitFullScreen(): Promise<void>;
+  mozExitFullScreen(): Promise<void>;
 }
-

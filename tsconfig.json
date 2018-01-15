@@ -1,20 +1,20 @@
 {
-    "include": [
-        "public/src/**/*",
-        "node_modules/firebase/*.d.ts",
-        "node_modules/@firebase/*.d.ts"
-    ],
-    "exclude": [],
-    "compileOnSave": true,
-    "compilerOptions": {
-        "target": "es2017",
-        "sourceMap": true,
-        "removeComments": true,
-        "module": "esnext",
-        "outDir": "./public/js",
-        "rootDir": "./public/src"
-    },
-    "typeAcquisition": {
-        "enable": true
-    }
+  "include": [
+    "public/src/**/*",
+    "node_modules/firebase/*.d.ts",
+    "node_modules/@firebase/*.d.ts"
+  ],
+  "exclude": [],
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es2017",
+    "sourceMap": true,
+    "removeComments": true,
+    "module": "esnext",
+    "outDir": "./public/js",
+    "rootDir": "./public/src"
+  },
+  "typeAcquisition": {
+    "enable": true
+  }
 }

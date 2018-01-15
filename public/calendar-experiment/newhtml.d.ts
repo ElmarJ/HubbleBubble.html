@@ -1,4 +1,4 @@
 interface CSSStyleDeclaration {
-    gridColumn: number;
-    gridRow: number;
+  gridColumn: number;
+  gridRow: number;
 }

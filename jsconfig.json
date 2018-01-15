@@ -1,11 +1,11 @@
 {
-    "include": [
-        "public/**/*",
-        "node_modules/firebase/**/*",
-        "node_nodules/@types/**/*"
-    ],
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs"
-    }
+  "include": [
+    "public/**/*",
+    "node_modules/firebase/**/*",
+    "node_nodules/@types/**/*"
+  ],
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs"
+  }
 }

@@ -1,419 +1,426 @@
 @font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://fonts.gstatic.com/s/materialicons/v28/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v28/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2)
+    format("woff2");
 }
-
 
 /* latin-ext */
 
 @font-face {
-    font-family: 'Rasa';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Rasa Regular'), local('Rasa-Regular'), url(https://fonts.gstatic.com/s/rasa/v2/4A8vW8DIg9GWXGYz7D0Oww.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+  font-family: "Rasa";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Rasa Regular"), local("Rasa-Regular"),
+    url(https://fonts.gstatic.com/s/rasa/v2/4A8vW8DIg9GWXGYz7D0Oww.woff2)
+      format("woff2");
+  unicode-range: U+0100-024f, U+1-1eff, U+20a0-20ab, U+20ad-20cf, U+2c60-2c7f,
+    U+A720-A7FF;
 }
-
 
 /* latin */
 
 @font-face {
-    font-family: 'Rasa';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Rasa Regular'), local('Rasa-Regular'), url(https://fonts.gstatic.com/s/rasa/v2/ZYFGdK7w7tvjLebnCRT01Q.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+  font-family: "Rasa";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Rasa Regular"), local("Rasa-Regular"),
+    url(https://fonts.gstatic.com/s/rasa/v2/ZYFGdK7w7tvjLebnCRT01Q.woff2)
+      format("woff2");
+  unicode-range: U+0000-00ff, U+0131, U+0152-0153, U+02c6, U+02da, U+02dc,
+    U+2000-206f, U+2074, U+20ac, U+2212, U+2215;
 }
-
 
 /* latin-ext */
 
 @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v16/Fcx7Wwv8OzT71A3E1XOAjvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url(https://fonts.gstatic.com/s/roboto/v16/Fcx7Wwv8OzT71A3E1XOAjvesZW2xOQ-xsNqO47m55DA.woff2)
+      format("woff2");
+  unicode-range: U+0100-024f, U+1-1eff, U+20a0-20ab, U+20ad-20cf, U+2c60-2c7f,
+    U+A720-A7FF;
 }
-
 
 /* latin */
 
 @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v16/CWB0XYA8bzo0kSThX0UTuA.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url(https://fonts.gstatic.com/s/roboto/v16/CWB0XYA8bzo0kSThX0UTuA.woff2)
+      format("woff2");
+  unicode-range: U+0000-00ff, U+0131, U+0152-0153, U+02c6, U+02da, U+02dc,
+    U+2000-206f, U+2074, U+20ac, U+2212, U+2215;
 }
 
 :root {
-    --bg-color: white;
-    --text-color: black;
-    --UI-font: "Roboto";
-    --content-font: "Rasa";
-    --hubble-content-is-link: false;
+  --bg-color: white;
+  --text-color: black;
+  --UI-font: "Roboto";
+  --content-font: "Rasa";
+  --hubble-content-is-link: false;
 }
 
- :root.nightMode {
-    --bg-color: black;
-    --text-color: white;
+:root.nightMode {
+  --bg-color: black;
+  --text-color: white;
 }
 
- :root.redish {
-    --bg-color: brown;
-    --text-color: white;
+:root.redish {
+  --bg-color: brown;
+  --text-color: white;
 }
 
 a {
-    color: inherit;
-    text-decoration: inherit;
+  color: inherit;
+  text-decoration: inherit;
 }
 
 html {
-    font-family: var(--UI-font);
-    margin: 0;
-    background: var(--bg-color);
-    color: var(--text-color);
-    height: 100%;
-    width: 100%;
+  font-family: var(--UI-font);
+  margin: 0;
+  background: var(--bg-color);
+  color: var(--text-color);
+  height: 100%;
+  width: 100%;
 }
 
 .rootContent menu.buttons {
-    display: none;
+  display: none;
 }
 
 html * {
-    transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 
 .hubble details {
-    /* padding:  0; */
-    /* margin:  0; */
-    line-height: 1em;
-    display: inline;
+  /* padding:  0; */
+  /* margin:  0; */
+  line-height: 1em;
+  display: inline;
 }
 
 body {
-    display: flex;
-    flex-flow: row wrap;
-    margin: 0;
-    /* height: 100%; */
-    /* min-height: 100%; */
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0;
+  /* height: 100%; */
+  /* min-height: 100%; */
 }
 
 header {
-    display: flex;
-    /* align-items: center; */
-    /* justify-content: center; */
-    /* flex-flow: row nowrap; */
-    /* flex: 0 0 25px; */
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* flex-flow: row nowrap; */
+  /* flex: 0 0 25px; */
 }
 
-body>* {
-    flex: 1 100%;
-    padding: 10px;
+body > * {
+  flex: 1 100%;
+  padding: 10px;
 }
 
-header>* {
-    opacity: 0;
-    transition: opacity .5s;
+header > * {
+  opacity: 0;
+  transition: opacity 0.5s;
 }
 
-header:hover>* {
-    opacity: 1;
+header:hover > * {
+  opacity: 1;
 }
 
 main {
-    width: 100%;
-    display: flex;
-    /* justify-content: center; */
-    flex: 3 0px;
-    overflow-y: auto;
-    /* padding: 100px; */
-    order: 2;
+  width: 100%;
+  display: flex;
+  /* justify-content: center; */
+  flex: 3 0px;
+  overflow-y: auto;
+  /* padding: 100px; */
+  order: 2;
 }
 
 footer {
-    /* flex: 0 0 25px; */
-    order: 3;
-    background-color: var(--bg-color);
+  /* flex: 0 0 25px; */
+  order: 3;
+  background-color: var(--bg-color);
 }
 
 button {
-    background: inherit;
-    border-style: solid;
-    border-radius: 5px;
-    color: #ccc;
-    font: inherit;
+  background: inherit;
+  border-style: solid;
+  border-radius: 5px;
+  color: #ccc;
+  font: inherit;
 }
-
 
 /* reset Chrome styling of focussed elements */
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
 [contenteditable] {
-    padding: 2px;
-    outline-width: 1px;
-    outline-color: transparent;
-    outline-style: solid;
-    transition: border-color 1s ease;
+  padding: 2px;
+  outline-width: 1px;
+  outline-color: transparent;
+  outline-style: solid;
+  transition: border-color 1s ease;
 }
 
 [contenteditable]:focus {
-    outline-color: #aaa;
+  outline-color: #aaa;
 }
 
 .current-event-indicator {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    vertical-align: center;
-    color: #666;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: center;
+  color: #666;
 }
 
 menu {
-    font-family: "Material Icons";
-    font-size: 20pt;
-    font-weight: 400;
-    color: #ccc;
-    list-style: none;
-    padding: 0;
-    line-height: 1;
+  font-family: "Material Icons";
+  font-size: 20pt;
+  font-weight: 400;
+  color: #ccc;
+  list-style: none;
+  padding: 0;
+  line-height: 1;
 }
 
 menu * {
-    visibility: hidden;
-    opacity: 0;
+  visibility: hidden;
+  opacity: 0;
 }
 
 menu:hover * {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 menu li {
-    padding: 5px;
+  padding: 5px;
 }
 
 menu input {
-    display: none;
+  display: none;
 }
 
 menu button {
-    padding: 0;
-    border: none;
+  padding: 0;
+  border: none;
 }
 
 #signoutbutton {
-    font-family: "Material Icons";
-    font-size: 18pt;
-    font-weight: 400;
-    visibility: hidden;
+  font-family: "Material Icons";
+  font-size: 18pt;
+  font-weight: 400;
+  visibility: hidden;
 }
 
 #signoutbutton:before {
-    content: "account_circle";
-    visibility: visible;
+  content: "account_circle";
+  visibility: visible;
 }
 
 menu#viewMenu {
-    /* position: fixed; */
-    /* left: 25px; */
-    /* top: 100px; */
-    flex: 0 auto;
-    order: 1;
+  /* position: fixed; */
+  /* left: 25px; */
+  /* top: 100px; */
+  flex: 0 auto;
+  order: 1;
 }
 
 #expandAllButton::before {
-    content: "expand_more";
+  content: "expand_more";
 }
 
 #lightSwitch::before {
-    content: "lightbulb_outline";
+  content: "lightbulb_outline";
 }
 
 #bulletSwitch::before {
-    content: "chevron_right";
+  content: "chevron_right";
 }
 
-#fullscreenSwitch+label::before {
-    content: "fullscreen";
+#fullscreenSwitch + label::before {
+  content: "fullscreen";
 }
 
-#fullscreenSwitch:checked+label::before {
-    content: "fullscreen_exit";
+#fullscreenSwitch:checked + label::before {
+  content: "fullscreen_exit";
 }
 
 #inactiveVisibleSwitch::before {
-    content: "visibility";
+  content: "visibility";
 }
 
- :root.hideInactive #inactiveVisibleSwitch::before {
-    content: "visibility_off";
+:root.hideInactive #inactiveVisibleSwitch::before {
+  content: "visibility_off";
 }
 
 #cardviewSwitch::before {
-    content: "view_module";
+  content: "view_module";
 }
 
 .hubble .content:empty:not(:focus)::before {
-    content: "(...)";
-    opacity: 0.3;
-    font-style: italic;
+  content: "(...)";
+  opacity: 0.3;
+  font-style: italic;
 }
 
 .rootContent {
-    float: left;
-    width: 100%;
-    /* white-space: nowrap; */
+  float: left;
+  width: 100%;
+  /* white-space: nowrap; */
 }
 
-.rootContent>details>summary {
-    list-style: none;
+.rootContent > details > summary {
+  list-style: none;
 }
 
-.rootContent>details>summary::-webkit-details-marker {
-    display: none;
+.rootContent > details > summary::-webkit-details-marker {
+  display: none;
 }
 
 .rootContent .content {
-    font-size: 30px;
-    /* line-height: 55px; */
-    font-family: 'Rasa', serif;
-    display: inline-block;
-    white-space: normal;
-    line-height: 1.5em;
+  font-size: 30px;
+  /* line-height: 55px; */
+  font-family: "Rasa", serif;
+  display: inline-block;
+  white-space: normal;
+  line-height: 1.5em;
 }
 
 .rootContent .buttons {
-    vertical-align: top;
-    display: inline-block;
-    /* margin-top: 20px; */
+  vertical-align: top;
+  display: inline-block;
+  /* margin-top: 20px; */
 }
 
-.root>.children {
-    display: inline-block;
+.root > .children {
+  display: inline-block;
 }
 
-.rootContent>.hubblelink {
-    display: none;
-}
-
-.buttons * {
-    font-family: "Material Icons";
-    font-size: 10pt;
-    font-weight: 400;
-    margin: 0;
-    color: inherit;
-    display: inline;
-    color: #ccc;
-    line-height: initial;
+.rootContent > .hubblelink {
+  display: none;
 }
 
 .buttons * {
-    transition: opacity .5s;
-    opacity: 0;
-    visibility: hidden;
+  font-family: "Material Icons";
+  font-size: 10pt;
+  font-weight: 400;
+  margin: 0;
+  color: inherit;
+  display: inline;
+  color: #ccc;
+  line-height: initial;
+}
+
+.buttons * {
+  transition: opacity 0.5s;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .buttons:hover * {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .buttons input {
-    -webkit-appearance: none;
-    border-style: solid;
-    border-color: transparent;
-    border-width: 1px;
-    border-radius: 50%;
-    padding: 2px;
+  -webkit-appearance: none;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+  border-radius: 50%;
+  padding: 2px;
 }
 
 .buttons input:checked {
-    border-color: initial;
+  border-color: initial;
 }
 
 .buttons input:after {
-    color: #ccc;
+  color: #ccc;
 }
 
 .buttons input:checked:after {
-    color: inherit;
+  color: inherit;
 }
 
 input.doneToggle {
-    display: none;
+  display: none;
 }
 
 label.doneToggleLabel span.description {
-    display: none;
+  display: none;
 }
 
 label.doneToggleLabel .icon::before {
-    content: "\2022";
-    color: #a22;
-    font-size: 20pt;
+  content: "\2022";
+  color: #a22;
+  font-size: 20pt;
 }
 
 label.doneToggleLabel .icon {
-    opacity: 0;
+  opacity: 0;
 }
 
-input.doneToggle:checked+.icon {
-    opacity: 1;
+input.doneToggle:checked + .icon {
+  opacity: 1;
 }
 
-input.doneToggle+.icon:hover {
-    opacity: 0.5;
+input.doneToggle + .icon:hover {
+  opacity: 0.5;
 }
 
-.doneToggle:checked+label {
-    content: "&#8226;";
+.doneToggle:checked + label {
+  content: "&#8226;";
 }
 
 .snoozeToggle:after {
-    content: "snooze";
+  content: "snooze";
 }
 
-.hideInactive .children .hubble[data-active=false] {
-    display: none !important;
+.hideInactive .children .hubble[data-active="false"] {
+  display: none !important;
 }
 
 .icon {
-    font-family: "Material Icons";
-    font-style: normal;
+  font-family: "Material Icons";
+  font-style: normal;
 }
 
 .hubblelink .icon {
-    /* -webkit-appearance: none; */
-    font-size: 10pt;
-    /* margin: 0; */
-    /* display: inline; */
-    color: #ccc;
-    vertical-align: top;
+  /* -webkit-appearance: none; */
+  font-size: 10pt;
+  /* margin: 0; */
+  /* display: inline; */
+  color: #ccc;
+  vertical-align: top;
 }
 
 .hubblelink .icon {
-    opacity: 0;
-    visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
 }
 
-.hubble:hover>.hubblelink>.icon {
-    opacity: 1;
-    visibility: visible;
+.hubble:hover > .hubblelink > .icon {
+  opacity: 1;
+  visibility: visible;
 }
 
 .hubblelink .description {
-    display: none;
+  display: none;
 }
-
 
 /* Todo: apparently this makes selection impossible for all elements
                  * that contain button elements (i.e. all elements)
@@ -427,181 +434,181 @@ input.doneToggle+.icon:hover {
                  */
 
 ul {
-    list-style: none;
-    padding-left: 20px;
+  list-style: none;
+  padding-left: 20px;
 }
 
 .children .hubble {
-    white-space: nowrap;
-    /* line-height: 1.7; */
-    /* position: relative; */
-    /* margin-top: 5px; */
+  white-space: nowrap;
+  /* line-height: 1.7; */
+  /* position: relative; */
+  /* margin-top: 5px; */
 }
 
 .children .content {
-    display: inline-block;
-    white-space: normal;
-    vertical-align: text-top;
-    max-width: 600px;
-    font-family: var(--content-font);
-    font-size: 18pt;
+  display: inline-block;
+  white-space: normal;
+  vertical-align: text-top;
+  max-width: 600px;
+  font-family: var(--content-font);
+  font-size: 18pt;
 }
 
 .childcountinfo {
-    display: none;
+  display: none;
 }
 
 .buttons {
-    display: inline;
-    opacity: 0;
-    /* visibility: hidden; */
-    /* border-radius: 4px; */
-    background: var(--bg-color);
-    padding: 0px;
-    margin: 0;
+  display: inline;
+  opacity: 0;
+  /* visibility: hidden; */
+  /* border-radius: 4px; */
+  background: var(--bg-color);
+  padding: 0px;
+  margin: 0;
 }
 
 .buttons:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .buttons .newhubble_link {
-    display: none;
+  display: none;
 }
 
-.root>.content {
-    display: block;
+.root > .content {
+  display: block;
 }
 
 .showline .hubble li {
-    border-left: 1px solid;
+  border-left: 1px solid;
 }
 
 .serif {
-    font-family: 'Rasa', serif;
+  font-family: "Rasa", serif;
 }
 
 .hubbleCardView #cardviewSwitch::before {
-    content: "list";
+  content: "list";
 }
 
 .hubbleCardView .children {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .hubbleCardView .children .hubble {
-    --hubble-content-is-link: true;
-    /* white-space: normal; */
-    /* vertical-align: top; */
-    border-width: 1px;
-    border-color: #dddddd52;
-    border-style: solid;
-    border-radius: 4px;
-    margin: calc(5px + 2%);
-    padding: 1em;
-    /* position: relative; */
-    display: flex;
-    flex-flow: row wrap;
-    flex: 1;
+  --hubble-content-is-link: true;
+  /* white-space: normal; */
+  /* vertical-align: top; */
+  border-width: 1px;
+  border-color: #dddddd52;
+  border-style: solid;
+  border-radius: 4px;
+  margin: calc(5px + 2%);
+  padding: 1em;
+  /* position: relative; */
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1;
 }
 
 .hubbleCardView .children .hubble[data-active] {
-    border-color: #a22
+  border-color: #a22;
 }
 
 .hubbleCardView .children .doneToggleLabel {
-    order: -2;
+  order: -2;
 }
 
 .hubbleCardView .children .doneToggleLabel {
-    position: absolute;
-    left: 5px;
-    top: 8px;
-    line-height: 5px;
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  line-height: 5px;
 }
 
 .hubbleCardView .children .content {
-    order: -1;
-    /* vertical-align: inherit; */
-    /* font-family: var(--UI-font); */
+  order: -1;
+  /* vertical-align: inherit; */
+  /* font-family: var(--UI-font); */
 }
 
 .hubbleCardView .children .content:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .hubbleCardView .children .content:focus {
-    font-size: 30px;
-    line-height: 55px;
-    font-family: var(--content-font);
-    display: inline-block;
-    white-space: normal;
-    background-color: var(--bg-color);
+  font-size: 30px;
+  line-height: 55px;
+  font-family: var(--content-font);
+  display: inline-block;
+  white-space: normal;
+  background-color: var(--bg-color);
 }
 
 .hubbleCardView .children .hubble:hover .childcountinfo {
-    opacity: 0.5;
-    visibility: visible;
+  opacity: 0.5;
+  visibility: visible;
 }
 
 .hubbleCardView .children .childcountinfo {
-    opacity: 0;
-    transition: opacity .5s;
-    visibility: hidden;
-    font-size: x-small;
+  opacity: 0;
+  transition: opacity 0.5s;
+  visibility: hidden;
+  font-size: x-small;
 }
 
 .hubbleCardView #expandAllButton,
 .hubbleCardView #bulletSwitch {
-    display: none;
+  display: none;
 }
 
 .hubbleCardView [contenteditable]:focus {
-    outline: none;
+  outline: none;
 }
 
 .hubbleCardView .buttons {
-    position: absolute;
-    top: -20px;
-    left: 10px;
+  position: absolute;
+  top: -20px;
+  left: 10px;
 }
 
 .hubbleCardView .hubblelink .icon {
-    display: none;
+  display: none;
 }
 
 .hubbleCardView .children .hubblelink .description {
-    display: inline;
+  display: inline;
 }
 
 .hubbleCardView .children details {
-    display: none;
+  display: none;
 }
 
 .hubbleCardView .specialHubble {
-    display: initial;
-    font-size: 18pt;
+  display: initial;
+  font-size: 18pt;
 }
 
 .dropTarget {
-    min-height: 5px;
-    min-width: 5px;
-    border-radius: 2px;
+  min-height: 5px;
+  min-width: 5px;
+  border-radius: 2px;
 }
 
 .dragOver {
-    min-height: 30px;
-    min-width: 30px;
-    border-style: dashed !important;
-    border-width: 2px !important;
-    border-color: #aaa;
+  min-height: 30px;
+  min-width: 30px;
+  border-style: dashed !important;
+  border-width: 2px !important;
+  border-color: #aaa;
 }
 
-.turnedOffUntilActivityWorks .children .hubble[data-active=false] .content {
-    color: #888;
+.turnedOffUntilActivityWorks .children .hubble[data-active="false"] .content {
+  color: #888;
 }
 
 .timeSlider {
-    background: none;
+  background: none;
 }

@@ -1,13 +1,13 @@
 {
-    "rules": {
-        "users": {
-            "$uid": {
-                ".write": "$uid === auth.uid",
-                ".read": "$uid === auth.uid",
-                "hubbles": {
-                    ".indexOn": "parent"
-                }
-            }
+  "rules": {
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid",
+        "hubbles": {
+          ".indexOn": "parent"
         }
+      }
     }
+  }
 }
