@@ -12,6 +12,7 @@ export class HubbleRenderer {
     linkIconElement: HTMLElement;
     contentElement: HTMLElement;
     parentLinkElement: HTMLAnchorElement;
+    newChildLinkElement: HTMLAnchorElement;
 
     constructor(readonly hubble: Hubble, readonly template: HTMLTemplateElement, readonly childTemplate: HTMLTemplateElement = template) {
         this.setupTemplate();
@@ -31,6 +32,7 @@ export class HubbleRenderer {
         this.hubble.snoozed.bindToCheckbox(<HTMLInputElement>this.element.querySelector(".snoozeToggle"), true);
         this.hubble.scheduled.bindToAttribute(this.element, "data-scheduled-for");
         this.hubble.parent.bindToAttribute(this.parentLinkElement, "href", "#");
+        this.newChildLinkElement.href = "#" + this.hubble.hubbleKey + "_newchild";
 
         this.element.querySelector(".addChildButton").addEventListener("click", event => this.onAddChildButtonClick(<MouseEvent>event));
         this.element.querySelector(".scheduleButton").addEventListener("click", startScheduleUI);
@@ -65,7 +67,9 @@ export class HubbleRenderer {
         this.detailsElement = <HTMLDetailsElement>this.element.querySelector("details")
         this.linkDescriptionElement = <HTMLSpanElement>this.element.querySelector("a.hubblelink span.description");
         this.linkIconElement = <HTMLElement>this.element.querySelector("a.hubblelink i.icon");
-        this.parentLinkElement = <HTMLAnchorElement>this.element.querySelector(".parenthubblelink")
+        this.parentLinkElement = <HTMLAnchorElement>this.element.querySelector(".parenthubblelink");
+        this.newChildLinkElement = <HTMLAnchorElement>this.element.querySelector(".addhubblelink");
+
         this.element.dataset.key = this.hubble.hubbleKey;
     }
 

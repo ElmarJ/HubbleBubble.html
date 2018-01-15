@@ -64,14 +64,14 @@ export abstract class HubbleProperty<T>{
         }
     }
 
-    async bindToAttribute(element: HTMLElement, attribute: string, prefix = "") {
+    async bindToAttribute(element: HTMLElement, attribute: string, prefix = "", postfix="") {
         // Todo: this no longer subscribes / listens for updates.
 
         const value = await this.getString();
         if (value) {
-            element.setAttribute(attribute, prefix + String(value));
+            element.setAttribute(attribute, prefix + String(value) + postfix);
         } else {
-            element.setAttribute(attribute, prefix + String(this.default));
+            element.setAttribute(attribute, prefix + String(this.default) + postfix);
         }
     }
 }

@@ -57,9 +57,10 @@ async function updatePresenter() {
 
 async function getScopedHubble() {
   var key = window.location.hash.substr(1);
+  
   if (key === null || key === "") {
     const currentEvents = await Calendar.getCurrentEvents();
-    if (currentEvents){
+    if (currentEvents) {
       const currentHubble = Calendar.getLinkedHubble(currentEvents[0]);
       if (currentHubble) {
         return currentHubble;
@@ -67,6 +68,17 @@ async function getScopedHubble() {
     }
     return await Hubble.getRootHubble();
   }
+  
+  if(key.endsWith("_newchild")) {
+    const parentKey = key.replace("_newchild", "");
+    const parent = new Hubble(parentKey);
+    
+    const newChild = await Hubble.create();
+    newChild.setParent(parent);
+    
+    window.location.hash = "#" + newChild.hubbleKey;
+  }
+  
   return new Hubble(key);
 }
 
