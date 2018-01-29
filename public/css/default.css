@@ -313,6 +313,10 @@ menu#viewMenu {
   display: none;
 }
 
+.specialHubble {
+  display: none;
+}
+
 .buttons * {
   font-family: "Material Icons";
   font-size: 10pt;
@@ -486,6 +490,10 @@ ul {
 
 .serif {
   font-family: "Rasa", serif;
+}
+
+.hubbleCardView .specialHubble {
+  display: initial;
 }
 
 .hubbleCardView #cardviewSwitch::before {
