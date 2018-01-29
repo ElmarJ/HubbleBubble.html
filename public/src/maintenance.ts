@@ -1,3 +1,5 @@
+import firebase from '../node_modules/@firebase/app/dist/esm/index';
+
 // import { Hubble } from "./data.js";
 
 const rootKey = "-KlYdxmFkIiWOFXp0UIP";

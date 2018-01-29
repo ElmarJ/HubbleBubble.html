@@ -1,4 +1,5 @@
-import { firestore } from "../../node_modules/firebase/index";
+import firebase from '../node_modules/@firebase/app/dist/esm/index';
+import * as firestore from '../node_modules/@firebase/firestore-types/index';
 
 interface HubbleData {
   snoozed: boolean;

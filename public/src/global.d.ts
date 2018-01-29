@@ -1,7 +1,5 @@
-declare const firebaseui: any;
 declare const OneDrive: any;
-
-declare const firebase: any;
+declare const firebaseui: any;
 
 interface Element {
   mozRequestFullScreen(): Promise<void>;

@@ -1,3 +1,5 @@
+import firebase from '../node_modules/@firebase/app/dist/esm/index';
+
 /**
  * FirebaseUI initialization to be used in a Single Page application context.
  */

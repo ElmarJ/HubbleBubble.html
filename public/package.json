@@ -9,6 +9,7 @@
   "main": "./index.html",
   "dependencies": {
     "firebase": "^4.8.0",
+    "firebaseui": "^2.5.1",
     "googleapis": "^23.0.0"
   }
 }

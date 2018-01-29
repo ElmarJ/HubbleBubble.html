@@ -1,3 +1,5 @@
+import firebase from '../node_modules/@firebase/app/dist/esm/index';
+
 const config = {
   apiKey: "AIzaSyA7zawVhVUXXzD5XKVSMBkqunjEI-Mp5Ek",
   authDomain: "hubblebubble-58ec9.firebaseapp.com",

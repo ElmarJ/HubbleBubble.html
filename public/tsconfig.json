@@ -1,17 +1,11 @@
 {
-  "include": [
-    "./**/*",
-    "../../node_modules/firebase/*.d.ts",
-    "../../node_modules/@firebase/*.d.ts"
-  ],
-  "exclude": [],
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es2017",
     "sourceMap": true,
     "removeComments": true,
     "module": "esnext",
-    "outDir": "../js"
+    "outDir": "./js"
   },
   "typeAcquisition": {
     "enable": true

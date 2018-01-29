@@ -1,3 +1,5 @@
+import firebase from '../node_modules/@firebase/app/dist/esm/index';
+
 const hubbleroot = {
   content: "Elmars Hubble Bubble",
   children: [
