@@ -510,15 +510,20 @@ ul {
   /* white-space: normal; */
   /* vertical-align: top; */
   border-width: 1px;
-  border-color: #dddddd52;
+  border-color: var(--text-color);
   border-style: solid;
-  border-radius: 4px;
+  border-radius: 9px;
   margin: calc(5px + 2%);
   padding: 1em;
   /* position: relative; */
   display: flex;
   flex-flow: row wrap;
-  flex: 1;
+  flex: 20%;
+  min-height: 5vh;
+}
+
+.hubbleCardView .children .hubble.specialHubble {
+  flex: 5%;
 }
 
 .hubbleCardView .children .hubble[data-active] {
