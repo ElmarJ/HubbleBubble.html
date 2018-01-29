@@ -12,6 +12,7 @@ interface HubbleData {
 }
 
 // Todo: reimplement using Proxy objects?
+//    Or simply TypeScript properties?
 export abstract class HubbleProperty<T> {
   prepareChange: (newValue: T) => void;
   abstract default: T;
