@@ -1,4 +1,4 @@
-import firebase from '../node_modules/@firebase/app/dist/esm/index';
+import firebase from '../node_modules/@firebase/app/dist/esm/index.js';
 
 const config = {
   apiKey: "AIzaSyA7zawVhVUXXzD5XKVSMBkqunjEI-Mp5Ek",

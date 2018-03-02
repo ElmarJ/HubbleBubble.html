@@ -49,7 +49,7 @@
 
     <script type="module" src="js/calendar.js"></script>
     <script type="module" src="js/index.js"></script>
-
+    <script id="gapi-script" src="https://apis.google.com/js/api.js" async=""></script>
     <template id="hubbleListTemplate">
         <div class="hubble root">
             <div class="rootContent">
@@ -130,6 +130,10 @@
         </li>
     </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.8/dialog-polyfill.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+    <script src="./js/init.js"></script>
     <dialog id="addExternalLinkDialog">
         <form method="dialog">
             <label for="urlNameBox">Link name:</label>

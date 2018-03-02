@@ -1,5 +1,4 @@
-import firebase from '../node_modules/@firebase/app/dist/esm/index';
-import * as firestore from '../node_modules/@firebase/firestore-types/index';
+import { DocumentReference } from '../node_modules/@firebase/firestore-types/index.js'
 
 interface HubbleData {
   snoozed: boolean;
@@ -121,9 +120,9 @@ abstract class StringHubbleProperty extends HubbleProperty<string> {
 }
 
 abstract class HubbleReferenceHubbleProperty extends HubbleProperty<
-  firestore.DocumentReference
+DocumentReference
 > {
-  valueToString(value: firestore.DocumentReference) {
+  valueToString(value: DocumentReference) {
     return value.id;
   }
 }
@@ -202,7 +201,7 @@ class UrlHubbleProperty extends HubbleProperty<string> {
 export class Hubble {
   database = firebase.firestore();
   user = firebase.auth().currentUser;
-  ref: firestore.DocumentReference;
+  ref: DocumentReference;
 
   parent = new ParentHubbleProperty("parent", this);
   children = new ChildrenProperty("children", this);
@@ -337,7 +336,7 @@ export class Hubble {
     const user = firebase.auth().currentUser;
     const userDoc = database.collection("users/").doc(user.uid);
     const userDocSnapshot = await userDoc.get();
-    const rootHubbleDoc = <firestore.DocumentReference>userDocSnapshot.get(
+    const rootHubbleDoc = <DocumentReference>userDocSnapshot.get(
       "root"
     );
 

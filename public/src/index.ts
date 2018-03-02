@@ -2,7 +2,6 @@ import { findElementAncestor } from "./helpers.js";
 import { HubbleRenderer } from "./renderer.js";
 import { Hubble } from "./data.js";
 import * as Calendar from "./calendar.js";
-import firebase from '../node_modules/@firebase/app/dist/esm/index';
 
 
 var presenter = document.getElementById("hubblePresenter");

@@ -1,4 +1,4 @@
-import firebase from '../node_modules/@firebase/app/dist/esm/index';
+import { User } from '../node_modules/@firebase/auth-types/index.js'
 
 /**
  * FirebaseUI initialization to be used in a Single Page application context.
@@ -33,7 +33,7 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 // Keep track of the currently signed in user.
 var currentUid: string;
 
-var handleSignedInUser = function(user: firebase.User) {
+var handleSignedInUser = function(user: User) {
   window.location.href = "/";
 };
 
