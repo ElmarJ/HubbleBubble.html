@@ -231,7 +231,7 @@ export class HubbleRenderer {
       // After the cursor goes into the new hubble:
       newChildRenderer.contentElement.innerHTML = afterCursor;
 
-      this.setFocus();
+      newChildRenderer.setFocus();
     }
   }
 
