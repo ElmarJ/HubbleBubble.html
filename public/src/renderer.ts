@@ -71,13 +71,13 @@ export class HubbleRenderer {
     this.contentElement.addEventListener("keydown", event =>
       this.onKeyDown(event)
     );
-    this.contentElement.addEventListener("click", event =>
-      this.onContentClick(event)
-    );
-    this.element.addEventListener("dragstart", onDragStart);
+    this.contentElement.addEventListener("click", event => {
+      this.onContentClick(event);
+    });
+    this.element.addEventListener("dragstart", event => this.onDragStart(event));
     this.element.addEventListener("dragend", onDragEnd);
     this.element.addEventListener("dragover", onDragOver);
-    this.element.addEventListener("drop", onDrop);
+    this.element.addEventListener("drop", (event) => this.onDrop(event));
 
     this.useDragoverClass();
 
@@ -161,6 +161,29 @@ export class HubbleRenderer {
     return this.element;
   }
 
+  onDragStart(ev: DragEvent) {
+    // If it's not something in my childrenlist being dragged, add my hubble-key as source
+    if (!this.childrenElement.contains(<HTMLElement>ev.target)) {
+      ev.dataTransfer.setData("text/plain", this.hubble.hubbleKey);
+    }
+  }
+
+  onDrop(ev: DragEvent) {
+
+    // if something was dropped in my "children"-area, it's not dropped on me
+    //   but one of my children (so don't handle)
+    if (this.childrenElement.contains(<HTMLElement>ev.target)) return;
+
+    ev.preventDefault();
+    removeDropTargets();
+    // move me into the children-element of the element I was dropped on:
+    const sourceKey = ev.dataTransfer.getData("text/plain");
+    const sourceHubbleElement = <HTMLElement>document.querySelector(
+      `[data-key="${sourceKey}"].hubble`
+    );
+    this.childrenElement.appendChild(sourceHubbleElement);
+  }
+
   private beginPersistingChildlistOnChange() {
     const observer = new MutationObserver(() => this.persistChildList());
     observer.observe(this.childrenElement, {
@@ -231,7 +254,7 @@ export class HubbleRenderer {
       // After the cursor goes into the new hubble:
       newChildRenderer.contentElement.innerHTML = afterCursor;
 
-      newChildRenderer.setFocus();
+      this.setFocus();
     }
   }
 
@@ -436,30 +459,6 @@ function removeDropTargets() {
 
 var dropTargetBeforeElt: HTMLElement;
 var dropTargetAfterElt: HTMLElement;
-
-function onDrop(ev: DragEvent) {
-  ev.preventDefault();
-
-  removeDropTargets();
-  // move me into the children-element of the element I was dropped on:
-  const sourceKey = ev.dataTransfer.getData("text/plain");
-  const sourceHubbleElement = <HTMLElement>document.querySelector(
-    `[data-key=${sourceKey}].hubble`
-  );
-  const destinationHubbleElement = findElementAncestor(
-    <HTMLElement>ev.target,
-    "hubble"
-  );
-  const destinationChildrenElement = destinationHubbleElement.querySelector(
-    ".children"
-  );
-  destinationChildrenElement.appendChild(sourceHubbleElement);
-}
-
-function onDragStart(ev: DragEvent) {
-  const sourceHubbleKey = (<HTMLElement>ev.target).dataset.key;
-  ev.dataTransfer.setData("text/plain", sourceHubbleKey);
-}
 
 function onDragOver(ev: DragEvent) {
   ev.preventDefault();
