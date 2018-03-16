@@ -1,8 +1,8 @@
 {
   "name": "webclient",
   "scripts": {
-    "build": "./node_modules/.bin/tslint -p tslint.json && ./node_modules/.bin/tsc",
-    "serve": "npm run build && firebase serve --only hosting",
+    "build": "tslint && tsc",
+    "serve": "firebase serve --only hosting",
     "deploy": "firebase deploy --only hosting",
     "logs": "firebase hosting:log"
   },
@@ -11,5 +11,6 @@
     "firebase": "^4.8.0",
     "firebaseui": "^2.5.1",
     "googleapis": "^23.0.0"
-  }
+  },
+  "version": "1.3.0"
 }

@@ -1,4 +1,4 @@
-import * as database from '../node_modules/@firebase/database/dist/esm/index.js';
+import * as database from '../node_modules/@firebase/database';
 
 const hubbleroot = {
   content: "Elmars Hubble Bubble",

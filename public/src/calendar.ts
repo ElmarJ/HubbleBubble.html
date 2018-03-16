@@ -141,14 +141,15 @@ function getFractionPassedOfEvent(event: gapi.client.calendar.Event) {
 }
 
 async function createLinkedEvent(startsAt: Date, endsAt: Date, hubble: Hubble) {
-  const eventData: gapi.client.calendar.EventInput = {
+  const eventData: any = {
     summary: await hubble.content.get(),
     start: { dateTime: startsAt.toISOString() },
     end: { dateTime: endsAt.toISOString() },
     extendedProperties: {
       private: {
         "linked-hubble-key": hubble.hubbleKey
-      }
+      },
+      shared: {}
     }
   };
 
