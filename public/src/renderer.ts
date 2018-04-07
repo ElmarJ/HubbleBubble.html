@@ -10,7 +10,7 @@ export class HubbleRenderer {
   detailsElement: HTMLDetailsElement;
   linkDescriptionElement: HTMLSpanElement;
   linkIconElement: HTMLElement;
-  contentElement: HTMLElement;
+  contentElement: HTMLSpanElement;
   parentLinkElement: HTMLAnchorElement;
   newChildLinkElement: HTMLAnchorElement;
 
@@ -74,10 +74,12 @@ export class HubbleRenderer {
     this.contentElement.addEventListener("click", event => {
       this.onContentClick(event);
     });
-    this.element.addEventListener("dragstart", event => this.onDragStart(event));
+    this.element.addEventListener("dragstart", event =>
+      this.onDragStart(event)
+    );
     this.element.addEventListener("dragend", onDragEnd);
     this.element.addEventListener("dragover", onDragOver);
-    this.element.addEventListener("drop", (event) => this.onDrop(event));
+    this.element.addEventListener("drop", event => this.onDrop(event));
 
     this.useDragoverClass();
 
@@ -99,7 +101,9 @@ export class HubbleRenderer {
     this.navigator = new Navigator(this.element);
 
     this.childrenElement = <HTMLElement>this.element.querySelector(".children");
-    this.contentElement = <HTMLElement>this.element.querySelector(".content");
+    this.contentElement = <HTMLSpanElement>this.element.querySelector(
+      ".content"
+    );
     this.detailsElement = <HTMLDetailsElement>this.element.querySelector(
       "details"
     );
@@ -169,10 +173,11 @@ export class HubbleRenderer {
   }
 
   onDrop(ev: DragEvent) {
-
     // if something was dropped in my "children"-area, it's not dropped on me
     //   but one of my children (so don't handle)
-    if (this.childrenElement.contains(<HTMLElement>ev.target)) return;
+    if (this.childrenElement.contains(<HTMLElement>ev.target)) {
+      return;
+    }
 
     ev.preventDefault();
     removeDropTargets();
@@ -254,7 +259,7 @@ export class HubbleRenderer {
       // After the cursor goes into the new hubble:
       newChildRenderer.contentElement.innerHTML = afterCursor;
 
-      this.setFocus();
+      newChildRenderer.setFocus(true);
     }
   }
 
@@ -359,15 +364,27 @@ export class HubbleRenderer {
     return childRenderer;
   }
 
-  setFocus() {
+  setFocus(cursorAtEnd = false) {
+    var contentElement = <HTMLTextAreaElement>this.contentElement;
+
     this.makeVisible();
-    this.contentElement.focus();
+    contentElement.focus();
+
+    if (cursorAtEnd) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(this.contentElement);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
   }
 
   private static setElementFocus(element: HTMLElement) {
     HubbleRenderer.makeElementVisible(element);
     element.focus();
   }
+  
   makeVisible() {
     HubbleRenderer.makeElementVisible(this.element);
   }
@@ -378,11 +395,11 @@ export class HubbleRenderer {
         hubbleEl.parentElement,
         "hubble"
       );
-      const checkBox = <HTMLInputElement>parentHubbleEl.querySelector(
-        ".collapseToggle"
+      const details = <HTMLDetailsElement>parentHubbleEl.querySelector(
+        "details"
       );
       this.makeElementVisible(parentHubbleEl);
-      checkBox.checked = false;
+      details.open = true;
     }
   }
 
