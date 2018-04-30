@@ -1,0 +1,10 @@
+<details>
+  <summary>
+    <span #content contenteditable="true" (blur)="updateContent(content.innerText);" >{{ (hubble | async)?.content }}</span>
+  </summary>
+  <ul #childrenList>
+    <li class="text" *ngFor="let child of children | async">
+      <hubble hubbleId="{{ child.payload.doc.id }}"></hubble>
+    </li>
+  </ul>
+</details>

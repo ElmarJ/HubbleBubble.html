@@ -1,0 +1,126 @@
+
+header {
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* flex-flow: row nowrap; */
+  /* flex: 0 0 25px; */
+}
+
+header > * {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+header:hover > * {
+  opacity: 1;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  /* justify-content: center; */
+  flex: 3 0px;
+  overflow-y: auto;
+  /* padding: 100px; */
+  order: 2;
+}
+
+footer {
+  /* flex: 0 0 25px; */
+  order: 3;
+  background-color: var(--bg-color);
+}
+
+.current-event-indicator {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: center;
+  color: #666;
+}
+
+menu {
+  font-family: "Material Icons";
+  font-size: 20pt;
+  font-weight: 400;
+  color: #ccc;
+  list-style: none;
+  padding: 0;
+  line-height: 1;
+}
+
+menu * {
+  visibility: hidden;
+  opacity: 0;
+}
+
+menu:hover * {
+  visibility: visible;
+  opacity: 1;
+}
+
+menu li {
+  padding: 5px;
+}
+
+menu input {
+  display: none;
+}
+
+menu button {
+  padding: 0;
+  border: none;
+}
+
+#signoutbutton {
+  font-family: "Material Icons";
+  font-size: 18pt;
+  font-weight: 400;
+  visibility: hidden;
+}
+
+#signoutbutton:before {
+  content: "account_circle";
+  visibility: visible;
+}
+
+menu#viewMenu {
+  /* position: fixed; */
+  /* left: 25px; */
+  /* top: 100px; */
+  flex: 0 auto;
+  order: 1;
+}
+
+#expandAllButton::before {
+  content: "expand_more";
+}
+
+#lightSwitch::before {
+  content: "lightbulb_outline";
+}
+
+#bulletSwitch::before {
+  content: "chevron_right";
+}
+
+#fullscreenSwitch + label::before {
+  content: "fullscreen";
+}
+
+#fullscreenSwitch:checked + label::before {
+  content: "fullscreen_exit";
+}
+
+#inactiveVisibleSwitch::before {
+  content: "visibility";
+}
+
+:root.hideInactive #inactiveVisibleSwitch::before {
+  content: "visibility_off";
+}
+
+#cardviewSwitch::before {
+  content: "view_module";
+}

@@ -1,0 +1,309 @@
+/* You can add global styles to this file, and also import other style files */
+/*
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v28/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2)
+    format("woff2");
+}
+
+/* latin-ext */
+
+@font-face {
+  font-family: "Rasa";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Rasa Regular"), local("Rasa-Regular"),
+    url(https://fonts.gstatic.com/s/rasa/v2/4A8vW8DIg9GWXGYz7D0Oww.woff2)
+      format("woff2");
+  unicode-range: U+0100-024f, U+1-1eff, U+20a0-20ab, U+20ad-20cf, U+2c60-2c7f,
+    U+A720-A7FF;
+}
+
+/* latin */
+
+@font-face {
+  font-family: "Rasa";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Rasa Regular"), local("Rasa-Regular"),
+    url(https://fonts.gstatic.com/s/rasa/v2/ZYFGdK7w7tvjLebnCRT01Q.woff2)
+      format("woff2");
+  unicode-range: U+0000-00ff, U+0131, U+0152-0153, U+02c6, U+02da, U+02dc,
+    U+2000-206f, U+2074, U+20ac, U+2212, U+2215;
+}
+
+/* latin-ext */
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url(https://fonts.gstatic.com/s/roboto/v16/Fcx7Wwv8OzT71A3E1XOAjvesZW2xOQ-xsNqO47m55DA.woff2)
+      format("woff2");
+  unicode-range: U+0100-024f, U+1-1eff, U+20a0-20ab, U+20ad-20cf, U+2c60-2c7f,
+    U+A720-A7FF;
+}
+
+/* latin */
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url(https://fonts.gstatic.com/s/roboto/v16/CWB0XYA8bzo0kSThX0UTuA.woff2)
+      format("woff2");
+  unicode-range: U+0000-00ff, U+0131, U+0152-0153, U+02c6, U+02da, U+02dc,
+    U+2000-206f, U+2074, U+20ac, U+2212, U+2215;
+}
+
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --UI-font: "Roboto";
+  --content-font: "Rasa";
+  --hubble-content-is-link: false;
+}
+
+:root.nightMode {
+  --bg-color: black;
+  --text-color: white;
+}
+
+:root.redish {
+  --bg-color: brown;
+  --text-color: white;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+html {
+  font-family: var(--UI-font);
+  margin: 0;
+  background: var(--bg-color);
+  color: var(--text-color);
+  height: 100%;
+  width: 100%;
+}
+
+.rootContent menu.buttons {
+  display: none;
+}
+
+html * {
+  transition: opacity 0.5s;
+}
+
+.hubble details {
+  /* padding:  0; */
+  /* margin:  0; */
+  line-height: 1em;
+  display: inline;
+}
+
+body {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0;
+  /* height: 100%; */
+  /* min-height: 100%; */
+}
+
+body > * {
+  flex: 1 100%;
+  padding: 10px;
+}
+
+
+button {
+  background: inherit;
+  border-style: solid;
+  border-radius: 5px;
+  color: #ccc;
+  font: inherit;
+}
+
+/* reset Chrome styling of focussed elements */
+
+*:focus {
+  outline: none;
+}
+
+[contenteditable] {
+  padding: 2px;
+  outline-width: 1px;
+  outline-color: transparent;
+  outline-style: solid;
+  transition: border-color 1s ease;
+}
+
+[contenteditable]:focus {
+  outline-color: #aaa;
+}
+.hubble .content:empty:not(:focus)::before {
+  content: "(...)";
+  opacity: 0.3;
+  font-style: italic;
+}
+
+.rootContent {
+  float: left;
+  width: 100%;
+  /* white-space: nowrap; */
+}
+
+.rootContent > details > summary {
+  list-style: none;
+}
+
+.rootContent > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.rootContent .content {
+  font-size: 30px;
+  /* line-height: 55px; */
+  font-family: "Rasa", serif;
+  display: inline-block;
+  white-space: normal;
+  line-height: 1.5em;
+}
+
+.rootContent .buttons {
+  vertical-align: top;
+  display: inline-block;
+  /* margin-top: 20px; */
+}
+
+.root > .children {
+  display: inline-block;
+}
+
+.rootContent > .hubblelink {
+  display: none;
+}
+
+.specialHubble {
+  display: none;
+}
+
+.buttons * {
+  font-family: "Material Icons";
+  font-size: 10pt;
+  font-weight: 400;
+  margin: 0;
+  color: inherit;
+  display: inline;
+  color: #ccc;
+  line-height: initial;
+}
+
+.buttons * {
+  transition: opacity 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.buttons:hover * {
+  opacity: 1;
+  visibility: visible;
+}
+
+.buttons input {
+  -webkit-appearance: none;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.buttons input:checked {
+  border-color: initial;
+}
+
+.buttons input:after {
+  color: #ccc;
+}
+
+.buttons input:checked:after {
+  color: inherit;
+}
+
+
+input.doneToggle {
+  display: none;
+}
+
+label.doneToggleLabel span.description {
+  display: none;
+}
+
+label.doneToggleLabel .icon::before {
+  content: "\2022";
+  color: #a22;
+  font-size: 20pt;
+}
+
+label.doneToggleLabel .icon {
+  opacity: 0;
+}
+
+input.doneToggle:checked + .icon {
+  opacity: 1;
+}
+
+input.doneToggle + .icon:hover {
+  opacity: 0.5;
+}
+
+.doneToggle:checked + label {
+  content: "&#8226;";
+}
+
+.snoozeToggle:after {
+  content: "snooze";
+}
+
+.hideInactive .children .hubble[data-active="false"] {
+  display: none !important;
+}
+
+.icon {
+  font-family: "Material Icons";
+  font-style: normal;
+}
+
+
+ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+
+.buttons {
+  display: inline;
+  opacity: 0;
+  /* visibility: hidden; */
+  /* border-radius: 4px; */
+  background: var(--bg-color);
+  padding: 0px;
+  margin: 0;
+}
+
+.buttons:hover {
+  opacity: 1;
+}
+
+
+.serif {
+  font-family: "Rasa", serif;
+}
+
