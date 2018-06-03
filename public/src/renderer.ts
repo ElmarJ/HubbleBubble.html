@@ -31,7 +31,9 @@ export class HubbleRenderer {
       "data-active-children"
     );
 
-    this.hubble.content.bindToContent(this.contentElement, true);
+    this.hubble.content.bindToContent(this.contentElement, true).then(() => {
+      this.setFocus(true);
+    });
     this.hubble.content.bindToContent(this.linkDescriptionElement, false);
     this.element
       .querySelectorAll(".hubblelink")
@@ -190,7 +192,16 @@ export class HubbleRenderer {
   }
 
   private beginPersistingChildlistOnChange() {
-    const observer = new MutationObserver(() => this.persistChildList());
+    const observer = new MutationObserver((mutationRecords) => {
+      for (const record of mutationRecords) {
+        for (const node of record.addedNodes) {
+          if ((<HTMLElement>node).classList.contains("hubble")) {
+            this.persistChildList();
+            return;
+          }
+        }
+      }
+    });
     observer.observe(this.childrenElement, {
       attributes: false,
       childList: true,

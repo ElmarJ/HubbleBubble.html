@@ -9,3 +9,14 @@ interface Element {
 interface Document {
   mozExitFullScreen(): Promise<void>;
 }
+
+declare namespace gapi.auth2 {
+  export function getAuthInstance(): any;
+}
+
+declare namespace gapi.client {
+  export const calendar: any;
+  export namespace calendar {
+    export type Event = any;
+  }
+}

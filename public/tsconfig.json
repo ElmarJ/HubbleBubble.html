@@ -8,9 +8,13 @@
     "outDir": "./js",
     "rootDir": "./src",
     "moduleResolution": "node",
-    "alwaysStrict": true,
+    "alwaysStrict": true
   },
   "typeAcquisition": {
-    "enable": true
+    "enable": true,
+    "include": [
+      "gapi",
+      "firebase"
+    ]
   }
 }

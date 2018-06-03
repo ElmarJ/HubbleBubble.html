@@ -1,4 +1,4 @@
-import { DocumentReference } from '../node_modules/@firebase/firestore-types/index.js'
+import { DocumentReference } from '../node_modules/@firebase/firestore-types'
 
 interface HubbleData {
   snoozed: boolean;
@@ -16,7 +16,7 @@ interface HubbleData {
 export abstract class HubbleProperty<T> {
   prepareChange: (newValue: T) => void;
   abstract default: T;
-
+  
   constructor(readonly name: string, readonly owner: Hubble) {
     this.prepareChange = value => {};
   }

@@ -1,4 +1,4 @@
-import firebase from '../node_modules/@firebase/app/dist/esm/index.js';
+import { FirebaseApp} from '../node_modules/@firebase/app-types';
 
 const config = {
   apiKey: "AIzaSyA7zawVhVUXXzD5XKVSMBkqunjEI-Mp5Ek",

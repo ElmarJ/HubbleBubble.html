@@ -1,4 +1,4 @@
-import * as database from '../node_modules/@firebase/database';
+import * as database from '../node_modules/@firebase/database-types'
 
 const hubbleroot = {
   content: "Elmars Hubble Bubble",

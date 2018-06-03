@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "hubble bubble",
   "main": "public/index.html",
-  "devDependencies": {
-    "@types/gapi": "^0.0.35",
-    "@types/gapi.auth2": "^0.0.43",
-    "@types/gapi.calendar": "^3.0.1",
-    "firebase-admin": "^5.1.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://elmarj.visualstudio.com/_git/HubbleBubble.html"
