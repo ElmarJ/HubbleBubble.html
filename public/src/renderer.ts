@@ -52,6 +52,11 @@ export class HubbleRenderer {
       <HTMLInputElement>this.element.querySelector(".snoozeToggle"),
       true
     );
+    this.hubble.collapsed.bindToAttributePresence(
+      <HTMLInputElement>this.element,
+      "data-collapsed",
+      true
+    );
     this.hubble.scheduled.bindToAttribute(this.element, "data-scheduled-for");
     this.hubble.parent.bindToAttribute(this.parentLinkElement, "href", "#");
     this.newChildLinkElement.href = "#" + this.hubble.hubbleKey + "_newchild";
@@ -61,6 +66,9 @@ export class HubbleRenderer {
       .addEventListener("click", event =>
         this.onAddChildButtonClick(<MouseEvent>event)
       );
+    this.element
+      .querySelector(".collapseButton")
+      .addEventListener("click", event => this.onToggleCollapseButtonPress(event));
     this.element
       .querySelector(".scheduleButton")
       .addEventListener("click", startScheduleUI);
@@ -250,6 +258,16 @@ export class HubbleRenderer {
     this.setFocus();
   }
 
+
+  private onToggleCollapseButtonPress(event: Event) {
+    if (this.element.hasAttribute("data-collapsed")) {
+      this.element.removeAttribute("data-collapsed");
+    } else {
+      this.element.setAttribute("data-collapsed", "");
+    }
+  }
+
+
   private async onEditorKeyPress(ev: KeyboardEvent) {
     if (ev.key === "Enter") {
       ev.preventDefault();
@@ -378,7 +396,7 @@ export class HubbleRenderer {
   setFocus(cursorAtEnd = false) {
     var contentElement = <HTMLTextAreaElement>this.contentElement;
 
-    this.makeVisible();
+    // this.makeVisible();
     contentElement.focus();
 
     if (cursorAtEnd) {
@@ -395,7 +413,7 @@ export class HubbleRenderer {
     HubbleRenderer.makeElementVisible(element);
     element.focus();
   }
-  
+
   makeVisible() {
     HubbleRenderer.makeElementVisible(this.element);
   }
@@ -406,11 +424,12 @@ export class HubbleRenderer {
         hubbleEl.parentElement,
         "hubble"
       );
-      const details = <HTMLDetailsElement>parentHubbleEl.querySelector(
-        "details"
-      );
+
       this.makeElementVisible(parentHubbleEl);
-      details.open = true;
+      if (parentHubbleEl.hasAttribute("data-collapsed"))
+      {
+        // parentHubbleEl.removeAttribute("data-collapsed");
+      }
     }
   }
 
@@ -430,7 +449,7 @@ export class HubbleRenderer {
 }
 
 class Navigator {
-  constructor(readonly element: HTMLElement) {}
+  constructor(readonly element: HTMLElement) { }
 
   moveDown() {
     if (this.element.nextElementSibling) {
@@ -554,7 +573,7 @@ async function startAddLinkUI(event: MouseEvent) {
   ).querySelector(".children");
 
   dialog.showModal();
-  dialog.addEventListener("close", async function(event) {
+  dialog.addEventListener("close", async function (event) {
     if (dialog.returnValue === "confirm") {
       const urlElt = <HTMLInputElement>document.getElementById("urlBox");
       const urlNameElt = <HTMLInputElement>document.getElementById(

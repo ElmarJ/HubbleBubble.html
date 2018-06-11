@@ -16,9 +16,9 @@ interface HubbleData {
 export abstract class HubbleProperty<T> {
   prepareChange: (newValue: T) => void;
   abstract default: T;
-  
+
   constructor(readonly name: string, readonly owner: Hubble) {
-    this.prepareChange = value => {};
+    this.prepareChange = value => { };
   }
 
   async get(defaultIfEmpty?: boolean) {
@@ -91,12 +91,31 @@ abstract class BooleanHubbleProperty extends HubbleProperty<boolean> {
     this.set(new Boolean(value).valueOf());
   }
 
-  async bindToAttributePresence(element: HTMLElement, attribute: string) {
+  async bindToAttributePresence(element: HTMLElement, attribute: string, twoway = false) {
     const value = await this.get();
     if (value) {
       element.setAttribute(attribute, "");
     } else {
-      element.removeAttribute(attribute);
+      if (element.hasAttribute(attribute)) {
+        element.removeAttribute(attribute);
+      }
+    }
+
+    if (twoway) {
+      const observer = new MutationObserver(
+        records => {
+          const newValue = element.hasAttribute(attribute);
+          this.set(newValue);
+        }
+      );
+
+      observer.observe(element, {
+        attributes: true,
+        childList: false,
+        subtree: false,
+        attributeOldValue: false,
+        attributeFilter: [attribute]
+      });
     }
   }
 
@@ -120,8 +139,8 @@ abstract class StringHubbleProperty extends HubbleProperty<string> {
 }
 
 abstract class HubbleReferenceHubbleProperty extends HubbleProperty<
-DocumentReference
-> {
+  DocumentReference
+  > {
   valueToString(value: DocumentReference) {
     return value.id;
   }
@@ -144,6 +163,10 @@ abstract class DateHubbleProperty extends HubbleProperty<Date> {
 
 class ScheduledProperty extends DateHubbleProperty {
   default = null;
+}
+
+class CollapsedProperty extends BooleanHubbleProperty {
+  default = false;
 }
 
 class IsActiveHubbleProperty extends BooleanHubbleProperty {
@@ -213,6 +236,7 @@ export class Hubble {
   activechildren = new ActivityChildCountHubbleProperty("activechildren", this);
   url = new UrlHubbleProperty("url", this);
   scheduled = new ScheduledProperty("scheduled", this);
+  collapsed = new CollapsedProperty("collapsed", this)
 
   constructor(readonly hubbleKey: string) {
     this.ref = this.database

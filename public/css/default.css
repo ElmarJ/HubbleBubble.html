@@ -1,10 +1,3 @@
-@font-face {
-  font-family: "Material Icons";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialicons/v28/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2)
-    format("woff2");
-}
 
 /* latin-ext */
 
@@ -13,7 +6,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("Rasa Regular"), local("Rasa-Regular"),
-    url(https://fonts.gstatic.com/s/rasa/v2/4A8vW8DIg9GWXGYz7D0Oww.woff2)
+    url("https://fonts.gstatic.com/s/rasa/v2/4A8vW8DIg9GWXGYz7D0Oww.woff2")
       format("woff2");
   unicode-range: U+0100-024f, U+1-1eff, U+20a0-20ab, U+20ad-20cf, U+2c60-2c7f,
     U+A720-A7FF;
@@ -26,7 +19,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("Rasa Regular"), local("Rasa-Regular"),
-    url(https://fonts.gstatic.com/s/rasa/v2/ZYFGdK7w7tvjLebnCRT01Q.woff2)
+    url("https://fonts.gstatic.com/s/rasa/v2/ZYFGdK7w7tvjLebnCRT01Q.woff2")
       format("woff2");
   unicode-range: U+0000-00ff, U+0131, U+0152-0153, U+02c6, U+02da, U+02dc,
     U+2000-206f, U+2074, U+20ac, U+2212, U+2215;
@@ -39,7 +32,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("Roboto"), local("Roboto-Regular"),
-    url(https://fonts.gstatic.com/s/roboto/v16/Fcx7Wwv8OzT71A3E1XOAjvesZW2xOQ-xsNqO47m55DA.woff2)
+    url("https://fonts.gstatic.com/s/roboto/v16/Fcx7Wwv8OzT71A3E1XOAjvesZW2xOQ-xsNqO47m55DA.woff2")
       format("woff2");
   unicode-range: U+0100-024f, U+1-1eff, U+20a0-20ab, U+20ad-20cf, U+2c60-2c7f,
     U+A720-A7FF;
@@ -52,7 +45,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("Roboto"), local("Roboto-Regular"),
-    url(https://fonts.gstatic.com/s/roboto/v16/CWB0XYA8bzo0kSThX0UTuA.woff2)
+    url("https://fonts.gstatic.com/s/roboto/v16/CWB0XYA8bzo0kSThX0UTuA.woff2")
       format("woff2");
   unicode-range: U+0000-00ff, U+0131, U+0152-0153, U+02c6, U+02da, U+02dc,
     U+2000-206f, U+2074, U+20ac, U+2212, U+2215;
@@ -96,6 +89,7 @@ html {
 
 html * {
   transition: opacity 0.5s;
+  background-color: var(--bg-color);
 }
 
 .hubble details {
@@ -106,6 +100,7 @@ html * {
 }
 
 body {
+  background: var(--bg-color);
   display: flex;
   flex-flow: row wrap;
   margin: 0;
@@ -313,7 +308,7 @@ menu#viewMenu {
   display: none;
 }
 
-.specialHubble {
+.hubble.specialHubble {
   display: none;
 }
 
@@ -440,6 +435,21 @@ input.doneToggle + .icon:hover {
 ul {
   list-style: none;
   padding-left: 20px;
+}
+
+/* Hide children if collapsed  */
+.hubble[data-collapsed] .children {
+  display:none;
+}
+.collapseButton {
+  border: none;
+  color: var(--text-color)
+}
+.hubble[data-collapsed]>.collapseButton::after {
+  content: '>'
+}
+.hubble:not([data-collapsed])>.collapseButton::after {
+  content: '∨'
 }
 
 .children .hubble {
