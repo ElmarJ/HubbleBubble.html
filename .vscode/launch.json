@@ -11,8 +11,7 @@
                 "**/node_modules",
                 "__/**/*"
             ],
-            "smartStep": true,
-            "preLaunchTask": "serve"
+            "smartStep": true
         },
         {
             "name": "Launch chrome localhost with debugging firebase source",
