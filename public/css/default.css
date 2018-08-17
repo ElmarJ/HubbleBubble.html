@@ -443,8 +443,14 @@ ul {
 }
 .collapseButton {
   border: none;
-  color: var(--text-color)
+  color: var(--text-color);
+  font-size: 18pt;
 }
+
+.hubbleCardView .collapseButton {
+  display: none;
+}
+
 .hubble[data-collapsed]>.collapseButton::after {
   content: '>'
 }
@@ -462,7 +468,6 @@ ul {
 .children .content {
   display: inline-block;
   white-space: normal;
-  vertical-align: text-top;
   max-width: 600px;
   font-family: var(--content-font);
   font-size: 18pt;
@@ -510,10 +515,16 @@ ul {
   content: "list";
 }
 
-.hubbleCardView .children {
+.hubbleCardView .rootContent > .children {
   display: flex;
   flex-wrap: wrap;
 }
+
+.hubbleCardView .hubble[data-collapsed] .rootContent > .children {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 
 .hubbleCardView .children .hubble {
   --hubble-content-is-link: true;
@@ -542,9 +553,6 @@ ul {
 
 .hubbleCardView .children .doneToggleLabel {
   order: -2;
-}
-
-.hubbleCardView .children .doneToggleLabel {
   position: absolute;
   left: 5px;
   top: 8px;
@@ -553,6 +561,7 @@ ul {
 
 .hubbleCardView .children .content {
   order: -1;
+  display: none;
   /* vertical-align: inherit; */
   /* font-family: var(--UI-font); */
 }
