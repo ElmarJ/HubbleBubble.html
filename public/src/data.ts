@@ -131,7 +131,7 @@ abstract class BooleanHubbleProperty extends HubbleProperty<boolean> {
 }
 
 abstract class StringHubbleProperty extends HubbleProperty<string> {
-  setString(value: string) {
+  setString(value: string): void {
     this.set(value);
   }
 

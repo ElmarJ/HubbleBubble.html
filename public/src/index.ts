@@ -1,9 +1,6 @@
-import { findElementAncestor } from "./helpers.js";
 import { HubbleRenderer } from "./renderer.js";
 import { Hubble } from "./data.js";
 import * as Calendar from "./calendar.js";
-
-
 var presenter = document.getElementById("hubblePresenter");
 
 window.onhashchange = function() {
@@ -147,30 +144,4 @@ function expandAll() {
   }
 }
 
-function launchOneDrivePicker() {
-  var odOptions = {
-    /*
-    * Required. Provide the AppId for a registered application. Register an
-    * app on https://apps.dev.microsoft.com
-    */
-    clientId: "5edfe457-c20b-4ad4-ba94-ea609bd21aa3",
-    action: "share",
-    multiSelect: false,
-    advanced: {},
-    success: function(response) {
-      const urlBox = <HTMLInputElement>document.getElementById("urlBox");
-      const urlNameElt = <HTMLInputElement>document.getElementById(
-        "urlNameBox"
-      );
-      urlBox.value = response.value[0].webUrl;
-      urlNameElt.value = response.value[0].name;
-    },
-    cancel: function() {
-      console.log("oh");
-    },
-    error: function(e) {
-      console.log("oops");
-    }
-  };
-  OneDrive.open(odOptions);
-}
+

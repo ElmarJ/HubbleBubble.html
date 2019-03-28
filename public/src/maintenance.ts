@@ -1,5 +1,6 @@
 
 // import { Hubble } from "./data.js";
+import * as firebase from '../node_modules/firebase';
 
 const rootKey = "-KlYdxmFkIiWOFXp0UIP";
 

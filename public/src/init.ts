@@ -1,4 +1,3 @@
-
 firebase.initializeApp({
   apiKey: "AIzaSyA7zawVhVUXXzD5XKVSMBkqunjEI-Mp5Ek",
   databaseURL: "https://hubblebubble-58ec9.firebaseio.com",
