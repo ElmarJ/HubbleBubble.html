@@ -4,10 +4,10 @@ import * as admin from "firebase-admin";
 admin.initializeApp(functions.config().firebase);
 
 // Update the "active" property
-const updateMyActivityOnUpdate = functions.firestore
+export const updateMyActivityOnUpdate = functions.firestore
   .document("users/{userId}/hubbles/{hubbleId}")
-  .onUpdate(async event => {
-    const newValue = event.data.data();
+  .onUpdate(async change => {
+    const newValue = change.after.data();
 
     const computedActivity = isActive(
       newValue.snoozed,
@@ -18,17 +18,17 @@ const updateMyActivityOnUpdate = functions.firestore
 
     // Only update if the current value is incorrect
     if (newValue.active !== computedActivity) {
-      await event.data.ref.set({
+      await change.after.ref.set({
         active: computedActivity
       });
     }
   });
 
-const updateParentActiveChildCount = functions.firestore
+export const updateParentActiveChildCount = functions.firestore
   .document("users/{userId}/hubbles/{hubbleId}")
-  .onWrite(async event => {
-    const newValue = event.data.data();
-    const oldValue = event.data.previous.data();
+  .onWrite(async change => {
+    const newValue = change.after.data();
+    const oldValue = change.before.data();
 
     // If neither activity nor parent changed, nothing is to be updated
     if (
