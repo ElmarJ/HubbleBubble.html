@@ -6,3 +6,5 @@ js/
 *.js.map
 *.log
 **/node_modules/
+.firebase/
+.vs/
