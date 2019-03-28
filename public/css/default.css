@@ -165,11 +165,11 @@ button {
   outline-width: 1px;
   outline-color: transparent;
   outline-style: solid;
-  transition: border-color 1s ease;
+  transition: outline-color 1s ease;
 }
 
 [contenteditable]:focus {
-  outline-color: #aaa;
+  /* outline-color: #aaa; */
 }
 
 .current-event-indicator {
