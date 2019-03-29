@@ -57,16 +57,19 @@
   --UI-font: "Roboto";
   --content-font: "Rasa";
   --hubble-content-is-link: false;
+  --dimmed-text-color: grey;
 }
 
 :root.nightMode {
   --bg-color: black;
   --text-color: white;
+  --dimmed-text-color: grey;
 }
 
 :root.redish {
   --bg-color: brown;
   --text-color: white;
+  --dimmed-text-color: grey;
 }
 
 a {
@@ -443,7 +446,7 @@ ul {
 }
 .collapseButton {
   border: none;
-  color: var(--text-color);
+  color: var(--dimmed-text-color);
   font-size: 18pt;
 }
 
