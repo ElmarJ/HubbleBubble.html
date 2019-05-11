@@ -22,7 +22,12 @@
             "problemMatcher": [
                 "$tsc-watch"
             ],
-            "isBackground": true
+            "isBackground": true,
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+
         },
         {
             "label": "build",
@@ -30,18 +35,20 @@
             "tsconfig": "public\\tsconfig.json",
             "problemMatcher": [
                 "$tsc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            ]
         },
         {
             "label": "serve",
             "type": "npm",
             "script": "serve",
             "path": "public/",
-            "problemMatcher": [],
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "deploy",
+            "path": "public/",
+            "problemMatcher": []
         }
     ]
 }
