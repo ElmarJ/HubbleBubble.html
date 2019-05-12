@@ -1,0 +1,265 @@
+
+.hubble details {
+    /* padding:  0; */
+    /* margin:  0; */
+    line-height: 1em;
+    display: inline;
+  }
+  
+.rootContent menu.buttons {
+    display: none;
+  }
+
+  
+.hubble .content:empty:not(:focus)::before {
+    content: "(...)";
+    opacity: 0.3;
+    font-style: italic;
+  }
+  
+  .rootContent {
+    float: left;
+    width: 100%;
+    /* white-space: nowrap; */
+  }
+  
+  .rootContent > details > summary {
+    list-style: none;
+  }
+  
+  .rootContent > details > summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .rootContent .content {
+    font-size: 30px;
+    /* line-height: 55px; */
+    font-family: "Rasa", serif;
+    display: inline-block;
+    white-space: normal;
+    line-height: 1.5em;
+  }
+  
+  .rootContent .buttons {
+    vertical-align: top;
+    display: inline-block;
+    /* margin-top: 20px; */
+  }
+  
+  .root > .children {
+    display: inline-block;
+  }
+  
+  .rootContent > .hubblelink {
+    display: none;
+  }
+  
+  .hubble.specialHubble {
+    display: none;
+  }
+
+  
+input.doneToggle {
+    display: none;
+  }
+  
+  label.doneToggleLabel span.description {
+    display: none;
+  }
+  
+  label.doneToggleLabel .icon::before {
+    content: "\2022";
+    color: #a22;
+    font-size: 20pt;
+  }
+  
+  label.doneToggleLabel .icon {
+    opacity: 0;
+  }
+  
+  input.doneToggle:checked + .icon {
+    opacity: 1;
+  }
+  
+  input.doneToggle + .icon:hover {
+    opacity: 0.5;
+  }
+  
+  .doneToggle:checked + label {
+    content: "&#8226;";
+  }
+  
+  .snoozeToggle:after {
+    content: "snooze";
+  }
+  
+  .hideInactive .children .hubble[data-active="false"] {
+    display: none !important;
+  }
+
+  
+.hubblelink .icon {
+    /* -webkit-appearance: none; */
+    font-size: 10pt;
+    /* margin: 0; */
+    /* display: inline; */
+    color: #ccc;
+    vertical-align: top;
+  }
+  
+  .hubblelink .icon {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .hubble:hover > .hubblelink > .icon {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .hubblelink .description {
+    display: none;
+  }
+
+  
+/* Hide children if collapsed  */
+.hubble[data-collapsed] .children {
+    display:none;
+  }
+  .collapseButton {
+    border: none;
+    color: var(--dimmed-text-color);
+    font-size: 18pt;
+  }
+  
+  .hubble[data-collapsed]>.collapseButton::after {
+    content: '>'
+  }
+  .hubble:not([data-collapsed])>.collapseButton::after {
+    content: '∨'
+  }
+  
+  .children .hubble {
+    white-space: nowrap;
+    /* line-height: 1.7; */
+    /* position: relative; */
+    /* margin-top: 5px; */
+  }
+  
+  .children .content {
+    display: inline-block;
+    white-space: normal;
+    max-width: 600px;
+    font-family: var(--content-font);
+    font-size: 18pt;
+  }
+  
+  .childcountinfo {
+    display: none;
+  }
+
+  .showline .hubble li {
+    border-left: 1px solid;
+  }  
+
+  
+.hubblePresenter .dropTarget {
+  min-height: 5px;
+  min-width: 5px;
+  border-radius: 2px;
+}
+
+.hubblePresenter .dragOver {
+  min-height: 30px;
+  min-width: 30px;
+  border-style: dashed !important;
+  border-width: 2px !important;
+  border-color: #aaa;
+}
+
+.hubblePresenter .turnedOffUntilActivityWorks .children .hubble[data-active="false"] .content {
+  color: #888;
+}
+
+
+/* Todo: apparently this makes selection impossible for all elements
+                 * that contain button elements (i.e. all elements)
+
+.buttons {
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+  */
+
+  .hubble ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.hubble .buttons {
+  display: inline;
+  opacity: 0;
+  /* visibility: hidden; */
+  /* border-radius: 4px; */
+  background: var(--bg-color);
+  padding: 0px;
+  margin: 0;
+}
+
+.hubble .buttons:hover {
+  opacity: 1;
+}
+
+.hubble .buttons .newhubble_link {
+  display: none;
+}
+
+.hubble.root > .content {
+  display: block;
+}
+
+.hubble .buttons * {
+  font-family: "Material Icons";
+  font-size: 10pt;
+  font-weight: 400;
+  margin: 0;
+  color: inherit;
+  display: inline;
+  color: #ccc;
+  line-height: initial;
+}
+
+.hubble .buttons * {
+  transition: opacity 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hubble .buttons:hover * {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hubble .buttons input {
+  -webkit-appearance: none;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.hubble .buttons input:checked {
+  border-color: initial;
+}
+
+.hubble .buttons input:after {
+  color: #ccc;
+}
+
+.hubble .buttons input:checked:after {
+  color: inherit;
+}
+                                

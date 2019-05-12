@@ -1,0 +1,122 @@
+
+.hubbleCardView .collapseButton {
+    display: none;
+  }
+  
+
+.hubbleCardView .specialHubble {
+    display: initial;
+  }
+  
+  .hubbleCardView #cardviewSwitch::before {
+    content: "list";
+  }
+  
+  .hubbleCardView .rootContent > .children {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .hubbleCardView .hubble[data-collapsed] .rootContent > .children {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  
+  .hubbleCardView .children .hubble {
+    --hubble-content-is-link: true;
+    /* white-space: normal; */
+    /* vertical-align: top; */
+    border-width: 1px;
+    border-color: var(--text-color);
+    border-style: solid;
+    border-radius: 9px;
+    margin: calc(5px + 2%);
+    padding: 1em;
+    /* position: relative; */
+    display: flex;
+    flex-flow: row wrap;
+    flex: 20%;
+    min-height: 5vh;
+  }
+  
+  .hubbleCardView .children .hubble.specialHubble {
+    flex: 5%;
+  }
+  
+  .hubbleCardView .children .hubble[data-active] {
+    border-color: #a22;
+  }
+  
+  .hubbleCardView .children .doneToggleLabel {
+    order: -2;
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    line-height: 5px;
+  }
+  
+  .hubbleCardView .children .content {
+    order: -1;
+    display: none;
+    /* vertical-align: inherit; */
+    /* font-family: var(--UI-font); */
+  }
+  
+  .hubbleCardView .children .content:hover {
+    cursor: pointer;
+  }
+  
+  .hubbleCardView .children .content:focus {
+    font-size: 30px;
+    line-height: 55px;
+    font-family: var(--content-font);
+    display: inline-block;
+    white-space: normal;
+    background-color: var(--bg-color);
+  }
+  
+  .hubbleCardView .children .hubble:hover .childcountinfo {
+    opacity: 0.5;
+    visibility: visible;
+  }
+  
+  .hubbleCardView .children .childcountinfo {
+    opacity: 0;
+    transition: opacity 0.5s;
+    visibility: hidden;
+    font-size: x-small;
+  }
+  
+  .hubbleCardView #expandAllButton,
+  .hubbleCardView #bulletSwitch {
+    display: none;
+  }
+  
+  .hubbleCardView [contenteditable]:focus {
+    outline: none;
+  }
+  
+  .hubbleCardView .buttons {
+    position: absolute;
+    top: -20px;
+    left: 10px;
+  }
+  
+  .hubbleCardView .hubblelink .icon {
+    display: none;
+  }
+  
+  .hubbleCardView .children .hubblelink .description {
+    display: inline;
+  }
+  
+  .hubbleCardView .children details {
+    display: none;
+  }
+  
+  .hubbleCardView .specialHubble {
+    display: initial;
+    font-size: 18pt;
+  }
+  
