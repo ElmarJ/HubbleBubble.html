@@ -1,7 +1,7 @@
 {
   "name": "webclient",
   "scripts": {
-    "build": "tslint && tsc",
+    "build": "tsc",
     "serve": "firebase serve --only hosting",
     "deploy": "firebase deploy --only hosting",
     "logs": "firebase hosting:log"

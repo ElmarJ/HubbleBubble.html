@@ -434,7 +434,7 @@ export class HubbleRenderer {
   }
 
   async onContentClick(ev: MouseEvent) {
-    const element = ev.srcElement;
+    const element = <Element>ev.srcElement;
     const isLinkStyle =
       window
         .getComputedStyle(element)

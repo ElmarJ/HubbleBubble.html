@@ -4,10 +4,12 @@ declare const firebase: any;
 
 interface Element {
   mozRequestFullScreen(): Promise<void>;
+  webkitRequestFullscreen(): Promise<void>;
 }
 
 interface Document {
   mozExitFullScreen(): Promise<void>;
+  webkitExitFullscreen(): Promise<void>;
 }
 
 declare namespace gapi.auth2 {
