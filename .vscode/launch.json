@@ -1,6 +1,8 @@
 {
     "version": "2.0.0",
-    "configurations": [{
+    "configurations": [
+
+        {
             "name": "Launch chrome localhost",
             "type": "chrome",
             "request": "launch",
@@ -37,6 +39,21 @@
                 "**/node_modules",
                 "/__/**"
             ]
+        },
+        {
+            "name": "Launch localhost in Microsoft Edge (Chromium) Canary",
+            "type": "edge",
+            "request": "launch",
+            "version": "dev",
+            "url": "http://localhost:5000/index.html",
+            "webRoot": "${workspaceRoot}/public",
+            "skipFiles": [
+                "**/bower_components",
+                "**/node_modules",
+                "__/**/*"
+            ],
+            "smartStep": true,
+            "preLaunchTask": "serve"
         }
     ]
 }
