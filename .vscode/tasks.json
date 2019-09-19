@@ -6,16 +6,18 @@
         {
             "type": "npm",
             "script": "start",
-            "problemMatcher": [
-
-            ],
+            "problemMatcher": [],
             "presentation": {
-              "echo": true,
-              "reveal": "never",
-              "focus": false,
-              "panel": "shared"
+                "echo": true,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared"
             },
-            "isBackground": true
+            "isBackground": true,
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            }
         }
     ]
 }

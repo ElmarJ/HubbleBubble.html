@@ -6,11 +6,11 @@ import { FirebaseAuth } from '@firebase/auth-types';
 import { respondElementToVisibility } from '../../helpers/helpers';
 
 @Component({
-  selector: 'app-hubble',
-  templateUrl: './hubble.component.html',
-  styleUrls: ['./hubble.component.css']
+  selector: 'app-hubble-card',
+  templateUrl: './hubble.card.component.html',
+  styleUrls: ['./hubble.card.component.css']
 })
-export class HubbleComponent {
+export class HubbleCardComponent {
   @Input() hubbleId: string;
   @ViewChild('childrenList') childrenElement: any;
   hubble: Observable<Hubble>;

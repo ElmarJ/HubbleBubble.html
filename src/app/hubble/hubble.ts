@@ -1,4 +1,4 @@
-interface Hubble{
+interface Hubble {
   content: string;
   snoozed: boolean;
   done: boolean;

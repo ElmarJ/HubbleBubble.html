@@ -10,11 +10,11 @@ export function findElementAncestor(element: Element, className: string) {
     element: Element,
     callback: (boolean) => void
   ) {
-    var options: IntersectionObserverInit = {
+    const options: IntersectionObserverInit = {
       root: document.documentElement
     };
 
-    var observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         callback(entry.intersectionRatio > 0);
       });
