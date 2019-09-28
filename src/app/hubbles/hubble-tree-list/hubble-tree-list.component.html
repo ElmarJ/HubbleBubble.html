@@ -4,7 +4,7 @@
   </summary>
   <ul #childrenList>
     <li class="text" *ngFor="let child of children | async">
-      <app-hubble hubbleId="{{ child.payload.doc.id }}"></app-hubble>
+      <app-hubble-tree-list hubbleId="{{ child.payload.doc.id }}"></app-hubble-tree-list>
     </li>
   </ul>
 </details>

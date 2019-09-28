@@ -10,11 +10,11 @@ import { respondElementToVisibility } from '../../shared/helpers/helpers';
 
 
 @Component({
-  selector: 'app-hubble-card-list',
-  templateUrl: './hubble-card-list.component.html',
-  styleUrls: ['./hubble-card-list.component.css']
+  selector: 'app-hubble-tree-list',
+  templateUrl: './hubble-tree-list.component.html',
+  styleUrls: ['./hubble-tree-list.component.css']
 })
-export class HubbleCardOverviewComponent {
+export class HubbleTreeListComponent {
   @Input() hubbleId: string;
   @ViewChild('childrenList', { static: true }) childrenElement: any;
   hubble: Observable<Hubble>;
@@ -38,11 +38,14 @@ export class HubbleCardOverviewComponent {
   }
 
   loadChildrenWhenVisible() {
-    respondElementToVisibility(this.childrenElement.nativeElement, visible => {
-        if (visible && !this.children) {
-          this.children = this.userDoc.collection('hubbles', ref => ref.where('parent', '==', this.hubbleDoc.ref)).snapshotChanges();
+    respondElementToVisibility(
+        this.childrenElement.nativeElement,
+        visible => {
+          if (visible && !this.children) {
+            this.children = this.userDoc.collection('hubbles', ref => ref.where('parent', '==', this.hubbleDoc.ref)).snapshotChanges();
+          }
         }
-      });
+    );
   }
 
   updateContent(text: string) {

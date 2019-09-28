@@ -1,14 +1,13 @@
 export function findElementAncestor(element: Element, className: string) {
-    while (
-      !element.classList.contains(className) &&
-      (element = element.parentElement)
-    ) {}
-    return <HTMLElement>element;
+    while (!element.classList.contains(className)) {
+      element = element.parentElement;
+    }
+    return element as HTMLElement;
   }
 
-  export function respondElementToVisibility(
+export function respondElementToVisibility(
     element: Element,
-    callback: (boolean) => void
+    callback: (visible: boolean) => void
   ) {
     const options: IntersectionObserverInit = {
       root: document.documentElement

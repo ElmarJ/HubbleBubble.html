@@ -1,3 +1,4 @@
+import { HubbleTreeListComponent } from './hubbles/hubble-tree-list/hubble-tree-list.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -6,17 +7,14 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
-import { HubbleParagraphComponent } from './hubbles/hubble-paragraph/hubble-paragraph.component';
-import { HubbleCardComponent} from './hubbles/hubble-card/hubble-card.component';
-import { HubbleCardOverviewComponent} from './hubbles/hubble-card-list/hubble-card-list.component';
 import { ContentEditableDirective } from './contentEditableModel';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HubbleParagraphComponent,
-    HubbleCardComponent,
-    HubbleCardOverviewComponent,
+    HubbleTreeListComponent,
+    AuthComponent,
     ContentEditableDirective
   ],
   imports: [
