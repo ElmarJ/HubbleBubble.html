@@ -1,32 +1,31 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument, DocumentChangeAction } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { DocumentReference } from '@firebase/firestore-types';
-import { FirebaseAuth } from '@firebase/auth-types';
-import { respondElementToVisibility } from '../../helpers/helpers';
+import { AngularFirestore, AngularFirestoreDocument, DocumentChangeAction } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { DocumentReference, DocumentData } from '@firebase/firestore-types';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+import { respondElementToVisibility } from '../../shared/helpers/helpers';
 
 @Component({
-  selector: 'app-hubble',
-  templateUrl: './hubble.component.html',
-  styleUrls: ['./hubble.component.css']
+  selector: 'app-hubble-card',
+  templateUrl: './hubble-card.component.html',
+  styleUrls: ['./hubble-card.component.css']
 })
-export class HubbleComponent {
+export class HubbleCardComponent {
   @Input() hubbleId: string;
-  @ViewChild('childrenList') childrenElement: any;
+  @ViewChild('childrenList', { static: true }) childrenElement: any;
   hubble: Observable<Hubble>;
-  children: Observable<DocumentChangeAction[]>;
+  children: Observable<DocumentChangeAction<DocumentData>[]>;
 
   private hubbleDoc: AngularFirestoreDocument<Hubble>;
   private userDoc: AngularFirestoreDocument<any>;
-  private db: AngularFirestore;
 
-  constructor(db: AngularFirestore) {
-    this.db = db;
+  constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     this.loadHubble();
   }
 
   async loadHubble() {
-    const user = await this.getAuthenticated(this.db.app.auth());
+    const user = await this.getAuthenticated();
     this.userDoc = this.db.collection('users').doc(user.uid);
     this.hubbleDoc = this.userDoc.collection('hubbles').doc(this.hubbleId);
 
@@ -53,13 +52,13 @@ export class HubbleComponent {
     this.hubbleDoc.update(hubble);
   }
 
-  async getAuthenticated(auth: FirebaseAuth) {
-    if (!auth.currentUser) {
-      await auth.signInAndRetrieveDataWithEmailAndPassword(
+  async getAuthenticated() {
+    if (!this.afAuth.auth.currentUser) {
+      await this.afAuth.auth.signInWithEmailAndPassword(
         'elmar@elmarjansen.nl',
         'elma2209'
       );
     }
-    return auth.currentUser;
+    return this.afAuth.auth.currentUser;
   }
 }
