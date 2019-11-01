@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "predeploy": "npm --prefix functions run build"
+    "predeploy": ["npm --prefix functions run build"]
   },
   "hosting": {
     "public": "public",
@@ -23,6 +23,15 @@
           {
             "key": "Content-Type",
             "value": "application/json; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "source": "**/*.js)",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/javascript"
           }
         ]
       },
