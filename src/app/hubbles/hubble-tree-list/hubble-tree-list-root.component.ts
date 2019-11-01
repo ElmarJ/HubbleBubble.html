@@ -7,14 +7,15 @@ import { HubbleBaseWithChildrenComponent } from '../hubble-with-children-base.co
 
 
 @Component({
-  selector: 'app-hubble-tree-list',
-  templateUrl: './hubble-tree-list.component.html',
-  styleUrls: ['./hubble-tree-list.component.css']
+  selector: 'app-hubble-tree-list-root',
+  templateUrl: './hubble-tree-list-root.component.html',
+  styleUrls: ['./hubble-tree-list-root.component.css']
 })
-export class HubbleTreeListComponent extends HubbleBaseWithChildrenComponent {
+export class HubbleTreeListRootComponent extends HubbleBaseWithChildrenComponent {
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
     super(afAuth, db);
     this.loadHubble();
   }
+
 }

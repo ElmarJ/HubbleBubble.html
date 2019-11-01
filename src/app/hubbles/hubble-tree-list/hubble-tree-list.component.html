@@ -3,7 +3,7 @@
     <span #content contenteditable="true" (blur)="updateContent(content.innerText);" >{{ (hubble | async)?.content }}</span>
   </summary>
   <ul #childrenList>
-    <li class="text" *ngFor="let child of children | async">
+    <li class="text" *ngFor="let child of (children | async)">
       <app-hubble-tree-list hubbleId="{{ child.payload.doc.id }}"></app-hubble-tree-list>
     </li>
   </ul>

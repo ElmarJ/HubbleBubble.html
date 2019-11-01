@@ -9,11 +9,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { ContentEditableDirective } from './contentEditableModel';
 import { AuthComponent } from './auth/auth.component';
+import { HubbleTreeListRootComponent } from './hubbles/hubble-tree-list/hubble-tree-list-root.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HubbleTreeListComponent,
+    HubbleTreeListRootComponent,
     AuthComponent,
     ContentEditableDirective
   ],
