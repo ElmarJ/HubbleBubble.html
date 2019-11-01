@@ -17,7 +17,7 @@
         {
             "label": "watch",
             "type": "typescript",
-            "tsconfig": "public\\tsconfig.json",
+            "tsconfig": "public/tsconfig.json",
             "option": "watch",
             "problemMatcher": [
                 "$tsc-watch"
@@ -32,7 +32,7 @@
         {
             "label": "build",
             "type": "typescript",
-            "tsconfig": "public\\tsconfig.json",
+            "tsconfig": "public/tsconfig.json",
             "problemMatcher": [
                 "$tsc"
             ]

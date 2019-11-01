@@ -94,6 +94,7 @@ export class HubbleRenderer {
     this.useDragoverClass();
 
     this.addChildren();
+    this.element.setAttribute("contentLoaded", "")
   }
 
   private useDragoverClass() {
@@ -154,6 +155,8 @@ export class HubbleRenderer {
     this.beginPersistingChildlistOnChange();
     this.element.dataset.childCount = this.childrenElement.childElementCount.toString();
     this.updateActiveChildCount();
+
+    this.element.setAttribute("childrenLoaded", "")
   }
 
   renderOnVisible() {
@@ -219,6 +222,10 @@ export class HubbleRenderer {
   }
 
   private async persistChildList() {
+    if (!this.element.hasAttribute("childrenLoaded")) {
+      return; // don't persist if we hadn't loaded the children yet (to prevent data-loss)
+    }
+    
     var childobject = {};
     var childelement = <HTMLElement>this.childrenElement.firstElementChild;
 

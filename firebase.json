@@ -14,6 +14,36 @@
         "source": "**",
         "destination": "/index.html"
       }
+      
+    ],
+    "headers": [
+      {
+        "source": "**/*.json)",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "source": "**/*.ico)",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "image/x-icon"
+          }
+        ]
+      },
+      {
+        "source": "**/*.*",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000, immutable"
+          }
+        ]
+      }
     ]
   },
   "database": {

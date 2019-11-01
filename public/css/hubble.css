@@ -129,7 +129,7 @@ input.doneToggle {
   .collapseButton {
     border: none;
     color: var(--dimmed-text-color);
-    font-size: 18pt;
+    /* font-size: 16pt; */
   }
   
   .hubble[data-collapsed]>.collapseButton::after {
