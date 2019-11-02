@@ -14,7 +14,7 @@
                 "__/**/*"
             ],
             "smartStep": true,
-            "preLaunchTask": "serve"
+            "preLaunchTask": "serve.public"
         },
         {
             "name": "Launch chrome localhost with debugging firebase source",
@@ -53,7 +53,7 @@
                 "__/**/*"
             ],
             "smartStep": true,
-            "preLaunchTask": "serve"
+            "preLaunchTask": "serve.public"
         }
     ]
 }

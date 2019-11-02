@@ -4,6 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "watch.public",
             "type": "typescript",
             "tsconfig": "public/tsconfig.json",
             "option": "watch",
@@ -15,9 +16,39 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "presentation": {
-				"reveal": "never"
-			}
+        },
+        {
+            "label": "serve.public",
+            "type": "npm",
+            "script": "serve",
+            "path": "public/",
+            "problemMatcher": [
+                {
+                    "owner": "custom",
+                    "pattern":[
+                        {
+                            "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "never happens",
+                        "endsPattern": "Serving hosting files from"
+                    }
+                }
+            ],
+            "isBackground": true
+        },
+        {
+            "label": "debug",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "watch.public",
+                "serve.public"
+            ]
         }
     ]
 }
