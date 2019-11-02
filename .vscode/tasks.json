@@ -4,18 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "deploy",
-            "command": "firebase",
-            "args": [
-                "deploy --only hosting"
-            ],
-            "dependsOn": [
-                "build"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "watch",
             "type": "typescript",
             "tsconfig": "public/tsconfig.json",
             "option": "watch",
@@ -26,29 +14,10 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
-
-        },
-        {
-            "label": "build",
-            "type": "typescript",
-            "tsconfig": "public/tsconfig.json",
-            "problemMatcher": [
-                "$tsc"
-            ]
-        },
-        {
-            "label": "serve",
-            "type": "npm",
-            "script": "serve",
-            "path": "public/",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "deploy",
-            "path": "public/",
-            "problemMatcher": []
+            },
+            "presentation": {
+				"reveal": "never"
+			}
         }
     ]
 }
