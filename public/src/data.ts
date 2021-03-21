@@ -1,4 +1,6 @@
-import { DocumentReference } from '../node_modules/@firebase/firestore-types'
+import firebase from "https://cdn.skypack.dev/firebase/app";
+import "https://cdn.skypack.dev/firebase/firestore";
+
 
 interface HubbleData {
   snoozed: boolean;
@@ -139,9 +141,9 @@ abstract class StringHubbleProperty extends HubbleProperty<string> {
 }
 
 abstract class HubbleReferenceHubbleProperty extends HubbleProperty<
-  DocumentReference
+  firebase.firestore.DocumentReference
   > {
-  valueToString(value: DocumentReference) {
+  valueToString(value: firebase.firestore.DocumentReference) {
     return value.id;
   }
 }
@@ -224,7 +226,7 @@ class UrlHubbleProperty extends HubbleProperty<string> {
 export class Hubble {
   database = firebase.firestore();
   user = firebase.auth().currentUser;
-  ref: DocumentReference;
+  ref: firebase.firestore.DocumentReference;
 
   parent = new ParentHubbleProperty("parent", this);
   children = new ChildrenProperty("children", this);
@@ -360,7 +362,7 @@ export class Hubble {
     const user = firebase.auth().currentUser;
     const userDoc = database.collection("users/").doc(user.uid);
     const userDocSnapshot = await userDoc.get();
-    const rootHubbleDoc = <DocumentReference>userDocSnapshot.get(
+    const rootHubbleDoc = <firebase.firestore.DocumentReference>userDocSnapshot.get(
       "root"
     );
 

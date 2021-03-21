@@ -1,6 +1,6 @@
 
 // import { Hubble } from "./data.js";
-import * as firebase from '../node_modules/firebase';
+import firebase from "https://cdn.skypack.dev/firebase/app";
 
 const rootKey = "-KlYdxmFkIiWOFXp0UIP";
 

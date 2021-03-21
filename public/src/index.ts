@@ -1,13 +1,20 @@
+import firebase from "https://cdn.skypack.dev/firebase/app";
+import "https://cdn.skypack.dev/firebase/auth";
+import * as firebaseInit from "./init.js";
 import { HubbleRenderer } from "./renderer.js";
 import { Hubble } from "./data.js";
 import * as Calendar from "./calendar.js";
 var presenter = document.getElementById("hubblePresenter");
+
+firebaseInit.firebaseInit();
 
 window.onhashchange = function() {
   updatePresenter();
 };
 
 window.addEventListener("load", () => {
+  // Initialize firebase
+
   // Load / save view-settings for this user:
   document.documentElement.setAttribute(
     "class",

@@ -1,4 +1,5 @@
-import { User } from '../node_modules/@firebase/auth-types/index.js'
+import firebase from "https://cdn.skypack.dev/firebase/app";
+import "https://cdn.skypack.dev/firebase/auth";
 
 /**
  * FirebaseUI initialization to be used in a Single Page application context.
