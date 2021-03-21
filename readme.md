@@ -4,6 +4,9 @@
 
 So far, not blown away by frameworks (often steep learning curve and losing control, overcomplicating debugging, and don't want "vendor lock in"): prefer to keep everything neatly within vanilla JS (and going pretty well so far). Still considering light-weight frameworks for databinding. Am currently most convinced by Aurelia.
 
+- <https://hybrids.js.org/#/getting-started/concepts>
+- <https://github.com/Polymer/lit-element>
+- <https://slimjs.com/#/getting-started>
 - <https://aurelia.io/>
 - <https://dojo.io/>
 - <http://knockoutjs.com/>
