@@ -8,3 +8,5 @@ js/
 **/node_modules/
 .firebase/
 .vs/
+package-lock.json
+jarn.lock
