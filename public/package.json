@@ -11,9 +11,9 @@
     "firebase": "latest"
   },
   "devDependencies": {
-    "typescript": "latest",
+    "@types/gapi": "latest",
     "eslint": "latest",
-    "@types/gapi": "latest"
+    "typescript": "latest"
   },
   "version": "1.3.0"
 }
