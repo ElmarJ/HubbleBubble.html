@@ -8,7 +8,8 @@
   },
   "main": "./index.html",
   "dependencies": {
-    "firebase": "latest"
+    "firebase": "latest",
+    "firebaseui": "^4.8.0"
   },
   "devDependencies": {
     "@types/gapi": "latest",

@@ -1,5 +1,5 @@
-import firebase from "https://cdn.skypack.dev/firebase/app";
-import "https://cdn.skypack.dev/firebase/database";
+import firebase from "firebase/app";
+import "firebase/database";
 
 const hubbleroot = {
   content: "Elmars Hubble Bubble",

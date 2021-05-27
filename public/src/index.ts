@@ -1,5 +1,5 @@
-import firebase from "https://cdn.skypack.dev/firebase/app";
-import "https://cdn.skypack.dev/firebase/auth";
+import firebase from "firebase/app";
+import "firebase/auth";
 import * as firebaseInit from "./init.js";
 import { HubbleRenderer } from "./renderer.js";
 import { Hubble } from "./data.js";

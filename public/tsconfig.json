@@ -8,7 +8,9 @@
     "outDir": "./js",
     "rootDir": "./src",
     "moduleResolution": "node",
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "allowSyntheticDefaultImports": true,
+
   },
   "typeAcquisition": {
     "enable": true,

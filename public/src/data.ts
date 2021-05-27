@@ -1,5 +1,5 @@
-import firebase from "https://cdn.skypack.dev/firebase/app";
-import "https://cdn.skypack.dev/firebase/firestore";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 
 interface HubbleData {

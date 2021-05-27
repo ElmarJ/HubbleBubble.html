@@ -1,15 +1,17 @@
-import firebase from "https://cdn.skypack.dev/firebase/app";
-import "https://cdn.skypack.dev/firebase/auth";
+import firebase from "firebase/app";
+import "firebase/auth";
+import firebaseui from 'firebaseui';
+
 
 /**
  * FirebaseUI initialization to be used in a Single Page application context.
  */
 // FirebaseUI config.
-var uiConfig = {
+var uiConfig: firebaseui.auth.Config = {
   callbacks: {
     // Called when the user has been successfully signed in.
-    signInSuccess: function(user, credential, redirectUrl) {
-      handleSignedInUser(user);
+    signInSuccessWithAuthResult: function(authresult, redirectUrl) {
+      handleSignedInUser();
       // Do not redirect.
       return false;
     }
@@ -34,7 +36,7 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 // Keep track of the currently signed in user.
 var currentUid: string;
 
-var handleSignedInUser = function(user: User) {
+var handleSignedInUser = function() {
   window.location.href = "/";
 };
 
@@ -57,7 +59,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
   document.getElementById("loading").style.display = "none";
   document.getElementById("loaded").style.display = "block";
-  user ? handleSignedInUser(user) : handleSignedOutUser();
+  user ? handleSignedInUser() : handleSignedOutUser();
 });
 
 /**
