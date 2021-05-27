@@ -10,13 +10,5 @@
     "moduleResolution": "node",
     "alwaysStrict": true,
     "allowSyntheticDefaultImports": true,
-
-  },
-  "typeAcquisition": {
-    "enable": true,
-    "include": [
-      "gapi",
-      "firebase"
-    ]
   }
 }
