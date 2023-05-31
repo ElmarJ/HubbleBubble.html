@@ -1,5 +1,7 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
+// import firebase from "firebase/app";
+import { getApp } from "firebase/app"
+import { getAuth } from "firebase/auth"
+import { getFirestore, collection, doc, getDoc, setDoc, addDoc, DocumentReference, deleteDoc, query, where, orderBy, getDocs } from "firebase/firestore";
 
 
 interface HubbleData {
@@ -44,7 +46,7 @@ export abstract class HubbleProperty<T> {
 
   async set(value: T, emptyIfDefault = true) {
     this.prepareChange(value);
-    await this.owner.ref.update({
+    await setDoc(this.owner.ref, {
       [this.name]: value
     });
   }
@@ -141,9 +143,9 @@ abstract class StringHubbleProperty extends HubbleProperty<string> {
 }
 
 abstract class HubbleReferenceHubbleProperty extends HubbleProperty<
-  firebase.firestore.DocumentReference
+  DocumentReference
   > {
-  valueToString(value: firebase.firestore.DocumentReference) {
+  valueToString(value: DocumentReference) {
     return value.id;
   }
 }
@@ -213,7 +215,6 @@ class ChildrenProperty extends HubbleProperty<string[]> {
 }
 
 class ContentHubbleProperty extends StringHubbleProperty {
-  default: "";
 }
 
 class UrlHubbleProperty extends HubbleProperty<string> {
@@ -224,9 +225,9 @@ class UrlHubbleProperty extends HubbleProperty<string> {
 }
 
 export class Hubble {
-  database = firebase.firestore();
-  user = firebase.auth().currentUser;
-  ref: firebase.firestore.DocumentReference;
+  database = getFirestore(getApp());
+  user = getAuth().currentUser;
+  ref: DocumentReference;
 
   parent = new ParentHubbleProperty("parent", this);
   children = new ChildrenProperty("children", this);
@@ -241,22 +242,17 @@ export class Hubble {
   collapsed = new CollapsedProperty("collapsed", this)
 
   constructor(readonly hubbleKey: string) {
-    this.ref = this.database
-      .collection("users/")
-      .doc(this.user.uid)
-      .collection("/hubbles")
-      .doc(hubbleKey);
+    this.ref = doc(collection(doc(collection(this.database, "users"), this.user.uid), "hubbles"), hubbleKey)
     this.url.default = "#" + hubbleKey;
   }
 
   static async create() {
-    const user = firebase.auth().currentUser;
-    const newDoc = await firebase
-      .firestore()
-      .collection("users/")
-      .doc(user.uid)
-      .collection("/hubbles")
-      .add({});
+    const user = getAuth().currentUser;
+    const db = getFirestore(getApp());
+    const usersCollection = collection(db, "users");
+    const userDoc = doc(usersCollection, user.uid);
+    const hubblesCollection = collection(userDoc, "hubbles");
+    const newDoc = await addDoc(hubblesCollection, {});
     return new Hubble(newDoc.id);
   }
 
@@ -275,7 +271,7 @@ export class Hubble {
   }
 
   async get() {
-    const snapshot = await this.ref.get();
+    const snapshot = await getDoc(this.ref);
     return snapshot.data();
   }
 
@@ -288,7 +284,7 @@ export class Hubble {
   }
 
   async delete() {
-    await this.ref.delete();
+    await deleteDoc(this.ref);
   }
 
   async deleteRecursively() {
@@ -300,11 +296,11 @@ export class Hubble {
   }
 
   setParent(parent: Hubble) {
-    this.ref.update({ parent: parent.ref });
+    setDoc(this.ref, { parent: parent.ref });
   }
 
   makeParentOf(child: Hubble) {
-    child.ref.update({ parent: this.ref });
+    setDoc(child.ref, { parent: this.ref });
   }
 
   async recurse(childrenFirst: boolean, task: (Hubble: Hubble) => void) {
@@ -327,11 +323,11 @@ export class Hubble {
 
   private getChildrenQuery() {
     const hubbleCollection = this.ref.parent;
-    return hubbleCollection.where("parent", "==", this.ref).orderBy("position");
+    return query(hubbleCollection, where("parent", "==", this.ref), orderBy("position"));
   }
 
   async getChildrenKeys() {
-    const snapshot = await this.getChildrenQuery().get();
+    const snapshot = await getDocs(this.getChildrenQuery());
     let keys = [];
     for (var doc of snapshot.docs) {
       keys.push(doc.id);
@@ -358,11 +354,11 @@ export class Hubble {
   // }
 
   static async getRootHubble() {
-    const database = firebase.firestore();
-    const user = firebase.auth().currentUser;
-    const userDoc = database.collection("users/").doc(user.uid);
-    const userDocSnapshot = await userDoc.get();
-    const rootHubbleDoc = <firebase.firestore.DocumentReference>userDocSnapshot.get(
+    const database = getFirestore();
+    const user = getAuth().currentUser;
+    const userDoc = doc(collection(database, "users/"), user.uid);
+    const userDocSnapshot = await getDoc(userDoc);
+    const rootHubbleDoc = <DocumentReference>userDocSnapshot.get(
       "root"
     );
 
@@ -370,7 +366,7 @@ export class Hubble {
       return new Hubble(rootHubbleDoc.id);
     } else {
       const hubble = await Hubble.create();
-      userDoc.update({ root: hubble.ref });
+      setDoc(userDoc, { root: hubble.ref });
       return hubble;
     }
   }

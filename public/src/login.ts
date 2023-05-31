@@ -1,6 +1,7 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import firebaseui from 'firebaseui';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import * as firebaseui from "firebaseui";
+import { firebaseInit } from './init';
 
 
 /**
@@ -21,7 +22,7 @@ var uiConfig: firebaseui.auth.Config = {
   signInOptions: [
     // TODO(developer): Remove the providers you don't need for your app.
     {
-      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      provider: firebaseui.auth.EmailAuthProvider.PROVIDER_ID,
       // Whether the display name should be displayed in Sign Up page.
       requireDisplayName: true
     }
@@ -30,8 +31,9 @@ var uiConfig: firebaseui.auth.Config = {
   tosUrl: "https://hubblebubble.elmarjansen.nl"
 };
 
+const app = firebaseInit();
 // Initialize the FirebaseUI Widget using Firebase.
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
+const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 // Keep track of the currently signed in user.
 var currentUid: string;
@@ -66,14 +68,12 @@ firebase.auth().onAuthStateChanged(function(user) {
  * Deletes the user's account.
  */
 var deleteAccount = function() {
-  firebase
-    .auth()
+  firebase.auth()
     .currentUser.delete()
     .catch(function(error) {
       if ((<any>error).code === "auth/requires-recent-login") {
         // The user's credential is too old. She needs to sign in again.
-        firebase
-          .auth()
+        firebase.auth()
           .signOut()
           .then(function() {
             // The timeout allows the message to be displayed after the UI has

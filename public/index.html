@@ -51,10 +51,10 @@
     <script type="importmap">
     {
         "imports": {
-          "firebase/app": "https://cdn.skypack.dev/firebase/app",
-          "firebase/auth": "https://cdn.skypack.dev/firebase/auth",
-          "firebase/firestore": "https://cdn.skypack.dev/firebase/firestore",
-          "firebaseui": "https://cdn.skypack.dev/firebaseui"
+          "firebase/app": "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js",
+          "firebase/compat/app": "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js",
+          "firebase/auth": "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js",
+          "firebase/firestore": "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js"
         }
     }
     </script>
@@ -143,7 +143,7 @@
             <input id="urlNameBox" type="text">
             <label for="urlBox">URL:</label>
             <input id="urlBox" type="url">
-            <button id="pickOnedriveButton" onclick="launchOneDrivePicker();">Get from OneDrive</button>
+            <button id="pickOnedriveButton" type="button" onclick="launchOneDrivePicker();">Get from OneDrive</button>
             <button id="cancel" type="reset">Cancel</button>
             <button type="submit" value="confirm">Confirm</button>
         </form>

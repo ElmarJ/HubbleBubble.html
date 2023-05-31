@@ -1,5 +1,5 @@
-import firebase from "firebase/app";
-import "firebase/database";
+import { getApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 
 const hubbleroot = {
   content: "Elmars Hubble Bubble",
@@ -1096,37 +1096,37 @@ const hubbleroot = {
   collapsed: true
 };
 
-function export_to_database() {
-  old_hubble_to_database(hubbleroot, "");
-}
+// function export_to_database() {
+//   old_hubble_to_database(hubbleroot, "");
+// }
 
-function old_hubble_to_database(hubble, my_parent) {
-  var userId = firebase.auth().currentUser.uid;
+// function old_hubble_to_database(hubble, my_parent) {
+//   var userId = getAuth().currentUser.uid;
 
-  var collapsed = hubble.collapsed;
-  var content = hubble.content;
-  var key = firebase
-    .database()
-    .ref()
-    .child("hubbles")
-    .push().key;
+//   var collapsed = hubble.collapsed;
+//   var content = hubble.content;
+//   var key = firebase
+//     .database()
+//     .ref()
+//     .child("hubbles")
+//     .push().key;
 
-  var childcount = 0;
-  // add for all children (with me as their parent)
-  hubble.children.forEach(function(element) {
-    old_hubble_to_database(element, key);
-    childcount++;
-  }, this);
+//   var childcount = 0;
+//   // add for all children (with me as their parent)
+//   hubble.children.forEach(function(element) {
+//     old_hubble_to_database(element, key);
+//     childcount++;
+//   }, this);
 
-  // write hubble record
-  firebase
-    .database()
-    .ref("users/" + userId + "/hubbles/" + key)
-    .set({
-      content: hubble.content,
-      parent: my_parent,
-      done: false,
-      snoozed: false,
-      activechildren: childcount
-    });
-}
+//   // write hubble record
+//   firebase
+//     .database()
+//     .ref("users/" + userId + "/hubbles/" + key)
+//     .set({
+//       content: hubble.content,
+//       parent: my_parent,
+//       done: false,
+//       snoozed: false,
+//       activechildren: childcount
+// //     });
+// }

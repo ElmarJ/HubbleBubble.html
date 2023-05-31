@@ -1,20 +1,17 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import * as firebaseInit from "./init.js";
+import { getAuth } from "firebase/auth";
+import { firebaseInit } from "./init.js";
 import { HubbleRenderer } from "./renderer.js";
 import { Hubble } from "./data.js";
 import * as Calendar from "./calendar.js";
 var presenter = document.getElementById("hubblePresenter");
 
-firebaseInit.firebaseInit();
+firebaseInit();
 
 window.onhashchange = function() {
   updatePresenter();
 };
 
 window.addEventListener("load", () => {
-  // Initialize firebase
-
   // Load / save view-settings for this user:
   document.documentElement.setAttribute(
     "class",
@@ -49,7 +46,7 @@ var currentUid = "";
 
 // Listen to change in auth state so it displays the correct UI for when
 // the user is signed in or not.
-firebase.auth().onAuthStateChanged(function(user) {
+getAuth().onAuthStateChanged(function(user) {
   // The observer is also triggered when the user's token has expired and is
   // automatically refreshed. In that case, the user hasn't changed so we should
   // not update the UI.
@@ -68,7 +65,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 async function updatePresenter() {
-  if (firebase.auth().currentUser !== null) {
+  if (getAuth().currentUser !== null) {
     presenter.innerHTML = "";
     const root = await getScopedHubble();
     const rootHubbleTemplate = <HTMLTemplateElement>document.getElementById(
